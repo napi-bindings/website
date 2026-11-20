@@ -1,0 +1,86 @@
+# Builds the site from `main` and publishes the static export to `gh-pages`.
+#
+# Runs on every push to main, every day (to pick up new releases, commits and
+# documentation of the napi-bindings repositories), on demand, and when another
+# repository sends a `repository_dispatch` event of type `napi-bindings-updated`:
+#
+#   gh api repos/napi-bindings/website/dispatches -f event_type=napi-bindings-updated
+#
+# Pull requests are built and checked but never deployed.
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [napi-bindings-updated]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Synchronise data from GitHub, npm and nodejs/node
+        run: npm run sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: npm run typecheck
+      - run: npm run lint
+
+      - name: Build the static export
+        run: npm run build
+        env:
+          # Empty with the custom domain; set to /website to serve from
+          # https://napi-bindings.github.io/website instead.
+          NEXT_PUBLIC_BASE_PATH: ""
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: out
+          include-hidden-files: true
+          retention-days: 7
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: out
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./out
+          cname: www.napi-bindings.dev
+          # gh-pages only holds build output: keep it to a single commit.
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "deploy: ${{ github.sha }}"

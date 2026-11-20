@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-11-20T02:59:17.233Z",
+  "languages": [
+    {
+      "name": "napi-rs",
+      "url": "https://github.com/napi-rs/napi-rs",
+      "language": "Rust",
+      "project": null
+    },
+    {
+      "name": "napi-sys",
+      "url": "https://github.com/napi-rs/napi-sys",
+      "language": "Rust",
+      "project": null
+    },
+    {
+      "name": "neon",
+      "url": "https://github.com/neon-bindings/neon",
+      "language": "Rust",
+      "project": null
+    },
+    {
+      "name": "node-api-dotnet",
+      "url": "https://github.com/microsoft/node-api-dotnet",
+      "language": "C#",
+      "project": null
+    },
+    {
+      "name": "node-api-jsi",
+      "url": "https://github.com/microsoft/node-api-jsi",
+      "language": "C++ / React Native",
+      "project": null
+    },
+    {
+      "name": "nodejs-sys",
+      "url": "https://github.com/elmarx/nodejs-sys",
+      "language": "Rust",
+      "project": null
+    },
+    {
+      "name": "NodeSwift",
+      "url": "https://github.com/kabiroberai/node-swift",
+      "language": "Swift",
+      "project": null
+    },
+    {
+      "name": "napi-go",
+      "url": "https://github.com/napi-bindings/napi-go",
+      "language": "Go",
+      "project": "napi-go"
+    }
+  ],
+  "experimentalLanguages": [
+    {
+      "name": "napi-cs",
+      "url": "https://github.com/EYHN/napi-cs",
+      "language": "C#",
+      "project": null
+    },
+    {
+      "name": "napi-nim",
+      "url": "https://github.com/andi23rosca/napi-nim",
+      "language": "Nim",
+      "project": null
+    },
+    {
+      "name": "zig-napigen",
+      "url": "https://github.com/cztomsik/zig-napigen",
+      "language": "Zig",
+      "project": null
+    },
+    {
+      "name": "zig-nodejs-example",
+      "url": "https://github.com/staltz/zig-nodejs-example",
+      "language": "Zig",
+      "project": null
+    },
+    {
+      "name": "go-node-api",
+      "url": "https://github.com/napi-bindings/go-node-api",
+      "language": "Go",
+      "project": null
+    }
+  ],
+  "runtimes": [
+    {
+      "name": "bun",
+      "url": "https://github.com/oven-sh/bun",
+      "language": "Zig",
+      "project": null
+    },
+    {
+      "name": "deno",
+      "url": "https://github.com/denoland/deno",
+      "language": "Rust",
+      "project": null
+    },
+    {
+      "name": "electron",
+      "url": "https://github.com/electron/electron",
+      "language": "C++",
+      "project": null
+    },
+    {
+      "name": "emnapi",
+      "url": "https://github.com/toyobayashi/emnapi",
+      "language": "C / JavaScript",
+      "project": null
+    },
+    {
+      "name": "hermes-windows",
+      "url": "https://github.com/microsoft/hermes-windows",
+      "language": "C++",
+      "project": null
+    },
+    {
+      "name": "iotjs",
+      "url": "https://github.com/jerryscript-project/iotjs",
+      "language": "C",
+      "project": null
+    },
+    {
+      "name": "lynx/primjs",
+      "url": "https://github.com/lynx-family/primjs",
+      "language": "C++",
+      "project": null
+    },
+    {
+      "name": "react-native",
+      "url": "https://github.com/callstackincubator/react-native-node-api",
+      "language": "C++",
+      "project": null
+    },
+    {
+      "name": "veil",
+      "url": "https://github.com/lightsourceengine/veil",
+      "language": "C",
+      "project": null
+    },
+    {
+      "name": "quickjs-napi",
+      "url": "https://github.com/napi-bindings/quickjs-napi",
+      "language": "C",
+      "project": "quickjs-napi"
+    }
+  ],
+  "media": [
+    {
+      "title": "Building Node.js native addons like it's 2023",
+      "speakers": "Michael Dawson, IBM",
+      "date": "May 16, 2023",
+      "url": "https://www.youtube.com/watch?v=jzP8lyYqPzg&t=3717s",
+      "thumbnail": "https://img.youtube.com/vi/jzP8lyYqPzg/0.jpg"
+    },
+    {
+      "title": "Native Code in Node.js in 3 MINS",
+      "speakers": "FireJet YouTube channel",
+      "date": "Jan 28, 2022",
+      "url": "https://www.youtube.com/watch?v=CJqERG2rBaU",
+      "thumbnail": "https://img.youtube.com/vi/CJqERG2rBaU/0.jpg"
+    },
+    {
+      "title": "Building Modern Native Add-ons for Node.js in 2021",
+      "speakers": "Kevin Eady, Hive Streaming & Gabriel Schulhof",
+      "date": "Jun 2, 2021",
+      "url": "https://www.youtube.com/watch?v=4cCSPw-I0GE",
+      "thumbnail": "https://img.youtube.com/vi/4cCSPw-I0GE/0.jpg"
+    },
+    {
+      "title": "Next Generation N-API: A Hands-on Workshop",
+      "speakers": "Nicola Del Gobbo, Packly & Jim Schlight, Inspiredware",
+      "date": "Dec 18, 2019",
+      "url": "https://www.youtube.com/watch?v=-v4Q0y4CeRA",
+      "thumbnail": "https://img.youtube.com/vi/-v4Q0y4CeRA/0.jpg"
+    },
+    {
+      "title": "N-API - The new native in node.js",
+      "speakers": "Atishay Jain, Adobe",
+      "date": "Dec 13, 2018",
+      "url": "https://www.youtube.com/watch?v=E0w7Tc0f2fA",
+      "thumbnail": "https://img.youtube.com/vi/E0w7Tc0f2fA/0.jpg"
+    },
+    {
+      "title": "N-API on JerryScript",
+      "speakers": "Gabriel Schulhof, Intel",
+      "date": "Oct 19, 2018",
+      "url": "https://www.youtube.com/watch?v=Pxabz_FA1IU",
+      "thumbnail": "https://img.youtube.com/vi/Pxabz_FA1IU/0.jpg"
+    },
+    {
+      "title": "N-API: The Next Generation Node.js API is Ready!",
+      "speakers": "Michael Dawson, IBM & Arunesh Chandra, Microsoft",
+      "date": "Oct 17, 2018",
+      "url": "https://www.youtube.com/watch?v=BrJcsYjp8Nw",
+      "thumbnail": "https://img.youtube.com/vi/BrJcsYjp8Nw/0.jpg"
+    },
+    {
+      "title": "N-API - next generation Node API for native modules",
+      "speakers": "Michael Dawson, IBM & Arunesh Chandra, Microsoft",
+      "date": "Nov 6, 2017",
+      "url": "https://www.youtube.com/watch?v=E848bgHfoxE",
+      "thumbnail": "https://img.youtube.com/vi/E848bgHfoxE/0.jpg"
+    },
+    {
+      "title": "N-API - Next Generation Node API for Native Modules",
+      "speakers": "Michael Dawson, IBM & Arunesh Chandra, Microsoft",
+      "date": "Oct 15, 2017",
+      "url": "https://www.youtube.com/watch?v=-Oniup60Afs",
+      "thumbnail": "https://img.youtube.com/vi/-Oniup60Afs/0.jpg"
+    }
+  ]
+}
