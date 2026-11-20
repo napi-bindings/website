@@ -1,0 +1,275 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T41eb,<h1 id="napi-go-gen">napi-go gen</h1>
+<p>The code generator of the <a href="/projects/napi-go/docs/cmd/napi-go/"><code>napi-go</code></a> CLI. Generates the Layer 2 registrations and the TypeScript declarations of a napi-go addon from
+annotations in its Go source: the equivalent of <code>#[napi]</code> and of the type generation of napi-rs.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">package</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//go:generate go tool napi-go gen</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "</span><span style="color:#6F42C1;--shiki-dark:#B392F0">context</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// User is a registered user.</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">type</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Name  </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Email </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#D73A49;--shiki-dark:#F97583">string</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Greet returns a greeting for u.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Greet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">u</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "hello "</span><span style="color:#D73A49;--shiki-dark:#F97583"> +</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> u.Name }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// FindUser loads a user in a goroutine.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> FindUser</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">name</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">User</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x26;</span><span style="color:#6F42C1;--shiki-dark:#B392F0">User</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{Name: name}, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> main</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() {}</span></span></code></pre>
+<p><code>napi-go gen</code> (run by <code>napi-go build</code>, or by <code>go generate</code>) writes three files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zz_napi.go</code></td>
+<td>an <code>init</code> function calling <code>napi.Export</code> for every annotated declaration, with the wrapper that fits each signature (<code>Func1</code>, <code>Async1</code>, <code>MethodE2</code>, …)</td>
+</tr>
+<tr>
+<td><code>index.d.ts</code></td>
+<td>TypeScript declarations; the Go doc comments become JSDoc</td>
+</tr>
+<tr>
+<td><code>index.js</code></td>
+<td>CommonJS entry point loading the binary of the platform (see the <a href="/projects/napi-go/docs/cmd/napi-go/#the-entry-point">CLI</a>)</td>
+</tr>
+</tbody>
+</table>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/** User is a registered user. */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> interface</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">  name</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> string</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">  email</span><span style="color:#D73A49;--shiki-dark:#F97583">?:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="color:#D73A49;--shiki-dark:#F97583"> |</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> null</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/** Greet returns a greeting for u. */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> declare</span><span style="color:#D73A49;--shiki-dark:#F97583"> function</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> greet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">u</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> string</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/** FindUser loads a user in a goroutine. */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> declare</span><span style="color:#D73A49;--shiki-dark:#F97583"> function</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> findUser</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">name</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&#x3C;</span><span style="color:#6F42C1;--shiki-dark:#B392F0">User</span><span style="color:#D73A49;--shiki-dark:#F97583"> |</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="color:#24292E;--shiki-dark:#E1E4E8">></span></span></code></pre>
+<p>Problems are reported when generating, with file and line, instead of when the addon is loaded:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>main.go:14: func Watch: parameter 1: type chan int has no JS conversion</span></span></code></pre>
+<h2 id="annotations"><a class="heading-anchor" href="#annotations">Annotations</a></h2>
+<p>Annotations are written like Go directives, with no space after <code>//</code>, in the doc comment of the
+declaration. An unknown or misplaced annotation is an error.</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>On</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>//napi:export [name]</code></td>
+<td>function</td>
+<td>exported function; <code>name</code> defaults to the Go name in lowerCamelCase. A first parameter of type <code>context.Context</code> makes it asynchronous (it runs in a goroutine and returns a Promise)</td>
+</tr>
+<tr>
+<td><code>//napi:export Class.name</code></td>
+<td>function, constant</td>
+<td>static method or static constant of a class</td>
+</tr>
+<tr>
+<td><code>//napi:export [name]</code></td>
+<td>constant, variable</td>
+<td>exported constant (the value when the addon is loaded)</td>
+</tr>
+<tr>
+<td><code>//napi:class [Name]</code></td>
+<td>type</td>
+<td>JS class whose instances wrap a <code>*T</code>. Every exported method of <code>*T</code> becomes a method, except <code>Finalize</code>, <code>FromJS</code>, <code>ToJS</code> and those marked <code>//napi:skip</code></td>
+</tr>
+<tr>
+<td><code>//napi:constructor</code></td>
+<td>function returning <code>(*T, error)</code></td>
+<td>constructor of the class of <code>T</code>. Without one the class cannot be constructed from JS</td>
+</tr>
+<tr>
+<td><code>//napi:export name</code></td>
+<td>method</td>
+<td>renames the method</td>
+</tr>
+<tr>
+<td><code>//napi:getter [name]</code></td>
+<td>method <code>func (*T) X() V</code></td>
+<td>property getter (<code>V, error</code> allowed)</td>
+</tr>
+<tr>
+<td><code>//napi:setter [name]</code></td>
+<td>method <code>func (*T) SetX(v V)</code></td>
+<td>setter of the property with the same name; the default name drops the <code>Set</code> prefix</td>
+</tr>
+<tr>
+<td><code>//napi:skip</code></td>
+<td>method</td>
+<td>not exported</td>
+</tr>
+<tr>
+<td><code>//napi:object [Name]</code></td>
+<td>struct type</td>
+<td>emits its interface even if no export uses it, optionally renamed. Structs used by an export are emitted without it</td>
+</tr>
+<tr>
+<td><code>//napi:type &#x3C;TypeScript type></code></td>
+<td>type</td>
+<td>TypeScript type of a type that converts itself (<code>FromJS</code>/<code>ToJS</code>), <code>any</code> otherwise</td>
+</tr>
+<tr>
+<td><code>//napi:returns &#x3C;TypeScript type></code></td>
+<td>function, method</td>
+<td>overrides the declared return type (e.g. <code>this</code>, or <code>Promise&#x3C;string[]></code> for a function returning a <code>napi.Promise</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Functions take up to 8 parameters and return nothing, a value, an error, or a value and an error;
+asynchronous functions return <code>(R, error)</code> or <code>error</code>. Parameters of type <code>napi.Env</code> and
+<code>napi.CallContext</code> are filled by napi and do not appear in the declarations (<code>CallContext</code> adds
+<code>...args: any[]</code>). Variadic and generic functions, asynchronous methods and classes used by value
+(<code>T</code> instead of <code>*T</code>) are rejected with an explanation.</p>
+<h2 id="typescript-mapping"><a class="heading-anchor" href="#typescript-mapping">TypeScript mapping</a></h2>
+<table>
+<thead>
+<tr>
+<th>Go</th>
+<th>TypeScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code>, <code>string</code></td>
+<td><code>boolean</code>, <code>string</code></td>
+</tr>
+<tr>
+<td>numeric types</td>
+<td><code>number</code>; <code>int64</code> and <code>uint64</code> parameters: <code>number | bigint</code></td>
+</tr>
+<tr>
+<td><code>[]byte</code></td>
+<td>parameter: <code>Uint8Array | ArrayBuffer | DataView</code>; result: <code>Buffer</code>; field: <code>Uint8Array</code></td>
+</tr>
+<tr>
+<td><code>*big.Int</code>, <code>time.Time</code></td>
+<td><code>bigint</code>, <code>Date</code></td>
+</tr>
+<tr>
+<td><code>[]T</code>, <code>[N]T</code></td>
+<td><code>T[]</code>; a tuple for N ≤ 8</td>
+</tr>
+<tr>
+<td><code>map[K]V</code></td>
+<td><code>Record&#x3C;string, V></code>, <code>Record&#x3C;number, V></code> for integer keys</td>
+</tr>
+<tr>
+<td>struct of the package</td>
+<td>an <code>interface</code> with its name; fields follow the <code>napi</code>/<code>json</code> tags; pointers, <code>any</code> and <code>omitempty</code> fields are optional</td>
+</tr>
+<tr>
+<td>other structs</td>
+<td>an inline object type</td>
+</tr>
+<tr>
+<td><code>*T</code></td>
+<td><code>T | null</code> (parameters also accept <code>undefined</code>)</td>
+</tr>
+<tr>
+<td><code>*T</code> of a class</td>
+<td><code>Class | null</code></td>
+</tr>
+<tr>
+<td><code>napi.Either[A, B]</code></td>
+<td><code>A | B</code></td>
+</tr>
+<tr>
+<td><code>any</code>, <code>napi.Value</code></td>
+<td><code>any</code></td>
+</tr>
+<tr>
+<td><code>napi.Object</code>, <code>napi.Function</code>, <code>napi.Promise</code>, …</td>
+<td><code>object</code>, <code>(...args: any[]) => any</code>, <code>Promise&#x3C;any></code>, …</td>
+</tr>
+<tr>
+<td><code>error</code> only / no result</td>
+<td><code>void</code>; asynchronous: <code>Promise&#x3C;…></code></td>
+</tr>
+</tbody>
+</table>
+<p>The declarations use <code>Buffer</code>, declared by <code>@types/node</code>.</p>
+<h2 id="usage"><a class="heading-anchor" href="#usage">Usage</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>napi-go gen [flags]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  -C dir             project (package.json) or Go package directory (default .)</span></span>
+<span class="line"><span>  -name name         base name of the .node files (default: binaryName of package.json, or the directory name)</span></span>
+<span class="line"><span>  -package-name pkg  npm package of the platform packages (default: name of package.json)</span></span>
+<span class="line"><span>  -js file           JS entry point (default index.js; empty: none)</span></span>
+<span class="line"><span>  -dts file          TypeScript declarations (default index.d.ts; empty: none)</span></span>
+<span class="line"><span>  -tags tags         build tags, as for go build</span></span>
+<span class="line"><span>  -check             do not write: fail if the generated files are out of date (for CI)</span></span></code></pre>
+<p>In a project, the files go next to <code>package.json</code> and <code>zz_napi.go</code> into the Go package
+(<code>napiGo.goPackage</code>); <code>go generate</code> in the Go package finds the <code>package.json</code> above it.</p>
+<p>The generator uses only the Go standard library. It type-checks the package with the export data
+of the Go build cache (<code>go list -export</code>), so it needs the same toolchain as the build, C compiler
+included.</p>
+<h2 id="what-is-generated-and-what-is-not"><a class="heading-anchor" href="#what-is-generated-and-what-is-not">What is generated, and what is not</a></h2>
+<p>The generated Go code registers the exports with the generic wrappers of package <code>napi</code>; the
+conversions are the cached codecs of Layer 2. Generating Go conversion code for each struct was
+measured and dropped: on a struct of five fields it was 15% faster from JS to Go and no faster from
+Go to JS (about 2 µs either way), because the time goes into the Node-API calls for each property,
+not into Go. Reading the properties of a struct in one C call is the optimization that would help.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"internal/codegen/README.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/internal/codegen/README.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"internal/codegen","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"napi-go gen · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: napi-go gen (internal/codegen/README.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/internal/codegen/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/cmd/napi-go/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"napi-go (CLI)"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/napi/"}],"nativeButton":false,"children":["napi — Layers 1 and 2 of napi-go",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","annotations",{"className":"","children":["$","a",null,{"href":"#annotations","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Annotations"}]}],["$","li","typescript-mapping",{"className":"","children":["$","a",null,{"href":"#typescript-mapping","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"TypeScript mapping"}]}],["$","li","usage",{"className":"","children":["$","a",null,{"href":"#usage","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Usage"}]}],["$","li","what-is-generated-and-what-is-not",{"className":"","children":["$","a",null,{"href":"#what-is-generated-and-what-is-not","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"What is generated, and what is not"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

@@ -1,0 +1,312 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:Ta224,<h1 id="writing-addons">Writing addons</h1>
+<p>An addon is a Go <code>main</code> package built with <code>-buildmode=c-shared</code>. The usual way to write one is
+to annotate Go declarations and let <code>napi-go gen</code> generate the registrations (Layer 2). This
+guide shows the common cases; the <a href="/projects/napi-go/docs/napi/"><code>napi</code> reference</a> and the
+<a href="/projects/napi-go/docs/internal/codegen/">annotation reference</a> have the details.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">package</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//go:generate go tool napi-go gen</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Add returns a + b.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Add</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">a</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">b</span><span style="color:#D73A49;--shiki-dark:#F97583"> float64</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">float64</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> a </span><span style="color:#D73A49;--shiki-dark:#F97583">+</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> b }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> main</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() {} </span><span style="color:#6A737D;--shiki-dark:#6A737D">// required by -buildmode=c-shared; it does not run</span></span></code></pre>
+<h2 id="functions"><a class="heading-anchor" href="#functions">Functions</a></h2>
+<p><code>//napi:export</code> exports a function under its Go name in lowerCamelCase (<code>ParseURL</code> →
+<code>parseURL</code>), or under the name that follows the annotation (<code>//napi:export parse</code>). Functions
+take up to 8 JS parameters and return nothing, a value, an error, or a value and an error.</p>
+<p>A parameter of type <code>napi.Env</code> or <code>napi.CallContext</code> is filled from the call and takes no JS
+argument: use it to create JS values or read <code>this</code> and the raw arguments. A missing JS argument
+is <code>undefined</code>; extra arguments are ignored.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Lines</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">text</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Array</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { … }</span></span></code></pre>
+<h2 id="types"><a class="heading-anchor" href="#types">Types</a></h2>
+<p>Arguments are converted from their Go type, and checked: a wrong type throws a TypeError with
+code <code>ERR_INVALID_ARG_TYPE</code> and the position of the value (<code>argument 1: tags[2]: expected string, got number</code>). Integers must be integers in range, never truncated.</p>
+<table>
+<thead>
+<tr>
+<th>Go</th>
+<th>JS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code>, <code>string</code></td>
+<td>boolean, string</td>
+</tr>
+<tr>
+<td><code>float64</code>, <code>float32</code>, integer types</td>
+<td>number (64-bit integers also accept BigInt)</td>
+</tr>
+<tr>
+<td><code>*big.Int</code></td>
+<td>BigInt</td>
+</tr>
+<tr>
+<td><code>[]byte</code></td>
+<td>Buffer, typed array, ArrayBuffer: a view of the JS memory, valid during the call</td>
+</tr>
+<tr>
+<td><code>[]T</code>, <code>[N]T</code>, <code>map[string]T</code></td>
+<td>array, object</td>
+</tr>
+<tr>
+<td>struct</td>
+<td>object with the exported fields</td>
+</tr>
+<tr>
+<td><code>*T</code></td>
+<td><code>null</code> or <code>undefined</code> is <code>nil</code></td>
+</tr>
+<tr>
+<td><code>time.Time</code></td>
+<td>Date</td>
+</tr>
+<tr>
+<td><code>any</code></td>
+<td>the natural Go type of the value</td>
+</tr>
+<tr>
+<td><code>napi.Either[A, B]</code></td>
+<td>a value of either type</td>
+</tr>
+<tr>
+<td><code>napi.Function</code>, <code>napi.Object</code>, <code>napi.Value</code>, …</td>
+<td>passed as is</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="/projects/napi-go/docs/napi/#type-mapping">type mapping</a> lists every case. A type can convert itself
+by implementing <code>FromJS</code> and <code>ToJS</code>.</p>
+<h2 id="objects"><a class="heading-anchor" href="#objects">Objects</a></h2>
+<p>Struct fields are named with their <code>napi</code> tag, else their <code>json</code> tag, else their Go name in
+lowerCamelCase. <code>napi:"-"</code> skips a field; <code>omitempty</code>, a pointer, or <code>any</code> make it optional.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">type</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	ID    </span><span style="color:#D73A49;--shiki-dark:#F97583">int64</span><span style="color:#032F62;--shiki-dark:#9ECBFF">   `napi:"id"`</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Name  </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Email </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#D73A49;--shiki-dark:#F97583">string</span><span style="color:#6A737D;--shiki-dark:#6A737D"> // optional: undefined or null is nil</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	token </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span><span style="color:#6A737D;--shiki-dark:#6A737D">  // unexported: not converted</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>A struct used by an exported function is declared in <code>index.d.ts</code> as an interface. Annotate it
+with <code>//napi:object</code> to declare it even when no function uses it.</p>
+<h2 id="errors"><a class="heading-anchor" href="#errors">Errors</a></h2>
+<p>A returned error is thrown in JS, and a panic becomes an Error with code <code>GO_PANIC</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Returned error</th>
+<th>Thrown as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi.TypeError(code, msg)</code>, <code>napi.RangeError</code>, <code>napi.SyntaxError</code></td>
+<td>that constructor, with <code>code</code></td>
+</tr>
+<tr>
+<td>an error with a <code>JSCode() string</code> method</td>
+<td><code>Error</code> with that code</td>
+</tr>
+<tr>
+<td>any other error</td>
+<td><code>Error</code> with message <code>err.Error()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Wrapped errors (<code>fmt.Errorf("…: %w", err)</code>) keep their kind and code.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> ParsePort</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">s</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#D73A49;--shiki-dark:#F97583">uint16</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	n, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> strconv.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Atoi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(s)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#D73A49;--shiki-dark:#F97583"> ||</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> n </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> ||</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> n </span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 65535</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">RangeError</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"ERR_INVALID_PORT"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"invalid port "</span><span style="color:#D73A49;--shiki-dark:#F97583">+</span><span style="color:#24292E;--shiki-dark:#E1E4E8">s)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#D73A49;--shiki-dark:#F97583"> uint16</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(n), </span><span style="color:#005CC5;--shiki-dark:#79B8FF">nil</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h2 id="async-functions"><a class="heading-anchor" href="#async-functions">Async functions</a></h2>
+<p>A function whose first parameter is a <code>context.Context</code> returns a Promise. Its arguments are
+converted on the JS thread (a wrong argument throws right away), it runs in a goroutine, and its
+result is converted on the JS thread when it returns.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Fetch downloads url.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Fetch</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">url</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) ([]</span><span style="color:#D73A49;--shiki-dark:#F97583">byte</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	req, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> http.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">NewRequestWithContext</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, http.MethodGet, url, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	resp, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> http.DefaultClient.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Do</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(req)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	defer</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> resp.Body.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Close</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> io.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">ReadAll</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(resp.Body)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<ul>
+<li><code>ctx</code> is canceled when the env is destroyed: a worker thread terminated, or the process
+exiting. Stop the work then; its result is dropped.</li>
+<li>The parameters and the result must not contain napi values: they are only valid on the JS
+thread. <code>[]byte</code> arguments are copied for the goroutine.</li>
+<li>Node.js keeps running until the Promise settles.</li>
+<li>Many Promises settled together cost little: napi-go wakes the JS thread once for a batch
+(<a href="/projects/napi-go/docs/bench/">benchmarks</a>).</li>
+</ul>
+<h2 id="classes"><a class="heading-anchor" href="#classes">Classes</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Counter counts.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:class</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">type</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Counter</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{ n </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// NewCounter creates a counter starting at start.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:constructor</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> NewCounter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">start</span><span style="color:#D73A49;--shiki-dark:#F97583"> int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x26;</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{n: start}, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Add adds delta and returns the new value.</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#E36209;--shiki-dark:#FFAB70">c </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Add</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">delta</span><span style="color:#D73A49;--shiki-dark:#F97583"> int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	c.n </span><span style="color:#D73A49;--shiki-dark:#F97583">+=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> delta</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> c.n</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Value is the current value.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:getter</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#E36209;--shiki-dark:#FFAB70">c </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> c.n }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// SetValue sets the value.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:setter</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#E36209;--shiki-dark:#FFAB70">c </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#6F42C1;--shiki-dark:#B392F0">SetValue</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">v</span><span style="color:#D73A49;--shiki-dark:#F97583"> int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { c.n </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> v }</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> c</span><span style="color:#D73A49;--shiki-dark:#F97583"> =</span><span style="color:#D73A49;--shiki-dark:#F97583"> new</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Counter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">c.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">add</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#005CC5;--shiki-dark:#79B8FF">2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)       </span><span style="color:#6A737D;--shiki-dark:#6A737D">// 3</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">c.value </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 10</span></span></code></pre>
+<ul>
+<li>Every exported method of <code>*T</code> is a method of the class, unless marked <code>//napi:skip</code>.
+<code>//napi:export Counter.fromString</code> on a function makes a static method.</li>
+<li>A <code>*T</code> parameter accepts only instances of the class; a <code>*T</code> result returns the instance that
+wraps it, or creates one: in an env the same <code>*T</code> is always the same JS object.</li>
+<li><code>func (c *T) Finalize(env napi.Env)</code> runs when the last instance wrapping the value is garbage
+collected. It must not call JS.</li>
+<li>JS classes can extend it (<code>class Sub extends Counter</code>).</li>
+</ul>
+<h2 id="constants"><a class="heading-anchor" href="#constants">Constants</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// MaxItems is the largest cart.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> MaxItems</span><span style="color:#D73A49;--shiki-dark:#F97583"> =</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 100</span></span></code></pre>
+<p>In JS it is <code>maxItems</code>; <code>//napi:export MAX_ITEMS</code> keeps another name. <code>//napi:export</code> on a variable
+exports its value when the addon is loaded.</p>
+<h2 id="calling-javascript"><a class="heading-anchor" href="#calling-javascript">Calling JavaScript</a></h2>
+<p>A <code>napi.Function</code> parameter can be called during the call, on the JS thread:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Twice</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">fn</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	for</span><span style="color:#D73A49;--shiki-dark:#F97583"> range</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> _, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> fn.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Call</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{}); err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">			return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#6A737D;--shiki-dark:#6A737D">// a JS exception propagates</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>From goroutines, use <code>napi.NewJSFunc[A, R]</code>: <code>Call(ctx, a)</code> queues the call on the JS thread and
+waits for the result converted to <code>R</code> (a returned Promise is awaited, a JS exception becomes an
+error). Release it when done; it keeps Node.js running while open (<code>Unref</code> to avoid that).</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Watch</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">onEvent</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	notify, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">NewJSFunc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Event</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{}](env, onEvent, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">ThreadsafeFunctionOptions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{})</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	ctx, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> env.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#6A737D;--shiki-dark:#6A737D">// canceled when the env is destroyed</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	go</span><span style="color:#D73A49;--shiki-dark:#F97583"> func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		defer</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> notify.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Release</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		for</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ev </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#D73A49;--shiki-dark:#F97583"> range</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> events</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">			if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> _, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> notify.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Call</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, ev); err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">				return</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">			}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}()</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h2 id="threads-and-memory"><a class="heading-anchor" href="#threads-and-memory">Threads and memory</a></h2>
+<ul>
+<li><strong>napi values belong to the JS thread.</strong> <code>napi.Env</code>, <code>napi.Value</code> and the types built on them
+must not be used in goroutines, and must not be kept after the call returns (to keep a JS value,
+create a reference with <code>Value.NewRef</code>).</li>
+<li><strong>A <code>[]byte</code> argument is a view of JS memory</strong>, valid during the call: copy it to keep it.</li>
+<li><strong>Worker threads load the addon again</strong>, with their own env, but share the Go runtime and its
+global variables: protect global state as for any concurrent Go code.</li>
+<li>Go values reach JS only through napi-go, which follows the cgo pointer rules: no Go pointer is
+handed to Node.js.</li>
+</ul>
+<h2 id="layer-1"><a class="heading-anchor" href="#layer-1">Layer 1</a></h2>
+<p>Layer 2 covers most addons. For full control (creating functions at runtime, property
+descriptors, references, handle scopes, external buffers, type tags), use the Layer 1 API in the
+same addon: <code>napi.Init</code> registers a function that receives the env and the exports object, as in
+node-addon-api.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> init</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	napi.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Init</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		fn, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> env.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">NewFunction</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"hello"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">c</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">CallContext</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">			s, err </span><span style="color:#D73A49;--shiki-dark:#F97583">:=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> c.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">().</span><span style="color:#6F42C1;--shiki-dark:#B392F0">NewString</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"world"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">			return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> s.Value, err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		})</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> err </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> nil</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">			return</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{}, err</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">		return</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{}, exports.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Set</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"hello"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, fn.Value)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	})</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>See the <a href="/projects/napi-go/docs/napi/#layer-1-design-choices">Layer 1 design</a> and the
+<a href="/projects/napi-go/docs/napi/#threading">threading APIs</a>.</p>
+<h2 id="testing"><a class="heading-anchor" href="#testing">Testing</a></h2>
+<p>Test the addon from JavaScript with <code>node:test</code> (the template does). Go logic that does not
+touch napi can be tested with <code>go test</code> as usual; napi code runs only inside Node.js.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"docs/guide.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/docs/guide.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"guide","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Writing addons · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: Writing addons (docs/guide.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/guide/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/getting-started/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Getting started"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/napi-rs/"}],"nativeButton":false,"children":["Coming from napi-rs",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","functions",{"className":"","children":["$","a",null,{"href":"#functions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Functions"}]}],["$","li","types",{"className":"","children":["$","a",null,{"href":"#types","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Types"}]}],["$","li","objects",{"className":"","children":["$","a",null,{"href":"#objects","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Objects"}]}],["$","li","errors",{"className":"","children":["$","a",null,{"href":"#errors","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Errors"}]}],["$","li","async-functions",{"className":"","children":["$","a",null,{"href":"#async-functions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Async functions"}]}],["$","li","classes",{"className":"","children":["$","a",null,{"href":"#classes","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Classes"}]}],["$","li","constants",{"className":"","children":["$","a",null,{"href":"#constants","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Constants"}]}],["$","li","calling-javascript",{"className":"","children":["$","a",null,{"href":"#calling-javascript","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Calling JavaScript"}]}],["$","li","threads-and-memory",{"className":"","children":["$","a",null,{"href":"#threads-and-memory","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Threads and memory"}]}],["$","li","layer-1",{"className":"","children":["$","a",null,{"href":"#layer-1","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Layer 1"}]}],["$","li","testing",{"className":"","children":["$","a",null,{"href":"#testing","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Testing"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

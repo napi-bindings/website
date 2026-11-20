@@ -1,0 +1,159 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T1d68,<h1 id="marmotta-is-an-open-open-source-project">Marmotta is an OPEN Open Source Project</h1>
+<h2 id="what"><a class="heading-anchor" href="#what">What?</a></h2>
+<p>Individuals making significant and valuable contributions are given
+commit-access to the project to contribute as they see fit. This project is more
+like an open wiki than a standard guarded open source project.</p>
+<p>See our <a href="/projects/marmotta/docs/docs/contributing/">informal contributing guide</a> for more
+details on contributing to this project.</p>
+<h3 id="i-want-to-be-a-collaborator"><a class="heading-anchor" href="#i-want-to-be-a-collaborator">I want to be a collaborator!</a></h3>
+<p>If you think you meet the above criteria and we have not invited you yet, we are
+sorry! Feel free to reach out to a <a href="https://github.com/napi-bindings/marmotta#team" target="_blank" rel="noreferrer noopener">Lead
+Maintainer</a> privately with a few links
+to your valuable contributions. Read the <a href="/projects/marmotta/docs/governance/">GOVERNANCE</a> to get more
+information.</p>
+<h2 id="rules"><a class="heading-anchor" href="#rules">Rules</a></h2>
+<p>There are a few basic ground rules for contributors:</p>
+<ol>
+<li><strong>No <code>--force</code> pushes</strong> on <code>main</code> or modifying the Git history in any way
+after a PR has been merged.</li>
+<li><strong>Non-main branches</strong> ought to be used for ongoing work.</li>
+<li><strong>External API changes and significant modifications</strong> ought to be subject to
+an <strong>internal pull request</strong> to solicit feedback from other contributors.</li>
+<li>Internal pull requests to solicit feedback are <em>encouraged</em> for any other
+non-trivial contribution but are left to the discretion of the contributor.</li>
+<li>Contributors should attempt to adhere to the prevailing code style.</li>
+<li>At least two contributors, or one core member, must approve pull requests
+before merging.</li>
+<li>All integrated CI services must be green before a pull request can be merged.</li>
+<li>A lead maintainer must merge SemVer-major changes in this repository.</li>
+<li>If it is not possible to reach a consensus in a pull request, the decision
+is left to the lead maintainer's team.</li>
+<li>Pure-AI contributions with no human in the loop are not welcome. Pull
+requests <em><strong>MUST</strong></em> be opened by a human. Pull requests opened by bots not
+managed by the napi-bindings organization will result in the bot being banned
+from the organization.</li>
+</ol>
+<h2 id="releases"><a class="heading-anchor" href="#releases">Releases</a></h2>
+<p>Declaring formal releases remains the prerogative of the lead maintainers. Do
+not bump version numbers in pull requests.</p>
+<p>Bump the version with <code>npm version</code> rather than editing <code>package.json</code> by hand:
+its <code>version</code> lifecycle script updates the constant in <code>src/version.ts</code> and
+stages it, so the npm package and the standalone executables report the same
+version. (<code>npm test</code> also fails when the two drift.)</p>
+<p>Pushing a <code>v*</code> tag triggers the <code>Release binaries</code> workflow, which builds the
+standalone executables for all supported platforms with <code>bun build --compile</code>,
+runs <code>scripts/smoke.mjs</code> against each one, and attaches them together with
+<code>SHA256SUMS</code> and provenance attestations to the GitHub release of that tag. The
+tag must match the version in <code>package.json</code> or the workflow fails. Maintainers
+can also run the workflow manually from the Actions tab to test it before
+tagging; the binaries are then only uploaded as workflow artifacts.</p>
+<h2 id="changes-to-this-arrangement"><a class="heading-anchor" href="#changes-to-this-arrangement">Changes to this arrangement</a></h2>
+<p>This is an experiment and feedback is welcome! This document may also be subject
+to pull requests or changes by contributors where you believe you have something
+valuable to add or change.</p>
+<h1 id="napi-bindings-organization-structure">napi-bindings Organization Structure</h1>
+<p>The napi-bindings structure is detailed in the <a href="/projects/marmotta/docs/governance/">GOVERNANCE</a> document.</p>
+<h3 id="onboarding-collaborators"><a class="heading-anchor" href="#onboarding-collaborators">Onboarding Collaborators</a></h3>
+<p>Welcome to the team! We are happy to have you. Before you start, please complete
+the following tasks:</p>
+<ol>
+<li>Set up 2 factor authentication for GitHub and NPM
+<ul>
+<li><a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa" target="_blank" rel="noreferrer noopener">GitHub
+2FA</a></li>
+<li><a href="https://docs.npmjs.com/about-two-factor-authentication/" target="_blank" rel="noreferrer noopener">NPM 2FA</a></li>
+</ul>
+</li>
+<li>Open a pull request to
+<a href="https://github.com/napi-bindings/marmotta/pulls" target="_blank" rel="noreferrer noopener"><code>napi-bindings/marmotta:HEAD</code></a> that adds
+your name, username, and email to the team in the <a href="/projects/marmotta/">README.md</a> and
+<a href="https://github.com/napi-bindings/marmotta/blob/main/package.json" target="_blank" rel="noreferrer noopener">package.json</a> files. The member lists are sorted alphabetically by last
+name; make sure to add your name in the proper order..</li>
+<li>Optionally, the person can be added as an Open Collective member
+by the lead team.</li>
+</ol>
+<h3 id="offboarding-collaborators"><a class="heading-anchor" href="#offboarding-collaborators">Offboarding Collaborators</a></h3>
+<p>We are thankful to you and we are really glad to have worked with you. We'd be
+really happy to see you here again if you want to come back, but for now the
+person that did the onboarding must:</p>
+<ol>
+<li>Ask the collaborator if they want to stay or not.</li>
+<li>If the collaborator can't work with us anymore, they should:</li>
+<li>Open a pull request to
+<a href="https://github.com/napi-bindings/marmotta/pulls" target="_blank" rel="noreferrer noopener"><code>napi-bindings/marmotta:HEAD</code></a> and move
+themselves to the <em>Past Collaborators</em> section.</li>
+</ol>
+<hr>
+<p><a id="developers-certificate-of-origin"></a></p>
+<h2 id="developers-certificate-of-origin-11"><a class="heading-anchor" href="#developers-certificate-of-origin-11">Developer's Certificate of Origin 1.1</a></h2>
+<p>By making a contribution to this project, I certify that:</p>
+<ul>
+<li>
+<p>(a) The contribution was created in whole or in part by me and I have the
+right to submit it under the open source license indicated in the file; or</p>
+</li>
+<li>
+<p>(b) The contribution is based upon previous work that, to the best of my
+knowledge, is covered under an appropriate open source license and I have the
+right under that license to submit that work with modifications, whether
+created in whole or in part by me, under the same open source license (unless
+I am permitted to submit under a different license), as indicated in the file;
+or</p>
+</li>
+<li>
+<p>(c) The contribution was provided directly to me by some other person who
+certified (a), (b) or (c) and I have not modified it.</p>
+</li>
+<li>
+<p>(d) I understand and agree that this project and the contribution are public
+and that a record of the contribution (including all personal information I
+submit with it, including my sign-off) is maintained indefinitely and may be
+redistributed consistent with this project or the open source license(s)
+involved.</p>
+</li>
+</ul>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"CONTRIBUTING.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/marmotta/edit/main/CONTRIBUTING.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"contributing","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Contributing To Marmotta","href":"/projects/marmotta/docs/docs/contributing/"},{"title":"Marmotta Style Guide","href":"/projects/marmotta/docs/style-guide/"}]},{"title":"packaging/","items":[{"title":"Packaging Marmotta","href":"/projects/marmotta/docs/packaging/"}]},{"title":"Repository","items":[{"title":"Marmotta is an OPEN Open Source Project","href":"/projects/marmotta/docs/contributing/"},{"title":"Marmotta Project Governance","href":"/projects/marmotta/docs/governance/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"marmotta","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Marmotta is an OPEN Open Source Project · Marmotta · napi-bindings"}],["$","meta","1",{"name":"description","content":"Marmotta documentation: Marmotta is an OPEN Open Source Project (CONTRIBUTING.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/marmotta/docs/contributing/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/marmotta/docs/packaging/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Packaging Marmotta"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/marmotta/docs/governance/"}],"nativeButton":false,"children":["Marmotta Project Governance",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","what",{"className":"","children":["$","a",null,{"href":"#what","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"What?"}]}],["$","li","i-want-to-be-a-collaborator",{"className":"pl-3","children":["$","a",null,{"href":"#i-want-to-be-a-collaborator","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"I want to be a collaborator!"}]}],["$","li","rules",{"className":"","children":["$","a",null,{"href":"#rules","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Rules"}]}],["$","li","releases",{"className":"","children":["$","a",null,{"href":"#releases","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Releases"}]}],["$","li","changes-to-this-arrangement",{"className":"","children":["$","a",null,{"href":"#changes-to-this-arrangement","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Changes to this arrangement"}]}],["$","li","onboarding-collaborators",{"className":"pl-3","children":["$","a",null,{"href":"#onboarding-collaborators","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Onboarding Collaborators"}]}],["$","li","offboarding-collaborators",{"className":"pl-3","children":["$","a",null,{"href":"#offboarding-collaborators","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Offboarding Collaborators"}]}],["$","li","developers-certificate-of-origin-11",{"className":"","children":["$","a",null,{"href":"#developers-certificate-of-origin-11","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Developer's Certificate of Origin 1.1"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

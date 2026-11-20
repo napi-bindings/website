@@ -1,0 +1,365 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3erqbre4nabri.js"
+3:"/_next/static/chunks/3_89uhd12tu-e.js"
+4:"/_next/static/chunks/0itd6eiroz8sa.js"
+5:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+6:"/_next/static/chunks/3pcblro4gce7n.js"
+7:"/_next/static/chunks/2i7p862aqiwl7.js"
+8:I[27423,["$2","$3","$4","$5","$6","$7"],"ThemeProvider"]
+9:I[46798,["$2","$3","$4","$5","$6","$7"],"TooltipProvider"]
+a:I[3020,["$2","$3","$4","$5","$6","$7"],"SiteHeader"]
+b:I[39756,["$2","$3","$4","$5","$6","$7"],"default"]
+c:I[37457,["$2","$3","$4","$5","$6","$7"],"default"]
+d:"/_next/static/chunks/3y068am0pzdwl.js"
+e:I[5014,["$2","$3","$4","$5","$6","$7","$d"],"default"]
+f:I[27930,["$2","$3","$4","$5","$6","$7","$d"],"Button"]
+10:I[22016,["$2","$3","$4","$5","$6","$7","$d"],""]
+1d:I[68027,["$2","$3","$4","$5","$6","$7"],"default",1]
+:HL["/_next/static/chunks/10cvp-b8dretj.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+15:X
+1a:[["children",{"s":"__PAGE__","h":512,"d":{"r":"$L1b","p":false,"v":null}}]]
+18:[["children",{"s":"changelog","h":512,"d":{"r":"$L19","p":false,"v":"$15"},"c":"$Q1a"}]]
+16:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-build","s":[]},"h":66048,"d":{"r":"$L17","p":false,"v":null},"c":"$Q18"}]]
+13:[["children",{"s":"projects","h":131584,"d":{"r":"$L14","p":false,"v":"$15"},"c":"$Q16"}]]
+0:{"P":null,"c":["","projects","quickjs-build","changelog",""],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/3erqbre4nabri.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/3_89uhd12tu-e.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0itd6eiroz8sa.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/3tgrtgyx1rjnt.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/_next/static/chunks/3pcblro4gce7n.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/_next/static/chunks/2i7p862aqiwl7.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"Ur3q_a_variable iaM1Ya_variable","children":["$","body",null,{"className":"flex min-h-svh flex-col font-sans","children":["$","$L8",null,{"attribute":"class","defaultTheme":"dark","enableSystem":true,"disableTransitionOnChange":true,"children":["$","$L9",null,{"children":[["$","a",null,{"href":"#main","className":"bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2","children":"Skip to content"}],["$","$La",null,{}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-24","children":["$","div",null,{"data-slot":"empty","className":"gap-4 rounded-xl border-dashed p-6 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance","children":[["$","div",null,{"data-slot":"empty-header","className":"gap-2 flex max-w-sm flex-col items-center","children":[["$","div",null,{"data-slot":"empty-icon","data-variant":"icon","className":"mb-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4","children":["$","$Le",null,{"ref":"$undefined","icon":{"name":"file-question-mark","size":24,"node":[["path",{"d":"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z","key":"1oefj6"}],["path",{"d":"M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5","key":"1awbb0"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["file-question"]},"className":"$undefined"}]}],["$","div",null,{"data-slot":"empty-title","className":"text-sm font-medium tracking-tight","children":"Page not found"}],["$","div",null,{"data-slot":"empty-description","className":"text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary","children":"This page does not exist, or it moved. Node-API symbols live under /node-api/reference/."}]]}],["$","div",null,{"data-slot":"empty-content","className":"gap-2.5 text-sm flex w-full max-w-sm min-w-0 items-center text-balance flex-row justify-center","children":[["$","$Lf",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L10",null,{"href":"/"}],"nativeButton":false,"children":"Home"}],"$L11"]}]]}]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],"$L12"]}]}]}]}]]}],"p":false,"v":null},"c":"$Q13"},"h":{"r":"$L1c","p":false,"v":null}},"m":"$undefined","G":["$1d",["$L1e"]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"rqzizN7opElHqBNmIIWHs"}
+23:I[97367,["$2","$3","$4","$5","$6","$7"],"OutletBoundary"]
+24:"$Sreact.suspense"
+26:"ViewportBoundary"
+27:I[97367,["$2","$3","$4","$5","$6","$7"],"$26"]
+29:"MetadataBoundary"
+2a:I[97367,["$2","$3","$4","$5","$6","$7"],"$29"]
+:HL["/logo.png","image"]
+11:["$","$Lf",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L10",null,{"href":"/node-api/reference/"}],"nativeButton":false,"children":"API reference"}]
+12:["$","footer",null,{"className":"border-t","children":[["$","div",null,{"className":"mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]","children":[["$","div",null,{"className":"flex flex-col gap-3","children":[["$","span",null,{"className":"flex items-center gap-2","children":[["$","img",null,{"src":"/logo.png","alt":"","width":28,"height":28,"className":"size-7"}],["$","span",null,{"className":"font-mono text-sm font-semibold tracking-tight","children":"napi-bindings"}]]}],["$","p",null,{"className":"text-muted-foreground max-w-xs text-sm","children":"Native Node.js addons and tooling built on the ABI-stable Node-API."}],["$","p",null,{"className":"text-muted-foreground text-xs","children":["Data synchronised from GitHub on ","Nov 20, 2026","."]}]]}],[["$","div","Node-API",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Node-API"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/node-api/",{"children":["$","$L10",null,{"href":"/node-api/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Overview"}]}],["$","li","/node-api/reference/",{"children":["$","$L10",null,{"href":"/node-api/reference/","className":"text-muted-foreground hover:text-foreground text-sm","children":"API reference"}]}],["$","li","/node-api/versions/",{"children":["$","$L10",null,{"href":"/node-api/versions/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Versions"}]}],["$","li","/ecosystem/",{"children":["$","$L10",null,{"href":"/ecosystem/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Ecosystem"}]}]]}]]}],["$","div","Projects",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Projects"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/projects/marmotta/",{"children":["$","$L10",null,{"href":"/projects/marmotta/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Marmotta"}]}],["$","li","/projects/napi-go/",{"children":["$","$L10",null,{"href":"/projects/napi-go/","className":"text-muted-foreground hover:text-foreground text-sm","children":"napi-go"}]}],["$","li","/projects/node-api-stub/",{"children":["$","$L10",null,{"href":"/projects/node-api-stub/","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-api-stub"}]}],["$","li","/projects/quickjs-build/",{"children":["$","$L10",null,{"href":"/projects/quickjs-build/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-build"}]}],["$","li","/projects/quickjs-napi/",{"children":["$","$L10",null,{"href":"/projects/quickjs-napi/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-napi"}]}]]}]]}],["$","div","Upstream",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Upstream"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","https://nodejs.org/docs/latest/api/n-api.html",{"children":["$","a",null,{"href":"https://nodejs.org/docs/latest/api/n-api.html","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"Node-API docs"}]}],["$","li","https://github.com/nodejs/abi-stable-node",{"children":["$","a",null,{"href":"https://github.com/nodejs/abi-stable-node","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"nodejs/abi-stable-node"}]}],["$","li","https://github.com/nodejs/node-addon-api",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-api","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-api"}]}],["$","li","https://github.com/nodejs/node-addon-examples",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-examples","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-examples"}]}]]}]]}]]]}],["$","div",null,{"className":"border-t","children":["$","div",null,{"className":"text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6","children":["$L1f","$L20"]}]}]]}]
+14:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+17:["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3y068am0pzdwl.js","async":true,"nonce":"$undefined"}]],"$L21"]}]
+19:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+1b:["$","$1","c",{"children":["$L22",[["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true,"nonce":"$undefined"}]],["$","$L23",null,{"children":["$","$24",null,{"name":"Next.MetadataOutlet","children":"$@25"}]}]]}]
+1c:["$","$1","h",{"children":[null,["$","$L27",null,{"children":"$L28"}],["$","$L2a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$24",null,{"name":"Next.Metadata","children":"$L2b"}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1e:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+15:C
+1f:["$","p",null,{"children":"© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license."}]
+20:["$","a",null,{"href":"https://github.com/napi-bindings/website","target":"_blank","rel":"noreferrer","className":"hover:text-foreground","children":"Edit this site on GitHub"}]
+21:[["$","div",null,{"className":"bg-muted/30 border-b","children":["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10","children":[["$","div",null,{"className":"flex flex-col gap-4 md:flex-row md:items-start md:justify-between","children":[["$","div",null,{"className":"flex max-w-3xl flex-col gap-3","children":[["$","$L10",null,{"href":"/projects/","className":"text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs","children":[["$","$Le",null,{"ref":"$undefined","icon":{"name":"box","size":24,"node":[["path",{"d":"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z","key":"hh9hay"}],["path",{"d":"m3.3 7 8.7 5 8.7-5","key":"g66t2b"}],["path",{"d":"M12 22V12","key":"d0xqtd"}]]},"className":"size-3.5"}],"Libraries"]}],["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","h1",null,{"className":"font-mono text-3xl font-semibold tracking-tight","children":"quickjs-build"}],"$undefined"]}],["$","p",null,{"className":"text-muted-foreground text-pretty","children":"QuickJS 2026-06-04 as a static C library, with prebuilt archives for 13 native platforms and WebAssembly."}],["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm","children":[["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$Le",null,{"ref":"$undefined","icon":{"name":"star","size":24,"node":[["path",{"d":"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z","key":"r04s7s"}]]},"className":"size-4"}],"49"," ","stars"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$Le",null,{"ref":"$undefined","icon":{"name":"git-fork","size":24,"node":[["circle",{"cx":"12","cy":"18","r":"3","key":"1mpf1b"}],["circle",{"cx":"6","cy":"6","r":"3","key":"1lh9wr"}],["circle",{"cx":"18","cy":"6","r":"3","key":"1h7g24"}],["path",{"d":"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9","key":"1uq4wg"}],["path",{"d":"M12 12v3","key":"158kv8"}]]},"className":"size-4"}],"5"," ","forks"]}],["$","$L10",null,{"href":"/projects/quickjs-build/releases/","className":"hover:text-foreground flex items-center gap-1.5","children":[["$","$Le",null,{"ref":"$undefined","icon":{"name":"tag","size":24,"node":[["path",{"d":"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z","key":"vktsd0"}],["circle",{"cx":"7.5","cy":"7.5","r":".5","fill":"currentColor","key":"kqv944"}]]},"className":"size-4"}],["$","span",null,{"className":"font-mono","children":"7.0.0"}],["$","span",null,{"children":["· ","Nov 15, 2026"]}]]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$Le",null,{"ref":"$undefined","icon":{"name":"scale","size":24,"node":[["path",{"d":"M12 3v18","key":"108xh3"}],["path",{"d":"m19 8 3 8a5 5 0 0 1-6 0zV7","key":"zcdpyk"}],["path",{"d":"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1","key":"1yorad"}],["path",{"d":"m5 8 3 8a5 5 0 0 1-6 0zV7","key":"eua70x"}],["path",{"d":"M7 21h10","key":"1b0cd5"}]]},"className":"size-4"}],"Apache-2.0"]}]]}]]}],["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$Lf",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":"$L2c","nativeButton":false,"children":["$L2d","Repository"]}],["$L2e"]]}]]}],"$L2f"]}]}],"$L30"]
+31:I[81371,["$2","$3","$4","$5","$6","$7","$d"],"ProjectNav"]
+2c:["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-build","target":"_blank","rel":"noreferrer"}]
+2d:["$","svg",null,{"viewBox":"0 0 24 24","fill":"currentColor","aria-hidden":"true","data-icon":"inline-start","children":["$","path",null,{"d":"M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"}]}]
+2e:["$","$Lf","https://bellard.org/quickjs/",{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","a",null,{"href":"https://bellard.org/quickjs/","target":"_blank","rel":"noreferrer"}],"nativeButton":false,"children":["QuickJS upstream",["$","$Le",null,{"ref":"$undefined","icon":{"name":"external-link","size":24,"node":[["path",{"d":"M15 3h6v6","key":"1q9fwt"}],["path",{"d":"M10 14 21 3","key":"gplh6r"}],["path",{"d":"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6","key":"a6xqqp"}]]},"className":"$undefined","data-icon":"inline-end"}]]}]
+2f:["$","$L31",null,{"items":[{"title":"Overview","href":"/projects/quickjs-build/"},{"title":"Releases","href":"/projects/quickjs-build/releases/","count":10},{"title":"Changelog","href":"/projects/quickjs-build/changelog/"},{"title":"Activity","href":"/projects/quickjs-build/activity/"}]}]
+30:["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-10","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]
+32:"/_next/static/chunks/1z5smpjjdajgk.js"
+33:I[73435,["$2","$3","$4","$5","$6","$7","$d","$32"],"Markdown"]
+34:T76a2,
+<h2 id="2026-11-15-version-700-nicknaso"><a class="heading-anchor" href="#2026-11-15-version-700-nicknaso">2026-11-15 Version 7.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes"><a class="heading-anchor" href="#notable-changes">Notable changes</a></h3>
+<ul>
+<li>Update QuickJS to version 2026-06-04. The engine now supports most of ES2025:
+top-level await, WeakRef and FinalizationRegistry, iterator helpers, the Set
+methods, resizable ArrayBuffer, the RegExp <code>v</code> flag and modifiers,
+Float16Array, JSON modules with import attributes, <code>Promise.try</code>,
+<code>Math.sumPrecise</code> and more.</li>
+<li>The release archives are cross-compiled with <code>zig cc</code> from one Linux runner:
+13 native platforms instead of 5, plus WebAssembly (<code>wasm32-wasi</code> and
+<code>wasm32-emscripten</code>, engine only).</li>
+<li>New <code>qjs-windows-x86_64-mingw.zip</code> and <code>qjs-windows-x86-mingw.zip</code> archives,
+built natively on Windows with MinGW-w64 11 (MinGW-Builds GCC 13.2, msvcrt):
+they link with MinGW-w64 toolchains that cannot link the zig archives,
+including releases older than 12.</li>
+<li>The Linux archives no longer depend on the Ubuntu version of the CI runner:
+they need glibc 2.17 or later (2.27 for RISC-V). Static musl builds are also
+provided.</li>
+<li>New CMake options <code>QJS_BUILD_LIBC</code>, <code>QJS_BUILD_TOOLS</code>, <code>QJS_BUILD_SMOKE_TEST</code>
+and <code>QJSC_EXECUTABLE</code>; new <code>check</code> target that runs the QuickJS tests.</li>
+<li>New CMake toolchain file <code>toolchains/zig.cmake</code> and build script
+<code>scripts/build.sh</code>. <code>toolchains/linux_aarch64.cmake</code> and the dependency on
+qemu to build for arm64 were removed.</li>
+<li>The CI runs the tests on Linux x86_64, x86, arm64, armv7 and riscv64 and on
+real Windows and macOS runners, and publishes a <code>SHA256SUMS</code> file with every
+release.</li>
+</ul>
+<h3 id="breaking-changes"><a class="heading-anchor" href="#breaking-changes">Breaking changes</a></h3>
+<h4 id="quickjs-api"><a class="heading-anchor" href="#quickjs-api">QuickJS API</a></h4>
+<ul>
+<li>The mathematical extensions were removed upstream: <code>CONFIG_BIGNUM</code>,
+<code>libbf</code>, <code>qjscalc</code>, BigFloat, BigDecimal and operator overloading are gone,
+together with <code>JS_AddIntrinsicBigFloat</code>, <code>JS_AddIntrinsicBigDecimal</code>,
+<code>JS_AddIntrinsicOperators</code>, <code>JS_EnableBignumExt</code>, <code>JS_IsBigFloat</code> and
+<code>JS_IsBigDecimal</code>. BigInt is always available and <code>JS_AddIntrinsicBigInt</code>
+no longer exists.</li>
+<li><code>JS_EVAL_FLAG_STRIP</code> was removed: use <code>JS_SetStripInfo</code>.</li>
+<li><code>JS_ResetUncatchableError</code> was removed: use <code>JS_SetUncatchableException</code>.</li>
+<li><code>JS_RunModule</code> was removed: use <code>JS_LoadModule</code>.</li>
+<li><code>JS_PROP_NO_ADD</code>, <code>JS_VALUE_GET_OBJ</code> and <code>JS_VALUE_GET_STRING</code> were removed
+from <code>quickjs.h</code>.</li>
+<li><code>JS_SetPropertyInternal</code> has an additional <code>this_obj</code> parameter.</li>
+<li><code>js_module_loader</code> (<code>quickjs-libc.h</code>) has an additional
+<code>JSValueConst attributes</code> parameter.</li>
+<li>The <code>JS_AddIntrinsic*</code> functions, <code>JS_SetConstructor</code> and
+<code>JS_SetPropertyFunctionList</code> now return <code>int</code> instead of <code>void</code>.</li>
+</ul>
+<h4 id="archives"><a class="heading-anchor" href="#archives">Archives</a></h4>
+<ul>
+<li>
+<p>The archives were renamed:</p>
+<table>
+<thead>
+<tr>
+<th>6.0.0</th>
+<th>7.0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qjs-windows.zip</code></td>
+<td><code>qjs-windows-x86_64.zip</code></td>
+</tr>
+<tr>
+<td><code>qjs-ubuntu-18_04.zip</code>, <code>qjs-ubuntu-20_04.zip</code></td>
+<td><code>qjs-linux-x86_64.zip</code></td>
+</tr>
+<tr>
+<td><code>qjs-linux-arm64.zip</code></td>
+<td><code>qjs-linux-arm64.zip</code></td>
+</tr>
+<tr>
+<td><code>qjs-macOS.zip</code></td>
+<td><code>qjs-macos-x86_64.zip</code>, <code>qjs-macos-arm64.zip</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>The <code>qjs-windows-*.zip</code> archives are built with zig against the UCRT and a
+recent MinGW-w64. MinGW-w64 toolchains older than 12 cannot link them
+(undefined references to <code>pthread_cond_timedwait64</code> and <code>clock_gettime64</code>):
+use the <code>qjs-windows-*-mingw.zip</code> archives (msvcrt) instead.</p>
+</li>
+<li>
+<p>Every archive now contains <code>VERSION</code> and the QuickJS <code>LICENSE</code>.</p>
+</li>
+</ul>
+<h4 id="build"><a class="heading-anchor" href="#build">Build</a></h4>
+<ul>
+<li>CMake 3.20 or later is required.</li>
+<li><code>CONFIG_BIGNUM</code> is no longer defined for the users of the <code>qjs</code> target.</li>
+<li>Cross-compiling the tools requires <code>-DQJSC_EXECUTABLE=&#x3C;host qjsc></code>.</li>
+</ul>
+<h2 id="2023-04-28-version-600-nicknaso"><a class="heading-anchor" href="#2023-04-28-version-600-nicknaso">2023-04-28 Version 6.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-1"><a class="heading-anchor" href="#notable-changes-1">Notable changes</a></h3>
+<ul>
+<li>Update QuickJS to version 2022-03-07.</li>
+<li>Fixed error build for Windows.</li>
+</ul>
+<h3 id="commits"><a class="heading-anchor" href="#commits">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/nodejs/node/commit/b28783c9be" target="_blank" rel="noreferrer noopener"><code>b28783c9be</code></a>] - Merge pull request #14 from gengjiawen/feat/bump (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/nodejs/node/commit/c7cf621319" target="_blank" rel="noreferrer noopener"><code>c7cf621319</code></a>] - update README (Jiawen Geng)</li>
+<li>[<a href="https://github.com/nodejs/node/commit/720973720f" target="_blank" rel="noreferrer noopener"><code>720973720f</code></a>] - Update quickjs-build.yml (Jiawen Geng)</li>
+<li>[<a href="https://github.com/nodejs/node/commit/bc86489e59" target="_blank" rel="noreferrer noopener"><code>bc86489e59</code></a>] - <strong>fix</strong>: windows (gengjiawen)</li>
+<li>[<a href="https://github.com/nodejs/node/commit/fc4f6fc14b" target="_blank" rel="noreferrer noopener"><code>fc4f6fc14b</code></a>] - <strong>feat</strong>: sync quickjs to 20220307 (gengjiawen)</li>
+</ul>
+<h2 id="2021-08-25-version-530-nicknaso"><a class="heading-anchor" href="#2021-08-25-version-530-nicknaso">2021-08-25 Version 5.3.0, @NickNaso</a></h2>
+<h3 id="notable-changes-2"><a class="heading-anchor" href="#notable-changes-2">Notable changes</a></h3>
+<ul>
+<li>Added linux arm64 build.</li>
+<li>Removed ubuntu 16.04 from CI.</li>
+<li>Some minor fixes.</li>
+</ul>
+<h3 id="commits-1"><a class="heading-anchor" href="#commits-1">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/8b10f47212" target="_blank" rel="noreferrer noopener"><code>8b10f47212</code></a>] - Fixed documentation. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/316368db2e" target="_blank" rel="noreferrer noopener"><code>316368db2e</code></a>] - Removed ubuntu 16.04 from CI. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/e0a280c34f" target="_blank" rel="noreferrer noopener"><code>e0a280c34f</code></a>] - Merge pull request #10 from gengjiawen/arm64 (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/6551f61377" target="_blank" rel="noreferrer noopener"><code>6551f61377</code></a>] - <strong>feat</strong>: add linux arm64 build (Jiawen Geng)</li>
+</ul>
+<h2 id="2021-04-12-version-520-nicknaso"><a class="heading-anchor" href="#2021-04-12-version-520-nicknaso">2021-04-12 Version 5.2.0, @NickNaso</a></h2>
+<h3 id="notable-changes-3"><a class="heading-anchor" href="#notable-changes-3">Notable changes</a></h3>
+<ul>
+<li>Added executable for <code>run-test262</code>.</li>
+<li>Auto source generation.</li>
+</ul>
+<h3 id="commits-2"><a class="heading-anchor" href="#commits-2">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/105860f2d1" target="_blank" rel="noreferrer noopener"><code>105860f2d1</code></a>] - Some little fixes on documentations. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/3788bef240" target="_blank" rel="noreferrer noopener"><code>3788bef240</code></a>] - Create LICENSE (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/fd7ca724ae" target="_blank" rel="noreferrer noopener"><code>fd7ca724ae</code></a>] - Merge pull request #8 from gengjiawen/feat/test-262 (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/6614794560" target="_blank" rel="noreferrer noopener"><code>6614794560</code></a>] - Merge pull request #7 from gengjiawen/feature/atuo (Nicola Del Gobbo)</li>
+</ul>
+<h2 id="2021-04-10-version-510-nicknaso"><a class="heading-anchor" href="#2021-04-10-version-510-nicknaso">2021-04-10 Version 5.1.0, @NickNaso</a></h2>
+<h3 id="notable-changes-4"><a class="heading-anchor" href="#notable-changes-4">Notable changes</a></h3>
+<ul>
+<li>Added executable for <code>quickjs</code> and <code>qjsc</code>.</li>
+</ul>
+<h3 id="commits-3"><a class="heading-anchor" href="#commits-3">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/0b46a3f067" target="_blank" rel="noreferrer noopener"><code>0b46a3f067</code></a>] - Prepare new release 5.1.0. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c9ab43c489" target="_blank" rel="noreferrer noopener"><code>c9ab43c489</code></a>] - Merge pull request #6 from gengjiawen/feat/binary (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/97fe3599bf" target="_blank" rel="noreferrer noopener"><code>97fe3599bf</code></a>] - use mingw on windows (Jiawen Geng)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c6719fecd5" target="_blank" rel="noreferrer noopener"><code>c6719fecd5</code></a>] - <strong>feat</strong>: add quickjs and qjsc (Jiawen Geng)</li>
+</ul>
+<h2 id="2021-03-28-version-500-nicknaso"><a class="heading-anchor" href="#2021-03-28-version-500-nicknaso">2021-03-28 Version 5.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-5"><a class="heading-anchor" href="#notable-changes-5">Notable changes</a></h3>
+<ul>
+<li>Fixed the build on *nix systems.</li>
+<li>QuickJS version 2021-03-27.</li>
+</ul>
+<h3 id="quickjs-changes"><a class="heading-anchor" href="#quickjs-changes">QuickJS changes:</a></h3>
+<ul>
+<li>Faster Array.prototype.push and Array.prototype.unshift.</li>
+<li>Added JS_UpdateStackTop().</li>
+<li>Fixed Windows console.</li>
+<li>Misc bug fixes.</li>
+</ul>
+<h3 id="commits-4"><a class="heading-anchor" href="#commits-4">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/222c1964d2" target="_blank" rel="noreferrer noopener"><code>222c1964d2</code></a>] - Prepare release for version 2021-03-27. (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/db6da63495" target="_blank" rel="noreferrer noopener"><code>db6da63495</code></a>] - Fixed build on linux. (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c04a298c35" target="_blank" rel="noreferrer noopener"><code>c04a298c35</code></a>] - Prepare new version 2021-03-27. (NickNaso)</li>
+</ul>
+<h2 id="2020-11-08-version-400-nicknaso"><a class="heading-anchor" href="#2020-11-08-version-400-nicknaso">2020-11-08 Version 4.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-6"><a class="heading-anchor" href="#notable-changes-6">Notable changes</a></h3>
+<ul>
+<li>QuickJS version 2020-11-08.</li>
+</ul>
+<h3 id="quickjs-changes-1"><a class="heading-anchor" href="#quickjs-changes-1">QuickJS changes</a></h3>
+<ul>
+<li>Improved function parameter initializers.</li>
+<li>Added <code>std.setenv()</code>, <code>std.unsetenv()</code> and <code>std.getenviron()</code>.</li>
+<li>Added JS_EvalThis().</li>
+<li>Misc bug fixes.</li>
+</ul>
+<h3 id="commits-5"><a class="heading-anchor" href="#commits-5">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/693ec349bc" target="_blank" rel="noreferrer noopener"><code>693ec349bc</code></a>] - Prepare new version 2020-11-08. (NickNaso)</li>
+</ul>
+<h2 id="2020-09-10-version-300-nicknaso"><a class="heading-anchor" href="#2020-09-10-version-300-nicknaso">2020-09-10 Version 3.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-7"><a class="heading-anchor" href="#notable-changes-7">Notable changes</a></h3>
+<ul>
+<li>Update the assets for the release only when the release has been published.</li>
+<li>QuickJS version 2020-09-06.</li>
+</ul>
+<h3 id="quickjs-changes-2"><a class="heading-anchor" href="#quickjs-changes-2">QuickJS changes</a></h3>
+<ul>
+<li>Added logical assignment operators.</li>
+<li>Added IsHTMLDDA support.</li>
+<li>Faster for-of loops.</li>
+<li>os.Worker now takes a module filename as parameter.</li>
+<li>qjsc: added -D option to compile dynamically loaded modules or workers.</li>
+<li>Misc bug fixes.</li>
+</ul>
+<h3 id="commits-6"><a class="heading-anchor" href="#commits-6">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/305934fc7e" target="_blank" rel="noreferrer noopener"><code>305934fc7e</code></a>] - Prepare new version 2020-09-06. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/46a395c6ad" target="_blank" rel="noreferrer noopener"><code>46a395c6ad</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+</ul>
+<h2 id="2020-09-04-version-200-nicknaso"><a class="heading-anchor" href="#2020-09-04-version-200-nicknaso">2020-09-04 Version 2.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-8"><a class="heading-anchor" href="#notable-changes-8">Notable changes</a></h3>
+<ul>
+<li>QuickJS version 2020-07-05.</li>
+</ul>
+<h3 id="quickjs-changes-3"><a class="heading-anchor" href="#quickjs-changes-3">QuickJS changes</a></h3>
+<ul>
+<li>Modified JS_GetPrototype() to return a live value.</li>
+<li>REPL: support unicode characters larger than 16 bits.</li>
+<li>Added os.Worker.</li>
+<li>Improved object serialization.</li>
+<li>Added std.parseExtJSON.</li>
+<li>Misc bug fixes.</li>
+</ul>
+<h3 id="commits-7"><a class="heading-anchor" href="#commits-7">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/3f68062b99" target="_blank" rel="noreferrer noopener"><code>3f68062b99</code></a>] - Prepare new version 2020-07-05. (NickNaso)</li>
+</ul>
+<h2 id="2020-06-08-version-100-nicknaso"><a class="heading-anchor" href="#2020-06-08-version-100-nicknaso">2020-06-08 Version 1.0.0, @NickNaso</a></h2>
+<h3 id="notable-changes-9"><a class="heading-anchor" href="#notable-changes-9">Notable changes</a></h3>
+<ul>
+<li>Initial implementation for the project.</li>
+<li>QuickJS version 2020-07-05.</li>
+</ul>
+<h3 id="commits-8"><a class="heading-anchor" href="#commits-8">Commits</a></h3>
+<ul>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/b25571e2e6" target="_blank" rel="noreferrer noopener"><code>b25571e2e6</code></a>] - Added changelog. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a1c5a374d2" target="_blank" rel="noreferrer noopener"><code>a1c5a374d2</code></a>] - Added code of conduct. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/59738019be" target="_blank" rel="noreferrer noopener"><code>59738019be</code></a>] - Remove unused parameters. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c96ed22f3f" target="_blank" rel="noreferrer noopener"><code>c96ed22f3f</code></a>] - Added buil instructions for unix-like systems. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ba204590fa" target="_blank" rel="noreferrer noopener"><code>ba204590fa</code></a>] - Added references section. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/9a7344fbe5" target="_blank" rel="noreferrer noopener"><code>9a7344fbe5</code></a>] - Added build instruction for Windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/cb575c3d52" target="_blank" rel="noreferrer noopener"><code>cb575c3d52</code></a>] - Excluded build folder. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ed3ec16353" target="_blank" rel="noreferrer noopener"><code>ed3ec16353</code></a>] - Base instruction to build quickjs. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/56e0695c0b" target="_blank" rel="noreferrer noopener"><code>56e0695c0b</code></a>] - Merge branch 'master' of <a href="https://github.com/napi-bindings/quickjs-build" target="_blank" rel="noreferrer noopener">https://github.com/napi-bindings/quickjs-build</a> (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/568d0054c8" target="_blank" rel="noreferrer noopener"><code>568d0054c8</code></a>] - Some format sugar. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/e3c3f93b99" target="_blank" rel="noreferrer noopener"><code>e3c3f93b99</code></a>] - Update README.md (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/2c240fbac6" target="_blank" rel="noreferrer noopener"><code>2c240fbac6</code></a>] - Added introduction on readme. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/2b75403d2b" target="_blank" rel="noreferrer noopener"><code>2b75403d2b</code></a>] - Added badges. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a2b771e731" target="_blank" rel="noreferrer noopener"><code>a2b771e731</code></a>] - Handle release event. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/17b872447a" target="_blank" rel="noreferrer noopener"><code>17b872447a</code></a>] - Fixed cflags for windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/4a4539f0f9" target="_blank" rel="noreferrer noopener"><code>4a4539f0f9</code></a>] - Added cflag for windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ad65bbbf3a" target="_blank" rel="noreferrer noopener"><code>ad65bbbf3a</code></a>] - Remove unnecessary commands. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c03f57309b" target="_blank" rel="noreferrer noopener"><code>c03f57309b</code></a>] - Fixed artifact name on macOS. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/d754d944d3" target="_blank" rel="noreferrer noopener"><code>d754d944d3</code></a>] - Fixed artifacts. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/f50c74ab7d" target="_blank" rel="noreferrer noopener"><code>f50c74ab7d</code></a>] - Fixed typo. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/97d4081a0c" target="_blank" rel="noreferrer noopener"><code>97d4081a0c</code></a>] - Print artifacts. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/4cf28567a7" target="_blank" rel="noreferrer noopener"><code>4cf28567a7</code></a>] - Fixed compiler options. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/279620809a" target="_blank" rel="noreferrer noopener"><code>279620809a</code></a>] - Fixed configurations. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/98a8f91de8" target="_blank" rel="noreferrer noopener"><code>98a8f91de8</code></a>] - Parametric value for compiler. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/88383ad863" target="_blank" rel="noreferrer noopener"><code>88383ad863</code></a>] - Comment for unused parameters. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/586b97de5e" target="_blank" rel="noreferrer noopener"><code>586b97de5e</code></a>] - Fixed path compiler. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c3c1ab64f7" target="_blank" rel="noreferrer noopener"><code>c3c1ab64f7</code></a>] - Fixed path. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/4e634e4f81" target="_blank" rel="noreferrer noopener"><code>4e634e4f81</code></a>] - Fixed path. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a3c74cdfb8" target="_blank" rel="noreferrer noopener"><code>a3c74cdfb8</code></a>] - Fixed compiler installartion for windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/d0a67ef816" target="_blank" rel="noreferrer noopener"><code>d0a67ef816</code></a>] - List compiler folder. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/6a13e6d0dd" target="_blank" rel="noreferrer noopener"><code>6a13e6d0dd</code></a>] - List root folders. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/bf5865b896" target="_blank" rel="noreferrer noopener"><code>bf5865b896</code></a>] - Fixed cmake options. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ede84d97d5" target="_blank" rel="noreferrer noopener"><code>ede84d97d5</code></a>] - Added cmake options. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/9c01856429" target="_blank" rel="noreferrer noopener"><code>9c01856429</code></a>] - Extract compiler. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/9fdff3ef87" target="_blank" rel="noreferrer noopener"><code>9fdff3ef87</code></a>] - Remove build filder. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/f2aa910713" target="_blank" rel="noreferrer noopener"><code>f2aa910713</code></a>] - Install dependencies for windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/07fa5a545f" target="_blank" rel="noreferrer noopener"><code>07fa5a545f</code></a>] - Install windows depencencies. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/391c51a1e0" target="_blank" rel="noreferrer noopener"><code>391c51a1e0</code></a>] - Install dependencies on windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/cebb8a2f8b" target="_blank" rel="noreferrer noopener"><code>cebb8a2f8b</code></a>] - Install dependencies for windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/c85dfe9e77" target="_blank" rel="noreferrer noopener"><code>c85dfe9e77</code></a>] - Install dependencies on windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/fc9b365a8e" target="_blank" rel="noreferrer noopener"><code>fc9b365a8e</code></a>] - Install dependencies on Windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ef53415ff6" target="_blank" rel="noreferrer noopener"><code>ef53415ff6</code></a>] - Install dependencies on windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/86469b3b15" target="_blank" rel="noreferrer noopener"><code>86469b3b15</code></a>] - Install windows dependencies. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/568fd88755" target="_blank" rel="noreferrer noopener"><code>568fd88755</code></a>] - Install Windows dependencies. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/345b03ae35" target="_blank" rel="noreferrer noopener"><code>345b03ae35</code></a>] - Install windows dependencies. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/6c6494ed59" target="_blank" rel="noreferrer noopener"><code>6c6494ed59</code></a>] - Install Windows dependencies. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a07b8e4540" target="_blank" rel="noreferrer noopener"><code>a07b8e4540</code></a>] - Install depencendies for WIndows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/afe92477ed" target="_blank" rel="noreferrer noopener"><code>afe92477ed</code></a>] - Re enable windows on matrix. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/3092849294" target="_blank" rel="noreferrer noopener"><code>3092849294</code></a>] - Remove unnecessary steps. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/84c9159870" target="_blank" rel="noreferrer noopener"><code>84c9159870</code></a>] - Remove windows from matrix (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/34049bf0cf" target="_blank" rel="noreferrer noopener"><code>34049bf0cf</code></a>] - Remove unnecessary folders. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/24ea136acf" target="_blank" rel="noreferrer noopener"><code>24ea136acf</code></a>] - Cleanup. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/3b3680bfb4" target="_blank" rel="noreferrer noopener"><code>3b3680bfb4</code></a>] - Cleanup. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/5162fb2908" target="_blank" rel="noreferrer noopener"><code>5162fb2908</code></a>] - Added upload artifacts. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/84e1c5f2d8" target="_blank" rel="noreferrer noopener"><code>84e1c5f2d8</code></a>] - Change working diorectory on prepare artifacts. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/98e3e24159" target="_blank" rel="noreferrer noopener"><code>98e3e24159</code></a>] - Prepare artifacts. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/bfaf01dc51" target="_blank" rel="noreferrer noopener"><code>bfaf01dc51</code></a>] - Added script to configure, to build and to prepare. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/5b6c19c44f" target="_blank" rel="noreferrer noopener"><code>5b6c19c44f</code></a>] - Install dependecies for macOS. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/159f61a954" target="_blank" rel="noreferrer noopener"><code>159f61a954</code></a>] - Install dependencies on Windows. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a2fc3018ef" target="_blank" rel="noreferrer noopener"><code>a2fc3018ef</code></a>] - Install dependecies for Linux. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/521f4ee63f" target="_blank" rel="noreferrer noopener"><code>521f4ee63f</code></a>] - Scaffolding to handle the dependencies installation. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/21f2d7466b" target="_blank" rel="noreferrer noopener"><code>21f2d7466b</code></a>] - Ognore .vscode and .idea folders. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/6bbda2152b" target="_blank" rel="noreferrer noopener"><code>6bbda2152b</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/889ebffe4f" target="_blank" rel="noreferrer noopener"><code>889ebffe4f</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/376b7ee533" target="_blank" rel="noreferrer noopener"><code>376b7ee533</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/fd40c2b0ea" target="_blank" rel="noreferrer noopener"><code>fd40c2b0ea</code></a>] - Update README.md (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/eb1e0edf86" target="_blank" rel="noreferrer noopener"><code>eb1e0edf86</code></a>] - Update README.md (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/df2799b9ab" target="_blank" rel="noreferrer noopener"><code>df2799b9ab</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/d5d122297f" target="_blank" rel="noreferrer noopener"><code>d5d122297f</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/58bf4b7d14" target="_blank" rel="noreferrer noopener"><code>58bf4b7d14</code></a>] - Update quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/876cebe69e" target="_blank" rel="noreferrer noopener"><code>876cebe69e</code></a>] - Rename c-cpp.yml to quickjs-build.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/378649639f" target="_blank" rel="noreferrer noopener"><code>378649639f</code></a>] - Update c-cpp.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/b01ba4b8d2" target="_blank" rel="noreferrer noopener"><code>b01ba4b8d2</code></a>] - Update c-cpp.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/65f4a05f0b" target="_blank" rel="noreferrer noopener"><code>65f4a05f0b</code></a>] - Update c-cpp.yml (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/526444b3f9" target="_blank" rel="noreferrer noopener"><code>526444b3f9</code></a>] - Initial set for build the project. (Nicola Del Gobbo)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/ea73f2c78e" target="_blank" rel="noreferrer noopener"><code>ea73f2c78e</code></a>] - initial commit for the project. (NickNaso)</li>
+<li>[<a href="https://github.com/napi-bindings/quickjs-build/commit/a6cb06817f" target="_blank" rel="noreferrer noopener"><code>a6cb06817f</code></a>] - Initial commit (Nicola Del Gobbo)</li>
+</ul>22:["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$L33",null,{"html":"$34"}]}],"$L35"]}]
+35:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","2026-11-15-version-700-nicknaso",{"className":"","children":["$","a",null,{"href":"#2026-11-15-version-700-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2026-11-15 Version 7.0.0, @NickNaso"}]}],["$","li","2023-04-28-version-600-nicknaso",{"className":"","children":["$","a",null,{"href":"#2023-04-28-version-600-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2023-04-28 Version 6.0.0, @NickNaso"}]}],["$","li","2021-08-25-version-530-nicknaso",{"className":"","children":["$","a",null,{"href":"#2021-08-25-version-530-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2021-08-25 Version 5.3.0, @NickNaso"}]}],["$","li","2021-04-12-version-520-nicknaso",{"className":"","children":["$","a",null,{"href":"#2021-04-12-version-520-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2021-04-12 Version 5.2.0, @NickNaso"}]}],["$","li","2021-04-10-version-510-nicknaso",{"className":"","children":["$","a",null,{"href":"#2021-04-10-version-510-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2021-04-10 Version 5.1.0, @NickNaso"}]}],["$","li","2021-03-28-version-500-nicknaso",{"className":"","children":["$","a",null,{"href":"#2021-03-28-version-500-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2021-03-28 Version 5.0.0, @NickNaso"}]}],["$","li","2020-11-08-version-400-nicknaso",{"className":"","children":["$","a",null,{"href":"#2020-11-08-version-400-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2020-11-08 Version 4.0.0, @NickNaso"}]}],["$","li","2020-09-10-version-300-nicknaso",{"className":"","children":["$","a",null,{"href":"#2020-09-10-version-300-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2020-09-10 Version 3.0.0, @NickNaso"}]}],["$","li","2020-09-04-version-200-nicknaso",{"className":"","children":["$","a",null,{"href":"#2020-09-04-version-200-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2020-09-04 Version 2.0.0, @NickNaso"}]}],["$","li","2020-06-08-version-100-nicknaso",{"className":"","children":["$","a",null,{"href":"#2020-06-08-version-100-nicknaso","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"2020-06-08 Version 1.0.0, @NickNaso"}]}]]}]]}]}]}]
+28:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]
+36:I[27201,["$2","$3","$4","$5","$6","$7"],"IconMark"]
+25:null
+2b:[["$","title","0",{"children":"quickjs-build changelog · napi-bindings"}],["$","meta","1",{"name":"description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-build/changelog/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L36","16",{}]]

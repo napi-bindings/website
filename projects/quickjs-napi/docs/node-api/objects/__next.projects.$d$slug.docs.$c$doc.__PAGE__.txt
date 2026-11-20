@@ -1,0 +1,280 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T88d1,<h1 id="objects-and-properties">Objects and properties</h1>
+<p><a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a> › Objects</p>
+<p>Implemented in <code>src/object.c</code>. All functions here may run JavaScript
+(getters, setters, proxy traps, <code>Symbol.hasInstance</code>) and refuse to start
+with an exception pending.</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>By key (<code>napi_value</code>)</td>
+<td><a href="#napi_set_property"><code>napi_set_property</code></a>, <a href="#napi_get_property"><code>napi_get_property</code></a>, <a href="#napi_has_property"><code>napi_has_property</code></a>, <a href="#napi_has_own_property"><code>napi_has_own_property</code></a>, <a href="#napi_delete_property"><code>napi_delete_property</code></a></td>
+</tr>
+<tr>
+<td>By name (C string)</td>
+<td><a href="#napi_set_named_property"><code>napi_set_named_property</code></a>, <a href="#napi_get_named_property"><code>napi_get_named_property</code></a>, <a href="#napi_has_named_property"><code>napi_has_named_property</code></a></td>
+</tr>
+<tr>
+<td>By index</td>
+<td><a href="#napi_set_element"><code>napi_set_element</code></a>, <a href="#napi_get_element"><code>napi_get_element</code></a>, <a href="#napi_has_element"><code>napi_has_element</code></a>, <a href="#napi_delete_element"><code>napi_delete_element</code></a></td>
+</tr>
+<tr>
+<td>Definition</td>
+<td><a href="#napi_define_properties"><code>napi_define_properties</code></a></td>
+</tr>
+<tr>
+<td>Enumeration</td>
+<td><a href="#napi_get_property_names"><code>napi_get_property_names</code></a>, <a href="#napi_get_all_property_names"><code>napi_get_all_property_names</code></a></td>
+</tr>
+<tr>
+<td>Prototype and integrity</td>
+<td><a href="#napi_get_prototype"><code>napi_get_prototype</code></a>, <a href="#napi_object_freeze"><code>napi_object_freeze</code></a>, <a href="#napi_object_seal"><code>napi_object_seal</code></a>, <a href="#napi_instanceof"><code>napi_instanceof</code></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-rules"><a class="heading-anchor" href="#common-rules">Common rules</a></h2>
+<p>These follow Node.js (<code>src/js_native_api_v8.cc</code>):</p>
+<ul>
+<li><strong>The receiver goes through <code>ToObject</code>.</strong> Primitives are wrapped (so
+<code>napi_get_named_property(env, a_string, "length", ...)</code> works), while <code>null</code>
+and <code>undefined</code> throw a <code>TypeError</code> and return <code>napi_object_expected</code> with
+the exception pending.</li>
+<li><strong>Keys go through <code>ToPropertyKey</code>.</strong> A <code>napi_value</code> key may be any value: a
+number becomes its string form, an object is converted with <code>toString</code> /
+<code>Symbol.toPrimitive</code>, which may run user code. Only <code>napi_has_own_property</code>
+and <code>napi_define_properties</code> require a string or symbol
+(<code>napi_name_expected</code>).</li>
+<li><strong>Setting is a sloppy-mode <code>[[Set]]</code>.</strong> Assigning to a read-only property or
+to a frozen object <strong>fails silently</strong> and returns <code>napi_ok</code>, like
+<code>v8::Object::Set</code>. Setters and proxy <code>set</code> traps run.</li>
+<li><strong>Deleting is a sloppy-mode <code>delete</code>.</strong> A non-configurable property is not
+deleted, and <code>*result</code> is <code>false</code>; the call still returns <code>napi_ok</code>.</li>
+</ul>
+<hr>
+<h2 id="by-key"><a class="heading-anchor" href="#by-key">By key</a></h2>
+<h3 id="napi_set_property"><a class="heading-anchor" href="#napi_set_property"><code>napi_set_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_set_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">key</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                              napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>object[key] = value</code>.</p>
+<h3 id="napi_get_property"><a class="heading-anchor" href="#napi_get_property"><code>napi_get_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">key</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                              napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores <code>object[key]</code> (getters and the prototype chain included; <code>undefined</code>
+when absent).</p>
+<h3 id="napi_has_property"><a class="heading-anchor" href="#napi_has_property"><code>napi_has_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_has_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">key</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                              bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>key in object</code>: own or inherited.</p>
+<h3 id="napi_has_own_property"><a class="heading-anchor" href="#napi_has_own_property"><code>napi_has_own_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_has_own_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                  napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">key</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>Object.prototype.hasOwnProperty.call(object, key)</code>. The key must be a string
+or a symbol; anything else returns <code>napi_name_expected</code> (no conversion).</p>
+<h3 id="napi_delete_property"><a class="heading-anchor" href="#napi_delete_property"><code>napi_delete_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_delete_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                 napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">key</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>delete object[key]</code>. <code>*result</code> (optional, may be <code>NULL</code>) is <code>true</code> when the
+property is gone afterwards (including when it never existed) and <code>false</code>
+when it is non-configurable.</p>
+<h2 id="by-name"><a class="heading-anchor" href="#by-name">By name</a></h2>
+<p>The name is a NUL-terminated UTF-8 string. These are shortcuts for the keyed
+functions with a string key.</p>
+<h3 id="napi_set_named_property"><a class="heading-anchor" href="#napi_set_named_property"><code>napi_set_named_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_set_named_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                    const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">utf8name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>object[utf8name] = value</code>.</p>
+<h3 id="napi_get_named_property"><a class="heading-anchor" href="#napi_get_named_property"><code>napi_get_named_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_named_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                    const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">utf8name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores <code>object[utf8name]</code>.</p>
+<h3 id="napi_has_named_property"><a class="heading-anchor" href="#napi_has_named_property"><code>napi_has_named_property</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_has_named_property</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                    const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">utf8name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>utf8name in object</code>.</p>
+<h2 id="by-index"><a class="heading-anchor" href="#by-index">By index</a></h2>
+<p><code>index</code> is an array index (<code>0</code> to <code>2^32 - 2</code> are array indices; larger values
+are ordinary integer-like keys).</p>
+<h3 id="napi_set_element"><a class="heading-anchor" href="#napi_set_element"><code>napi_set_element</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_set_element</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">uint32_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                             napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>object[index] = value</code>. On an array, extends <code>length</code> when needed.</p>
+<h3 id="napi_get_element"><a class="heading-anchor" href="#napi_get_element"><code>napi_get_element</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_element</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">uint32_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                             napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores <code>object[index]</code> (<code>undefined</code> for holes and missing elements).</p>
+<h3 id="napi_has_element"><a class="heading-anchor" href="#napi_has_element"><code>napi_has_element</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_has_element</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">uint32_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                             bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>index in object</code> (<code>false</code> for holes).</p>
+<h3 id="napi_delete_element"><a class="heading-anchor" href="#napi_delete_element"><code>napi_delete_element</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_delete_element</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                uint32_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>delete object[index]</code>; <code>*result</code> as for <code>napi_delete_property</code>.</p>
+<h2 id="definition"><a class="heading-anchor" href="#definition">Definition</a></h2>
+<h3 id="napi_define_properties"><a class="heading-anchor" href="#napi_define_properties"><code>napi_define_properties</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_define_properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> property_count</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   const</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_property_descriptor </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Defines each descriptor with <code>Object.defineProperty</code> semantics (a <strong>complete</strong>
+descriptor: attributes not set are <code>false</code>).</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">utf8name;</span><span style="color:#6A737D;--shiki-dark:#6A737D">      /* key as UTF-8, or NULL to use `name` */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value name;</span><span style="color:#6A737D;--shiki-dark:#6A737D">           /* string or symbol key */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_callback method;</span><span style="color:#6A737D;--shiki-dark:#6A737D">      /* data property holding a new function */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_callback getter;</span><span style="color:#6A737D;--shiki-dark:#6A737D">      /* accessor property */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_callback setter;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value value;</span><span style="color:#6A737D;--shiki-dark:#6A737D">          /* data property holding this value */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_property_attributes attributes;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">data;</span><span style="color:#6A737D;--shiki-dark:#6A737D">                /* passed to method / getter / setter */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">} napi_property_descriptor;</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Defines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getter</code> and/or <code>setter</code></td>
+<td>an accessor property; a missing half is <code>undefined</code>; <code>napi_writable</code> is ignored</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>a data property whose value is a new function (named after nothing, <code>length</code> 0) calling <code>method</code> with <code>data</code></td>
+</tr>
+<tr>
+<td><code>value</code> (or nothing)</td>
+<td>a data property holding <code>value</code> (or <code>undefined</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Attributes: <code>napi_writable</code>, <code>napi_enumerable</code>, <code>napi_configurable</code>, and the
+combinations <code>napi_default</code> (none), <code>napi_default_method</code> (writable +
+configurable, like class methods) and <code>napi_default_jsproperty</code> (all three,
+like an assignment). <code>napi_static</code> is only meaningful for
+<a href="/projects/quickjs-napi/docs/node-api/functions/#napi_define_class"><code>napi_define_class</code></a>.</p>
+<p>Definitions are applied in order and stop at the first failure:</p>
+<ul>
+<li>a key that is neither <code>utf8name</code> nor a string/symbol <code>name</code> returns
+<code>napi_name_expected</code>;</li>
+<li>a definition the object refuses (redefining a non-configurable property,
+adding to a non-extensible object) returns <code>napi_invalid_arg</code> for data and
+accessor properties and <code>napi_generic_failure</code> for methods, as in Node.js.</li>
+</ul>
+<h2 id="enumeration"><a class="heading-anchor" href="#enumeration">Enumeration</a></h2>
+<h3 id="napi_get_property_names"><a class="heading-anchor" href="#napi_get_property_names"><code>napi_get_property_names</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_property_names</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                    napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores an array with the <strong>enumerable string keys</strong> of <code>object</code> and of its
+prototype chain, array indices converted to strings: the keys a <code>for...in</code>
+loop visits. Equivalent to <code>napi_get_all_property_names(env, object, napi_key_include_prototypes, napi_key_enumerable | napi_key_skip_symbols, napi_key_numbers_to_strings, result)</code>.</p>
+<h3 id="napi_get_all_property_names"><a class="heading-anchor" href="#napi_get_all_property_names"><code>napi_get_all_property_names</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_all_property_names</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                        napi_key_collection_mode </span><span style="color:#E36209;--shiki-dark:#FFAB70">key_mode</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                        napi_key_filter </span><span style="color:#E36209;--shiki-dark:#FFAB70">key_filter</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                        napi_key_conversion </span><span style="color:#E36209;--shiki-dark:#FFAB70">key_conversion</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                        napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores an array of keys, like V8's <code>Object::GetPropertyNames</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key_mode</code></td>
+<td><code>napi_key_own_only</code>, or <code>napi_key_include_prototypes</code> (keys of the prototype chain that are not shadowed by an earlier object)</td>
+</tr>
+<tr>
+<td><code>key_filter</code></td>
+<td>bit mask: <code>napi_key_all_properties</code> (0), <code>napi_key_writable</code>, <code>napi_key_enumerable</code>, <code>napi_key_configurable</code> (keep only keys with these attributes), <code>napi_key_skip_strings</code>, <code>napi_key_skip_symbols</code></td>
+</tr>
+<tr>
+<td><code>key_conversion</code></td>
+<td><code>napi_key_keep_numbers</code> (array indices as Numbers) or <code>napi_key_numbers_to_strings</code></td>
+</tr>
+</tbody>
+</table>
+<p>Keys are in <code>OwnPropertyKeys</code> order for each object (integer indices
+ascending, then strings in creation order, then symbols). An unknown
+<code>key_mode</code> or <code>key_conversion</code> returns <code>napi_invalid_arg</code>. Proxy traps
+(<code>ownKeys</code>, <code>getOwnPropertyDescriptor</code>) run.</p>
+<h2 id="prototype-and-integrity"><a class="heading-anchor" href="#prototype-and-integrity">Prototype and integrity</a></h2>
+<h3 id="napi_get_prototype"><a class="heading-anchor" href="#napi_get_prototype"><code>napi_get_prototype</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_prototype</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                               napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>Object.getPrototypeOf(object)</code> (<code>null</code> at the end of the chain; the proxy
+<code>getPrototypeOf</code> trap runs).</p>
+<h3 id="napi_object_freeze"><a class="heading-anchor" href="#napi_object_freeze"><code>napi_object_freeze</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_object_freeze</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>Object.freeze(object)</code>, through the builtin captured at startup.</p>
+<h3 id="napi_object_seal"><a class="heading-anchor" href="#napi_object_seal"><code>napi_object_seal</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_object_seal</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>Object.seal(object)</code>, through the builtin captured at startup.</p>
+<h3 id="napi_instanceof"><a class="heading-anchor" href="#napi_instanceof"><code>napi_instanceof</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_instanceof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">object</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                            napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">constructor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>object instanceof constructor</code>, <code>Symbol.hasInstance</code> included. When
+<code>constructor</code> is not a function, a <code>TypeError</code> with code
+<code>ERR_NAPI_CONS_FUNCTION</code> ("Constructor must be a function") is thrown and the
+function returns <code>napi_function_expected</code>, as in Node.js.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/node-api/objects.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/objects.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"node-api/objects","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Objects and properties · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Objects and properties (doc/node-api/objects.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/objects/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+31:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/node-specific/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Buffers, async context and callback scopes"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/scopes/"}],"nativeButton":false,"children":["Handle scopes",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","common-rules",{"className":"","children":["$","a",null,{"href":"#common-rules","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Common rules"}]}],["$","li","by-key",{"className":"","children":["$","a",null,{"href":"#by-key","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"By key"}]}],["$","li","napi_set_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_set_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_set_property"}]}],["$","li","napi_get_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_property"}]}],["$","li","napi_has_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_has_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_has_property"}]}],["$","li","napi_has_own_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_has_own_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_has_own_property"}]}],["$","li","napi_delete_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_delete_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_delete_property"}]}],["$","li","by-name",{"className":"","children":["$","a",null,{"href":"#by-name","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"By name"}]}],["$","li","napi_set_named_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_set_named_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_set_named_property"}]}],["$","li","napi_get_named_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_named_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_named_property"}]}],["$","li","napi_has_named_property",{"className":"pl-3","children":["$","a",null,{"href":"#napi_has_named_property","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_has_named_property"}]}],["$","li","by-index",{"className":"","children":["$","a",null,{"href":"#by-index","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"By index"}]}],["$","li","napi_set_element",{"className":"pl-3","children":["$","a",null,{"href":"#napi_set_element","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_set_element"}]}],["$","li","napi_get_element",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_element","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_element"}]}],["$","li","napi_has_element",{"className":"pl-3","children":["$","a",null,{"href":"#napi_has_element","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_has_element"}]}],["$","li","napi_delete_element",{"className":"pl-3","children":["$","a",null,{"href":"#napi_delete_element","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_delete_element"}]}],["$","li","definition",{"className":"","children":["$","a",null,{"href":"#definition","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Definition"}]}],["$","li","napi_define_properties",{"className":"pl-3","children":["$","a",null,{"href":"#napi_define_properties","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_define_properties"}]}],["$","li","enumeration",{"className":"","children":["$","a",null,{"href":"#enumeration","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Enumeration"}]}],"$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30"]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L31",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@32"}]}]
+27:true
+11:300
+2a:["$","li","napi_get_property_names",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_property_names","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_property_names"}]}]
+2b:["$","li","napi_get_all_property_names",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_all_property_names","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_all_property_names"}]}]
+2c:["$","li","prototype-and-integrity",{"className":"","children":["$","a",null,{"href":"#prototype-and-integrity","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Prototype and integrity"}]}]
+2d:["$","li","napi_get_prototype",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_prototype","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_prototype"}]}]
+2e:["$","li","napi_object_freeze",{"className":"pl-3","children":["$","a",null,{"href":"#napi_object_freeze","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_object_freeze"}]}]
+2f:["$","li","napi_object_seal",{"className":"pl-3","children":["$","a",null,{"href":"#napi_object_seal","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_object_seal"}]}]
+30:["$","li","napi_instanceof",{"className":"pl-3","children":["$","a",null,{"href":"#napi_instanceof","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_instanceof"}]}]
+32:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

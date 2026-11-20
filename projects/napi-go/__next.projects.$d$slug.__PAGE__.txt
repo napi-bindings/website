@@ -1,0 +1,179 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/3-909m818e1da.js"
+d:"/_next/static/chunks/2rdswu9mij722.js"
+e:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Markdown"]
+16:"ViewportBoundary"
+17:I[97367,["$5","$6","$7","$8","$9","$a"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$5","$6","$7","$8","$9","$a"],"$18"]
+1a:"$Sreact.suspense"
+1b:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+f:T2e3b,
+<p>Native Node.js addons (<code>.node</code>) written in Go, on top of
+<a href="https://nodejs.org/api/n-api.html" target="_blank" rel="noreferrer noopener">Node-API</a>: annotated Go functions, structs and classes become
+a typed npm package, built for every platform from one machine. The design follows
+<a href="https://napi.rs" target="_blank" rel="noreferrer noopener">napi-rs</a>.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Greet returns a greeting for name.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Greet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">name</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "hello "</span><span style="color:#D73A49;--shiki-dark:#F97583"> +</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> name }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Download fetches url in a goroutine; JS gets a Promise.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Download</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">Context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">url</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) ([]</span><span style="color:#D73A49;--shiki-dark:#F97583">byte</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { … }</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { greet, download } </span><span style="color:#D73A49;--shiki-dark:#F97583">from</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 'my-addon'</span><span style="color:#6A737D;--shiki-dark:#6A737D">   // typed by the generated index.d.ts</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">greet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">'Ann'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> body</span><span style="color:#D73A49;--shiki-dark:#F97583"> =</span><span style="color:#D73A49;--shiki-dark:#F97583"> await</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> download</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">'https://example.com'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)   </span><span style="color:#6A737D;--shiki-dark:#6A737D">// a Buffer</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> github.com/napi-bindings/napi-go/cmd/napi-go@latest</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> new</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x26;&#x26; </span><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build:debug</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x26;&#x26; </span><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test</span></span></code></pre>
+<ul>
+<li><strong>Conversions from Go types</strong>: numbers, strings, <code>[]byte</code>, slices, maps, structs, pointers,
+<code>*big.Int</code>, <code>time.Time</code>; wrong JS arguments throw a TypeError naming the argument.</li>
+<li><strong>Goroutines</strong>: functions with a <code>context.Context</code> return Promises; goroutines call JS functions
+with <code>JSFunc</code>; Promises settled in bulk cost one wake-up of the JS thread.</li>
+<li><strong>Classes</strong> backed by Go values, with methods, getters, setters and finalizers.</li>
+<li><strong>TypeScript declarations</strong> generated from the Go code, Go comments as JSDoc.</li>
+<li><strong>One machine builds all platforms</strong>: Linux, macOS and Windows on x64 and arm64, with zig;
+one npm package per platform, as napi-rs.</li>
+<li><strong>Worker threads</strong>, Node-API 8 to 10, and the Node.js and node-addon-api test suites ported to
+napi-go.</li>
+</ul>
+<blockquote>
+<p><strong>Status:</strong> 0.1, the first release (<a href="/projects/napi-go/changelog/">CHANGELOG</a>). Before 1.0 the API may change
+between minor versions.</p>
+</blockquote>
+<h2 id="documentation"><a class="heading-anchor" href="#documentation">Documentation</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/projects/napi-go/docs/getting-started/">Getting started</a></td>
+<td>create, build, test and publish an addon</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/guide/">Writing addons</a></td>
+<td>functions, types, errors, async, classes, calling JS</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/architecture/">How it works</a></td>
+<td>layers, threads, memory, signals, costs</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/napi-rs/">Coming from napi-rs</a></td>
+<td>the napi-rs features in napi-go</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/platforms/">Platforms and limitations</a></td>
+<td>support, known limits, troubleshooting</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/bench/">Benchmarks</a></td>
+<td>against napi-rs and node-addon-api</td>
+</tr>
+<tr>
+<td><a href="https://pkg.go.dev/github.com/napi-bindings/napi-go/napi" target="_blank" rel="noreferrer noopener">API reference</a></td>
+<td>pkg.go.dev</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platforms"><a class="heading-anchor" href="#platforms">Platforms</a></h2>
+<p>Linux (glibc) x64 and arm64, macOS arm64 and x64, Windows x64 and arm64, with Go 1.24 or later and
+Node.js 22 or later. Not supported: musl (Alpine), which no Go release can load as a shared
+library. On macOS x64, one Go addon per process. See <a href="/projects/napi-go/docs/platforms/">platforms</a>.</p>
+<h2 id="repository"><a class="heading-anchor" href="#repository">Repository</a></h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/projects/napi-go/docs/napi/"><code>napi/</code></a></td>
+<td>Layer 2 (framework: <code>Export</code>, wrappers, conversions, classes) and Layer 1 (core: values, errors, functions, buffers, threads)</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/sys/"><code>sys/</code></a></td>
+<td>Layer 0: the Node-API 1–10 functions, generated 1:1</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/cmd/napi-go/"><code>cmd/napi-go/</code></a></td>
+<td>the CLI: <code>new</code>, <code>gen</code>, <code>build</code>, <code>artifacts</code>, <code>prepublish</code></td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/internal/codegen/"><code>internal/codegen/</code></a></td>
+<td>the code generator: annotations and TypeScript mapping</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/bench/"><code>bench/</code></a></td>
+<td>benchmarks</td>
+</tr>
+<tr>
+<td><code>tests/e2e/</code></td>
+<td>test addons and <code>node:test</code> suites</td>
+</tr>
+<tr>
+<td><a href="/projects/napi-go/docs/tests/nodesuite/"><code>tests/nodesuite/</code></a>, <a href="/projects/napi-go/docs/tests/addonapisuite/"><code>tests/addonapisuite/</code></a></td>
+<td>the Node.js and node-addon-api test suites, ported</td>
+</tr>
+<tr>
+<td><code>.github/workflows/</code></td>
+<td>CI: <code>sys.yml</code> (layers, generator, CLI tests, Alpine sentinel), <code>cli.yml</code> (projects created by the CLI, cross-compiled and loaded on every platform), <code>bench.yml</code>, <code>release.yml</code></td>
+</tr>
+</tbody>
+</table>
+<p>Developing napi-go itself:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ./sys/...</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ./napi/...</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ./internal/...</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ./cmd/...</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/e2e/build.mjs</span><span style="color:#6A737D;--shiki-dark:#6A737D">               # Windows without gcc: set CC=zig cc</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --test</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/e2e/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">*</span><span style="color:#032F62;--shiki-dark:#9ECBFF">.test.mjs</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/nodesuite/run.mjs</span><span style="color:#6A737D;--shiki-dark:#6A737D">          # Node.js test suite ported to sys</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/addonapisuite/run.mjs</span><span style="color:#6A737D;--shiki-dark:#6A737D">      # node-addon-api test suite ported to napi</span></span></code></pre>
+<p>Releases: <a href="/projects/napi-go/docs/releasing/">docs/releasing.md</a>. License: <a href="https://github.com/napi-bindings/napi-go/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">Apache 2.0</a>.</p>15:X
+3:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$Le",null,{"html":"$f"}]}],"$L10"]}],["$L11","$L12"],"$L13"]}],"p":"$@14","v":null,"s":"$15"}}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":65568,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"Native Node.js addons written in Go: annotated functions, structs and classes become a typed npm package."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/"}],["$","meta","4",{"property":"og:title","content":"napi-go"}],["$","meta","5",{"property":"og:description","content":"Native Node.js addons written in Go: annotated functions, structs and classes become a typed npm package."}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","8",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","link","9",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","10",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L1b","11",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1c","v":null,"s":"$15"}},"a":"$@1d","u":"$@1e","b":"rqzizN7opElHqBNmIIWHs"}
+1f:I[73838,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"CodeTabsClient"]
+27:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+20:T480,<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> github.com/napi-bindings/napi-go/cmd/napi-go@latest</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> new</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x26;&#x26; </span><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build:debug</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x26;&#x26; </span><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test</span></span></code></pre>21:T4d2,<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// Greet returns a greeting for name.</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//napi:export</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">func</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Greet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">name</span><span style="color:#D73A49;--shiki-dark:#F97583"> string</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">string</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "hello "</span><span style="color:#D73A49;--shiki-dark:#F97583"> +</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> name }</span></span></code></pre>10:["$","aside",null,{"className":"flex flex-col gap-4 lg:order-none","children":[["$","div",null,{"className":"flex flex-col gap-2","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Get started"}],["$","$L1f",null,{"tabs":[{"label":"New addon","lang":"sh","code":"go run github.com/napi-bindings/napi-go/cmd/napi-go@latest new my-addon\ncd my-addon && npm run build:debug && npm test","html":"$20"},{"label":"Go","lang":"go","code":"// Greet returns a greeting for name.\n//\n//napi:export\nfunc Greet(name string) string { return \"hello \" + name }","html":"$21"}]}]]}],false,["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":["$L22","$L23"]}],"$L24","$L25","$L26"]}]
+11:["$","script","script-0",{"src":"/_next/static/chunks/3-909m818e1da.js","async":true}]
+12:["$","script","script-1",{"src":"/_next/static/chunks/2rdswu9mij722.js","async":true}]
+13:["$","$L27",null,{"children":["$","$1a",null,{"name":"Next.MetadataOutlet","children":"$@28"}]}]
+1e:true
+29:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"default"]
+2a:I[72436,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Separator"]
+30:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],""]
+22:["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Highlights"}]}]
+23:["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing)","children":["$","ul",null,{"className":"flex flex-col gap-2 text-sm","children":[["$","li","Go types converted automatically, with TypeScript declarations",{"className":"flex gap-2","children":[["$","$L29",null,{"icon":{"name":"check","size":24,"node":[["path",{"d":"M20 6 9 17l-5-5","key":"1gmf2c"}]]},"className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Go types converted automatically, with TypeScript declarations"}]]}],["$","li","context.Context functions run in goroutines and return Promises",{"className":"flex gap-2","children":[["$","$L29",null,{"icon":"$23:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"context.Context functions run in goroutines and return Promises"}]]}],["$","li","Classes backed by Go values, with finalizers",{"className":"flex gap-2","children":[["$","$L29",null,{"icon":"$23:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Classes backed by Go values, with finalizers"}]]}],["$","li","All platforms built from one machine with Zig, like napi-rs",{"className":"flex gap-2","children":[["$","$L29",null,{"icon":"$23:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"All platforms built from one machine with Zig, like napi-rs"}]]}]]}]}]
+24:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Repository"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-4","children":[["$","dl",null,{"className":"grid grid-cols-2 gap-x-4 gap-y-2 text-sm","children":[["$","div","Default branch",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Default branch"}],["$","dd",null,{"className":"font-mono text-xs","children":"main"}]]}],["$","div","Last commit",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Last commit"}],["$","dd",null,{"className":"font-mono text-xs","children":"Nov 12, 2026"}]]}],["$","div","Open issues",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Open issues"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}],["$","div","Documents",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Documents"}],["$","dd",null,{"className":"font-mono text-xs","children":"15"}]]}]]}],["$","div",null,{"className":"flex flex-col gap-2","children":[["$","div",null,{"className":"bg-muted flex h-2 overflow-hidden rounded-full","aria-hidden":true,"children":[["$","span","Go",{"className":"bg-brand h-full","style":{"width":"59.04710738311252%","opacity":1}}],["$","span","JavaScript",{"className":"bg-brand h-full","style":{"width":"27.946702714256418%","opacity":0.75}}],["$","span","C",{"className":"bg-brand h-full","style":{"width":"11.622459265934738%","opacity":0.55}}]]}],["$","ul",null,{"className":"text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs","children":[["$","li","Go",{"children":["Go"," ",["$","span",null,{"className":"font-mono","children":["59.0","%"]}]]}],["$","li","JavaScript",{"children":["JavaScript"," ",["$","span",null,{"className":"font-mono","children":["27.9","%"]}]]}],["$","li","C",{"children":["C"," ",["$","span",null,{"className":"font-mono","children":["11.6","%"]}]]}]]}]]}],[["$","$L2a",null,{}],["$","div",null,{"className":"flex flex-wrap gap-1","children":[["$","span","addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"addon"}],["$","span","javascript",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"javascript"}],"$L2b","$L2c","$L2d","$L2e","$L2f"]}]]]}]]}]
+25:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Related projects"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","$L30","node-api-stub",{"href":"/projects/node-api-stub/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"node-api-stub"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Explains why Go c-shared addons must not link a static stub."}]]}],["$","$L30","marmotta",{"href":"/projects/marmotta/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"Marmotta"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Zig-based cross-compilation for C and C++ addons."}]]}]]}]]}]
+26:["$","div",null,{"className":"hidden pt-2 lg:block","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","documentation",{"className":"","children":["$","a",null,{"href":"#documentation","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Documentation"}]}],["$","li","platforms",{"className":"","children":["$","a",null,{"href":"#platforms","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Platforms"}]}],["$","li","repository",{"className":"","children":["$","a",null,{"href":"#repository","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Repository"}]}]]}]]}]}]
+28:null
+15:300
+2b:["$","span","napi",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"napi"}]
+2c:["$","span","native",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"native"}]
+2d:["$","span","node",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node"}]
+2e:["$","span","node-api",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node-api"}]
+2f:["$","span","nodejs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"nodejs"}]
+15:C
+1d:0
+1c:"$undefined"
+14:"$undefined"

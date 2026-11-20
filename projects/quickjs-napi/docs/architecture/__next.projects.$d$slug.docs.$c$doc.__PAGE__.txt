@@ -1,0 +1,710 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T87a8,<h1 id="architecture">Architecture</h1>
+<p>This document explains how quickjs-napi is built and why. It is meant for
+contributors and for embedders who need to understand what happens behind the
+Node-API calls. The API itself is described in the
+<a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a> and the
+<a href="/projects/quickjs-napi/docs/embedding/">embedding guide</a>.</p>
+<ul>
+<li><a href="#goals-and-constraints">Goals and constraints</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#host-and-env">Host and env</a></li>
+<li><a href="#values-and-handle-scopes">Values and handle scopes</a></li>
+<li><a href="#calling-native-functions">Calling native functions</a></li>
+<li><a href="#errors-and-exceptions">Errors and exceptions</a></li>
+<li><a href="#object-lifetime">Object lifetime</a></li>
+<li><a href="#the-event-loop">The event loop</a></li>
+<li><a href="#loading-addons">Loading addons</a></li>
+<li><a href="#teardown">Teardown</a></li>
+<li><a href="#captured-builtins">Captured builtins</a></li>
+<li><a href="#design-decisions">Design decisions</a></li>
+</ul>
+<h2 id="goals-and-constraints"><a class="heading-anchor" href="#goals-and-constraints">Goals and constraints</a></h2>
+<p>quickjs-napi implements Node-API (version 10) on top of the
+<a href="https://bellard.org/quickjs/" target="_blank" rel="noreferrer noopener">QuickJS</a> engine, so that addons compiled for
+Node.js load <strong>unchanged</strong>. Everything in the design follows from that goal:</p>
+<ol>
+<li><strong>Binary compatibility.</strong> An addon built by node-gyp, node-addon-api or
+napi-rs does not link against any quickjs-napi library: it resolves the
+<code>napi_*</code> (and <code>uv_*</code>) symbols from the running process, exactly as it does
+from <code>node</code>. The executable must therefore export the whole Node-API and
+libuv.</li>
+<li><strong>Observable Node.js semantics.</strong> The reference is Node.js <strong>22.23.4</strong>
+(<code>src/js_native_api_v8.cc</code>, <code>src/node_api.cc</code>). Status codes, pending
+exceptions, property order, error messages and finalizer timing follow it.
+Each difference is a documented deviation (see
+<a href="/projects/quickjs-napi/docs/compatibility/">compatibility.md</a>).</li>
+<li><strong>QuickJS as it is.</strong> The engine is used through its public C API
+(<code>quickjs.h</code>); it is not patched. When QuickJS lacks something V8 has (weak
+callbacks, <code>new.target</code> in C functions, a class ID enum, DataView
+accessors), the library builds it from what QuickJS has.</li>
+</ol>
+<p>The main difference between the two engines is the memory model: <strong>V8 uses a
+tracing GC</strong>, so an object stays alive until a collection finds it unreachable.
+<strong>QuickJS uses reference counting</strong> plus a cycle collector, so an object is
+freed as soon as its last reference goes away. Much of the lifetime machinery
+below exists to make reference counting look like a tracing GC to addons.</p>
+<h2 id="components"><a class="heading-anchor" href="#components">Components</a></h2>
+<pre class="mermaid">flowchart TB
+    subgraph process["quickjs-napi process"]
+        direction TB
+        script["user script&#x3C;br/>(CommonJS)"]
+        boot["host/bootstrap.js&#x3C;br/>require, process, timers,&#x3C;br/>Buffer, child_process, ..."]
+        main["host/main.c + host/spawn.c&#x3C;br/>CLI, event loop phases,&#x3C;br/>natives for bootstrap.js"]
+        lib["libqjsnapi (src/*.c)&#x3C;br/>Node-API 10 + qjsnapi.h"]
+        qjs["QuickJS&#x3C;br/>(libqjs, quickjs-libc)"]
+        uv["libuv 1.51&#x3C;br/>(static, uv_a)"]
+        script --> boot --> main
+        main --> lib
+        lib --> qjs
+        lib --> uv
+        main --> qjs
+        main --> uv
+    end
+    addon["addon.node&#x3C;br/>(node-gyp / node-addon-api / napi-rs)"]
+    addon -. "napi_* resolved&#x3C;br/>from the executable" .-> lib
+    addon -. "uv_*" .-> uv
+</pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/</code> (library <code>qjsnapi</code>)</td>
+<td>The Node-API implementation and the embedding API <code>include/qjsnapi.h</code>. It does not depend on the executable and can be embedded in any QuickJS application.</td>
+</tr>
+<tr>
+<td><code>host/</code> (executable <code>quickjs-napi</code>)</td>
+<td>A small Node.js-like runtime around the library: command line, CommonJS loader, <code>process</code>, timers, the event loop. It runs addons and the test suites. See <a href="/projects/quickjs-napi/docs/host/">host.md</a>.</td>
+</tr>
+<tr>
+<td>QuickJS</td>
+<td>Built as a subproject from <code>../quickjs-build</code>. <code>include/quickjs.h</code> must match it exactly (the <code>JSValue</code> ABI); configuration fails otherwise.</td>
+</tr>
+<tr>
+<td>libuv</td>
+<td>Fetched at configure time (v1.51.0), built statically and exported by the executable, because addons call <code>uv_*</code> directly.</td>
+</tr>
+</tbody>
+</table>
+<p>The library is linked into the executable as a <strong>whole archive</strong>
+(<code>QJSNAPI_WHOLE_ARCHIVE</code> in <code>CMakeLists.txt</code>), so that the objects of
+functions the host itself never calls are kept and exported too. The
+<code>exports_complete</code> test (<code>tools/check_exports.py</code>) checks that all 155
+functions are exported.</p>
+<h3 id="source-layout-of-the-library"><a class="heading-anchor" href="#source-layout-of-the-library">Source layout of the library</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Responsibility</th>
+<th>Node-API functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>env.c</code></td>
+<td>host and env lifecycle, last error, cleanup hooks, versions, fatal errors</td>
+<td>9</td>
+</tr>
+<tr>
+<td><code>scope.c</code></td>
+<td>handle-scope arena</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>value.c</code></td>
+<td>singletons, numbers, booleans, <code>typeof</code>, coercion, arrays, strict equality</td>
+<td>24</td>
+</tr>
+<tr>
+<td><code>string.c</code></td>
+<td>strings (latin1, UTF-8, UTF-16), property keys, symbols</td>
+<td>13</td>
+</tr>
+<tr>
+<td><code>object.c</code></td>
+<td>properties, descriptors, key enumeration, prototype, freeze/seal, <code>instanceof</code></td>
+<td>19</td>
+</tr>
+<tr>
+<td><code>function.c</code></td>
+<td>functions, calls, <code>new.target</code>, classes, <code>napi_run_script</code></td>
+<td>7</td>
+</tr>
+<tr>
+<td><code>error.c</code></td>
+<td>error objects and exceptions</td>
+<td>12</td>
+</tr>
+<tr>
+<td><code>lifetime.c</code></td>
+<td>references, externals, wrap, finalizers, type tags, instance data</td>
+<td>16</td>
+</tr>
+<tr>
+<td><code>builtins.c</code></td>
+<td>ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise</td>
+<td>25</td>
+</tr>
+<tr>
+<td><code>buffer.c</code>, <code>buffer.js</code></td>
+<td>Node.js <code>Buffer</code></td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>node_api.c</code></td>
+<td>async context, <code>napi_make_callback</code>, callback scopes, <code>napi_fatal_exception</code></td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>async.c</code></td>
+<td>async work on the libuv thread pool</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>tsfn.c</code></td>
+<td>thread-safe functions</td>
+<td>7</td>
+</tr>
+<tr>
+<td><code>loop.c</code></td>
+<td>libuv loop ownership, finalizer handles, <code>napi_get_uv_event_loop</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>loader.c</code></td>
+<td><code>.node</code> loading, legacy <code>napi_module_register</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>stubs_generated.c</code></td>
+<td>generated stubs for unimplemented functions (empty: everything is implemented)</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Shared types and helpers live in <code>src/qjsnapi_internal.h</code>. Internal functions
+carry the <code>qn_</code> prefix and are hidden (<code>QN_INTERNAL</code>, ELF visibility
+<code>hidden</code>), so the only exported symbols are the Node-API and <code>qjsnapi_*</code>
+ones.</p>
+<h2 id="host-and-env"><a class="heading-anchor" href="#host-and-env">Host and env</a></h2>
+<p>Node.js has one <em>environment</em> per thread and one <code>napi_env</code> per loaded addon.
+quickjs-napi keeps the same split:</p>
+<pre class="mermaid">classDiagram
+    direction LR
+    class JSRuntime
+    class JSContext {
+        opaque points to the host
+    }
+    class qjsnapi_host {
+        uv_loop_t* loop
+        qn_list envs
+        qn_list modules
+        JSValue holders (WeakMap)
+        captured builtins
+        JSValue* kept
+        uncaught / checkpoint callbacks
+    }
+    class napi_env__ {
+        int32 module_api_version
+        bool can_call_into_js
+        last_error
+        qn_arena arena
+        cleanup_hooks
+        reflist / finalizing_reflist
+        pending_finalizers
+        works, deferreds, async_contexts
+    }
+    class qn_module_record {
+        path
+        dlopen handle
+        legacy napi_module
+    }
+    JSRuntime "1" o-- "1..*" JSContext
+    JSContext "1" -- "1" qjsnapi_host
+    qjsnapi_host "1" *-- "*" napi_env__ : one per addon load
+    qjsnapi_host "1" *-- "*" qn_module_record
+    qn_module_record --> napi_env__
+</pre>
+<ul>
+<li><strong><code>qjsnapi_host</code></strong> (one per <code>JSContext</code>, stored as the context opaque) owns
+everything that is shared: the libuv loop, the captured builtins, the
+<code>WeakMap</code> of lifetime holders, the list of envs and loaded modules, the
+<em>kept objects</em> list, and the embedder's callbacks (uncaught exception
+handler, checkpoint).</li>
+<li><strong><code>napi_env__</code></strong> (one per addon initialization) owns what Node.js keeps per
+module: the <strong>module API version</strong> (which changes some behaviours, e.g.
+<code>napi_cannot_run_js</code> instead of <code>napi_pending_exception</code> during teardown),
+the last error, the handle-scope arena, cleanup hooks, references, the
+finalizer queue, and the async objects not yet released.</li>
+</ul>
+<p>Loading the same addon twice creates two envs, like <code>process.dlopen</code> in
+Node.js: the initializer runs again and returns new exports.</p>
+<h2 id="values-and-handle-scopes"><a class="heading-anchor" href="#values-and-handle-scopes">Values and handle scopes</a></h2>
+<p>A <code>napi_value</code> is an opaque pointer. In quickjs-napi it <strong>points to a
+<code>JSValue</code> slot</strong> in an arena owned by the env. Each slot owns exactly one
+QuickJS reference (<code>JS_DupValue</code> when the slot is filled, <code>JS_FreeValue</code> when
+its scope closes). This is the reference-counting equivalent of a V8 local
+handle.</p>
+<pre class="mermaid">flowchart LR
+    subgraph arena["env arena: chunks of 256 JSValue slots, never moved"]
+        direction LR
+        c1["chunk 1&#x3C;br/>slots 0..255"] --- c2["chunk 2&#x3C;br/>slots 0..255"] --- c3["chunk 3&#x3C;br/>..."]
+    end
+    root["root scope&#x3C;br/>mark: chunk 1, slot 0"] -.-> c1
+    s1["implicit scope of a call&#x3C;br/>mark: chunk 1, slot 17"] -.-> c1
+    s2["napi_open_handle_scope&#x3C;br/>mark: chunk 2, slot 40"] -.-> c2
+    top["top: next free slot"] -.-> c3
+</pre>
+<ul>
+<li>Slots are allocated by bumping <code>arena.top</code>. Chunks are linked, never
+reallocated, so a <code>napi_value</code> stays valid until its scope closes.</li>
+<li>A scope records the arena position (<code>qn_mark</code>) when it opens. Closing it
+frees, in LIFO order, every slot allocated since then and resets <code>top</code>.
+Closing a scope is O(number of values created in it), with no per-handle
+bookkeeping.</li>
+<li><strong>Escapable scopes</strong> reserve one slot in the parent <em>before</em> recording their
+own mark. <code>napi_escape_handle</code> stores a duplicated reference into that slot,
+so the value survives the inner scope. Escaping twice returns
+<code>napi_escape_called_twice</code>.</li>
+<li>Every native entry point (a function call, a finalizer, module init, a loop
+callback) runs inside an <strong>implicit scope</strong>, so addons that never open scopes
+do not leak. Closing a scope that is not the innermost one returns
+<code>napi_handle_scope_mismatch</code>.</li>
+<li>Scope records are recycled through a free list, so opening a scope does not
+allocate in the steady state.</li>
+</ul>
+<h2 id="calling-native-functions"><a class="heading-anchor" href="#calling-native-functions">Calling native functions</a></h2>
+<p><code>JS_NewCFunctionData</code> is not enough for Node-API: its trampoline does not expose
+<code>new.target</code>, which <code>napi_get_new_target</code> and <code>napi_define_class</code> need. Native
+functions are therefore objects of a dedicated QuickJS class with a <code>call</code>
+hook. QuickJS passes <code>JS_CALL_FLAG_CONSTRUCTOR</code> and, for construct calls,
+<code>new.target</code> as <code>this_val</code>.</p>
+<pre class="mermaid">sequenceDiagram
+    participant JS as JavaScript
+    participant T as qn_function_call (trampoline)
+    participant S as handle-scope arena
+    participant CB as addon callback
+    JS->>T: f(a, b) or new F(a, b)
+    alt construct call
+        T->>T: receiver = object with new.target.prototype
+    else plain call
+        T->>T: receiver = this
+    end
+    T->>S: open implicit scope
+    T->>T: clear last error, native_depth++
+    T->>CB: cb(env, &#x26;callback_info)
+    CB->>S: napi_create_* (new slots)
+    CB-->>T: napi_value result (or NULL)
+    T->>T: native_depth--
+    alt exception pending
+        T-->>JS: JS_EXCEPTION (the exception propagates)
+    else
+        T->>T: duplicate the result out of the scope
+    end
+    T->>S: close the scope (frees every slot of the call)
+    T-->>JS: result, or the receiver when a construct call&#x3C;br/>returned a non-object
+</pre>
+<ul>
+<li><code>napi_callback_info</code> points to a stack record (<code>this</code>, <code>new.target</code>,
+<code>argc</code>, <code>argv</code>, <code>data</code>): there is no allocation per call.</li>
+<li>The per-function record (<code>qn_function</code>: env, callback, data) is owned by the
+function object and freed by its class finalizer. It holds no <code>JSValue</code>, so
+the class needs no <code>gc_mark</code> hook.</li>
+<li><code>host->native_depth</code> counts the native frames on the stack. It is <code>0</code> only
+when no JavaScript is below the running native code, which is how callback
+scopes decide whether to run a microtask checkpoint.</li>
+<li>A function whose env is shutting down throws an <code>InternalError</code> instead of
+calling into the addon.</li>
+</ul>
+<p><code>napi_define_class</code> creates such a function and defines the instance
+properties on its <code>prototype</code> and the static ones on the constructor. As with
+V8's prototype templates, a later instance property with the same key replaces
+an earlier one regardless of its attributes.</p>
+<h2 id="errors-and-exceptions"><a class="heading-anchor" href="#errors-and-exceptions">Errors and exceptions</a></h2>
+<p>Node-API reports errors in two ways, and quickjs-napi keeps both exactly like
+Node.js:</p>
+<ol>
+<li><strong>Status codes.</strong> Every function returns a <code>napi_status</code> and records it as
+the env's <em>last error</em> (<code>napi_get_last_error_info</code>). The checks are the
+macros of <code>qjsnapi_internal.h</code>, named after their Node.js equivalents:
+<code>CHECK_ENV</code>, <code>CHECK_ARG</code>, <code>RETURN_STATUS_IF_FALSE</code>, <code>NAPI_PREAMBLE</code>,
+<code>CHECK_JS</code>, <code>GET_RETURN_STATUS</code>.</li>
+<li><strong>JavaScript exceptions.</strong> QuickJS keeps the pending exception on the
+runtime. A JavaScript failure leaves it pending, exactly like V8, and the
+function returns <code>napi_pending_exception</code>.</li>
+</ol>
+<pre class="mermaid">flowchart TD
+    A["API that may run JavaScript"] --> P{"NAPI_PREAMBLE"}
+    P -- "env is NULL" --> E1["napi_invalid_arg"]
+    P -- "an exception is already pending" --> E2["napi_pending_exception"]
+    P -- "env is tearing down" --> E3["napi_cannot_run_js (module API >= 10)&#x3C;br/>napi_pending_exception (older modules)"]
+    P -- ok --> B["clear the last error, run the QuickJS call"]
+    B -- "JavaScript threw" --> E4["napi_pending_exception&#x3C;br/>(the exception stays pending)"]
+    B -- "other failure" --> E5["specific status&#x3C;br/>(napi_*_expected, napi_generic_failure, ...)"]
+    B -- ok --> OK["napi_ok"]
+</pre>
+<p>When a native callback returns with an exception pending, the trampoline
+returns <code>JS_EXCEPTION</code>, so the exception propagates to the JavaScript caller.
+When there is no JavaScript caller (a finalizer, an async work completion, a
+thread-safe function call), the exception goes to the host's <strong>uncaught
+handler</strong> (<code>qjsnapi_host_set_uncaught_handler</code>), which the executable maps to
+<code>process.on('uncaughtException')</code>.</p>
+<h2 id="object-lifetime"><a class="heading-anchor" href="#object-lifetime">Object lifetime</a></h2>
+<p>This is where the two engines differ most. The
+<a href="/projects/quickjs-napi/docs/node-api/lifetime/">lifetime reference</a> describes the API; this section
+explains the mechanism.</p>
+<h3 id="references"><a class="heading-anchor" href="#references">References</a></h3>
+<p><code>napi_ref</code> (<code>struct napi_ref__</code>) mirrors <code>v8impl::Reference</code>:</p>
+<pre class="mermaid">stateDiagram-v2
+    [*] --> Strong: create with count > 0
+    [*] --> Weak: create with count 0&#x3C;br/>(object, function, local symbol)
+    [*] --> Empty: create with count 0&#x3C;br/>(any other value)
+    Strong --> Weak: unref reaches 0, weakable target
+    Strong --> Empty: unref reaches 0, other value
+    Weak --> Strong: ref, target still alive
+    Weak --> Empty: target collected (holder finalizer)
+    Strong --> [*]: napi_delete_reference
+    Weak --> [*]: napi_delete_reference
+    Empty --> [*]: napi_delete_reference
+</pre>
+<ul>
+<li><strong>Strong</strong> (count > 0): the reference owns a <code>JSValue</code>.</li>
+<li><strong>Weak</strong> (count 0; object, function or non-registered symbol): it holds a
+JavaScript <code>WeakRef</code>. QuickJS reports a <code>WeakRef</code> target dead as soon as its
+refcount drops to zero, so <code>napi_get_reference_value</code> returns <code>NULL</code> exactly
+when the value is gone. The target is also on the <em>kept-objects</em> list until
+the next clear (see below).</li>
+<li><strong>Empty</strong> (count 0, any other value): the value is released for good, like a
+reset V8 persistent.</li>
+<li>Registered symbols (<code>Symbol.for</code>) cannot be held weakly by QuickJS. They are
+never collected anyway, so they stay strong (<code>keep_strong</code>), which is what
+Node.js observably does.</li>
+</ul>
+<h3 id="kept-objects"><a class="heading-anchor" href="#kept-objects">Kept objects</a></h3>
+<p>V8 keeps the target of a weak handle alive until the next GC. node-addon-api
+relies on this: <code>Napi::Weak(Object::New(env))</code> is used later in the same
+synchronous code. Under reference counting such an object would die when the
+call's scope closes. So when a reference becomes weak, its target is also put
+on a <strong>kept-objects list</strong>, like the <code>[[KeptAlive]]</code> list of ECMAScript
+<code>WeakRef</code>s. The list is cleared:</p>
+<ul>
+<li>at the end of every macrotask (the library's checkpoint, after each callback
+from the event loop);</li>
+<li>by <code>gc()</code> in the executable;</li>
+<li>by the embedder, with <code>qjsnapi_host_clear_kept_objects</code>;</li>
+<li>at teardown.</li>
+</ul>
+<h3 id="weak-callbacks-through-holders"><a class="heading-anchor" href="#weak-callbacks-through-holders">Weak callbacks through holders</a></h3>
+<p>V8 notifies a weak persistent when its target is collected; QuickJS has no
+such hook in its C API. quickjs-napi gets the notification through a
+<strong>holder</strong>:</p>
+<pre class="mermaid">sequenceDiagram
+    participant A as addon
+    participant L as lifetime.c
+    participant W as host.holders (WeakMap)
+    participant H as NapiHolder object
+    participant G as QuickJS GC
+    participant Q as env.pending_finalizers
+    participant U as event loop (uv_check)
+    A->>L: napi_wrap / napi_create_reference / napi_type_tag_object
+    L->>W: get(target), or set(target, new holder)
+    L->>H: register the reference, wrap or tag
+    Note over G: the target becomes unreachable
+    G->>W: JS_RunGC drops the entry of the dead key
+    W->>H: the holder is freed
+    H->>L: class finalizer: notify every registered reference
+    L->>Q: no finalizer: reset now&#x3C;br/>with a finalizer: queue it
+    U->>Q: qjsnapi_host_run_finalizers
+    Q->>A: finalize_cb(env, data, hint) in its own scope
+</pre>
+<ul>
+<li>Each target of a reference, wrap or type tag gets <strong>one holder</strong>, an object
+of the internal <code>NapiHolder</code> class stored in <code>host->holders</code>, a <code>WeakMap</code>
+keyed by the target.</li>
+<li>QuickJS drops the entries of dead keys during <code>JS_RunGC</code>. The holder is
+freed, and its class finalizer plays the role of V8's weak callback.</li>
+<li>The holder also stores the <code>napi_wrap</code> reference and the type tag, so
+<strong>wrapping and tagging work on any object</strong> (frozen objects, proxies,
+functions) without adding properties to it.</li>
+<li>QuickJS drops weak entries <em>before</em> collecting cycles, so a target that died
+in a cycle is only seen dead by a second pass: <code>gc()</code> runs <code>JS_RunGC</code> twice.</li>
+</ul>
+<h3 id="finalizers-are-deferred"><a class="heading-anchor" href="#finalizers-are-deferred">Finalizers are deferred</a></h3>
+<p>Finalizers <strong>never run inside the GC</strong>. As in Node.js, they are queued on the
+env (<code>pending_finalizers</code>) and run later from the event loop, where
+JavaScript may run (<code>qjsnapi_host_run_finalizers</code>), each in its own handle
+scope and followed by a checkpoint. Finalizers still queued at teardown run
+then, with JavaScript disabled (<code>napi_cannot_run_js</code>).</p>
+<p>External values (<code>napi_create_external</code>), external ArrayBuffers and external
+Buffers use the same queue: their finalizer runs after the object is
+collected, never synchronously.</p>
+<h2 id="the-event-loop"><a class="heading-anchor" href="#the-event-loop">The event loop</a></h2>
+<p>The host is bound to a <strong>libuv loop</strong>: <code>qjsnapi_host_create</code> creates its own,
+<code>qjsnapi_host_create_with_loop</code> uses the embedder's. The library only adds
+handles to the loop; <strong>the embedder runs it</strong> (<code>uv_run</code>).</p>
+<pre class="mermaid">flowchart LR
+    subgraph iteration["one libuv iteration"]
+        direction LR
+        T["timers"] --> P["pending"] --> I["idle / prepare"] --> PO["poll (I/O)"] --> C["check"] --> CL["close callbacks"]
+    end
+    W["async work completion&#x3C;br/>(uv_queue_work after_work)"] -.-> PO
+    TS["thread-safe function dispatch&#x3C;br/>(uv_async_t)"] -.-> PO
+    FI["finalizer_idle (uv_idle_t)&#x3C;br/>active while finalizers are queued,&#x3C;br/>so poll does not block"] -.-> I
+    FC["finalizer_check (uv_check_t, unreferenced)&#x3C;br/>runs the queued finalizers"] -.-> C
+</pre>
+<table>
+<thead>
+<tr>
+<th>Handle</th>
+<th>Owner</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>finalizer_check</code> (<code>uv_check_t</code>, unreferenced)</td>
+<td><code>loop.c</code></td>
+<td>runs the queued finalizers at the end of each iteration, then a checkpoint</td>
+</tr>
+<tr>
+<td><code>finalizer_idle</code> (<code>uv_idle_t</code>)</td>
+<td><code>loop.c</code></td>
+<td>active only while finalizers are queued: keeps the loop alive and stops the poll phase from blocking (Node.js uses a referenced <code>SetImmediate</code>)</td>
+</tr>
+<tr>
+<td><code>uv_work_t</code> per queued work item</td>
+<td><code>async.c</code></td>
+<td><code>execute</code> on the thread pool, <code>complete</code> on the loop thread</td>
+</tr>
+<tr>
+<td><code>uv_async_t</code> per thread-safe function</td>
+<td><code>tsfn.c</code></td>
+<td>wakes the loop thread to dispatch queued calls (referenced unless <code>napi_unref_threadsafe_function</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Every callback from the loop into native code goes through a <strong>callback
+frame</strong> (<code>qn_callback_enter</code> / <code>qn_callback_leave</code>): a handle scope, a callback
+scope, and on exit an exception check (reported as uncaught) and, for the
+outermost scope, a <strong>checkpoint</strong>. The default checkpoint runs the pending
+promise jobs (<code>JS_ExecutePendingJob</code>); the embedder can replace it
+(<code>qjsnapi_host_set_checkpoint</code>) to drain its own queues too, which is what the
+executable does for <code>process.nextTick</code> and unhandled rejections.</p>
+<h3 id="async-work"><a class="heading-anchor" href="#async-work">Async work</a></h3>
+<pre class="mermaid">sequenceDiagram
+    participant A as addon (loop thread)
+    participant L as libuv loop
+    participant P as thread pool
+    A->>A: napi_create_async_work(execute, complete, data)
+    A->>L: napi_queue_async_work (uv_queue_work), active_works++
+    L->>P: execute(env, data), no JavaScript allowed
+    P-->>L: done
+    L->>A: after_work: active_works--, then complete(env, napi_ok, data)&#x3C;br/>inside a callback frame
+    A->>A: napi_delete_async_work (usually from complete)
+    Note over A,L: napi_cancel_async_work before execute starts:&#x3C;br/>complete(env, napi_cancelled, data)
+</pre>
+<p>The item is uncounted <em>before</em> <code>complete</code> runs, so <code>complete</code> may queue the
+same item again.</p>
+<h3 id="thread-safe-functions"><a class="heading-anchor" href="#thread-safe-functions">Thread-safe functions</a></h3>
+<p>A port of Node 22's <code>v8impl::ThreadSafeFunction</code> on libuv primitives: a mutex,
+a queue (bounded when <code>max_queue_size > 0</code>, with a condition variable for
+blocked producers), a <code>uv_async_t</code> that wakes the loop thread, and at most
+1000 calls dispatched per wake-up so that other handles are not starved.</p>
+<pre class="mermaid">stateDiagram-v2
+    [*] --> Open: napi_create_threadsafe_function&#x3C;br/>(thread_count = initial_thread_count)
+    Open --> Open: call queues an item, acquire increments,&#x3C;br/>release decrements thread_count
+    Open --> Closing: thread_count reaches 0 and the queue is empty
+    Open --> Closing: release with napi_tsfn_abort
+    Open --> Closing: env teardown (internal cleanup hook)
+    Closing --> Finalized: uv_close callback runs thread_finalize_cb,&#x3C;br/>then call_js_cb(env = NULL) for each queued item
+    Finalized --> [*]
+</pre>
+<p>While closing, producers get <code>napi_closing</code>.</p>
+<h2 id="loading-addons"><a class="heading-anchor" href="#loading-addons">Loading addons</a></h2>
+<pre class="mermaid">sequenceDiagram
+    participant R as require / embedder
+    participant L as qjsnapi_load_addon
+    participant D as dlopen / LoadLibrary
+    participant M as addon
+    R->>L: path
+    L->>D: open the absolute path (the handle is never closed)
+    D->>M: static constructors run
+    M-->>L: napi_module_register(mod), legacy addons only
+    L->>M: dlsym napi_register_module_v1
+    L->>M: dlsym node_api_module_get_api_version_v1 (optional)
+    L->>L: version: missing = 8, below 8 raised to 8,&#x3C;br/>above 10 = ERR_DLOPEN_FAILED
+    L->>L: new env, implicit scope, exports = {}
+    L->>M: init(env, exports)
+    M-->>L: exports, or a replacement value
+    L-->>R: new reference to the exports
+</pre>
+<ol>
+<li><code>node_api_module_get_api_version_v1</code> (optional, default 8) gives the module
+API version. A version above 10 is refused with <code>ERR_DLOPEN_FAILED</code>; one
+below 8 is raised to 8, as in Node.js.</li>
+<li><code>napi_register_module_v1</code> is the symbol-based entry point (what
+<code>NAPI_MODULE</code> and <code>NAPI_MODULE_INIT</code> produce).</li>
+<li>Otherwise, a <code>napi_module</code> registered by <code>napi_module_register()</code> from a
+static constructor <strong>during</strong> <code>dlopen</code> (legacy addons). The constructor only
+runs on the first <code>dlopen</code> of a file, so the record is remembered and reused
+by later loads.</li>
+</ol>
+<p>If the initializer returns a value other than <code>exports</code>, that value replaces
+the exports, as Node.js assigns it to <code>module.exports</code>.</p>
+<p>Library handles are <strong>never closed</strong>: finalizers and cleanup hooks may point
+into addon code until the very end of the process.</p>
+<p>Static addons, linked into the embedder, use <code>qjsnapi_init_static_addon</code>,
+which runs the initializer once and caches its exports by name.</p>
+<h2 id="teardown"><a class="heading-anchor" href="#teardown">Teardown</a></h2>
+<p><code>qjsnapi_host_destroy</code> mirrors Node's <code>Environment::RunCleanup</code> and
+<code>node_napi_env__::DeleteMe</code>:</p>
+<pre class="mermaid">flowchart TD
+    S["qjsnapi_host_destroy"] --> A["1. every env, newest first:&#x3C;br/>can_call_into_js = false, then cleanup hooks LIFO&#x3C;br/>(user hooks, async hooks start, thread-safe functions start closing)"]
+    A --> B["2. queued async work cancelled"]
+    B --> C["3. uv_run(UV_RUN_ONCE) until in-flight work,&#x3C;br/>closing thread-safe functions and&#x3C;br/>started async cleanup hooks are done"]
+    C --> D["4. every env, newest first: queued finalizers,&#x3C;br/>then references with a finalizer (instance data included),&#x3C;br/>then plain references"]
+    D --> E["5. module cache released (exports objects)"]
+    E --> F["6. every env arena released (all napi_value slots)"]
+    F --> G["7. library loop handles closed (the loop too when owned),&#x3C;br/>captured builtins released, host detached from the context"]
+    G --> H["embedder: JS_FreeContext, JS_FreeRuntime"]
+</pre>
+<ul>
+<li>References with a finalizer are finalized before plain ones, because their
+finalizers may delete plain references.</li>
+<li>Async work items and user references the addon never deleted are freed with
+the env. Node.js leaks them; here nothing can reach them after teardown, and
+freeing them keeps the QuickJS leak assertion (<code>JS_FreeRuntime</code> in Debug
+builds) meaningful.</li>
+<li>In the executable, <code>process.exit()</code> and fatal exceptions <strong>skip</strong> this
+teardown, as Node.js does: no cleanup hook or finalizer runs.</li>
+</ul>
+<h2 id="captured-builtins"><a class="heading-anchor" href="#captured-builtins">Captured builtins</a></h2>
+<p>Some APIs have no QuickJS C equivalent and are implemented by calling a
+JavaScript builtin: <code>WeakRef</code>, <code>WeakMap.prototype.get/set</code>, <code>Object.freeze</code>,
+<code>Object.seal</code>, <code>Symbol</code>, <code>Symbol.for</code>, the <code>DataView</code> and <code>%TypedArray%</code>
+getters, <code>Date.prototype.getTime</code>, and BigInt conversion to and from
+hexadecimal. These are captured <strong>when the host is created, before any user
+script runs</strong>, and stored on the host. Monkey-patching the globals later
+therefore cannot change what Node-API reports, which matches V8, where these
+operations do not go through JavaScript.</p>
+<p>QuickJS does not export its class ID enum. The class IDs of <code>ArrayBuffer</code>,
+<code>SharedArrayBuffer</code>, <code>DataView</code>, <code>Date</code> and the 12 typed arrays are found by
+<strong>probing one instance of each</strong> at startup (<code>host->cid_*</code>); type checks then
+compare class IDs.</p>
+<h2 id="design-decisions"><a class="heading-anchor" href="#design-decisions">Design decisions</a></h2>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Addons resolve <code>napi_*</code> from the executable</td>
+<td>ship a <code>libnode</code>-like shared library</td>
+<td>It is how addons are built for Node.js. Prebuilt binaries work unchanged, including MSVC builds on Windows (node-gyp's delay-load hook redirects the <code>node.exe</code> imports to the running process).</td>
+</tr>
+<tr>
+<td><code>napi_value</code> = pointer to an arena slot that owns one reference</td>
+<td>box every value in a malloc'ed handle; or cast the <code>JSValue</code> itself</td>
+<td>A <code>JSValue</code> is larger than a pointer on every target (a 16-byte struct on 64-bit, a NaN-boxed 64-bit value on 32-bit). The arena gives stable addresses, O(1) allocation, and scope release without per-handle bookkeeping.</td>
+</tr>
+<tr>
+<td>Weak callbacks through a <code>WeakMap</code> of holders</td>
+<td>patch QuickJS to add weak callbacks; add hidden properties to the target</td>
+<td>Uses only the public API; works on frozen objects, proxies and functions; the engine stays unpatched.</td>
+</tr>
+<tr>
+<td>Kept-objects list for weak targets</td>
+<td>pure reference-counting semantics</td>
+<td>Without it, objects referenced only weakly die when the creating call returns, which breaks node-addon-api (<code>Napi::Weak</code>). The list reproduces V8's "alive until the next GC" the same way ECMAScript <code>WeakRef</code> does.</td>
+</tr>
+<tr>
+<td>Finalizers queued and run from the loop</td>
+<td>run them in the QuickJS class finalizer</td>
+<td>Node.js does the same; a QuickJS class finalizer runs inside the GC, where calling into the engine is unsafe.</td>
+</tr>
+<tr>
+<td>Dedicated function class with a <code>call</code> hook</td>
+<td><code>JS_NewCFunctionData</code></td>
+<td>Only the <code>call</code> hook receives <code>new.target</code>, needed by <code>napi_get_new_target</code> and <code>napi_define_class</code>.</td>
+</tr>
+<tr>
+<td>Builtins captured at startup</td>
+<td>look them up on <code>globalThis</code> at each call</td>
+<td>Immune to monkey-patching, like V8; no lookup per call.</td>
+</tr>
+<tr>
+<td>libuv as the event loop</td>
+<td>a custom loop</td>
+<td>Addons call <code>napi_get_uv_event_loop</code> and <code>uv_*</code> directly; the semantics of async work and thread-safe functions are defined in libuv terms.</td>
+</tr>
+<tr>
+<td>Library and executable are separate</td>
+<td>a single executable</td>
+<td>The library can be embedded in any QuickJS application (<a href="/projects/quickjs-napi/docs/embedding/">embedding.md</a>); the executable is one embedder among others.</td>
+</tr>
+<tr>
+<td>Free what the addon leaked at teardown</td>
+<td>leak like Node.js</td>
+<td>Debug builds of QuickJS assert that every object is released at <code>JS_FreeRuntime</code>, which turns any leak in the library into a test failure.</td>
+</tr>
+<tr>
+<td>Node.js 22 as the behavioural reference, checked by running the same JS tests under Node.js</td>
+<td>follow the Node-API documentation only</td>
+<td>The documentation leaves many details open (property order, error codes, edge cases); the Node.js implementation and its test suites are the contract addons actually depend on.</td>
+</tr>
+</tbody>
+</table>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/architecture.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/architecture.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"architecture","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Architecture · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Architecture (doc/architecture.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/architecture/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Node-API reference"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/building/"}],"nativeButton":false,"children":["Building",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","goals-and-constraints",{"className":"","children":["$","a",null,{"href":"#goals-and-constraints","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Goals and constraints"}]}],["$","li","components",{"className":"","children":["$","a",null,{"href":"#components","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Components"}]}],["$","li","source-layout-of-the-library",{"className":"pl-3","children":["$","a",null,{"href":"#source-layout-of-the-library","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Source layout of the library"}]}],["$","li","host-and-env",{"className":"","children":["$","a",null,{"href":"#host-and-env","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Host and env"}]}],["$","li","values-and-handle-scopes",{"className":"","children":["$","a",null,{"href":"#values-and-handle-scopes","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Values and handle scopes"}]}],["$","li","calling-native-functions",{"className":"","children":["$","a",null,{"href":"#calling-native-functions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Calling native functions"}]}],["$","li","errors-and-exceptions",{"className":"","children":["$","a",null,{"href":"#errors-and-exceptions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Errors and exceptions"}]}],["$","li","object-lifetime",{"className":"","children":["$","a",null,{"href":"#object-lifetime","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Object lifetime"}]}],["$","li","references",{"className":"pl-3","children":["$","a",null,{"href":"#references","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"References"}]}],["$","li","kept-objects",{"className":"pl-3","children":["$","a",null,{"href":"#kept-objects","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Kept objects"}]}],["$","li","weak-callbacks-through-holders",{"className":"pl-3","children":["$","a",null,{"href":"#weak-callbacks-through-holders","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Weak callbacks through holders"}]}],["$","li","finalizers-are-deferred",{"className":"pl-3","children":["$","a",null,{"href":"#finalizers-are-deferred","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Finalizers are deferred"}]}],["$","li","the-event-loop",{"className":"","children":["$","a",null,{"href":"#the-event-loop","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"The event loop"}]}],["$","li","async-work",{"className":"pl-3","children":["$","a",null,{"href":"#async-work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Async work"}]}],["$","li","thread-safe-functions",{"className":"pl-3","children":["$","a",null,{"href":"#thread-safe-functions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Thread-safe functions"}]}],["$","li","loading-addons",{"className":"","children":["$","a",null,{"href":"#loading-addons","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Loading addons"}]}],["$","li","teardown",{"className":"","children":["$","a",null,{"href":"#teardown","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Teardown"}]}],["$","li","captured-builtins",{"className":"","children":["$","a",null,{"href":"#captured-builtins","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Captured builtins"}]}],["$","li","design-decisions",{"className":"","children":["$","a",null,{"href":"#design-decisions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Design decisions"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

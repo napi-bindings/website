@@ -1,0 +1,10 @@
+:HL["/_next/static/chunks/10cvp-b8dretj.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/logo.png","image"]
+5:[["children",{"s":"__PAGE__","h":160}]]
+4:[["children",{"s":{"n":"doc","t":"c","k":"node-api/lifetime","s":[]},"h":65632,"c":"$Q5"}]]
+3:[["children",{"s":"docs","h":131136,"c":"$Q4"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"b":"rqzizN7opElHqBNmIIWHs","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}

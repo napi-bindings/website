@@ -1,0 +1,281 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/3-909m818e1da.js"
+d:"/_next/static/chunks/2rdswu9mij722.js"
+e:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Markdown"]
+16:"ViewportBoundary"
+17:I[97367,["$5","$6","$7","$8","$9","$a"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$5","$6","$7","$8","$9","$a"],"$18"]
+1a:"$Sreact.suspense"
+1b:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+f:T35d5,
+<p><img src="https://github.com/napi-bindings/node-api-stub/workflows/Node-API%20Build%20Matrix/badge.svg" alt="Node-API Build Matrix" loading="lazy"></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#using-it-from-cmake">Using it from CMake</a></li>
+<li><a href="#targets-and-options">Targets and options</a></li>
+<li><a href="#stub-libraries">Stub libraries</a></li>
+<li><a href="#building-and-testing">Building and testing</a></li>
+<li><a href="#updating-the-node-api-headers">Updating the Node-API headers</a></li>
+<li><a href="#migrating-from-8x">Migrating from 8.x</a></li>
+<li><a href="https://github.com/napi-bindings/node-api-stub/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noreferrer noopener">Code of conduct</a></li>
+<li><a href="/projects/node-api-stub/changelog/">Changelog</a></li>
+<li><a href="#the-team">Team</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2 id="introduction"><a class="heading-anchor" href="#introduction">Introduction</a></h2>
+<p>A native addon for Node.js calls the Node-API functions (<code>napi_*</code>, <code>node_api_*</code>)
+exported by the host process (<code>node</code>, <code>node.exe</code>, Electron, ...). When the addon
+is built, those symbols do not exist yet, and some toolchains refuse to link:
+Windows always needs an import library, macOS rejects undefined symbols by
+default, and on Linux some build systems add <code>-z defs</code>.</p>
+<p>This project gives CMake projects (and any other build system) everything they
+need to link an addon on every platform, without Node.js installed:</p>
+<ul>
+<li>the official Node-API headers, vendored from
+<a href="https://github.com/nodejs/node-api-headers" target="_blank" rel="noreferrer noopener">node-api-headers</a> (Node-API 10);</li>
+<li>a <code>NodeApi::NodeApi</code> target that applies the right link mechanism for the
+platform;</li>
+<li>optional static and shared stub libraries for the cases that need them.</li>
+</ul>
+<h2 id="how-it-works"><a class="heading-anchor" href="#how-it-works">How it works</a></h2>
+<p>The addon must always end up calling the Node-API functions of the host
+process. A library with function bodies linked into the addon can be called
+instead of them, so the right mechanism depends on the platform:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>What <code>NodeApi::NodeApi</code> does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows, MSVC / clang-cl (x64, x86, arm64)</td>
+<td>links <code>node_api.lib</code>, an import library for <code>NODE.EXE</code> generated from the official <code>.def</code> file, plus <code>/DELAYLOAD:node.exe</code> and a delay-load hook so that the addon also loads in hosts with another name (Electron, a renamed <code>node.exe</code>)</td>
+</tr>
+<tr>
+<td>Windows, MinGW / llvm-mingw</td>
+<td>links <code>libnode_api.dll.a</code>, generated with <code>dlltool</code></td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>-Wl,-U,_&#x3C;symbol></code> for each Node-API symbol: only those may stay undefined (or <code>-undefined dynamic_lookup</code>, see options)</td>
+</tr>
+<tr>
+<td>Linux, BSD, Android (ELF)</td>
+<td>nothing is linked; adds <code>-z undefs</code> so that <code>-z defs</code> does not reject the Node-API symbols</td>
+</tr>
+</tbody>
+</table>
+<p>The import libraries are generated at configure time, so the project builds
+from source anywhere a C compiler is available; prebuilt archives are also
+attached to each release.</p>
+<blockquote>
+<p><strong>Why not a stub everywhere?</strong> A stub linked into the addon is called instead
+of Node-API when the linker binds the calls inside the addon: always on
+Windows and macOS, and on Linux when the addon is linked with <code>-Bsymbolic</code>.
+<code>go build -buildmode=c-shared</code> always passes <code>-Bsymbolic</code>, so a Go addon
+linked with the static stub calls the empty functions. The tests in
+<a href="https://github.com/napi-bindings/node-api-stub/blob/main/tests/CMakeLists.txt" target="_blank" rel="noreferrer noopener"><code>tests/</code></a> reproduce this case.</p>
+</blockquote>
+<h2 id="using-it-from-cmake"><a class="heading-anchor" href="#using-it-from-cmake">Using it from CMake</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># A) from source (recommended)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">include</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(FetchContent)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">FetchContent_Declare(node_api_stub</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  GIT_REPOSITORY https://github.com/napi-bindings/node-api-stub.git</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  GIT_TAG        v10.0.0)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">FetchContent_MakeAvailable(node_api_stub)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># B) from an installed package or a release archive</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># find_package(NodeApi 10 REQUIRED CONFIG)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">add_library</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon MODULE addon.c)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">set_target_properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon PROPERTIES </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PREFIX</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ""</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> SUFFIX</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ".node"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">target_link_libraries</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PRIVATE</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> NodeApi::NodeApi)</span></span></code></pre>
+<p><code>add_subdirectory(node-api-stub)</code> works the same way as <code>FetchContent</code>.</p>
+<h2 id="targets-and-options"><a class="heading-anchor" href="#targets-and-options">Targets and options</a></h2>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NodeApi::NodeApi</code></td>
+<td><strong>use this one.</strong> Headers, <code>NAPI_VERSION</code>, <code>BUILDING_NODE_EXTENSION</code> and the platform link mechanism</td>
+</tr>
+<tr>
+<td><code>NodeApi::headers</code></td>
+<td>headers and compile definitions only</td>
+</tr>
+<tr>
+<td><code>NodeApi::stub</code></td>
+<td>static stub, position-independent</td>
+</tr>
+<tr>
+<td><code>NodeApi::stub_shared</code></td>
+<td>shared stub</td>
+</tr>
+<tr>
+<td><code>NodeApi::legacy</code></td>
+<td>alias of <code>NodeApi::stub</code>, for projects that used the old <code>node_api</code> target</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NODE_API_VERSION</code></td>
+<td><code>8</code></td>
+<td><code>NAPI_VERSION</code> defined for consumers; <code>experimental</code> defines <code>NAPI_EXPERIMENTAL</code>; empty to leave it to the consumer</td>
+</tr>
+<tr>
+<td><code>NODE_API_BUILD_STUB_STATIC</code></td>
+<td>ON on ELF, OFF on Windows/macOS</td>
+<td>build <code>NodeApi::stub</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_BUILD_STUB_SHARED</code></td>
+<td>ON on ELF, OFF on Windows/macOS</td>
+<td>build <code>NodeApi::stub_shared</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_ELF_ALLOW_UNDEFINED</code></td>
+<td>ON</td>
+<td>add <code>-z undefs</code> on ELF</td>
+</tr>
+<tr>
+<td><code>NODE_API_MACOS_UNDEFINED</code></td>
+<td><code>symbols</code></td>
+<td><code>symbols</code> (<code>-U</code> per Node-API symbol) or <code>dynamic_lookup</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_WIN_DELAY_LOAD</code></td>
+<td>ON</td>
+<td>MSVC: delay-load <code>node.exe</code> and redirect it to the host executable</td>
+</tr>
+<tr>
+<td><code>NODE_API_INSTALL</code></td>
+<td>ON when top level</td>
+<td>install and export rules</td>
+</tr>
+<tr>
+<td><code>NODE_API_BUILD_TESTS</code></td>
+<td>ON when top level</td>
+<td>tests that load the addons in Node.js</td>
+</tr>
+</tbody>
+</table>
+<p>When the project is used as a dependency, the stub libraries are excluded from
+<code>all</code> and are built only if a target links them.</p>
+<h2 id="stub-libraries"><a class="heading-anchor" href="#stub-libraries">Stub libraries</a></h2>
+<p>The stubs are generated from <code>def/node_api.def</code>: each function prints its own
+name and calls <code>abort()</code>. They must never run; if they do, the addon fails
+loudly instead of carrying on with uninitialised values.</p>
+<ul>
+<li><strong>Static (<code>libnode_api_stub.a</code>)</strong>: for toolchains that need an archive to
+link and do not accept linker options. On ELF it works only through symbol
+interposition: do not use it with <code>-Bsymbolic</code>, and therefore not with Go
+<code>-buildmode=c-shared</code>.</li>
+<li><strong>Shared (<code>libnode_api_stub.so</code>)</strong>: correct even with <code>-Bsymbolic</code>, but the
+addon records a <code>DT_NEEDED</code> entry for it: remove it after linking
+(<code>patchelf --remove-needed libnode_api_stub.so addon.node</code>) or ship the
+library next to the addon.</li>
+<li><strong>Windows and macOS</strong>: not recommended; built only on explicit request.</li>
+</ul>
+<p>Other options that avoid the link problem entirely are resolving the Node-API
+functions at run time (<code>dlsym(RTLD_DEFAULT, ...)</code> / <code>GetProcAddress</code>), as
+<a href="https://napi.rs" target="_blank" rel="noreferrer noopener">napi-rs</a> does, or declaring them as weak references on ELF
+(<code>#pragma weak napi_create_object</code>).</p>
+<h2 id="building-and-testing"><a class="heading-anchor" href="#building-and-testing">Building and testing</a></h2>
+<p>You need CMake 3.16 or later and a C compiler. Node.js is optional and is used
+only by the tests, which load the test addons and check that their calls reach
+the real Node-API.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>cmake -S . -B build -DCMAKE_BUILD_TYPE=Release</span></span>
+<span class="line"><span>cmake --build build --config Release</span></span>
+<span class="line"><span>ctest --test-dir build -C Release --output-on-failure</span></span>
+<span class="line"><span>cmake --install build --config Release --prefix ./dist</span></span></code></pre>
+<p>On Windows use the Visual Studio generator (<code>-A x64</code>, <code>-A Win32</code>, <code>-A ARM64</code>)
+or MinGW / llvm-mingw with <code>-G Ninja</code>.</p>
+<h2 id="updating-the-node-api-headers"><a class="heading-anchor" href="#updating-the-node-api-headers">Updating the Node-API headers</a></h2>
+<p><code>include/</code> and <code>def/</code> come unmodified from the
+<a href="https://www.npmjs.com/package/node-api-headers" target="_blank" rel="noreferrer noopener">node-api-headers</a> npm package.
+To update them (Node.js and npm are not needed):</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>cmake -DVERSION=1.9.0 -P scripts/update-node-api-headers.cmake</span></span></code></pre>
+<h2 id="migrating-from-8x"><a class="heading-anchor" href="#migrating-from-8x">Migrating from 8.x</a></h2>
+<ul>
+<li>The headers moved from the repository root to <code>include/</code>; <code>node_api.c</code> is
+now generated.</li>
+<li>Replace the <code>node_api</code> target with <code>NodeApi::NodeApi</code>. If you really need the
+old static archive, link <code>NodeApi::legacy</code> (on ELF only).</li>
+<li>The static library is now called <code>libnode_api_stub.a</code>, and its functions
+abort instead of returning <code>napi_ok</code>.</li>
+</ul>
+<h2 id="the-team"><a class="heading-anchor" href="#the-team">The Team</a></h2>
+<h3 id="nicola-del-gobbo"><a class="heading-anchor" href="#nicola-del-gobbo">Nicola Del Gobbo</a></h3>
+<p><a href="https://github.com/NickNaso/" target="_blank" rel="noreferrer noopener">https://github.com/NickNaso/</a></p>
+<p><a href="https://www.npmjs.com/~nicknaso" target="_blank" rel="noreferrer noopener">https://www.npmjs.com/~nicknaso</a></p>
+<p><a href="https://twitter.com/NickNaso" target="_blank" rel="noreferrer noopener">https://twitter.com/NickNaso</a></p>
+<h2 id="acknowledgements"><a class="heading-anchor" href="#acknowledgements">Acknowledgements</a></h2>
+<p>Thank you to all people that encourage me every day.</p>
+<h2 id="license"><a class="heading-anchor" href="#license">License</a></h2>
+<p>Licensed under <a href="https://github.com/napi-bindings/node-api-stub/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">Apache license V2</a>.</p>
+<p>The files in <code>include/</code> and <code>def/</code> come from
+<a href="https://github.com/nodejs/node-api-headers" target="_blank" rel="noreferrer noopener">node-api-headers</a> and are
+licensed under the MIT license (see <code>def/LICENSE-node-api-headers</code>).</p>15:X
+3:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$Le",null,{"html":"$f"}]}],"$L10"]}],["$L11","$L12"],"$L13"]}],"p":"$@14","v":null,"s":"$15"}}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"node-api-stub","s":[]},"h":65568,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"node-api-stub · napi-bindings"}],["$","meta","1",{"name":"description","content":"Links Node-API addons on every platform without Node.js installed: vendored headers and a NodeApi::NodeApi CMake target."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/node-api-stub/"}],["$","meta","4",{"property":"og:title","content":"node-api-stub"}],["$","meta","5",{"property":"og:description","content":"Links Node-API addons on every platform without Node.js installed: vendored headers and a NodeApi::NodeApi CMake target."}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","8",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","link","9",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","10",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L1b","11",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1c","v":null,"s":"$15"}},"a":"$@1d","u":"$@1e","b":"rqzizN7opElHqBNmIIWHs"}
+1f:I[73838,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"CodeTabsClient"]
+25:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+20:T725,<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">include</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(FetchContent)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">FetchContent_Declare(node_api_stub</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  GIT_REPOSITORY https://github.com/napi-bindings/node-api-stub.git</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  GIT_TAG        9.0.0)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">FetchContent_MakeAvailable(node_api_stub)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">add_library</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon MODULE addon.c)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">set_target_properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon PROPERTIES </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PREFIX</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ""</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> SUFFIX</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ".node"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">target_link_libraries</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_addon </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PRIVATE</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> NodeApi::NodeApi)</span></span></code></pre>10:["$","aside",null,{"className":"flex flex-col gap-4 lg:order-none","children":[["$","div",null,{"className":"flex flex-col gap-2","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Get started"}],["$","$L1f",null,{"tabs":[{"label":"CMake","lang":"cmake","code":"include(FetchContent)\nFetchContent_Declare(node_api_stub\n  GIT_REPOSITORY https://github.com/napi-bindings/node-api-stub.git\n  GIT_TAG        9.0.0)\nFetchContent_MakeAvailable(node_api_stub)\n\nadd_library(my_addon MODULE addon.c)\nset_target_properties(my_addon PROPERTIES PREFIX \"\" SUFFIX \".node\")\ntarget_link_libraries(my_addon PRIVATE NodeApi::NodeApi)","html":"$20"}]}]]}],false,["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Highlights"}]}],"$L21"]}],"$L22","$L23","$L24"]}]
+11:["$","script","script-0",{"src":"/_next/static/chunks/3-909m818e1da.js","async":true}]
+12:["$","script","script-1",{"src":"/_next/static/chunks/2rdswu9mij722.js","async":true}]
+13:["$","$L25",null,{"children":["$","$1a",null,{"name":"Next.MetadataOutlet","children":"$@26"}]}]
+1e:true
+27:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"default"]
+28:I[72436,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Separator"]
+2e:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],""]
+21:["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing)","children":["$","ul",null,{"className":"flex flex-col gap-2 text-sm","children":[["$","li","Official Node-API 10 headers, vendored unmodified",{"className":"flex gap-2","children":[["$","$L27",null,{"icon":{"name":"check","size":24,"node":[["path",{"d":"M20 6 9 17l-5-5","key":"1gmf2c"}]]},"className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Official Node-API 10 headers, vendored unmodified"}]]}],["$","li","Import library and delay-load hook on Windows",{"className":"flex gap-2","children":[["$","$L27",null,{"icon":"$21:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Import library and delay-load hook on Windows"}]]}],["$","li","-U per symbol on macOS, -z undefs on ELF",{"className":"flex gap-2","children":[["$","$L27",null,{"icon":"$21:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"-U per symbol on macOS, -z undefs on ELF"}]]}],["$","li","FetchContent, add_subdirectory or find_package",{"className":"flex gap-2","children":[["$","$L27",null,{"icon":"$21:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"FetchContent, add_subdirectory or find_package"}]]}]]}]}]
+22:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Repository"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-4","children":[["$","dl",null,{"className":"grid grid-cols-2 gap-x-4 gap-y-2 text-sm","children":[["$","div","Default branch",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Default branch"}],["$","dd",null,{"className":"font-mono text-xs","children":"main"}]]}],["$","div","Last commit",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Last commit"}],["$","dd",null,{"className":"font-mono text-xs","children":"Nov 14, 2026"}]]}],["$","div","Open issues",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Open issues"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}],["$","div","Documents",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Documents"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}]]}],["$","div",null,{"className":"flex flex-col gap-2","children":[["$","div",null,{"className":"bg-muted flex h-2 overflow-hidden rounded-full","aria-hidden":true,"children":[["$","span","C",{"className":"bg-brand h-full","style":{"width":"73.0405090796213%","opacity":1}}],["$","span","CMake",{"className":"bg-brand h-full","style":{"width":"26.959490920378705%","opacity":0.75}}]]}],["$","ul",null,{"className":"text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs","children":[["$","li","C",{"children":["C"," ",["$","span",null,{"className":"font-mono","children":["73.0","%"]}]]}],["$","li","CMake",{"children":["CMake"," ",["$","span",null,{"className":"font-mono","children":["27.0","%"]}]]}]]}]]}],[["$","$L28",null,{}],["$","div",null,{"className":"flex flex-wrap gap-1","children":[["$","span","addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"addon"}],["$","span","clang",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"clang"}],"$L29","$L2a","$L2b","$L2c","$L2d"]}]]]}]]}]
+23:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Related projects"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","$L2e","marmotta",{"href":"/projects/marmotta/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"Marmotta"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Zero-configuration alternative for C and C++ addons."}]]}],["$","$L2e","napi-go",{"href":"/projects/napi-go/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"napi-go"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Go addons and the -Bsymbolic pitfall."}]]}]]}]]}]
+24:["$","div",null,{"className":"hidden pt-2 lg:block","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","introduction",{"className":"","children":["$","a",null,{"href":"#introduction","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Introduction"}]}],["$","li","how-it-works",{"className":"","children":["$","a",null,{"href":"#how-it-works","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"How it works"}]}],["$","li","using-it-from-cmake",{"className":"","children":["$","a",null,{"href":"#using-it-from-cmake","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Using it from CMake"}]}],["$","li","targets-and-options",{"className":"","children":["$","a",null,{"href":"#targets-and-options","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Targets and options"}]}],["$","li","stub-libraries",{"className":"","children":["$","a",null,{"href":"#stub-libraries","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Stub libraries"}]}],["$","li","building-and-testing",{"className":"","children":["$","a",null,{"href":"#building-and-testing","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Building and testing"}]}],["$","li","updating-the-node-api-headers",{"className":"","children":["$","a",null,{"href":"#updating-the-node-api-headers","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Updating the Node-API headers"}]}],["$","li","migrating-from-8x",{"className":"","children":["$","a",null,{"href":"#migrating-from-8x","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Migrating from 8.x"}]}],["$","li","the-team",{"className":"","children":["$","a",null,{"href":"#the-team","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"The Team"}]}],["$","li","acknowledgements",{"className":"","children":["$","a",null,{"href":"#acknowledgements","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Acknowledgements"}]}],["$","li","license",{"className":"","children":["$","a",null,{"href":"#license","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"License"}]}]]}]]}]}]
+26:null
+15:300
+29:["$","span","cpp",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"cpp"}]
+2a:["$","span","javascript",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"javascript"}]
+2b:["$","span","native",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"native"}]
+2c:["$","span","node-api",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node-api"}]
+2d:["$","span","nodejs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"nodejs"}]
+15:C
+1d:0
+1c:"$undefined"
+14:"$undefined"

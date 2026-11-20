@@ -1,0 +1,503 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3erqbre4nabri.js"
+3:"/_next/static/chunks/3_89uhd12tu-e.js"
+4:"/_next/static/chunks/0itd6eiroz8sa.js"
+5:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+6:"/_next/static/chunks/3pcblro4gce7n.js"
+7:"/_next/static/chunks/2i7p862aqiwl7.js"
+8:I[27423,["$2","$3","$4","$5","$6","$7"],"ThemeProvider"]
+9:I[46798,["$2","$3","$4","$5","$6","$7"],"TooltipProvider"]
+a:I[3020,["$2","$3","$4","$5","$6","$7"],"SiteHeader"]
+b:I[39756,["$2","$3","$4","$5","$6","$7"],"default"]
+c:I[37457,["$2","$3","$4","$5","$6","$7"],"default"]
+d:"/_next/static/chunks/3y068am0pzdwl.js"
+e:"/_next/static/chunks/3-909m818e1da.js"
+f:"/_next/static/chunks/2rdswu9mij722.js"
+10:I[5014,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"default"]
+11:I[27930,["$2","$3","$4","$5","$6","$7","$d"],"Button"]
+12:I[22016,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],""]
+1d:I[68027,["$2","$3","$4","$5","$6","$7"],"default",1]
+:HL["/_next/static/chunks/10cvp-b8dretj.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+17:X
+1a:[["children",{"s":"__PAGE__","h":512,"d":{"r":"$L1b","p":false,"v":null}}]]
+18:[["children",{"s":{"n":"slug","t":"d","k":"marmotta","s":[]},"h":66048,"d":{"r":"$L19","p":false,"v":null},"c":"$Q1a"}]]
+15:[["children",{"s":"projects","h":131584,"d":{"r":"$L16","p":false,"v":"$17"},"c":"$Q18"}]]
+0:{"P":null,"c":["","projects","marmotta",""],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/3erqbre4nabri.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/3_89uhd12tu-e.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0itd6eiroz8sa.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/3tgrtgyx1rjnt.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/_next/static/chunks/3pcblro4gce7n.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/_next/static/chunks/2i7p862aqiwl7.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"Ur3q_a_variable iaM1Ya_variable","children":["$","body",null,{"className":"flex min-h-svh flex-col font-sans","children":["$","$L8",null,{"attribute":"class","defaultTheme":"dark","enableSystem":true,"disableTransitionOnChange":true,"children":["$","$L9",null,{"children":[["$","a",null,{"href":"#main","className":"bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2","children":"Skip to content"}],["$","$La",null,{}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-24","children":["$","div",null,{"data-slot":"empty","className":"gap-4 rounded-xl border-dashed p-6 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance","children":[["$","div",null,{"data-slot":"empty-header","className":"gap-2 flex max-w-sm flex-col items-center","children":[["$","div",null,{"data-slot":"empty-icon","data-variant":"icon","className":"mb-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4","children":["$","$L10",null,{"ref":"$undefined","icon":{"name":"file-question-mark","size":24,"node":[["path",{"d":"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z","key":"1oefj6"}],["path",{"d":"M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5","key":"1awbb0"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["file-question"]},"className":"$undefined"}]}],["$","div",null,{"data-slot":"empty-title","className":"text-sm font-medium tracking-tight","children":"Page not found"}],["$","div",null,{"data-slot":"empty-description","className":"text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary","children":"This page does not exist, or it moved. Node-API symbols live under /node-api/reference/."}]]}],["$","div",null,{"data-slot":"empty-content","className":"gap-2.5 text-sm flex w-full max-w-sm min-w-0 items-center text-balance flex-row justify-center","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/"}],"nativeButton":false,"children":"Home"}],["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":"$L13","nativeButton":false,"children":"API reference"}]]}]]}]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],"$L14"]}]}]}]}]]}],"p":false,"v":null},"c":"$Q15"},"h":{"r":"$L1c","p":false,"v":null}},"m":"$undefined","G":["$1d",["$L1e"]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"rqzizN7opElHqBNmIIWHs"}
+23:I[97367,["$2","$3","$4","$5","$6","$7"],"OutletBoundary"]
+24:"$Sreact.suspense"
+26:"ViewportBoundary"
+27:I[97367,["$2","$3","$4","$5","$6","$7"],"$26"]
+29:"MetadataBoundary"
+2a:I[97367,["$2","$3","$4","$5","$6","$7"],"$29"]
+:HL["/logo.png","image"]
+13:["$","$L12",null,{"href":"/node-api/reference/"}]
+14:["$","footer",null,{"className":"border-t","children":[["$","div",null,{"className":"mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]","children":[["$","div",null,{"className":"flex flex-col gap-3","children":[["$","span",null,{"className":"flex items-center gap-2","children":[["$","img",null,{"src":"/logo.png","alt":"","width":28,"height":28,"className":"size-7"}],["$","span",null,{"className":"font-mono text-sm font-semibold tracking-tight","children":"napi-bindings"}]]}],["$","p",null,{"className":"text-muted-foreground max-w-xs text-sm","children":"Native Node.js addons and tooling built on the ABI-stable Node-API."}],["$","p",null,{"className":"text-muted-foreground text-xs","children":["Data synchronised from GitHub on ","Nov 20, 2026","."]}]]}],[["$","div","Node-API",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Node-API"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/node-api/",{"children":["$","$L12",null,{"href":"/node-api/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Overview"}]}],["$","li","/node-api/reference/",{"children":["$","$L12",null,{"href":"/node-api/reference/","className":"text-muted-foreground hover:text-foreground text-sm","children":"API reference"}]}],["$","li","/node-api/versions/",{"children":["$","$L12",null,{"href":"/node-api/versions/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Versions"}]}],["$","li","/ecosystem/",{"children":["$","$L12",null,{"href":"/ecosystem/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Ecosystem"}]}]]}]]}],["$","div","Projects",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Projects"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/projects/marmotta/",{"children":["$","$L12",null,{"href":"/projects/marmotta/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Marmotta"}]}],["$","li","/projects/napi-go/",{"children":["$","$L12",null,{"href":"/projects/napi-go/","className":"text-muted-foreground hover:text-foreground text-sm","children":"napi-go"}]}],["$","li","/projects/node-api-stub/",{"children":["$","$L12",null,{"href":"/projects/node-api-stub/","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-api-stub"}]}],["$","li","/projects/quickjs-build/",{"children":["$","$L12",null,{"href":"/projects/quickjs-build/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-build"}]}],["$","li","/projects/quickjs-napi/",{"children":["$","$L12",null,{"href":"/projects/quickjs-napi/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-napi"}]}]]}]]}],["$","div","Upstream",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Upstream"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","https://nodejs.org/docs/latest/api/n-api.html",{"children":["$","a",null,{"href":"https://nodejs.org/docs/latest/api/n-api.html","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"Node-API docs"}]}],["$","li","https://github.com/nodejs/abi-stable-node",{"children":["$","a",null,{"href":"https://github.com/nodejs/abi-stable-node","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"nodejs/abi-stable-node"}]}],["$","li","https://github.com/nodejs/node-addon-api",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-api","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-api"}]}],["$","li","https://github.com/nodejs/node-addon-examples",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-examples","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-examples"}]}]]}]]}]]]}],["$","div",null,{"className":"border-t","children":["$","div",null,{"className":"text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6","children":["$L1f","$L20"]}]}]]}]
+16:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+19:["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3y068am0pzdwl.js","async":true,"nonce":"$undefined"}]],"$L21"]}]
+1b:["$","$1","c",{"children":["$L22",[["$","script","script-0",{"src":"/_next/static/chunks/3-909m818e1da.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/2rdswu9mij722.js","async":true,"nonce":"$undefined"}]],["$","$L23",null,{"children":["$","$24",null,{"name":"Next.MetadataOutlet","children":"$@25"}]}]]}]
+1c:["$","$1","h",{"children":[null,["$","$L27",null,{"children":"$L28"}],["$","$L2a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$24",null,{"name":"Next.Metadata","children":"$L2b"}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1e:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+17:C
+1f:["$","p",null,{"children":"© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license."}]
+20:["$","a",null,{"href":"https://github.com/napi-bindings/website","target":"_blank","rel":"noreferrer","className":"hover:text-foreground","children":"Edit this site on GitHub"}]
+21:[["$","div",null,{"className":"bg-muted/30 border-b","children":["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10","children":[["$","div",null,{"className":"flex flex-col gap-4 md:flex-row md:items-start md:justify-between","children":[["$","div",null,{"className":"flex max-w-3xl flex-col gap-3","children":[["$","$L12",null,{"href":"/projects/","className":"text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"hammer","size":24,"node":[["path",{"d":"m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9","key":"1hayfq"}],["path",{"d":"m18 15 4-4","key":"16gjal"}],["path",{"d":"m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5","key":"15ts47"}]]},"className":"size-3.5"}],"Build tools"]}],["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","h1",null,{"className":"font-mono text-3xl font-semibold tracking-tight","children":"Marmotta"}],"$undefined"]}],["$","p",null,{"className":"text-muted-foreground text-pretty","children":"Builds C and C++ Node-API addons with Zig: no node-gyp, no CMake, cross-compilation from a single machine."}],["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm","children":[["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"star","size":24,"node":[["path",{"d":"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z","key":"r04s7s"}]]},"className":"size-4"}],"6"," ","stars"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"git-fork","size":24,"node":[["circle",{"cx":"12","cy":"18","r":"3","key":"1mpf1b"}],["circle",{"cx":"6","cy":"6","r":"3","key":"1lh9wr"}],["circle",{"cx":"18","cy":"6","r":"3","key":"1h7g24"}],["path",{"d":"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9","key":"1uq4wg"}],["path",{"d":"M12 12v3","key":"158kv8"}]]},"className":"size-4"}],"1"," ","fork"]}],["$","$L12",null,{"href":"/projects/marmotta/releases/","className":"hover:text-foreground flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"tag","size":24,"node":[["path",{"d":"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z","key":"vktsd0"}],["circle",{"cx":"7.5","cy":"7.5","r":".5","fill":"currentColor","key":"kqv944"}]]},"className":"size-4"}],["$","span",null,{"className":"font-mono","children":"v0.10.0"}],["$","span",null,{"children":["· ","Nov 13, 2026"]}]]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"scale","size":24,"node":[["path",{"d":"M12 3v18","key":"108xh3"}],["path",{"d":"m19 8 3 8a5 5 0 0 1-6 0zV7","key":"zcdpyk"}],["path",{"d":"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1","key":"1yorad"}],["path",{"d":"m5 8 3 8a5 5 0 0 1-6 0zV7","key":"eua70x"}],["path",{"d":"M7 21h10","key":"1b0cd5"}]]},"className":"size-4"}],"Apache-2.0"]}]]}]]}],["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":"$L2c","nativeButton":false,"children":["$L2d","Repository"]}],["$L2e"]]}]]}],"$L2f"]}]}],"$L30"]
+31:I[81371,["$2","$3","$4","$5","$6","$7","$d"],"ProjectNav"]
+2c:["$","a",null,{"href":"https://github.com/napi-bindings/marmotta","target":"_blank","rel":"noreferrer"}]
+2d:["$","svg",null,{"viewBox":"0 0 24 24","fill":"currentColor","aria-hidden":"true","data-icon":"inline-start","children":["$","path",null,{"d":"M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"}]}]
+2e:["$","$L11","https://www.npmjs.com/package/marmotta",{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","a",null,{"href":"https://www.npmjs.com/package/marmotta","target":"_blank","rel":"noreferrer"}],"nativeButton":false,"children":["npm",["$","$L10",null,{"ref":"$undefined","icon":{"name":"external-link","size":24,"node":[["path",{"d":"M15 3h6v6","key":"1q9fwt"}],["path",{"d":"M10 14 21 3","key":"gplh6r"}],["path",{"d":"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6","key":"a6xqqp"}]]},"className":"$undefined","data-icon":"inline-end"}]]}]
+2f:["$","$L31",null,{"items":[{"title":"Overview","href":"/projects/marmotta/"},{"title":"Docs","href":"/projects/marmotta/docs/","count":5},{"title":"Releases","href":"/projects/marmotta/releases/","count":11},{"title":"Activity","href":"/projects/marmotta/activity/"}]}]
+30:["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-10","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]
+32:I[73435,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Markdown"]
+33:Tace2,
+<p align="center">
+  <img src="https://raw.githubusercontent.com/napi-bindings/marmotta/main/marmotta.jpg" alt="Marmotta, the native addon build tool" width="384" loading="lazy">
+</p>
+<div align="center">
+<p><a href="https://github.com/napi-bindings/marmotta/actions/workflows/ci.yml" target="_blank" rel="noreferrer noopener"><img src="https://github.com/napi-bindings/marmotta/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" loading="lazy"></a>
+<a href="https://github.com/napi-bindings/marmotta/releases/latest" target="_blank" rel="noreferrer noopener"><img src="https://img.shields.io/github/v/release/napi-bindings/marmotta" alt="Latest release" loading="lazy"></a>
+<a href="https://www.npmjs.com/package/marmotta" target="_blank" rel="noreferrer noopener"><img src="https://img.shields.io/npm/dm/marmotta?label=marmotta%20downloads" alt="marmotta monthly downloads on npm" loading="lazy"></a>
+<a href="https://www.npmjs.com/package/@napi-bindings/marmotta" target="_blank" rel="noreferrer noopener"><img src="https://img.shields.io/npm/dm/%40napi-bindings%2Fmarmotta?label=%40napi-bindings%2Fmarmotta%20downloads" alt="@napi-bindings/marmotta monthly downloads on npm" loading="lazy"></a></p>
+</div>
+<p>Marmotta builds Node.js native addons written in C or C++ with <a href="https://nodejs.org/api/n-api.html" target="_blank" rel="noreferrer noopener">Node-API</a>. It uses <a href="https://ziglang.org/" target="_blank" rel="noreferrer noopener">Zig</a> as the compiler toolchain and can install Zig for you, so projects do not need to configure <code>node-gyp</code> or CMake.</p>
+<h2 id="contents"><a class="heading-anchor" href="#contents">Contents</a></h2>
+<ul>
+<li><a href="#highlights">Highlights</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#quick-start">Quick start</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#command-line-reference">Command-line reference</a></li>
+<li><a href="#zig-toolchain">Zig toolchain</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#contributors">Contributors</a></li>
+</ul>
+<h2 id="highlights"><a class="heading-anchor" href="#highlights">Highlights</a></h2>
+<ul>
+<li>Build C and C++ Node-API addons into <code>.node</code> files.</li>
+<li>Use the Node-API headers supplied by Marmotta; no separate Node header installation is needed.</li>
+<li>Reuse node-gyp-oriented sources that use <code>NODE_GYP_MODULE_NAME</code>.</li>
+<li>Build for the host platform or pass a Zig target triple for cross-compilation.</li>
+<li>Install Zig automatically when a suitable compiler is not already on <code>PATH</code>.</li>
+<li>Use a Zig installation that already exists on the system with <code>MARMOTTA_ZIG_DIR</code>, for example where downloads are blocked.</li>
+<li>Load the same addon in Node.js, Electron, Deno, and Bun. On Windows, Marmotta binds Node-API functions to the process that loads the addon instead of to <code>node.exe</code>, so no delay-load hook is needed.</li>
+</ul>
+<h2 id="requirements"><a class="heading-anchor" href="#requirements">Requirements</a></h2>
+<ul>
+<li>Node.js 20 or later and npm. To run Marmotta without Node.js, use a <a href="#standalone-binary">standalone binary</a> instead.</li>
+<li>A C or C++ Node-API addon source file (<code>.c</code>, <code>.cc</code>, <code>.cpp</code>, or <code>.cxx</code>).</li>
+<li><code>tar</code> and internet access when Marmotta needs to download Zig.</li>
+</ul>
+<p>Automatic Zig downloads are supported on x64 and ARM64 Linux, macOS, and Windows hosts. On other host platforms, install Zig separately and make it available on <code>PATH</code>.</p>
+<h2 id="installation"><a class="heading-anchor" href="#installation">Installation</a></h2>
+<p>Install the unscoped package globally:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --global</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">marmotta</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --help</span></span></code></pre>
+<p>Or add Marmotta to a project and run it with <code>npx</code>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --save-dev</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --help</span></span></code></pre>
+<p>The same CLI is also published as <code>@napi-bindings/marmotta</code>. To install that package instead:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --save-dev</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @napi-bindings/marmotta</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --help</span></span></code></pre>
+<h3 id="standalone-binary"><a class="heading-anchor" href="#standalone-binary">Standalone binary</a></h3>
+<p>Every release ships a self-contained executable per platform. It embeds the CLI and the
+Node-API headers, so Node.js and npm are not required to run it; Zig is still downloaded
+on first use, exactly as with the npm package.</p>
+<ol>
+<li>
+<p>Download the file for your platform from the
+<a href="https://github.com/napi-bindings/marmotta/releases" target="_blank" rel="noreferrer noopener">GitHub releases page</a>, for
+example <code>marmotta-v0.10.0-linux-x64</code>.</p>
+</li>
+<li>
+<p>Make it executable and put it on your <code>PATH</code>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">chmod</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> +x</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta-v0.10.0-linux-x64</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">sudo</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> mv</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta-v0.10.0-linux-x64</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /usr/local/bin/marmotta</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">marmotta</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --version</span></span></code></pre>
+<p>On Windows, rename the file to <code>marmotta.exe</code> and place it in a directory on <code>PATH</code>.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>marmotta-vX.Y.Z-linux-x64</code></td>
+<td>Linux x64 (glibc)</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-linux-arm64</code></td>
+<td>Linux ARM64 (glibc)</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-linux-x64-musl</code></td>
+<td>Linux x64 (musl, e.g. Alpine)</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-linux-arm64-musl</code></td>
+<td>Linux ARM64 (musl, e.g. Alpine)</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-darwin-x64</code></td>
+<td>macOS, Intel</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-darwin-arm64</code></td>
+<td>macOS, Apple silicon</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-windows-x64.exe</code></td>
+<td>Windows x64</td>
+</tr>
+<tr>
+<td><code>marmotta-vX.Y.Z-windows-arm64.exe</code></td>
+<td>Windows ARM64</td>
+</tr>
+</tbody>
+</table>
+<p>Each release includes a <code>SHA256SUMS</code> file and GitHub build provenance attestations, so
+a download can be checked with <code>sha256sum --check --ignore-missing SHA256SUMS</code> and
+<code>gh attestation verify</code>.</p>
+<p>Notes on the standalone binaries:</p>
+<ul>
+<li>They behave like the npm package: <code>NODE_OPTIONS</code> does not affect them, and a stray
+<code>.env</code> or <code>bunfig.toml</code> in the project directory does not change what they do.
+Like any Bun program, they do honor <code>BUN_OPTIONS</code>.</li>
+<li>The macOS binaries carry an ad-hoc signature with the hardened runtime enabled and
+the JIT entitlements JavaScriptCore needs; they are not notarized. If macOS blocks a
+downloaded binary, remove the quarantine attribute with
+<code>xattr -d com.apple.quarantine &#x3C;file></code> (or control-click and open it).</li>
+<li>The musl binaries link against <code>libstdc++</code>, which a stock Alpine image does not ship.
+Install it first: <code>apk add libstdc++</code>.</li>
+<li>The binaries are built with <a href="https://bun.com/docs/bundler/executables" target="_blank" rel="noreferrer noopener"><code>bun build --compile</code></a>.</li>
+</ul>
+<h3 id="package-managers"><a class="heading-anchor" href="#package-managers">Package managers</a></h3>
+<p>Each release also ships native packages for Linux, built from the standalone executables, so
+Node.js and npm are not required:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Platform</th>
+<th>Install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.deb</code></td>
+<td>Debian, Ubuntu</td>
+<td><code>sudo apt install ./marmotta_&#x3C;version>_amd64.deb</code></td>
+</tr>
+<tr>
+<td><code>.rpm</code></td>
+<td>Fedora, RHEL</td>
+<td><code>sudo dnf install ./marmotta-&#x3C;version>-1.x86_64.rpm</code></td>
+</tr>
+<tr>
+<td><code>.apk</code></td>
+<td>Alpine</td>
+<td><code>sudo apk add --allow-untrusted ./marmotta-&#x3C;version>-r0.x86_64.apk</code></td>
+</tr>
+<tr>
+<td><code>.pkg.tar.zst</code></td>
+<td>Arch Linux</td>
+<td><code>sudo pacman -U ./marmotta-&#x3C;version>-1-x86_64.pkg.tar.zst</code></td>
+</tr>
+</tbody>
+</table>
+<p>The ARM64 variants use the same names with <code>arm64</code>/<code>aarch64</code> in place of <code>amd64</code>/<code>x86_64</code>.
+Download them from the <a href="https://github.com/napi-bindings/marmotta/releases" target="_blank" rel="noreferrer noopener">releases page</a>.
+Homebrew, AUR, Nix, Scoop, and winget recipes are generated for every release and included in
+<code>marmotta-v&#x3C;version>-packaging.tar.gz</code>; see <a href="/projects/marmotta/docs/packaging/"><code>packaging/README.md</code></a> for the
+publishing and installation instructions.</p>
+<h2 id="quick-start"><a class="heading-anchor" href="#quick-start">Quick start</a></h2>
+<p>Create a Node.js project with a C or C++ Node-API source file. For example, save this as <code>src/hello.c</code>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x3C;assert.h></span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x3C;node_api.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_value </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Hello</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_callback_info </span><span style="color:#E36209;--shiki-dark:#FFAB70">info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value result;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_status status </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi_create_string_utf8</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"world"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">5</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">result);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  assert</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(status </span><span style="color:#D73A49;--shiki-dark:#F97583">==</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_ok);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_value </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Initialize</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_property_descriptor descriptor </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">    "hello"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, Hello, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_default, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_status status </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi_define_properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, exports, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">descriptor);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  assert</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(status </span><span style="color:#D73A49;--shiki-dark:#F97583">==</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_ok);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> exports;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">NAPI_MODULE</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(NODE_GYP_MODULE_NAME, Initialize)</span></span></code></pre>
+<p>Create <code>marmotta.config.json</code> in the project root:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "name"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"hello"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "sources"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"src/hello.c"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "outputDir"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"build"</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Build and load the addon:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -e</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "console.log(require('./build/hello.node').hello())"</span></span></code></pre>
+<p>The example prints <code>world</code>. <code>configure</code> can be run to validate the project and prepare Zig before building, but it is optional; <code>build</code> loads the configuration and ensures the toolchain itself.</p>
+<h2 id="configuration"><a class="heading-anchor" href="#configuration">Configuration</a></h2>
+<p>All paths in either configuration file are resolved relative to the project directory. The configuration file is optional. Without it, Marmotta uses the package or directory name, discovers source files, and places the addon in the project root.</p>
+<p>You can use <code>marmotta.config.js</code> to compute configuration values with JavaScript. If both config files are present, <code>marmotta.config.js</code> takes precedence over <code>marmotta.config.json</code>. Export either a configuration object as the default export or a function that returns one; the function may be asynchronous and receives the project directory, requested Zig target, and host platform and architecture:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ({ </span><span style="color:#E36209;--shiki-dark:#FFAB70">target</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">platform</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }) </span><span style="color:#D73A49;--shiki-dark:#F97583">=></span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  const</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> isWindows</span><span style="color:#D73A49;--shiki-dark:#F97583"> =</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> target </span><span style="color:#D73A49;--shiki-dark:#F97583">?</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> target.</span><span style="color:#6F42C1;--shiki-dark:#B392F0">includes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#032F62;--shiki-dark:#9ECBFF">'windows'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> platform </span><span style="color:#D73A49;--shiki-dark:#F97583">===</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 'win32'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">'hello'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    sources: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">'src/hello.c'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    cFlags: isWindows </span><span style="color:#D73A49;--shiki-dark:#F97583">?</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">'-DWIN32_BUILD'</span><span style="color:#24292E;--shiki-dark:#E1E4E8">] </span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [],</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">};</span></span></code></pre>
+<p>For <code>.js</code> files, use the module format selected by your project's <code>package.json</code> (<code>"type": "module"</code> for ESM). JavaScript configuration files execute as project code.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td><code>package.json</code> name, or project directory name</td>
+<td>Addon name, also used in the output filename <code>&#x3C;name>.node</code>. Characters other than letters, digits, <code>_</code>, and <code>-</code> are replaced with <code>_</code>.</td>
+</tr>
+<tr>
+<td><code>sources</code></td>
+<td>string array</td>
+<td>discovered source files</td>
+<td>C/C++ sources to compile. An empty or omitted array enables recursive discovery.</td>
+</tr>
+<tr>
+<td><code>includeDirs</code></td>
+<td>string array</td>
+<td><code>[]</code></td>
+<td>Additional header search directories.</td>
+</tr>
+<tr>
+<td><code>cFlags</code></td>
+<td>string array</td>
+<td><code>[]</code></td>
+<td>Additional compiler flags for C sources.</td>
+</tr>
+<tr>
+<td><code>cxxFlags</code></td>
+<td>string array</td>
+<td><code>[]</code></td>
+<td>Additional compiler flags for C++ sources.</td>
+</tr>
+<tr>
+<td><code>linkerFlags</code></td>
+<td>string array</td>
+<td><code>[]</code></td>
+<td>Additional linker flags.</td>
+</tr>
+<tr>
+<td><code>outputDir</code></td>
+<td>string</td>
+<td><code>.</code></td>
+<td>Output directory. The generated addon is <code>&#x3C;outputDir>/&#x3C;name>.node</code>.</td>
+</tr>
+<tr>
+<td><code>zigVersion</code></td>
+<td>string</td>
+<td>Zig from <code>PATH</code>, else local/latest stable</td>
+<td>Pin an exact stable Zig version, for example <code>0.14.1</code>. When set, Marmotta uses or downloads this managed version instead of using Zig from <code>PATH</code>. Ignored when <code>MARMOTTA_ZIG_DIR</code> is set.</td>
+</tr>
+</tbody>
+</table>
+<p>Each array field must contain only strings. During source discovery Marmotta ignores <code>.git</code>, <code>.marmotta</code>, <code>build</code>, <code>dist</code>, and <code>node_modules</code>. Explicit source and include paths must be relative to the project directory or absolute paths; each source must exist and be a file.</p>
+<p>Marmotta defines <code>NODE_GYP_MODULE_NAME</code> for every source file using the configured addon name. Characters that cannot appear in a C identifier are replaced with <code>_</code>, and a leading digit is prefixed with <code>_</code>. This allows compatible sources to use <code>NODE_API_MODULE(NODE_GYP_MODULE_NAME, Initialize)</code> without changing the macro.</p>
+<h2 id="command-line-reference"><a class="heading-anchor" href="#command-line-reference">Command-line reference</a></h2>
+<p>Run <code>marmotta --help</code> or <code>npx marmotta --help</code> for the built-in usage summary.</p>
+<h3 id="commands"><a class="heading-anchor" href="#commands">Commands</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>marmotta configure</code></td>
+<td>Validate the project configuration and ensure Zig is available.</td>
+</tr>
+<tr>
+<td><code>marmotta build</code></td>
+<td>Compile the configured or discovered C/C++ sources into a <code>.node</code> addon.</td>
+</tr>
+<tr>
+<td><code>marmotta rebuild</code></td>
+<td>Remove the selected generated addon and build it again.</td>
+</tr>
+<tr>
+<td><code>marmotta clean</code></td>
+<td>Remove the generated addon file only. Zig and other build files are left untouched.</td>
+</tr>
+<tr>
+<td><code>marmotta install</code></td>
+<td>Ensure a Zig compiler is available, downloading one if needed.</td>
+</tr>
+<tr>
+<td><code>marmotta list</code></td>
+<td>List Zig versions managed by Marmotta.</td>
+</tr>
+<tr>
+<td><code>marmotta remove &#x3C;version></code></td>
+<td>Remove a managed Zig version, for example <code>marmotta remove 0.14.1</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="options"><a class="heading-anchor" href="#options">Options</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-C, --directory &#x3C;path></code></td>
+<td><code>configure</code>, <code>build</code>, <code>rebuild</code>, <code>clean</code></td>
+<td>Project directory. Defaults to the current working directory.</td>
+</tr>
+<tr>
+<td><code>-o, --output-dir &#x3C;path></code></td>
+<td><code>build</code>, <code>rebuild</code>, <code>clean</code></td>
+<td>Override <code>outputDir</code>. Relative paths are resolved from the project directory.</td>
+</tr>
+<tr>
+<td><code>--target &#x3C;triple></code></td>
+<td><code>build</code>, <code>rebuild</code></td>
+<td>Zig target triple used for cross-compilation.</td>
+</tr>
+<tr>
+<td><code>--debug</code></td>
+<td><code>build</code>, <code>rebuild</code></td>
+<td>Compile without optimization and include debug information (<code>-O0 -g</code> instead of <code>-O2</code>).</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Any command</td>
+<td>Emit machine-readable JSON Lines instead of plain text. Recognized before or after the command.</td>
+</tr>
+<tr>
+<td><code>-h, --help</code></td>
+<td>Any command</td>
+<td>Show help.</td>
+</tr>
+<tr>
+<td><code>-v, --version</code></td>
+<td>Top-level command</td>
+<td>Show the Marmotta version.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, request a build for ARM64 macOS:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --target</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> aarch64-macos</span></span></code></pre>
+<p>Use <code>--json</code> in CI when another process needs to consume Marmotta's output; see <a href="#logging">Logging</a> for the record format and the <code>MARMOTTA_LOG</code> variable.</p>
+<p>Use a target triple supported by Zig for the intended target. Cross-compilation does not run the resulting addon on the host; load it on a compatible target system.</p>
+<h3 id="logging"><a class="heading-anchor" href="#logging">Logging</a></h3>
+<p>By default Marmotta writes plain text: command results on stdout and errors on stderr, with no level prefixes, so scripts that read <code>marmotta --version</code> or <code>marmotta list</code> keep working unchanged.</p>
+<p>Pass <code>--json</code> when another process needs to consume the output, as in CI. The flag is recognized before or after the command, and each record is one JSON object on its own line (JSON Lines):</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --json</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --json</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> list</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"level"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"info"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"time"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1730000000000</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"message"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Addon built: /project/build/hello.node"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"level"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"info"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"time"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1730000000001</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"data"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"versions"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:[</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"0.13.0"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"0.14.0"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]},</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"message"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Installed Zig versions"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"level"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"error"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"time"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1730000000002</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"data"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"code"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"CLI_ARGUMENT_ERROR"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"exitCode"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF">2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span><span style="color:#005CC5;--shiki-dark:#79B8FF">"message"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Unknown option: --bogus"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<ul>
+<li><code>level</code> is a string such as <code>info</code>, <code>warn</code>, or <code>error</code>. Informational records go to stdout; warnings and errors go to stderr.</li>
+<li><code>message</code> is the human-readable text, and <code>data</code> carries the record's structured context when there is any, such as the error <code>code</code> and <code>exitCode</code>, the installed <code>versions</code>, or a child process's <code>command</code> and <code>stream</code>.</li>
+<li>Command results, such as help, the version, <code>list</code>, confirmations and error messages, are always printed. Output from the Zig and <code>tar</code> child processes is captured and re-emitted as records tagged with <code>command</code> and <code>stream</code>, so every line printed in <code>--json</code> mode is valid JSON and compiler errors are never hidden. Lines from the child's stderr are <code>warn</code> records on stderr; lines from its stdout are <code>info</code> records on stdout. Lines keep their order within each stream, but the order between a child's stdout and stderr lines is not preserved.</li>
+<li>Set <code>MARMOTTA_LOG</code> to the minimum level for diagnostic records: <code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>, <code>fatal</code>, or <code>silent</code>. The default is <code>info</code>, which hides <code>debug</code> records: which Zig is used, where Zig is downloaded from, and each Zig or <code>tar</code> command line. An unrecognized value is ignored with a warning.</li>
+</ul>
+<p><code>MARMOTTA_LOG</code> filters diagnostics only; it never hides a command's result or its final error. It applies to both formats and does not change the shape of the output.</p>
+<p><code>--version</code> is a top-level request and cannot be combined with a command, so <code>marmotta build --version</code> fails with an argument error instead of printing the version and skipping the build.</p>
+<h2 id="zig-toolchain"><a class="heading-anchor" href="#zig-toolchain">Zig toolchain</a></h2>
+<p>Without a <code>zigVersion</code> pin, Marmotta uses <code>zig</code> from <code>PATH</code> when available, then a locally managed version, and otherwise downloads the latest stable Zig release for the supported host platform into the Marmotta home directory (see <a href="#marmotta-home-directory">Marmotta home directory</a>). If <code>zigVersion</code> is set, Marmotta ignores <code>PATH</code> and selects that exact managed version, downloading it if necessary. If the pinned version is not available for the host platform, the command fails instead of falling back to another version. If the download index includes a checksum, Marmotta verifies the downloaded archive. If <code>MARMOTTA_ZIG_DIR</code> is set, Marmotta uses only that Zig and never downloads one (see <a href="#existing-zig-installation">Existing Zig installation</a>).</p>
+<p>Prepare Zig in advance:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span></span></code></pre>
+<p>List and remove toolchain versions managed by Marmotta:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> list</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> remove</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0.10.0</span></span></code></pre>
+<p><code>list</code> and <code>remove</code> operate only on versions managed by Marmotta; they do not list, uninstall, or modify a system Zig executable found on <code>PATH</code>.</p>
+<h3 id="existing-zig-installation"><a class="heading-anchor" href="#existing-zig-installation">Existing Zig installation</a></h3>
+<p>Set <code>MARMOTTA_ZIG_DIR</code> to the directory of a Zig installation that already exists on the system, for example when downloads are blocked or the toolchain is provided by the organization and cannot be changed:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> MARMOTTA_ZIG_DIR</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">/opt/zig-x86_64-linux-0.14.1</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
+<ul>
+<li>The directory must contain the Zig executable (<code>zig</code>, or <code>zig.exe</code> on Windows), as in the archives published on ziglang.org.</li>
+<li>Marmotta uses this Zig for every command and never downloads Zig while the variable is set. It takes precedence over Zig on <code>PATH</code> and over the versions managed by Marmotta, and a <code>zigVersion</code> pin in the configuration is ignored.</li>
+<li>If the directory does not contain a Zig executable that can be run, the command fails with <code>MARMOTTA_ZIG_DIR_UNAVAILABLE</code> and names the expected path. Marmotta does not fall back to another Zig.</li>
+<li>The value follows the same rules as <code>MARMOTTA_HOME</code>: it must be an absolute path without leading or trailing whitespace, otherwise it is rejected with <code>MARMOTTA_ZIG_DIR_INVALID</code>. An empty value is treated as unset.</li>
+<li>Marmotta never writes to this directory, and <code>list</code> and <code>remove</code> do not include or change it. Temporary build files still go to the Marmotta home directory, and Zig's global cache follows the rules described there.</li>
+</ul>
+<h3 id="marmotta-home-directory"><a class="heading-anchor" href="#marmotta-home-directory">Marmotta home directory</a></h3>
+<p>Marmotta stores managed Zig toolchains (<code>toolchains/zig/&#x3C;version></code>) and temporary build files in its home directory. By default this is <code>.marmotta</code> in the user's home directory (<code>~/.marmotta</code> on Unix-like systems or <code>%USERPROFILE%\.marmotta</code> on Windows).</p>
+<p>Set <code>MARMOTTA_HOME</code> to use another directory, for example when the home directory is read-only or not persistent, as on restricted CI runners or in containers:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> MARMOTTA_HOME</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">/var/cache/marmotta</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> marmotta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
+<ul>
+<li>The value must be an absolute path. On Windows it must start with a drive letter (<code>D:\marmotta</code>) or be a UNC path (<code>\\server\share\marmotta</code>); root-relative paths such as <code>\marmotta</code> and device paths such as <code>\\?\</code> or <code>\\.\</code> are not accepted. <code>~</code> is not expanded, and values with leading or trailing whitespace are rejected instead of being trimmed. Invalid values are rejected with <code>MARMOTTA_HOME_INVALID</code>.</li>
+<li>An empty value is treated as unset.</li>
+<li>Marmotta creates the directory, and the subdirectories it needs, when a command first writes to it. If a directory cannot be created or written, for example when building, the command fails with <code>MARMOTTA_HOME_UNAVAILABLE</code> and names the directory and the cause. A failed Zig installation keeps its <code>ZIG_INSTALL_FAILED</code> code and includes the same details. Commands that write nothing, such as <code>marmotta list</code>, or <code>configure</code> and <code>install</code> when Zig is already available, also work with a read-only directory.</li>
+<li>When <code>MARMOTTA_HOME</code> is set, Zig's global cache is placed in <code>&#x3C;MARMOTTA_HOME>/cache</code>, so builds do not write to the home directory. If <code>ZIG_GLOBAL_CACHE_DIR</code> is already set to a non-empty value, Marmotta leaves it unchanged. Without <code>MARMOTTA_HOME</code>, Marmotta does not change the cache location and Zig uses its own default.</li>
+<li>Marmotta only removes files and directories it created, such as a Zig version removed with <code>marmotta remove</code> or temporary build directories. It never deletes or cleans the <code>MARMOTTA_HOME</code> directory itself, so it can point to a shared location.</li>
+</ul>
+<h2 id="contributing"><a class="heading-anchor" href="#contributing">Contributing</a></h2>
+<p>Bug reports, documentation improvements, and code contributions are welcome. See the <a href="/projects/marmotta/docs/contributing/">contributing guide</a> for project contribution and review guidelines.</p>
+<h2 id="license"><a class="heading-anchor" href="#license">License</a></h2>
+<p>Marmotta is licensed under the Apache License, Version 2.0. See <a href="https://github.com/napi-bindings/marmotta/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">LICENSE</a> for the full license text.</p>
+<h2 id="team"><a class="heading-anchor" href="#team">Team</a></h2>
+<ul>
+<li><a href="https://github.com/NickNaso" target="_blank" rel="noreferrer noopener">Nicola Del Gobbo</a></li>
+</ul>
+<h2 id="contributors"><a class="heading-anchor" href="#contributors">Contributors</a></h2>
+<ul>
+<li><a href="https://github.com/ErRusso" target="_blank" rel="noreferrer noopener">Simone Russo</a></li>
+</ul>22:["$","div",null,{"className":"grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$L32",null,{"html":"$33"}]}],"$L34"]}]
+36:I[78085,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"CopyButton"]
+34:["$","aside",null,{"className":"flex flex-col gap-4 lg:order-none","children":[["$","div",null,{"className":"flex flex-col gap-2","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Get started"}],"$L35"]}],["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"npm"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","div","marmotta",{"className":"flex items-center justify-between gap-2","children":[["$","div",null,{"className":"flex min-w-0 flex-col","children":[["$","a",null,{"href":"https://www.npmjs.com/package/marmotta","target":"_blank","rel":"noreferrer","className":"truncate font-mono text-sm hover:underline","children":"marmotta"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":["v0.10.0"," · 225 weekly downloads"]}]]}],["$","$L36",null,{"value":"npm install marmotta","label":"Copy npm install marmotta"}]]}],["$","div","@napi-bindings/marmotta",{"className":"flex items-center justify-between gap-2","children":[["$","div",null,{"className":"flex min-w-0 flex-col","children":[["$","a",null,{"href":"https://www.npmjs.com/package/@napi-bindings/marmotta","target":"_blank","rel":"noreferrer","className":"truncate font-mono text-sm hover:underline","children":"@napi-bindings/marmotta"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":["v0.10.0"," · 202 weekly downloads"]}]]}],["$","$L36",null,{"value":"npm install @napi-bindings/marmotta","label":"Copy npm install @napi-bindings/marmotta"}]]}]]}]]}],["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Highlights"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing)","children":["$","ul",null,{"className":"flex flex-col gap-2 text-sm","children":[["$","li","Ships the Node-API headers and installs Zig on demand",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"check","size":24,"node":[["path",{"d":"M20 6 9 17l-5-5","key":"1gmf2c"}]]},"className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Ships the Node-API headers and installs Zig on demand"}]]}],"$L37","$L38","$L39"]}]}]]}],"$L3a","$L3b","$L3c"]}]
+3d:I[72436,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Separator"]
+37:["$","li","Cross-compiles with any Zig target triple (--target)",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$34:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Cross-compiles with any Zig target triple (--target)"}]]}]
+38:["$","li","One addon for Node.js, Electron, Deno and Bun",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$34:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"One addon for Node.js, Electron, Deno and Bun"}]]}]
+39:["$","li","Standalone binaries, .deb/.rpm/.apk/Arch packages",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$34:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Standalone binaries, .deb/.rpm/.apk/Arch packages"}]]}]
+3a:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Repository"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-4","children":[["$","dl",null,{"className":"grid grid-cols-2 gap-x-4 gap-y-2 text-sm","children":[["$","div","Default branch",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Default branch"}],["$","dd",null,{"className":"font-mono text-xs","children":"main"}]]}],["$","div","Last commit",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Last commit"}],["$","dd",null,{"className":"font-mono text-xs","children":"Nov 13, 2026"}]]}],["$","div","Open issues",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Open issues"}],["$","dd",null,{"className":"font-mono text-xs","children":"1"}]]}],["$","div","Documents",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Documents"}],["$","dd",null,{"className":"font-mono text-xs","children":"5"}]]}]]}],["$","div",null,{"className":"flex flex-col gap-2","children":[["$","div",null,{"className":"bg-muted flex h-2 overflow-hidden rounded-full","aria-hidden":true,"children":[["$","span","JavaScript",{"className":"bg-brand h-full","style":{"width":"64.9170215610259%","opacity":1}}],["$","span","TypeScript",{"className":"bg-brand h-full","style":{"width":"32.54253957947405%","opacity":0.75}}],["$","span","Shell",{"className":"bg-brand h-full","style":{"width":"1.1291369860397609%","opacity":0.55}}]]}],["$","ul",null,{"className":"text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs","children":[["$","li","JavaScript",{"children":["JavaScript"," ",["$","span",null,{"className":"font-mono","children":["64.9","%"]}]]}],["$","li","TypeScript",{"children":["TypeScript"," ",["$","span",null,{"className":"font-mono","children":["32.5","%"]}]]}],["$","li","Shell",{"children":["Shell"," ",["$","span",null,{"className":"font-mono","children":["1.1","%"]}]]}]]}]]}],[["$","$L3d",null,{}],["$","div",null,{"className":"flex flex-wrap gap-1","children":[["$","span","addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"addon"}],["$","span","c",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"c"}],"$L3e","$L3f","$L40","$L41","$L42","$L43","$L44","$L45"]}]]]}]]}]
+3b:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Related projects"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","$L12","node-api-stub",{"href":"/projects/node-api-stub/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"node-api-stub"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Same goal for CMake projects: link addons without Node.js."}]]}],["$","$L12","napi-go",{"href":"/projects/napi-go/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"napi-go"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Also uses Zig to cross-compile addons for every platform."}]]}]]}]]}]
+3c:["$","div",null,{"className":"hidden pt-2 lg:block","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","contents",{"className":"","children":["$","a",null,{"href":"#contents","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Contents"}]}],["$","li","highlights",{"className":"","children":["$","a",null,{"href":"#highlights","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Highlights"}]}],["$","li","requirements",{"className":"","children":["$","a",null,{"href":"#requirements","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Requirements"}]}],["$","li","installation",{"className":"","children":["$","a",null,{"href":"#installation","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Installation"}]}],["$","li","quick-start",{"className":"","children":["$","a",null,{"href":"#quick-start","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Quick start"}]}],["$","li","configuration",{"className":"","children":["$","a",null,{"href":"#configuration","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Configuration"}]}],["$","li","command-line-reference",{"className":"","children":["$","a",null,{"href":"#command-line-reference","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Command-line reference"}]}],["$","li","zig-toolchain",{"className":"","children":["$","a",null,{"href":"#zig-toolchain","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Zig toolchain"}]}],["$","li","contributing",{"className":"","children":["$","a",null,{"href":"#contributing","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Contributing"}]}],["$","li","license",{"className":"","children":["$","a",null,{"href":"#license","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"License"}]}],["$","li","team",{"className":"","children":["$","a",null,{"href":"#team","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Team"}]}],["$","li","contributors",{"className":"","children":["$","a",null,{"href":"#contributors","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Contributors"}]}]]}]]}]}]
+3e:["$","span","cpp",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"cpp"}]
+3f:["$","span","n-api",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"n-api"}]
+40:["$","span","native-addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"native-addon"}]
+41:["$","span","node",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node"}]
+42:["$","span","node-addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node-addon"}]
+43:["$","span","node-api",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node-api"}]
+44:["$","span","nodejs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"nodejs"}]
+45:["$","span","zig-build",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"zig-build"}]
+46:I[73838,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"CodeTabsClient"]
+47:T457,<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "name"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"hello"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "sources"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"src/hello.c"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "outputDir"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"build"</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>35:["$","$L46",null,{"tabs":[{"label":"npm","lang":"sh","code":"npm install --save-dev marmotta\nnpx marmotta build","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">npm</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> install</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --save-dev</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> marmotta</span></span>\n<span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">npx</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> marmotta</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> build</span></span></code></pre>"},{"label":"Config","lang":"json","code":"{\n  \"name\": \"hello\",\n  \"sources\": [\"src/hello.c\"],\n  \"outputDir\": \"build\"\n}","html":"$47"},{"label":"Cross-compile","lang":"sh","code":"npx marmotta build --target aarch64-macos\nnpx marmotta build --target x86_64-windows","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">npx</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> marmotta</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> build</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --target</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> aarch64-macos</span></span>\n<span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">npx</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> marmotta</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> build</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --target</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> x86_64-windows</span></span></code></pre>"}],"className":"$undefined"}]
+28:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]
+48:I[27201,["$2","$3","$4","$5","$6","$7"],"IconMark"]
+25:null
+2b:[["$","title","0",{"children":"Marmotta · napi-bindings"}],["$","meta","1",{"name":"description","content":"Builds C and C++ Node-API addons with Zig: no node-gyp, no CMake, cross-compilation from a single machine."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/marmotta/"}],["$","meta","4",{"property":"og:title","content":"Marmotta"}],["$","meta","5",{"property":"og:description","content":"Builds C and C++ Node-API addons with Zig: no node-gyp, no CMake, cross-compilation from a single machine."}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","8",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","link","9",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","10",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L48","11",{}]]

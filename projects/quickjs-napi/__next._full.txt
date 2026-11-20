@@ -1,0 +1,320 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3erqbre4nabri.js"
+3:"/_next/static/chunks/3_89uhd12tu-e.js"
+4:"/_next/static/chunks/0itd6eiroz8sa.js"
+5:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+6:"/_next/static/chunks/3pcblro4gce7n.js"
+7:"/_next/static/chunks/2i7p862aqiwl7.js"
+8:I[27423,["$2","$3","$4","$5","$6","$7"],"ThemeProvider"]
+9:I[46798,["$2","$3","$4","$5","$6","$7"],"TooltipProvider"]
+a:I[3020,["$2","$3","$4","$5","$6","$7"],"SiteHeader"]
+b:I[39756,["$2","$3","$4","$5","$6","$7"],"default"]
+c:I[37457,["$2","$3","$4","$5","$6","$7"],"default"]
+d:"/_next/static/chunks/3y068am0pzdwl.js"
+e:"/_next/static/chunks/3-909m818e1da.js"
+f:"/_next/static/chunks/2rdswu9mij722.js"
+10:I[5014,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"default"]
+11:I[27930,["$2","$3","$4","$5","$6","$7","$d"],"Button"]
+12:I[22016,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],""]
+1d:I[68027,["$2","$3","$4","$5","$6","$7"],"default",1]
+:HL["/_next/static/chunks/10cvp-b8dretj.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+17:X
+1a:[["children",{"s":"__PAGE__","h":512,"d":{"r":"$L1b","p":false,"v":null}}]]
+18:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":66048,"d":{"r":"$L19","p":false,"v":null},"c":"$Q1a"}]]
+15:[["children",{"s":"projects","h":131584,"d":{"r":"$L16","p":false,"v":"$17"},"c":"$Q18"}]]
+0:{"P":null,"c":["","projects","quickjs-napi",""],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/3erqbre4nabri.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/3_89uhd12tu-e.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0itd6eiroz8sa.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/3tgrtgyx1rjnt.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/_next/static/chunks/3pcblro4gce7n.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/_next/static/chunks/2i7p862aqiwl7.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"Ur3q_a_variable iaM1Ya_variable","children":["$","body",null,{"className":"flex min-h-svh flex-col font-sans","children":["$","$L8",null,{"attribute":"class","defaultTheme":"dark","enableSystem":true,"disableTransitionOnChange":true,"children":["$","$L9",null,{"children":[["$","a",null,{"href":"#main","className":"bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2","children":"Skip to content"}],["$","$La",null,{}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-24","children":["$","div",null,{"data-slot":"empty","className":"gap-4 rounded-xl border-dashed p-6 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance","children":[["$","div",null,{"data-slot":"empty-header","className":"gap-2 flex max-w-sm flex-col items-center","children":[["$","div",null,{"data-slot":"empty-icon","data-variant":"icon","className":"mb-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4","children":["$","$L10",null,{"ref":"$undefined","icon":{"name":"file-question-mark","size":24,"node":[["path",{"d":"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z","key":"1oefj6"}],["path",{"d":"M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5","key":"1awbb0"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["file-question"]},"className":"$undefined"}]}],["$","div",null,{"data-slot":"empty-title","className":"text-sm font-medium tracking-tight","children":"Page not found"}],["$","div",null,{"data-slot":"empty-description","className":"text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary","children":"This page does not exist, or it moved. Node-API symbols live under /node-api/reference/."}]]}],["$","div",null,{"data-slot":"empty-content","className":"gap-2.5 text-sm flex w-full max-w-sm min-w-0 items-center text-balance flex-row justify-center","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/"}],"nativeButton":false,"children":"Home"}],"$L13"]}]]}]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],"$L14"]}]}]}]}]]}],"p":false,"v":null},"c":"$Q15"},"h":{"r":"$L1c","p":false,"v":null}},"m":"$undefined","G":["$1d",["$L1e"]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"rqzizN7opElHqBNmIIWHs"}
+23:I[97367,["$2","$3","$4","$5","$6","$7"],"OutletBoundary"]
+24:"$Sreact.suspense"
+26:"ViewportBoundary"
+27:I[97367,["$2","$3","$4","$5","$6","$7"],"$26"]
+29:"MetadataBoundary"
+2a:I[97367,["$2","$3","$4","$5","$6","$7"],"$29"]
+:HL["/logo.png","image"]
+13:["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/node-api/reference/"}],"nativeButton":false,"children":"API reference"}]
+14:["$","footer",null,{"className":"border-t","children":[["$","div",null,{"className":"mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]","children":[["$","div",null,{"className":"flex flex-col gap-3","children":[["$","span",null,{"className":"flex items-center gap-2","children":[["$","img",null,{"src":"/logo.png","alt":"","width":28,"height":28,"className":"size-7"}],["$","span",null,{"className":"font-mono text-sm font-semibold tracking-tight","children":"napi-bindings"}]]}],["$","p",null,{"className":"text-muted-foreground max-w-xs text-sm","children":"Native Node.js addons and tooling built on the ABI-stable Node-API."}],["$","p",null,{"className":"text-muted-foreground text-xs","children":["Data synchronised from GitHub on ","Nov 20, 2026","."]}]]}],[["$","div","Node-API",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Node-API"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/node-api/",{"children":["$","$L12",null,{"href":"/node-api/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Overview"}]}],["$","li","/node-api/reference/",{"children":["$","$L12",null,{"href":"/node-api/reference/","className":"text-muted-foreground hover:text-foreground text-sm","children":"API reference"}]}],["$","li","/node-api/versions/",{"children":["$","$L12",null,{"href":"/node-api/versions/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Versions"}]}],["$","li","/ecosystem/",{"children":["$","$L12",null,{"href":"/ecosystem/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Ecosystem"}]}]]}]]}],["$","div","Projects",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Projects"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/projects/marmotta/",{"children":["$","$L12",null,{"href":"/projects/marmotta/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Marmotta"}]}],["$","li","/projects/napi-go/",{"children":["$","$L12",null,{"href":"/projects/napi-go/","className":"text-muted-foreground hover:text-foreground text-sm","children":"napi-go"}]}],["$","li","/projects/node-api-stub/",{"children":["$","$L12",null,{"href":"/projects/node-api-stub/","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-api-stub"}]}],["$","li","/projects/quickjs-build/",{"children":["$","$L12",null,{"href":"/projects/quickjs-build/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-build"}]}],["$","li","/projects/quickjs-napi/",{"children":["$","$L12",null,{"href":"/projects/quickjs-napi/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-napi"}]}]]}]]}],["$","div","Upstream",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Upstream"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","https://nodejs.org/docs/latest/api/n-api.html",{"children":["$","a",null,{"href":"https://nodejs.org/docs/latest/api/n-api.html","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"Node-API docs"}]}],["$","li","https://github.com/nodejs/abi-stable-node",{"children":["$","a",null,{"href":"https://github.com/nodejs/abi-stable-node","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"nodejs/abi-stable-node"}]}],["$","li","https://github.com/nodejs/node-addon-api",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-api","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-api"}]}],["$","li","https://github.com/nodejs/node-addon-examples",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-examples","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-examples"}]}]]}]]}]]]}],["$","div",null,{"className":"border-t","children":["$","div",null,{"className":"text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6","children":["$L1f","$L20"]}]}]]}]
+16:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+19:["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3y068am0pzdwl.js","async":true,"nonce":"$undefined"}]],"$L21"]}]
+1b:["$","$1","c",{"children":["$L22",[["$","script","script-0",{"src":"/_next/static/chunks/3-909m818e1da.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/2rdswu9mij722.js","async":true,"nonce":"$undefined"}]],["$","$L23",null,{"children":["$","$24",null,{"name":"Next.MetadataOutlet","children":"$@25"}]}]]}]
+1c:["$","$1","h",{"children":[null,["$","$L27",null,{"children":"$L28"}],["$","$L2a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$24",null,{"name":"Next.Metadata","children":"$L2b"}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1e:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+17:C
+1f:["$","p",null,{"children":"© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license."}]
+20:["$","a",null,{"href":"https://github.com/napi-bindings/website","target":"_blank","rel":"noreferrer","className":"hover:text-foreground","children":"Edit this site on GitHub"}]
+21:[["$","div",null,{"className":"bg-muted/30 border-b","children":["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10","children":[["$","div",null,{"className":"flex flex-col gap-4 md:flex-row md:items-start md:justify-between","children":[["$","div",null,{"className":"flex max-w-3xl flex-col gap-3","children":[["$","$L12",null,{"href":"/projects/","className":"text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"cpu","size":24,"node":[["path",{"d":"M12 20v2","key":"1lh1kg"}],["path",{"d":"M12 2v2","key":"tus03m"}],["path",{"d":"M17 20v2","key":"1rnc9c"}],["path",{"d":"M17 2v2","key":"11trls"}],["path",{"d":"M2 12h2","key":"1t8f8n"}],["path",{"d":"M2 17h2","key":"7oei6x"}],["path",{"d":"M2 7h2","key":"asdhe0"}],["path",{"d":"M20 12h2","key":"1q8mjw"}],["path",{"d":"M20 17h2","key":"1fpfkl"}],["path",{"d":"M20 7h2","key":"1o8tra"}],["path",{"d":"M7 20v2","key":"4gnj0m"}],["path",{"d":"M7 2v2","key":"1i4yhu"}],["rect",{"x":"4","y":"4","width":"16","height":"16","rx":"2","key":"1vbyd7"}],["rect",{"x":"8","y":"8","width":"8","height":"8","rx":"1","key":"z9xiuo"}]]},"className":"size-3.5"}],"Runtimes"]}],["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","h1",null,{"className":"font-mono text-3xl font-semibold tracking-tight","children":"quickjs-napi"}],["$","span",null,{"data-slot":"badge","data-variant":"outline","className":"h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground","children":"0.0.x"}]]}],["$","p",null,{"className":"text-muted-foreground text-pretty","children":"A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable."}],["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm","children":[["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"star","size":24,"node":[["path",{"d":"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z","key":"r04s7s"}]]},"className":"size-4"}],"1"," ","star"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"git-fork","size":24,"node":[["circle",{"cx":"12","cy":"18","r":"3","key":"1mpf1b"}],["circle",{"cx":"6","cy":"6","r":"3","key":"1lh9wr"}],["circle",{"cx":"18","cy":"6","r":"3","key":"1h7g24"}],["path",{"d":"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9","key":"1uq4wg"}],["path",{"d":"M12 12v3","key":"158kv8"}]]},"className":"size-4"}],"0"," ","forks"]}],["$","$L12",null,{"href":"/projects/quickjs-napi/releases/","className":"hover:text-foreground flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"tag","size":24,"node":[["path",{"d":"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z","key":"vktsd0"}],["circle",{"cx":"7.5","cy":"7.5","r":".5","fill":"currentColor","key":"kqv944"}]]},"className":"size-4"}],["$","span",null,{"className":"font-mono","children":"v0.0.2"}],["$","span",null,{"children":["· ","Nov 18, 2026"]}]]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"scale","size":24,"node":[["path",{"d":"M12 3v18","key":"108xh3"}],["path",{"d":"m19 8 3 8a5 5 0 0 1-6 0zV7","key":"zcdpyk"}],["path",{"d":"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1","key":"1yorad"}],["path",{"d":"m5 8 3 8a5 5 0 0 1-6 0zV7","key":"eua70x"}],["path",{"d":"M7 21h10","key":"1b0cd5"}]]},"className":"size-4"}],"Apache-2.0"]}]]}]]}],"$L2c"]}],"$L2d"]}]}],"$L2e"]
+2f:I[81371,["$2","$3","$4","$5","$6","$7","$d"],"ProjectNav"]
+2c:["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi","target":"_blank","rel":"noreferrer"}],"nativeButton":false,"children":[["$","svg",null,{"viewBox":"0 0 24 24","fill":"currentColor","aria-hidden":"true","data-icon":"inline-start","children":["$","path",null,{"d":"M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"}]}],"Repository"]}],"$undefined"]}]
+2d:["$","$L2f",null,{"items":[{"title":"Overview","href":"/projects/quickjs-napi/"},{"title":"Docs","href":"/projects/quickjs-napi/docs/","count":21},{"title":"Releases","href":"/projects/quickjs-napi/releases/","count":2},{"title":"Activity","href":"/projects/quickjs-napi/activity/"}]}]
+2e:["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-10","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]
+30:I[73435,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Markdown"]
+31:T32d0,
+<p><a href="https://github.com/napi-bindings/quickjs-napi/actions/workflows/ci.yml" target="_blank" rel="noreferrer noopener"><img src="https://github.com/napi-bindings/quickjs-napi/actions/workflows/ci.yml/badge.svg?branch=napi" alt="CI" loading="lazy"></a></p>
+<p>Node-API implementation for <a href="https://bellard.org/quickjs/" target="_blank" rel="noreferrer noopener">QuickJS</a>
+(2026-06-04, from <code>../quickjs-build</code>). Addons built for Node.js (node-gyp,
+node-addon-api, napi-rs) are loaded <strong>unchanged</strong>: they resolve <code>napi_*</code> from
+the <code>quickjs-napi</code> executable, exactly as they do from <code>node</code>.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -e</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "console.log(require('./build/Release/addon.node').hello())"</span></span></code></pre>
+<h2 id="status"><a class="heading-anchor" href="#status">Status</a></h2>
+<p>Milestone <strong>M6</strong> in progress (real-world conformance). Done: M1 values,
+strings, objects, properties, functions, classes, errors; M2 references,
+externals, wrapping, finalizers, type tags, instance data, <code>napi_run_script</code>;
+M3 ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise; M4 the
+synchronous <code>node_api.h</code> (Buffer, async context, <code>napi_make_callback</code>,
+callback scopes, <code>napi_fatal_exception</code>); M5 the libuv event loop (async
+work, thread-safe functions, async cleanup hooks,
+<code>napi_get_uv_event_loop</code>). See <code>PIANO-IMPLEMENTAZIONE.md</code> in the project for
+the plan.</p>
+<ul>
+<li>All <strong>155 Node-API functions</strong> (version 10) are implemented.</li>
+<li>They pass 30 tests of the Node.js <code>js-native-api</code> suite, 19 of its
+<code>node-api</code> suite, and 78 of the 83 test modules of the <strong>node-addon-api
+8.9.2</strong> suite in its four binding variants (the others need
+<code>worker_threads</code>, <code>npm</code> or test the npm package itself).</li>
+<li>Behaviour follows <strong>Node.js 22.23.4</strong>; the few differences are listed in
+<a href="/projects/quickjs-napi/docs/compatibility/">compatibility.md</a>. <code>NAPI_EXPERIMENTAL</code> APIs are not
+provided.</li>
+</ul>
+<h2 id="quick-start"><a class="heading-anchor" href="#quick-start">Quick start</a></h2>
+<p><code>quickjs-build</code> must be checked out next to this repository
+(<code>../quickjs-build</code>, branch <code>feat/quickjs-2026-06-04</code>).</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span><span style="color:#6A737D;--shiki-dark:#6A737D">            # windows-zig-debug on Windows</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [options] script.js [args...]</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [options] -e </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">code</span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [args...]</span></span></code></pre>
+<p>Details: <a href="/projects/quickjs-napi/docs/building/">building</a>, <a href="/projects/quickjs-napi/docs/host/">the executable</a>.</p>
+<h2 id="documentation"><a class="heading-anchor" href="#documentation">Documentation</a></h2>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/architecture/">Architecture</a></td>
+<td>goals, components, host and env, handle-scope arena, function calls, error model, object lifetime on a reference-counting engine, event loop, addon loading, teardown, design decisions; with diagrams</td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/embedding/">Embedding API</a></td>
+<td><code>qjsnapi.h</code>: embedding the library in a QuickJS application, every <code>qjsnapi_*</code> function, embedder responsibilities, symbol export</td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a></td>
+<td>conventions (statuses, pending exceptions, threads), writing an addon, and an index of all 155 functions</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/environment/">Environment</a></td>
+<td>last error, versions, module file name, cleanup hooks, <code>napi_fatal_error</code>, legacy registration</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/values/">Values</a></td>
+<td>singletons, numbers, booleans, <code>typeof</code>, coercion, arrays, strict equality</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/strings/">Strings</a></td>
+<td>latin1 / UTF-8 / UTF-16 strings, external strings, property keys, symbols</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/objects/">Objects</a></td>
+<td>properties by key, name and index, <code>napi_define_properties</code>, key enumeration, prototype, freeze/seal, <code>instanceof</code></td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/functions/">Functions</a></td>
+<td>native functions, <code>napi_get_cb_info</code>, calls, <code>new.target</code>, classes, <code>napi_run_script</code></td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/errors/">Errors</a></td>
+<td>error objects, throwing, pending exceptions</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/scopes/">Handle scopes</a></td>
+<td>handle and escapable scopes</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/lifetime/">Lifetime</a></td>
+<td>references, wrapping, finalizers, externals, type tags, instance data, external memory</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/binary-data/">Binary data</a></td>
+<td>ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise</td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/node-specific/">Node.js-specific</a></td>
+<td>Buffer, async context, <code>napi_make_callback</code>, callback scopes, <code>napi_fatal_exception</code></td>
+</tr>
+<tr>
+<td>↳ <a href="/projects/quickjs-napi/docs/node-api/async/">Asynchronous APIs</a></td>
+<td>async work, thread-safe functions, <code>napi_get_uv_event_loop</code></td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/host/">The executable</a></td>
+<td>command line, <code>NODE_OPTIONS</code>, CommonJS modules, globals, builtin modules, <code>child_process</code>, event loop, exit</td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/building/">Building</a></td>
+<td>prerequisites, presets, options, Windows (zig, MSYS2), build outputs, installing, release packages, CI</td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/testing/">Testing</a></td>
+<td>test suites, Node.js parity, sanitizers, tools, development workflows</td>
+</tr>
+<tr>
+<td><a href="/projects/quickjs-napi/docs/compatibility/">Compatibility</a></td>
+<td>every known difference from Node.js 22</td>
+</tr>
+</tbody>
+</table>
+<p>Test-suite specific notes: <a href="/projects/quickjs-napi/docs/test/node/">test/node/README.md</a>
+(Node.js conformance tests) and
+<a href="/projects/quickjs-napi/docs/test/node-addon-api/harness/">test/node-addon-api/harness/README.md</a>
+(node-addon-api suite).</p>
+<h2 id="repository-layout"><a class="heading-anchor" href="#repository-layout">Repository layout</a></h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>include/</code></td>
+<td>Node-API headers (v10), QuickJS headers, <code>qjsnapi.h</code></td>
+</tr>
+<tr>
+<td><code>src/env.c</code></td>
+<td>host and env lifecycle, last error, cleanup hooks</td>
+</tr>
+<tr>
+<td><code>src/lifetime.c</code></td>
+<td>references, externals, wrap, finalizers and their queue, type tags, instance data</td>
+</tr>
+<tr>
+<td><code>src/scope.c</code></td>
+<td>handle-scope arena (<code>napi_value</code> = pointer to an owned <code>JSValue</code> slot)</td>
+</tr>
+<tr>
+<td><code>src/function.c</code></td>
+<td>functions with <code>new.target</code> support (class with a <code>call</code> hook), calls, <code>napi_define_class</code>, <code>napi_run_script</code></td>
+</tr>
+<tr>
+<td><code>src/value.c</code></td>
+<td>primitives, numbers, coercion, arrays, strict equality</td>
+</tr>
+<tr>
+<td><code>src/string.c</code></td>
+<td>strings (latin1/UTF-8/UTF-16, lossless through WTF-8/CESU-8), property keys, symbols</td>
+</tr>
+<tr>
+<td><code>src/object.c</code></td>
+<td>properties, <code>napi_define_properties</code>, property names, prototype, freeze/seal, <code>instanceof</code></td>
+</tr>
+<tr>
+<td><code>src/error.c</code></td>
+<td>errors and exceptions</td>
+</tr>
+<tr>
+<td><code>src/builtins.c</code></td>
+<td>ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise/deferred</td>
+</tr>
+<tr>
+<td><code>src/buffer.c</code>, <code>src/buffer.js</code></td>
+<td>Buffer APIs and the minimal Buffer class (embedded at build time)</td>
+</tr>
+<tr>
+<td><code>src/node_api.c</code></td>
+<td>async context, <code>napi_make_callback</code>, callback scopes, <code>napi_fatal_exception</code>, the frame of loop-originated callbacks</td>
+</tr>
+<tr>
+<td><code>src/loop.c</code></td>
+<td>libuv loop ownership, finalizer check/idle handles, drain and close at teardown, <code>napi_get_uv_event_loop</code></td>
+</tr>
+<tr>
+<td><code>src/async.c</code></td>
+<td><code>napi_async_work</code> on the libuv thread pool</td>
+</tr>
+<tr>
+<td><code>src/tsfn.c</code></td>
+<td>thread-safe functions</td>
+</tr>
+<tr>
+<td><code>src/loader.c</code></td>
+<td><code>.node</code> loading: <code>napi_register_module_v1</code>, API version, legacy <code>napi_module_register</code></td>
+</tr>
+<tr>
+<td><code>src/stubs_generated.c</code></td>
+<td>generated by <code>tools/gen_stubs.py</code>, do not edit (empty now: every function is implemented)</td>
+</tr>
+<tr>
+<td><code>host/main.c</code>, <code>host/bootstrap.js</code></td>
+<td>the <code>quickjs-napi</code> executable: options, event loop, CommonJS loader, <code>process</code> and builtin modules (<code>bootstrap.js</code> embedded at build time by <code>cmake/embed.cmake</code>)</td>
+</tr>
+<tr>
+<td><code>host/spawn.c</code></td>
+<td>child processes (<code>spawnSync</code> on a private loop, <code>spawn</code> on the main one)</td>
+</tr>
+<tr>
+<td><code>test/addons</code>, <code>test/js</code></td>
+<td>our test addons; the JS tests also run under Node.js as reference</td>
+</tr>
+<tr>
+<td><code>test/node</code></td>
+<td>Node.js conformance tests (vendored)</td>
+</tr>
+<tr>
+<td><code>test/node-addon-api</code></td>
+<td>node-addon-api headers and test suite (vendored by <code>tools/sync_node_addon_api.py</code>); <code>harness/</code> is ours</td>
+</tr>
+<tr>
+<td><code>test/unit</code></td>
+<td>C embedding test (teardown order, scopes, error state, finalizer queue)</td>
+</tr>
+<tr>
+<td><code>test/package</code></td>
+<td>checks an installed / released package (<code>smoke.sh</code>, used by the release workflow)</td>
+</tr>
+<tr>
+<td><code>test/lsan.supp</code></td>
+<td>LeakSanitizer suppressions for leaks the Node.js and node-addon-api tests make by design</td>
+</tr>
+<tr>
+<td><code>cmake/node_addon_api_tests.cmake</code></td>
+<td>builds the 8 node-addon-api test bindings, one CTest per test module</td>
+</tr>
+<tr>
+<td><code>cmake/expect_abort.cmake</code></td>
+<td>runs a Node.js test that must abort (<code>napi_fatal_error</code>) and checks its output</td>
+</tr>
+<tr>
+<td><code>tools/</code></td>
+<td>stub generation, export check, test vendoring (<a href="/projects/quickjs-napi/docs/testing/#tools">testing.md</a>)</td>
+</tr>
+<tr>
+<td><code>doc/</code></td>
+<td>this documentation</td>
+</tr>
+</tbody>
+</table>22:["$","div",null,{"className":"grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$L30",null,{"html":"$31"}]}],"$L32"]}]
+32:["$","aside",null,{"className":"flex flex-col gap-4 lg:order-none","children":[["$","div",null,{"className":"flex flex-col gap-2","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Get started"}],"$L33"]}],false,["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Highlights"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing)","children":["$","ul",null,{"className":"flex flex-col gap-2 text-sm","children":[["$","li","All 155 Node-API 10 functions implemented",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"check","size":24,"node":[["path",{"d":"M20 6 9 17l-5-5","key":"1gmf2c"}]]},"className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"All 155 Node-API 10 functions implemented"}]]}],["$","li","Runs the js-native-api, node-api and node-addon-api test suites",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$32:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Runs the js-native-api, node-api and node-addon-api test suites"}]]}],["$","li","libuv event loop: async work and thread-safe functions",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$32:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"libuv event loop: async work and thread-safe functions"}]]}],["$","li","Embeddable through the qjsnapi.h API",{"className":"flex gap-2","children":[["$","$L10",null,{"ref":"$undefined","icon":"$32:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Embeddable through the qjsnapi.h API"}]]}]]}]}]]}],["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Repository"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-4","children":[["$","dl",null,{"className":"grid grid-cols-2 gap-x-4 gap-y-2 text-sm","children":[["$","div","Default branch",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Default branch"}],["$","dd",null,{"className":"font-mono text-xs","children":"main"}]]}],["$","div","Last commit",{"className":"flex flex-col","children":["$L34","$L35"]}],"$L36","$L37"]}],"$L38","$L39"]}]]}],"$L3a","$L3b"]}]
+3c:I[72436,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Separator"]
+34:["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Last commit"}]
+35:["$","dd",null,{"className":"font-mono text-xs","children":"Nov 18, 2026"}]
+36:["$","div","Open issues",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Open issues"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}]
+37:["$","div","Documents",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Documents"}],["$","dd",null,{"className":"font-mono text-xs","children":"21"}]]}]
+38:["$","div",null,{"className":"flex flex-col gap-2","children":[["$","div",null,{"className":"bg-muted flex h-2 overflow-hidden rounded-full","aria-hidden":true,"children":[["$","span","C",{"className":"bg-brand h-full","style":{"width":"36.42283794207376%","opacity":1}}],["$","span","C++",{"className":"bg-brand h-full","style":{"width":"35.532533901564875%","opacity":0.75}}],["$","span","JavaScript",{"className":"bg-brand h-full","style":{"width":"21.618137006486222%","opacity":0.55}}],["$","span","CMake",{"className":"bg-brand h-full","style":{"width":"3.448109185120963%","opacity":0.4}}],["$","span","Python",{"className":"bg-brand h-full","style":{"width":"2.865376748502592%","opacity":0.3}}]]}],["$","ul",null,{"className":"text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs","children":[["$","li","C",{"children":["C"," ",["$","span",null,{"className":"font-mono","children":["36.4","%"]}]]}],["$","li","C++",{"children":["C++"," ",["$","span",null,{"className":"font-mono","children":["35.5","%"]}]]}],["$","li","JavaScript",{"children":["JavaScript"," ",["$","span",null,{"className":"font-mono","children":["21.6","%"]}]]}],["$","li","CMake",{"children":["CMake"," ",["$","span",null,{"className":"font-mono","children":["3.4","%"]}]]}],["$","li","Python",{"children":["Python"," ",["$","span",null,{"className":"font-mono","children":["2.9","%"]}]]}]]}]]}]
+39:[["$","$L3c",null,{}],["$","div",null,{"className":"flex flex-wrap gap-1","children":[["$","span","addon",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"addon"}],["$","span","clanguage",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"clanguage"}],["$","span","cpp",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"cpp"}],["$","span","javascript",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"javascript"}],["$","span","napi",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"napi"}],"$L3d","$L3e","$L3f","$L40"]}]]
+3a:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Related projects"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","$L12","quickjs-build",{"href":"/projects/quickjs-build/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"quickjs-build"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Provides the QuickJS engine it is built on."}]]}],["$","$L12","napi-go",{"href":"/projects/napi-go/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"napi-go"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Addons in any language load through the same ABI."}]]}]]}]]}]
+3b:["$","div",null,{"className":"hidden pt-2 lg:block","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","status",{"className":"","children":["$","a",null,{"href":"#status","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Status"}]}],["$","li","quick-start",{"className":"","children":["$","a",null,{"href":"#quick-start","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Quick start"}]}],["$","li","documentation",{"className":"","children":["$","a",null,{"href":"#documentation","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Documentation"}]}],["$","li","repository-layout",{"className":"","children":["$","a",null,{"href":"#repository-layout","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Repository layout"}]}]]}]]}]}]
+3d:["$","span","native",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"native"}]
+3e:["$","span","node",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"node"}]
+3f:["$","span","nodejs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"nodejs"}]
+40:["$","span","quickjs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"quickjs"}]
+41:I[73838,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"CodeTabsClient"]
+33:["$","$L41",null,{"tabs":[{"label":"Build","lang":"sh","code":"cmake --preset unix-debug\ncmake --build --preset unix-debug\nctest --preset unix-debug","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">cmake</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --preset</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> unix-debug</span></span>\n<span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">cmake</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --build</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --preset</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> unix-debug</span></span>\n<span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">ctest</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> --preset</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> unix-debug</span></span></code></pre>"},{"label":"Run","lang":"sh","code":"quickjs-napi -e \"console.log(require('./build/Release/addon.node').hello())\"","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">quickjs-napi</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -e</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> \"console.log(require('./build/Release/addon.node').hello())\"</span></span></code></pre>"}],"className":"$undefined"}]
+28:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]
+42:I[27201,["$2","$3","$4","$5","$6","$7"],"IconMark"]
+25:null
+2b:[["$","title","0",{"children":"quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/"}],["$","meta","4",{"property":"og:title","content":"quickjs-napi"}],["$","meta","5",{"property":"og:description","content":"A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable."}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","8",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","link","9",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","10",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L42","11",{}]]

@@ -1,0 +1,177 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T2d4b,<h1 id="packaging-marmotta">Packaging Marmotta</h1>
+<p>This directory contains the package-manager recipes for Marmotta. They are rendered from the
+release executables and the <code>SHA256SUMS</code> asset that the <code>Release binaries</code> workflow publishes.</p>
+<h2 id="generated-output"><a class="heading-anchor" href="#generated-output">Generated output</a></h2>
+<p><code>node scripts/packages.mjs</code> writes to <code>packaging/out/</code> (git-ignored):</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>packaging/out/</span></span>
+<span class="line"><span>├── artifacts/                 # .deb, .rpm, .apk, and .pkg.tar.zst packages (with --build)</span></span>
+<span class="line"><span>├── nfpm/                      # nfpm configs used to build the native packages</span></span>
+<span class="line"><span>├── recipes/</span></span>
+<span class="line"><span>│   ├── homebrew/marmotta.rb</span></span>
+<span class="line"><span>│   ├── aur/PKGBUILD</span></span>
+<span class="line"><span>│   ├── rpm/marmotta.spec</span></span>
+<span class="line"><span>│   ├── alpine/APKBUILD</span></span>
+<span class="line"><span>│   ├── nix/default.nix</span></span>
+<span class="line"><span>│   ├── scoop/marmotta.json</span></span>
+<span class="line"><span>│   └── winget/</span></span>
+<span class="line"><span>└── manifest.json</span></span></code></pre>
+<h2 id="generating-recipes"><a class="heading-anchor" href="#generating-recipes">Generating recipes</a></h2>
+<p>Download the assets of a release and render everything:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">gh</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> release</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> download</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> v0.10.0</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --dir</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> scripts/packages.mjs</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --version</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0.10.0</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --sums</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist/SHA256SUMS</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --artifacts</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --out</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> packaging/out</span></span></code></pre>
+<p>To compute the checksums from binaries that are already on disk instead of using <code>SHA256SUMS</code>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> scripts/packages.mjs</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --artifacts</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --out</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> packaging/out</span></span></code></pre>
+<h2 id="building-native-linux-packages"><a class="heading-anchor" href="#building-native-linux-packages">Building native Linux packages</a></h2>
+<p>The <code>.deb</code>, <code>.rpm</code>, <code>.apk</code>, and Arch Linux packages are built with
+<a href="https://nfpm.goreleaser.com/" target="_blank" rel="noreferrer noopener">nfpm</a>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># https://github.com/goreleaser/nfpm/releases</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> scripts/packages.mjs</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --artifacts</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --out</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> packaging/out</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span></span></code></pre>
+<p>The script verifies every package after building it: metadata (name, version, architecture) and
+the installed files are read back from each package. Verification needs <code>tar</code> and <code>ar</code>; it uses
+<code>rpm</code> or <code>bsdtar</code> to list RPM contents, and <code>bsdtar</code> (or <code>tar</code> with zstd support) for Arch Linux
+packages. When <code>--sums</code> and <code>--build</code> are combined, the executables in <code>--artifacts</code> are checked
+against <code>SHA256SUMS</code> before any package is built, so a stale <code>dist/</code> cannot produce packages that
+disagree with the published checksums.</p>
+<p>Only plain <code>MAJOR.MINOR.PATCH</code> versions are supported: nfpm rewrites pre-release and build
+metadata differently per package format, which would make the generated spec and APKBUILD invalid.</p>
+<p>The recipes reference <code>LICENSE</code> at tag <code>v&#x3C;version></code>. When that tag exists locally, the renderer
+hashes the committed blob from the tag (<code>git show v&#x3C;version>:LICENSE</code>); otherwise it uses the
+working tree, so render an older version from a checkout of that tag. The Alpine recipe also needs
+the release executables in <code>--artifacts</code> to compute the SHA-512 checksums that aports requires.</p>
+<p>The <code>.apk</code> packages built by nfpm are unsigned. Add <code>--allow-untrusted</code> when installing them
+directly, or sign them for a repository.</p>
+<p>The release workflow installs a pinned nfpm version through
+<code>.github/actions/setup-packaging</code>, runs <code>node --test test/packaging.test.js</code> with that nfpm, and
+attaches the results to the GitHub release together with <code>SHA256SUMS.packages</code> and
+<code>marmotta-vX.Y.Z-packaging.tar.gz</code> (the rendered recipes and their manifest). Packaging runs in a
+separate job after the binary release, so a packaging failure never blocks the executables.</p>
+<p>A second CI job renders the recipes from fixture checksums and runs each one through its consumer:
+<code>ruby -c</code> for the formula, <code>abuild validate</code> for the APKBUILD, <code>makepkg --printsrcinfo</code> for the
+PKGBUILD, <code>rpmspec -P</code> and <code>rpmspec -q</code> for the spec, and <code>nix-instantiate --parse</code> for the Nix
+expression. This catches recipe syntax that filling in the placeholders alone would not.</p>
+<h2 id="package-manager-notes"><a class="heading-anchor" href="#package-manager-notes">Package-manager notes</a></h2>
+<table>
+<thead>
+<tr>
+<th>Manager</th>
+<th>Recipe</th>
+<th>Runtime notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Homebrew</td>
+<td><code>homebrew/marmotta.rb</code></td>
+<td>Installs the standalone binary from the release; no Node.js or npm required. macOS binaries are ad-hoc signed and not notarized.</td>
+</tr>
+<tr>
+<td>AUR</td>
+<td><code>aur/PKGBUILD</code></td>
+<td><code>marmotta-bin</code>, <code>x86_64</code> and <code>aarch64</code>, glibc binaries. Depends on <code>glibc</code>.</td>
+</tr>
+<tr>
+<td>Arch Linux</td>
+<td>built by nfpm</td>
+<td>Same binary and dependencies as the AUR package.</td>
+</tr>
+<tr>
+<td>Debian/Ubuntu</td>
+<td>built by nfpm</td>
+<td>Depends on <code>libc6</code>; the binary is the glibc build.</td>
+</tr>
+<tr>
+<td>Fedora/RHEL</td>
+<td>built by nfpm</td>
+<td>Depends on <code>glibc</code>; <code>rpm/marmotta.spec</code> is provided for dist-git submissions.</td>
+</tr>
+<tr>
+<td>Alpine</td>
+<td>built by nfpm, <code>alpine/APKBUILD</code></td>
+<td>Uses the musl binaries and depends on <code>libstdc++</code> and <code>libgcc</code>. The single APKBUILD covers <code>x86_64</code> and <code>aarch64</code>, selects the source with a <code>$CARCH</code> case, and uses <code>sha512sums</code> as aports expects. The nfpm-built <code>.apk</code> files are unsigned, so install them with <code>apk add --allow-untrusted</code> unless you sign them for a repository.</td>
+</tr>
+<tr>
+<td>Nix</td>
+<td><code>nix/default.nix</code></td>
+<td>Fetches the standalone binary for the current system from the release. On Linux, <code>autoPatchelfHook</code> rewrites the interpreter for NixOS and stripping is disabled so the Bun payload stays intact.</td>
+</tr>
+<tr>
+<td>Scoop</td>
+<td><code>scoop/marmotta.json</code></td>
+<td>Windows x64 and ARM64 executables.</td>
+</tr>
+<tr>
+<td>winget</td>
+<td><code>winget/*.yaml</code></td>
+<td>Portable installer for Windows x64 and ARM64.</td>
+</tr>
+</tbody>
+</table>
+<p>All packages install a <code>marmotta</code> executable. Zig is downloaded on first use unless a compatible
+Zig is already on <code>PATH</code>, <code>MARMOTTA_ZIG_DIR</code> is set, or a release pins <code>zigVersion</code>. Package
+maintainers may want to add Zig as an optional/recommended dependency so first use works offline.</p>
+<h2 id="publishing-checklist"><a class="heading-anchor" href="#publishing-checklist">Publishing checklist</a></h2>
+<p>Packages are attached to every GitHub release so users can install them directly. Publishing to
+the package-manager repositories themselves still happens from those repositories:</p>
+<ol>
+<li><strong>Homebrew</strong>: copy <code>homebrew/marmotta.rb</code> into the <code>napi-bindings/homebrew-tap</code> repository (or
+submit it to <code>homebrew-core</code>), update the tap, and run <code>brew audit --strict</code>.</li>
+<li><strong>AUR</strong>: push <code>aur/PKGBUILD</code> to the <code>marmotta-bin</code> AUR repository and run
+<code>makepkg --printsrcinfo > .SRCINFO</code> before committing.</li>
+<li><strong>Debian/Ubuntu</strong>: upload the <code>.deb</code> files to an APT repository with <code>dpkg-scanpackages</code>, or
+submit the package to Debian/Ubuntu. Generate <code>Packages</code>/<code>Release</code> metadata for the repository.</li>
+<li><strong>Fedora/RHEL</strong>: submit <code>rpm/marmotta.spec</code> through dist-git or build it in COPR. Upload the
+source asset to the lookaside cache.</li>
+<li><strong>Alpine</strong>: submit <code>alpine/APKBUILD</code> to <code>alpinelinux/aports</code> (or build it with <code>abuild</code>).</li>
+<li><strong>Nixpkgs</strong>: add <code>nix/default.nix</code> to <code>pkgs/by-name/ma/marmotta/package.nix</code>, or expose it as a
+flake/overlay first.</li>
+<li><strong>Scoop</strong>: copy <code>scoop/marmotta.json</code> to a Scoop bucket.</li>
+<li><strong>winget</strong>: submit the three files under <code>winget/</code> to <code>microsoft/winget-pkgs</code> with
+<code>wingetcreate submit</code>.</li>
+</ol>
+<p>The recipes are version-specific, so regenerate them from the new <code>SHA256SUMS</code> for every release.
+The release workflow does this automatically and uploads <code>marmotta-vX.Y.Z-packaging.tar.gz</code>.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"packaging/README.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/marmotta/edit/main/packaging/README.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"packaging","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Contributing To Marmotta","href":"/projects/marmotta/docs/docs/contributing/"},{"title":"Marmotta Style Guide","href":"/projects/marmotta/docs/style-guide/"}]},{"title":"packaging/","items":[{"title":"Packaging Marmotta","href":"/projects/marmotta/docs/packaging/"}]},{"title":"Repository","items":[{"title":"Marmotta is an OPEN Open Source Project","href":"/projects/marmotta/docs/contributing/"},{"title":"Marmotta Project Governance","href":"/projects/marmotta/docs/governance/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"marmotta","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Packaging Marmotta · Marmotta · napi-bindings"}],["$","meta","1",{"name":"description","content":"Marmotta documentation: Packaging Marmotta (packaging/README.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/marmotta/docs/packaging/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/marmotta/docs/style-guide/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Marmotta Style Guide"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/marmotta/docs/contributing/"}],"nativeButton":false,"children":["Marmotta is an OPEN Open Source Project",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","generated-output",{"className":"","children":["$","a",null,{"href":"#generated-output","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Generated output"}]}],["$","li","generating-recipes",{"className":"","children":["$","a",null,{"href":"#generating-recipes","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Generating recipes"}]}],["$","li","building-native-linux-packages",{"className":"","children":["$","a",null,{"href":"#building-native-linux-packages","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Building native Linux packages"}]}],["$","li","package-manager-notes",{"className":"","children":["$","a",null,{"href":"#package-manager-notes","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Package-manager notes"}]}],["$","li","publishing-checklist",{"className":"","children":["$","a",null,{"href":"#publishing-checklist","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Publishing checklist"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

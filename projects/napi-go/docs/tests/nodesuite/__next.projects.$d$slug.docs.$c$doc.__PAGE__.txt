@@ -1,0 +1,346 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T476f,<h1 id="nodejs-test-suite-ported-to-sys">Node.js Test Suite Ported to <code>sys</code></h1>
+<p>The Node.js <a href="https://github.com/nodejs/node/tree/main/test/js-native-api" target="_blank" rel="noreferrer noopener"><code>test/js-native-api</code></a> and
+<a href="https://github.com/nodejs/node/tree/main/test/node-api" target="_blank" rel="noreferrer noopener"><code>test/node-api</code></a> test suites, with the C
+addons rewritten in Go on top of Layer 0 (<code>sys</code>). The JS scripts are the original ones,
+<strong>unmodified</strong>: if a test passes, the Go addon behaves identically to the C addon, including error
+messages.</p>
+<p>Source: nodejs/node @ <code>75191c45afeb</code>. License of copied files: <a href="https://github.com/napi-bindings/napi-go/blob/main/tests/nodesuite/LICENSE.nodejs" target="_blank" rel="noreferrer noopener">LICENSE.nodejs</a> (MIT).</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/nodesuite/run.mjs</span><span style="color:#6A737D;--shiki-dark:#6A737D">                    # build and run everything</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/nodesuite/run.mjs</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test_async</span><span style="color:#6A737D;--shiki-dark:#6A737D">         # only tests whose id contains "test_async"</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/nodesuite/run.mjs</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --no-build</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test_number/test_null</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">GOEXPERIMENT</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">cgocheck2</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tests/nodesuite/run.mjs</span></span></code></pre>
+<h2 id="layout"><a class="heading-anchor" href="#layout">Layout</a></h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>run.mjs</code></td>
+<td>runner: builds targets from each <code>binding.gyp</code>, runs each <code>.js</code> honoring its <code>// Flags:</code> and <code>// Env:</code> lines</td>
+</tr>
+<tr>
+<td><code>common/</code></td>
+<td>minimal replacement for Node.js's <code>test/common</code> (<code>mustCall</code>, <code>buildType</code>, <code>nodeProcessAborted</code>, …); <code>require-as.js</code>, <code>tick.js</code>, <code>tmpdir.js</code>, <code>report.js</code>, <code>fixtures.js</code>, <code>child_process.js</code>, and <code>sea.js</code> are copied verbatim</td>
+</tr>
+<tr>
+<td><code>fixtures/</code></td>
+<td><code>test/fixtures</code> files used by the scripts (<code>dotenv/uv-threadpool.env</code>, <code>sea/addon/</code>)</td>
+</tr>
+<tr>
+<td><code>internal/napitest/</code></td>
+<td>Go equivalent of <code>common.h</code> / <code>common-inl.h</code></td>
+</tr>
+<tr>
+<td><code>js-native-api/&#x3C;test>/</code>, <code>node-api/&#x3C;test>/</code></td>
+<td>original <code>binding.gyp</code> and <code>*.js</code> + Go port (<code>main.go</code>, …)</td>
+</tr>
+<tr>
+<td><code>status.json</code></td>
+<td>skipped tests, unconditionally (<code>skip</code>), below a Node.js version (<code>minNodeMajor</code>, or <code>minNodeVersion</code> with a minimum per release line), or on specific platforms (<code>skipPlatforms</code>, e.g. <code>darwin-x64</code>)</td>
+</tr>
+<tr>
+<td><code>&#x3C;dir>/napi-go.json</code> (optional)</td>
+<td>extra defines for a target when the C source sets them inline (e.g. <code>#define NAPI_VERSION 9</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Runner rules, modeled after Node.js's <code>test/testpy</code>:</p>
+<ul>
+<li>each <code>.js</code> file in a test directory is a test (id <code>suite/dir/file</code>, without extension);</li>
+<li>a test passes if the process exits with code 0; <code>1..0 # Skipped</code> on stdout counts it as skipped;</li>
+<li>for each target in <code>binding.gyp</code>, the Go source lives in <code>&#x3C;dir>/&#x3C;target>/</code>, or directly in <code>&#x3C;dir>/</code>
+when there is only one target; the addon is written to <code>build/Release/&#x3C;target>.node</code>;</li>
+<li>when multiple targets compile the same C source (e.g. with different defines), the port lives in
+<code>&#x3C;dir>/internal/&#x3C;name>/</code> and each <code>&#x3C;target>/main.go</code> only registers its <code>Init</code>; <code>#if NAPI_VERSION</code>
+differences branch on <code>sys.DeclaredVersion</code>;</li>
+<li>target defines select the <code>sys</code> build tag: none → Node-API 8, <code>NAPI_VERSION=9</code> → <code>napi_go_v9</code>,
+<code>NAPI_VERSION=10</code> → <code>napi_go_v10</code>, <code>NAPI_EXPERIMENTAL</code> → <code>napi_go_experimental</code>,
+<code>NAPI_VERSION=2147483646</code> → <code>napi_go_test_version_mismatch</code> (only <code>test_module_version_mismatch</code>);</li>
+<li>a test exceeding 120 s is killed along with all child processes (process group on POSIX,
+<code>taskkill /T</code> on Windows) and the report includes <code>ps</code> output and, on macOS, thread stack traces
+(<code>sample</code>);</li>
+<li>scripts run with <code>UV_THREADPOOL_SIZE</code> and <code>NODE_OPTIONS</code> stripped from the runner environment,
+matching Node.js CI (an <code>// Env:</code> line can set them again); <code>tmpdir</code> uses
+<code>tests/nodesuite/.tmp.0</code>.</li>
+</ul>
+<h2 id="porting-a-test"><a class="heading-anchor" href="#porting-a-test">Porting a Test</a></h2>
+<ol>
+<li>
+<p>Copy <code>binding.gyp</code> and all <code>.js</code> files in the directory from Node.js without modifying them.</p>
+</li>
+<li>
+<p>Rewrite each C source file in Go preserving names, call order, and assertions.
+The macros in <code>common.h</code> have equivalents in <code>napitest</code>:</p>
+<table>
+<thead>
+<tr>
+<th>C</th>
+<th>Go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NODE_API_CALL(env, call)</code></td>
+<td><code>if !nt.Call(env, call) { return nil }</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_CALL_RETURN_VOID(env, call)</code></td>
+<td><code>if !nt.Call(env, call) { return }</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_ASSERT(env, cond, msg)</code></td>
+<td><code>if !nt.Assert(env, cond, "&#x3C;cond as in C>", msg) { return nil }</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_BASIC_CALL_RETURN_VOID(env, call)</code></td>
+<td><code>if !nt.BasicCall(env, call) { return }</code> (stderr + <code>abort()</code>)</td>
+</tr>
+<tr>
+<td><code>NODE_API_BASIC_ASSERT_RETURN_VOID(cond, msg)</code></td>
+<td><code>if !nt.BasicAssert(cond, "&#x3C;cond as in C>", msg) { return }</code></td>
+</tr>
+<tr>
+<td><code>assert(expr)</code> from <code>&#x3C;assert.h></code>, <code>abort()</code></td>
+<td><code>nt.CAssert(cond, "&#x3C;expr as in C>")</code>, <code>nt.Abort()</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_ASSERT_STATUS(env, cond, msg)</code></td>
+<td><code>nt.AssertStatus(env, cond, "&#x3C;cond as in C>", msg)</code></td>
+</tr>
+<tr>
+<td><code>NODE_API_CHECK_STATUS(call)</code></td>
+<td><code>if st := call; st != sys.StatusOK { return st }</code></td>
+</tr>
+<tr>
+<td><code>DECLARE_NODE_API_PROPERTY(name, fn)</code></td>
+<td><code>nt.DeclareProperty(name, fn)</code></td>
+</tr>
+<tr>
+<td><code>napi_define_properties(env, obj, n, descs)</code></td>
+<td><code>nt.DefineProperties(env, obj, descs)</code></td>
+</tr>
+<tr>
+<td><code>add_returned_status</code>, <code>add_last_status</code></td>
+<td><code>nt.AddReturnedStatus</code>, <code>nt.AddLastStatus</code></td>
+</tr>
+<tr>
+<td><code>NAPI_MODULE(…, Init)</code>, <code>NAPI_MODULE_INIT()</code></td>
+<td><code>func init() { nt.ModuleInit(initModule) }</code></td>
+</tr>
+<tr>
+<td><code>{ "n", NULL, fn, NULL, NULL, NULL, attrs, NULL }</code></td>
+<td><code>nt.Method("n", fn, attrs)</code></td>
+</tr>
+<tr>
+<td><code>{ "n", NULL, NULL, get, set, NULL, attrs, NULL }</code></td>
+<td><code>nt.Accessor("n", get, set, attrs)</code></td>
+</tr>
+<tr>
+<td><code>{ "n", NULL, NULL, NULL, NULL, v, attrs, NULL }</code></td>
+<td><code>nt.Value("n", v, attrs)</code></td>
+</tr>
+<tr>
+<td><code>napi_wrap(…, finalize_cb, hint, …)</code></td>
+<td><code>cb, hint := nt.Finalizer(fn, hint)</code> then <code>sys.Wrap(…, cb, hint, …)</code></td>
+</tr>
+<tr>
+<td>successful <code>napi_remove_wrap</code></td>
+<td><code>nt.DiscardFinalizer(hint)</code>: Node-API will no longer invoke the finalizer</td>
+</tr>
+<tr>
+<td><code>new MyObject</code> passed to <code>napi_wrap</code></td>
+<td><code>cgo.NewHandle(obj)</code>; <code>Destructor</code> calls <code>Value()</code> and <code>Delete()</code></td>
+</tr>
+<tr>
+<td><code>(void*)data</code> in a finalizer</td>
+<td><code>nt.Pointer(data)</code></td>
+</tr>
+<tr>
+<td><code>napi_create_async_work(…, Execute, Complete, data, …)</code></td>
+<td><code>sys.CreateAsyncWork(…, sys.AsyncExecuteTrampoline, sys.AsyncCompleteTrampoline, nt.AsyncWorkData(execute, complete, data), …)</code></td>
+</tr>
+<tr>
+<td><code>napi_create_threadsafe_function(…, fin_data, fin_cb, context, call_js, …)</code></td>
+<td><code>callJS, fin, ctx := nt.ThreadsafeFunction(callJs, finCb, context)</code> then <code>sys.CreateThreadsafeFunction(…, fin_data, fin, ctx, callJS, …)</code>; <code>nt.GetThreadsafeFunctionContext</code> returns the original context</td>
+</tr>
+<tr>
+<td><code>napi_add_env_cleanup_hook(env, fn, arg)</code></td>
+<td><code>var hook = nt.RegisterCleanupHook(fn)</code> at package level, then <code>sys.AddEnvCleanupHook(env, sys.CleanupHookTrampoline, hook.Arg(arg))</code> (same value for remove)</td>
+</tr>
+<tr>
+<td><code>uv_thread_create</code> / <code>uv_thread_join</code>, <code>uv_sleep</code>, <code>uv_hrtime</code></td>
+<td><code>nt.Thread</code> (<code>Create</code>, <code>Join</code>), <code>nt.Sleep</code>, <code>nt.HRTime</code></td>
+</tr>
+<tr>
+<td><code>napi_add_async_cleanup_hook(env, fn, arg, &#x26;h)</code></td>
+<td><code>var hook = nt.RegisterAsyncCleanupHook(fn)</code>, then <code>sys.AddAsyncCleanupHook(env, sys.AsyncCleanupHookTrampoline, hook.Arg(arg), &#x26;h)</code></td>
+</tr>
+<tr>
+<td><code>uv_check_*</code>, <code>uv_idle_*</code>, <code>uv_async_*</code>, <code>uv_close</code>, <code>uv_queue_work</code> on the Node loop</td>
+<td><code>nt.UV*</code> shim (<code>uv.go</code>): handles and requests in C memory (<code>nt.NewUVHandle</code>, <code>nt.NewUVReq</code>), Go callbacks</td>
+</tr>
+</tbody>
+</table>
+<p>The condition text passed to <code>Assert</code> must be copied verbatim from C: the macro embeds it in the
+error message and the JS scripts match it with regular expressions.</p>
+</li>
+<li>
+<p>libuv utilities used solely as test helpers (<code>uv_sleep</code>, <code>uv_thread_create</code>, <code>uv_mutex_*</code>) are
+replaced with their Go equivalents and noted in the file header comment. Functions that operate
+on the Node.js event loop (handles, <code>uv_queue_work</code>) go through the <code>napitest</code> shim: <code>uv_*</code>
+functions are resolved from the node process just like Node-API functions, and only enum values
+and the leading <code>data</code> field of handles and requests (stable in libuv 1.x) are relied on from the
+libuv ABI; sizes come from <code>uv_handle_size</code> / <code>uv_req_size</code>.</p>
+</li>
+</ol>
+<h2 id="unavoidable-differences-from-c"><a class="heading-anchor" href="#unavoidable-differences-from-c">Unavoidable Differences from C</a></h2>
+<ul>
+<li>The <code>data</code> of JS functions created from Go carries the index of the function registered in
+<code>napitest</code> (<code>sys.CallbackTrampoline</code> dispatch), not the C test's <code>data</code>.</li>
+<li>Names passed to property descriptors are shared, never-freed C strings (<code>nt.CStr</code>, <code>nt.UTF16</code>),
+so descriptors contain no Go pointers.</li>
+<li>An accessor's getter and setter share <code>data</code> (as in Node-API): <code>nt.Accessor</code> registers the pair
+and dispatch selects the getter for a zero-argument call and the setter for a one-argument call.
+Registry index 0 is reserved so a NULL <code>data</code> never invokes a function.</li>
+<li>Functions created repeatedly (factories) are registered once at package level: each <code>nt.Register</code>
+appends an entry to the registry.</li>
+<li>C++ classes become Go structs and the native pointer passed to <code>napi_wrap</code> / <code>napi_add_finalizer</code>
+is a <code>cgo.Handle</code>. Structs that C allocates with <code>malloc</code> and passes as instance data or
+<code>finalize_data</code> (containing only C types such as <code>napi_ref</code>) stay in C memory (<code>nt.Malloc</code>).
+A finalizer canceled by deleting its reference (<code>6_object_wrap/nested_wrap</code>) is never called and
+its <code>nt.Finalizer</code> handle remains allocated, just like the memory in the C test.</li>
+<li>A TSFN context is a <code>napitest</code> token and is never released: Node-API calls <code>call_js_cb</code> with a
+NULL env for items remaining in the queue even after <code>thread_finalize_cb</code> and does not signal when
+it is done. <code>thread_finalize_cb</code> receives the original context as its hint.</li>
+<li>Finalizers go through <code>sys.FinalizeTrampoline</code>: <code>nt.Finalizer(fn, hint)</code> returns the callback/hint
+pair to pass instead of the C pair, and <code>fn</code> receives Node-API's <code>finalize_data</code> and the original
+hint. Memory that Node-API must be able to access after the call returns (external strings and
+ArrayBuffers) is allocated with <code>nt.Malloc</code> and freed with <code>nt.Free</code> / <code>nt.FreeAddr</code>. <code>nt.Malloc</code>
+never returns NULL for a non-zero size: if allocation fails it aborts the process with a message,
+because the C tests use the result of <code>malloc</code> without checking it.</li>
+</ul>
+<h2 id="status"><a class="heading-anchor" href="#status">Status</a></h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Ported tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>js-native-api</td>
+<td>all 32: 2_function_arguments, 3_callbacks, 4_object_factory, 5_function_factory, 6_object_wrap, 7_factory_wrap, 8_passing_wrapped, test_array, test_bigint, test_cannot_run_js, test_constructor, test_conversions, test_dataview, test_date, test_error, test_exception, test_finalizer, test_function, test_general, test_handle_scope, test_instance_data, test_new_target, test_number, test_object, test_promise, test_properties, test_reference, test_reference_double_free, test_sharedarraybuffer, test_string, test_symbol, test_typedarray</td>
+</tr>
+<tr>
+<td>node-api</td>
+<td>all 28: 1_hello_world, test_async, test_async_cleanup_hook, test_callback_scope, test_init_order, test_module_version_mismatch, test_null_init, test_uv_loop, test_async_context, test_buffer, test_cleanup_hook, test_env_teardown_gc, test_exception, test_fatal, test_fatal_exception, test_general, test_instance_data, test_make_callback, test_make_callback_recurse, test_reference_by_node_api_version, test_sea_addon, test_threadsafe_function, test_threadsafe_function_abort, test_threadsafe_function_shutdown, test_uv_threadpool_size, test_worker_buffer_callback, test_worker_terminate, test_worker_terminate_finalization</td>
+</tr>
+</tbody>
+</table>
+<p>The scripts come from nodejs/node <code>main</code>, so some exercise recent features: <code>status.json</code> skips
+them below the Node.js version that introduced them. <code>minNodeMajor</code> suffices when a feature ships in
+a major release; when it is backported to different minors across release lines, <code>minNodeVersion</code>
+lists the first release in each line (e.g. <code>22.23.3</code>, <code>24.16.0</code>, <code>26.1.0</code>): lines without a
+minimum, unless newer than all listed lines, lack the feature. Minimums are derived from
+nodejs/node release tags.</p>
+<p>On macOS x64 napi-go supports only one Go runtime per process (see known limitations in
+<code>sys/README.md</code>): scripts that load two addons in the same process
+(<code>js-native-api/test_cannot_run_js</code>, <code>node-api/test_reference_by_node_api_version</code>) are listed in
+<code>skipPlatforms</code> for <code>darwin-x64</code>. On other platforms they run normally.</p>
+<h3 id="experimental-apis"><a class="heading-anchor" href="#experimental-apis">Experimental APIs</a></h3>
+<p>Six functions used by the tests are not in <code>sys</code>'s headers (node-api-headers 1.9.0).
+<code>napitest</code> resolves them from the node process, just like <code>sys/loader.c</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Used by</th>
+<th>If not exported by the running Node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_api_post_finalizer</code></td>
+<td>test_general/testFinalizer, test_finalizer</td>
+<td>error <code>napitest: Node-API function not exported…</code></td>
+</tr>
+<tr>
+<td><code>node_api_is_sharedarraybuffer</code></td>
+<td>test_dataview, test_sharedarraybuffer</td>
+<td>same as above</td>
+</tr>
+<tr>
+<td><code>node_api_create_sharedarraybuffer</code></td>
+<td>test_sharedarraybuffer</td>
+<td>same as above</td>
+</tr>
+<tr>
+<td><code>node_api_create_external_sharedarraybuffer</code></td>
+<td>node-api/test_buffer</td>
+<td>same as above; the env-less finalizer goes through a C trampoline in <code>napitest</code> (<code>noenv.c</code>)</td>
+</tr>
+<tr>
+<td><code>node_api_set_prototype</code></td>
+<td>test_general</td>
+<td><code>Object.setPrototypeOf</code></td>
+</tr>
+<tr>
+<td><code>node_api_create_object_with_properties</code></td>
+<td>test_object</td>
+<td><code>Object.create</code> + <code>napi_set_property</code></td>
+</tr>
+</tbody>
+</table>
+<p>For the last two, the fallback using stable APIs has the same observable effect in the scripts; it
+exists only to keep the rest of <code>test_object</code> and <code>test_general</code> running on Node.js versions that do
+not export them yet.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"tests/nodesuite/README.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/tests/nodesuite/README.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"tests/nodesuite","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Node.js Test Suite Ported to sys · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: Node.js Test Suite Ported to sys (tests/nodesuite/README.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/tests/nodesuite/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/tests/addonapisuite/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"node-addon-api Test Suite Ported to napi"]}],"$undefined"]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","layout",{"className":"","children":["$","a",null,{"href":"#layout","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Layout"}]}],["$","li","porting-a-test",{"className":"","children":["$","a",null,{"href":"#porting-a-test","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Porting a Test"}]}],["$","li","unavoidable-differences-from-c",{"className":"","children":["$","a",null,{"href":"#unavoidable-differences-from-c","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Unavoidable Differences from C"}]}],["$","li","status",{"className":"","children":["$","a",null,{"href":"#status","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Status"}]}],["$","li","experimental-apis",{"className":"pl-3","children":["$","a",null,{"href":"#experimental-apis","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Experimental APIs"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

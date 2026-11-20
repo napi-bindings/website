@@ -1,0 +1,228 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3erqbre4nabri.js"
+3:"/_next/static/chunks/3_89uhd12tu-e.js"
+4:"/_next/static/chunks/0itd6eiroz8sa.js"
+5:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+6:"/_next/static/chunks/3pcblro4gce7n.js"
+7:"/_next/static/chunks/2i7p862aqiwl7.js"
+8:I[27423,["$2","$3","$4","$5","$6","$7"],"ThemeProvider"]
+9:I[46798,["$2","$3","$4","$5","$6","$7"],"TooltipProvider"]
+a:I[3020,["$2","$3","$4","$5","$6","$7"],"SiteHeader"]
+b:I[39756,["$2","$3","$4","$5","$6","$7"],"default"]
+c:I[37457,["$2","$3","$4","$5","$6","$7"],"default"]
+d:"/_next/static/chunks/3y068am0pzdwl.js"
+e:"/_next/static/chunks/2fuj_95i-d-bm.js"
+f:"/_next/static/chunks/1z5smpjjdajgk.js"
+10:I[5014,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"default"]
+11:I[27930,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Button"]
+12:I[22016,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],""]
+21:I[68027,["$2","$3","$4","$5","$6","$7"],"default",1]
+:HL["/_next/static/chunks/10cvp-b8dretj.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+17:X
+1e:[["children",{"s":"__PAGE__","h":512,"d":{"r":"$L1f","p":false,"v":null}}]]
+1c:[["children",{"s":{"n":"doc","t":"c","k":"compatibility","s":[]},"h":66048,"d":{"r":"$L1d","p":false,"v":"$17"},"c":"$Q1e"}]]
+1a:[["children",{"s":"docs","h":131584,"d":{"r":"$L1b","p":false,"v":null},"c":"$Q1c"}]]
+18:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":197120,"d":{"r":"$L19","p":false,"v":null},"c":"$Q1a"}]]
+15:[["children",{"s":"projects","h":131584,"d":{"r":"$L16","p":false,"v":"$17"},"c":"$Q18"}]]
+0:{"P":null,"c":["","projects","quickjs-napi","docs","compatibility",""],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/3erqbre4nabri.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/3_89uhd12tu-e.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0itd6eiroz8sa.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/3tgrtgyx1rjnt.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/_next/static/chunks/3pcblro4gce7n.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/_next/static/chunks/2i7p862aqiwl7.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"Ur3q_a_variable iaM1Ya_variable","children":["$","body",null,{"className":"flex min-h-svh flex-col font-sans","children":["$","$L8",null,{"attribute":"class","defaultTheme":"dark","enableSystem":true,"disableTransitionOnChange":true,"children":["$","$L9",null,{"children":[["$","a",null,{"href":"#main","className":"bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2","children":"Skip to content"}],["$","$La",null,{}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-24","children":["$","div",null,{"data-slot":"empty","className":"gap-4 rounded-xl border-dashed p-6 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance","children":[["$","div",null,{"data-slot":"empty-header","className":"gap-2 flex max-w-sm flex-col items-center","children":[["$","div",null,{"data-slot":"empty-icon","data-variant":"icon","className":"mb-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4","children":["$","$L10",null,{"ref":"$undefined","icon":{"name":"file-question-mark","size":24,"node":[["path",{"d":"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z","key":"1oefj6"}],["path",{"d":"M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5","key":"1awbb0"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["file-question"]},"className":"$undefined"}]}],["$","div",null,{"data-slot":"empty-title","className":"text-sm font-medium tracking-tight","children":"Page not found"}],["$","div",null,{"data-slot":"empty-description","className":"text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary","children":"This page does not exist, or it moved. Node-API symbols live under /node-api/reference/."}]]}],["$","div",null,{"data-slot":"empty-content","className":"gap-2.5 text-sm flex w-full max-w-sm min-w-0 items-center text-balance flex-row justify-center","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/"}],"nativeButton":false,"children":"Home"}],"$L13"]}]]}]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],"$L14"]}]}]}]}]]}],"p":false,"v":null},"c":"$Q15"},"h":{"r":"$L20","p":false,"v":null}},"m":"$undefined","G":["$21",["$L22"]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[97367,["$2","$3","$4","$5","$6","$7"],"OutletBoundary"]
+29:"$Sreact.suspense"
+2b:"ViewportBoundary"
+2c:I[97367,["$2","$3","$4","$5","$6","$7"],"$2b"]
+2e:"MetadataBoundary"
+2f:I[97367,["$2","$3","$4","$5","$6","$7"],"$2e"]
+:HL["/logo.png","image"]
+13:["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/node-api/reference/"}],"nativeButton":false,"children":"API reference"}]
+14:["$","footer",null,{"className":"border-t","children":[["$","div",null,{"className":"mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]","children":[["$","div",null,{"className":"flex flex-col gap-3","children":[["$","span",null,{"className":"flex items-center gap-2","children":[["$","img",null,{"src":"/logo.png","alt":"","width":28,"height":28,"className":"size-7"}],["$","span",null,{"className":"font-mono text-sm font-semibold tracking-tight","children":"napi-bindings"}]]}],["$","p",null,{"className":"text-muted-foreground max-w-xs text-sm","children":"Native Node.js addons and tooling built on the ABI-stable Node-API."}],["$","p",null,{"className":"text-muted-foreground text-xs","children":["Data synchronised from GitHub on ","Nov 20, 2026","."]}]]}],[["$","div","Node-API",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Node-API"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/node-api/",{"children":["$","$L12",null,{"href":"/node-api/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Overview"}]}],["$","li","/node-api/reference/",{"children":["$","$L12",null,{"href":"/node-api/reference/","className":"text-muted-foreground hover:text-foreground text-sm","children":"API reference"}]}],["$","li","/node-api/versions/",{"children":["$","$L12",null,{"href":"/node-api/versions/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Versions"}]}],["$","li","/ecosystem/",{"children":["$","$L12",null,{"href":"/ecosystem/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Ecosystem"}]}]]}]]}],["$","div","Projects",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Projects"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","/projects/marmotta/",{"children":["$","$L12",null,{"href":"/projects/marmotta/","className":"text-muted-foreground hover:text-foreground text-sm","children":"Marmotta"}]}],["$","li","/projects/napi-go/",{"children":["$","$L12",null,{"href":"/projects/napi-go/","className":"text-muted-foreground hover:text-foreground text-sm","children":"napi-go"}]}],["$","li","/projects/node-api-stub/",{"children":["$","$L12",null,{"href":"/projects/node-api-stub/","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-api-stub"}]}],["$","li","/projects/quickjs-build/",{"children":["$","$L12",null,{"href":"/projects/quickjs-build/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-build"}]}],["$","li","/projects/quickjs-napi/",{"children":["$","$L12",null,{"href":"/projects/quickjs-napi/","className":"text-muted-foreground hover:text-foreground text-sm","children":"quickjs-napi"}]}]]}]]}],["$","div","Upstream",{"className":"flex flex-col gap-3","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Upstream"}],["$","ul",null,{"className":"flex flex-col gap-2","children":[["$","li","https://nodejs.org/docs/latest/api/n-api.html",{"children":["$","a",null,{"href":"https://nodejs.org/docs/latest/api/n-api.html","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"Node-API docs"}]}],["$","li","https://github.com/nodejs/abi-stable-node",{"children":["$","a",null,{"href":"https://github.com/nodejs/abi-stable-node","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"nodejs/abi-stable-node"}]}],["$","li","https://github.com/nodejs/node-addon-api",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-api","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-api"}]}],["$","li","https://github.com/nodejs/node-addon-examples",{"children":["$","a",null,{"href":"https://github.com/nodejs/node-addon-examples","target":"_blank","rel":"noreferrer","className":"text-muted-foreground hover:text-foreground text-sm","children":"node-addon-examples"}]}]]}]]}]]]}],["$","div",null,{"className":"border-t","children":["$","div",null,{"className":"text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6","children":["$L23","$L24"]}]}]]}]
+16:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+19:["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3y068am0pzdwl.js","async":true,"nonce":"$undefined"}]],"$L25"]}]
+1b:["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true,"nonce":"$undefined"}]],"$L26"]}]
+1d:["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+1f:["$","$1","c",{"children":["$L27",[["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true,"nonce":"$undefined"}]],["$","$L28",null,{"children":["$","$29",null,{"name":"Next.MetadataOutlet","children":"$@2a"}]}]]}]
+20:["$","$1","h",{"children":[null,["$","$L2c",null,{"children":"$L2d"}],["$","$L2f",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$29",null,{"name":"Next.Metadata","children":"$L30"}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+22:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/10cvp-b8dretj.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+17:C
+23:["$","p",null,{"children":"© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license."}]
+24:["$","a",null,{"href":"https://github.com/napi-bindings/website","target":"_blank","rel":"noreferrer","className":"hover:text-foreground","children":"Edit this site on GitHub"}]
+34:I[35429,["$2","$3","$4","$5","$6","$7","$d","$e"],"DocsSidebar"]
+25:[["$","div",null,{"className":"bg-muted/30 border-b","children":["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10","children":[["$","div",null,{"className":"flex flex-col gap-4 md:flex-row md:items-start md:justify-between","children":[["$","div",null,{"className":"flex max-w-3xl flex-col gap-3","children":[["$","$L12",null,{"href":"/projects/","className":"text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"cpu","size":24,"node":[["path",{"d":"M12 20v2","key":"1lh1kg"}],["path",{"d":"M12 2v2","key":"tus03m"}],["path",{"d":"M17 20v2","key":"1rnc9c"}],["path",{"d":"M17 2v2","key":"11trls"}],["path",{"d":"M2 12h2","key":"1t8f8n"}],["path",{"d":"M2 17h2","key":"7oei6x"}],["path",{"d":"M2 7h2","key":"asdhe0"}],["path",{"d":"M20 12h2","key":"1q8mjw"}],["path",{"d":"M20 17h2","key":"1fpfkl"}],["path",{"d":"M20 7h2","key":"1o8tra"}],["path",{"d":"M7 20v2","key":"4gnj0m"}],["path",{"d":"M7 2v2","key":"1i4yhu"}],["rect",{"x":"4","y":"4","width":"16","height":"16","rx":"2","key":"1vbyd7"}],["rect",{"x":"8","y":"8","width":"8","height":"8","rx":"1","key":"z9xiuo"}]]},"className":"size-3.5"}],"Runtimes"]}],["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","h1",null,{"className":"font-mono text-3xl font-semibold tracking-tight","children":"quickjs-napi"}],["$","span",null,{"data-slot":"badge","data-variant":"outline","className":"h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground","children":"0.0.x"}]]}],["$","p",null,{"className":"text-muted-foreground text-pretty","children":"A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable."}],["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm","children":[["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"star","size":24,"node":[["path",{"d":"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z","key":"r04s7s"}]]},"className":"size-4"}],"1"," ","star"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"git-fork","size":24,"node":[["circle",{"cx":"12","cy":"18","r":"3","key":"1mpf1b"}],["circle",{"cx":"6","cy":"6","r":"3","key":"1lh9wr"}],["circle",{"cx":"18","cy":"6","r":"3","key":"1h7g24"}],["path",{"d":"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9","key":"1uq4wg"}],["path",{"d":"M12 12v3","key":"158kv8"}]]},"className":"size-4"}],"0"," ","forks"]}],["$","$L12",null,{"href":"/projects/quickjs-napi/releases/","className":"hover:text-foreground flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"tag","size":24,"node":[["path",{"d":"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z","key":"vktsd0"}],["circle",{"cx":"7.5","cy":"7.5","r":".5","fill":"currentColor","key":"kqv944"}]]},"className":"size-4"}],["$","span",null,{"className":"font-mono","children":"v0.0.2"}],["$","span",null,{"children":["· ","Nov 18, 2026"]}]]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"scale","size":24,"node":[["path",{"d":"M12 3v18","key":"108xh3"}],["path",{"d":"m19 8 3 8a5 5 0 0 1-6 0zV7","key":"zcdpyk"}],["path",{"d":"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1","key":"1yorad"}],["path",{"d":"m5 8 3 8a5 5 0 0 1-6 0zV7","key":"eua70x"}],["path",{"d":"M7 21h10","key":"1b0cd5"}]]},"className":"size-4"}],"Apache-2.0"]}]]}]]}],"$L31"]}],"$L32"]}]}],"$L33"]
+26:["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$L34",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]
+35:I[81371,["$2","$3","$4","$5","$6","$7","$d"],"ProjectNav"]
+31:["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi","target":"_blank","rel":"noreferrer"}],"nativeButton":false,"children":[["$","svg",null,{"viewBox":"0 0 24 24","fill":"currentColor","aria-hidden":"true","data-icon":"inline-start","children":["$","path",null,{"d":"M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"}]}],"Repository"]}],"$undefined"]}]
+32:["$","$L35",null,{"items":[{"title":"Overview","href":"/projects/quickjs-napi/"},{"title":"Docs","href":"/projects/quickjs-napi/docs/","count":21},{"title":"Releases","href":"/projects/quickjs-napi/releases/","count":2},{"title":"Activity","href":"/projects/quickjs-napi/activity/"}]}]
+33:["$","div",null,{"className":"mx-auto w-full max-w-7xl px-4 sm:px-6 py-10","children":["$","$Lb",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]
+36:I[73435,["$2","$3","$4","$5","$6","$7","$d","$e","$f"],"Markdown"]
+37:T2092,<h1 id="compatibility-with-nodejs">Compatibility with Node.js</h1>
+<p>quickjs-napi reproduces the Node-API behaviour of <strong>Node.js 22.23.4</strong>: same
+statuses, same pending exceptions, same error codes and messages, same
+finalizer ordering. This page lists every known difference, so that addon
+authors know what to expect. Each item links to the function reference.</p>
+<ul>
+<li><a href="#deviations-in-the-api">Deviations in the API</a></li>
+<li><a href="#differences-that-come-from-quickjs">Differences that come from QuickJS</a></li>
+<li><a href="#behaviour-that-is-defined-here-but-not-in-nodejs">Behaviour that is defined here but not in Node.js</a></li>
+<li><a href="#not-provided">Not provided</a></li>
+<li><a href="#the-executable">The executable</a></li>
+</ul>
+<h2 id="deviations-in-the-api"><a class="heading-anchor" href="#deviations-in-the-api">Deviations in the API</a></h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Node.js 22</th>
+<th>quickjs-napi</th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi_define_class</code></td>
+<td>prototype methods have a V8 <em>signature</em>: calling one on a foreign object throws <code>TypeError: Illegal invocation</code></td>
+<td>the callback runs; it must validate <code>this</code> (e.g. with <code>napi_unwrap</code>)</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_define_class">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_array</code></td>
+<td><code>false</code> for every Proxy</td>
+<td><code>true</code> for a Proxy whose target is an array (as <code>Array.isArray</code>); <code>false</code> for a revoked Proxy</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_is_array">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_buffer</code></td>
+<td>memory uninitialized</td>
+<td>memory zero-filled</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_buffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_buffer_from_arraybuffer</code>, range out of bounds</td>
+<td><code>napi_ok</code> with the <code>RangeError</code> pending</td>
+<td><code>napi_pending_exception</code> with the same <code>RangeError</code> pending</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#node_api_create_buffer_from_arraybuffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_typedarray</code> / <code>napi_get_typedarray_info</code> with <code>napi_float16_array</code></td>
+<td><code>napi_invalid_arg</code></td>
+<td>supported (QuickJS has <code>Float16Array</code>)</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#typedarray">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_typedarray_info</code>, out-of-bounds non-detached view of a resizable buffer</td>
+<td>reports the stored byte offset</td>
+<td>reports byte offset 0 (QuickJS does not expose it)</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_typedarray_info">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_threadsafe_function_context</code> with <code>NULL</code> arguments</td>
+<td>aborts</td>
+<td><code>napi_invalid_arg</code></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_get_threadsafe_function_context">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_module_register</code> outside of an addon load</td>
+<td>registers a module</td>
+<td>prints a warning and does nothing (use <code>qjsnapi_init_static_addon</code>)</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_module_register">environment.md</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="differences-that-come-from-quickjs"><a class="heading-anchor" href="#differences-that-come-from-quickjs">Differences that come from QuickJS</a></h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Finalizer timing</strong></td>
+<td>QuickJS frees an object as soon as its last reference goes away (cycles at <code>JS_RunGC</code>). Finalizers therefore usually run <strong>earlier</strong> than in Node.js, at the next loop iteration instead of at some later major GC. Code that assumes an object stays alive while only weakly referenced still works within the same macrotask (the kept-objects list), but not across macrotasks. See <a href="/projects/quickjs-napi/docs/architecture/#object-lifetime">architecture.md</a>.</td>
+</tr>
+<tr>
+<td><strong>BigInt size</strong></td>
+<td>at most 2^20 bits (16384 words; V8: 2^30). <code>napi_create_bigint_words</code> beyond that throws <code>RangeError: Maximum BigInt size exceeded</code>, as V8 does past its own limit.</td>
+</tr>
+<tr>
+<td><strong>BigInt words</strong></td>
+<td><code>napi_*_bigint_words</code> convert through a hexadecimal string: O(n), slower than V8's direct access for very large values.</td>
+</tr>
+<tr>
+<td><strong>External strings</strong></td>
+<td><code>node_api_create_external_string_*</code> always copy and run the finalizer immediately (<code>*copied = true</code>). Node.js does the same when V8 uses the pointer-compression sandbox, so addons handle it already.</td>
+</tr>
+<tr>
+<td><strong>Property keys</strong></td>
+<td><code>node_api_create_property_key_*</code> create ordinary strings: QuickJS atomizes keys itself. Not observable.</td>
+</tr>
+<tr>
+<td><strong>External memory</strong></td>
+<td><code>napi_adjust_external_memory</code> keeps the counter but does not influence garbage collection: QuickJS has no such heuristic.</td>
+</tr>
+<tr>
+<td><strong>Basic finalizers</strong></td>
+<td>all finalizers run outside the GC, so calling any Node-API function from a <code>node_api_basic_finalize</code> never triggers Node's fatal "Finalizer is calling a function that may affect GC state" error.</td>
+</tr>
+<tr>
+<td><strong>Async context</strong></td>
+<td>there is no <code>async_hooks</code>: <code>napi_async_init</code>, <code>napi_make_callback</code> and callback scopes work, but no async resource is tracked (<code>AsyncLocalStorage</code> and async stack traces do not follow native callbacks).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="behaviour-that-is-defined-here-but-not-in-nodejs"><a class="heading-anchor" href="#behaviour-that-is-defined-here-but-not-in-nodejs">Behaviour that is defined here but not in Node.js</a></h2>
+<p>These cases are undefined behaviour or leaks in Node.js; quickjs-napi chose a
+safe behaviour:</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>quickjs-napi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi_delete_async_work</code> on a queued item</td>
+<td>the item is freed after its <code>complete</code> has run</td>
+</tr>
+<tr>
+<td>async work items and user references never deleted</td>
+<td>freed with the env at teardown (Node.js leaks them)</td>
+</tr>
+<tr>
+<td>a user <code>napi_ref</code> whose finalizer ran but that the addon never deleted</td>
+<td>freed at teardown</td>
+</tr>
+<tr>
+<td>a handle scope left open by a function called from JavaScript</td>
+<td>closed with the call's implicit scope (warning in Debug builds)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="not-provided"><a class="heading-anchor" href="#not-provided">Not provided</a></h2>
+<ul>
+<li><code>NAPI_EXPERIMENTAL</code> APIs: the bundled headers stop at version 10 and
+declare no experimental function (<code>node_api_post_finalizer</code>, ...); an addon
+that needs one fails to load because the symbol is missing.</li>
+<li><code>napi_would_deadlock</code> is never returned (Node.js 22 does not return it
+either); a blocking call of a full thread-safe function from the loop
+thread deadlocks.</li>
+</ul>
+<h2 id="the-executable"><a class="heading-anchor" href="#the-executable">The executable</a></h2>
+<p>The <code>quickjs-napi</code> executable is not Node.js; it provides what addon packages
+and their tests need (<a href="/projects/quickjs-napi/docs/host/">host.md</a>). In particular:</p>
+<ul>
+<li><code>process.version</code> is <code>v22.23.4</code> (the reproduced Node-API behaviour) but
+<code>process.versions.node</code> is not set;</li>
+<li>CommonJS only: no ES modules, no <code>package.json</code> <code>"exports"</code> maps;</li>
+<li>no <code>worker_threads</code>, <code>async_hooks</code>, <code>domain</code>, <code>fs</code>, <code>net</code>, <code>http</code>,
+<code>crypto</code>;</li>
+<li><code>child_process</code> without a shell, and an asynchronous child's stdin is never
+a pipe.</li>
+</ul>27:["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/compatibility.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/compatibility.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L36",null,{"html":"$37"}],"$L38"]}],"$L39"]}]
+38:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/projects/quickjs-napi/docs/building/"}],"nativeButton":false,"children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"className":"$undefined","data-icon":"inline-start"}],"Building"]}],["$","$L11",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L12",null,{"href":"/projects/quickjs-napi/docs/embedding/"}],"nativeButton":false,"children":["Embedding API (qjsnapi.h)",["$","$L10",null,{"ref":"$undefined","icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"className":"$undefined","data-icon":"inline-end"}]]}]]}]
+39:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","deviations-in-the-api",{"className":"","children":["$","a",null,{"href":"#deviations-in-the-api","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Deviations in the API"}]}],["$","li","differences-that-come-from-quickjs",{"className":"","children":["$","a",null,{"href":"#differences-that-come-from-quickjs","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Differences that come from QuickJS"}]}],["$","li","behaviour-that-is-defined-here-but-not-in-nodejs",{"className":"","children":["$","a",null,{"href":"#behaviour-that-is-defined-here-but-not-in-nodejs","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Behaviour that is defined here but not in Node.js"}]}],["$","li","not-provided",{"className":"","children":["$","a",null,{"href":"#not-provided","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Not provided"}]}],["$","li","the-executable",{"className":"","children":["$","a",null,{"href":"#the-executable","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"The executable"}]}]]}]]}]}]}]
+2d:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]
+3a:I[27201,["$2","$3","$4","$5","$6","$7"],"IconMark"]
+2a:null
+30:[["$","title","0",{"children":"Compatibility with Node.js · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Compatibility with Node.js (doc/compatibility.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/compatibility/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L3a","16",{}]]

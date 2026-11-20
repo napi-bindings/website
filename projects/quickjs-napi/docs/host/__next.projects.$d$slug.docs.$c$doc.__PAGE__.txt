@@ -1,0 +1,332 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T3caf,<h1 id="the-quickjs-napi-executable">The <code>quickjs-napi</code> executable</h1>
+<p><code>quickjs-napi</code> is a small Node.js-like runtime built on the library. It runs
+CommonJS scripts, loads <code>.node</code> addons with <code>require</code>, and provides the subset
+of Node.js that addon packages and their tests need. It is also the reference
+embedder of the library (<a href="/projects/quickjs-napi/docs/embedding/">embedding.md</a>).</p>
+<p>Sources: <code>host/main.c</code> (command line, event loop, natives),
+<code>host/bootstrap.js</code> (module loader, <code>process</code>, builtin modules; embedded in
+the executable at build time by <code>cmake/embed.cmake</code>) and <code>host/spawn.c</code>
+(child processes).</p>
+<ul>
+<li><a href="#command-line">Command line</a></li>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#globals">Globals</a></li>
+<li><a href="#builtin-modules">Builtin modules</a></li>
+<li><a href="#event-loop">Event loop</a></li>
+<li><a href="#errors-and-exit">Errors and exit</a></li>
+<li><a href="#not-supported">Not supported</a></li>
+</ul>
+<h2 id="command-line"><a class="heading-anchor" href="#command-line">Command line</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [options] script.js [args...]</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [options] -e </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">code</span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [args...]</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-e</code>, <code>--eval &#x3C;code></code></td>
+<td>run <code>code</code> instead of a script; <code>process.argv</code> is <code>[execPath, args...]</code></td>
+</tr>
+<tr>
+<td><code>-r</code>, <code>--require &#x3C;module></code></td>
+<td>load the module before the script; repeatable</td>
+</tr>
+<tr>
+<td><code>--force-node-api-uncaught-exceptions-policy[=true|false]</code></td>
+<td>report exceptions from thread-safe function callbacks of Node-API &#x3C; 10 addons as uncaught instead of a <code>DEP0168</code> warning (see <a href="/projects/quickjs-napi/docs/node-api/async/#exceptions-in-call_js_cb">async.md</a>)</td>
+</tr>
+<tr>
+<td><code>--no-force-node-api-uncaught-exceptions-policy</code></td>
+<td>the default</td>
+</tr>
+<tr>
+<td><code>--expose-gc</code></td>
+<td>accepted and ignored: <code>gc()</code> is always defined</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>NODE_OPTIONS</code> is read first, with the same options separated by spaces.
+Options only Node.js knows are <strong>ignored</strong> there, because the variable is
+shared with Node.js (a test that sets <code>NODE_OPTIONS=--max-old-space-size=…</code>
+for its children still works).</li>
+<li>On the command line an unknown option exits with code <strong>9</strong>, as in Node.js.</li>
+<li>Without a script or <code>-e</code>, the usage is printed and the exit code is 2.</li>
+</ul>
+<p>Examples:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> app.js</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --verbose</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -e</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "console.log(require('./build/Release/addon.node').hello())"</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -r</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ./setup.js</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test.js</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">NODE_OPTIONS</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"--require ./setup.js"</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> quickjs-napi</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test.js</span></span></code></pre>
+<h2 id="modules"><a class="heading-anchor" href="#modules">Modules</a></h2>
+<p>The script runs as a <strong>CommonJS module</strong>: <code>require</code>, <code>module</code>, <code>exports</code>,
+<code>__filename</code> and <code>__dirname</code> are defined as in Node.js.</p>
+<p><code>require(id)</code> resolves like Node.js for what addon packages use:</p>
+<ol>
+<li>builtin modules (<code>require('buffer')</code>, ...);</li>
+<li>relative (<code>./</code>, <code>../</code>) and absolute paths, trying the exact name, then
+the extensions <code>.js</code>, <code>.json</code>, <code>.node</code>;</li>
+<li>directories: <code>package.json</code> <code>"main"</code>, then <code>index.js</code>, <code>index.json</code>,
+<code>index.node</code>;</li>
+<li><code>node_modules</code> directories, from the requiring module's directory up to the
+root.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Loaded as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.js</code></td>
+<td>CommonJS module, wrapped in a function like Node.js</td>
+</tr>
+<tr>
+<td><code>.json</code></td>
+<td>parsed JSON</td>
+</tr>
+<tr>
+<td><code>.node</code></td>
+<td>Node-API addon through <a href="/projects/quickjs-napi/docs/embedding/#qjsnapi_load_addon"><code>qjsnapi_load_addon</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Modules are cached by resolved path (<code>require.cache</code>); deleting a cache entry
+and requiring the addon again runs its initializer again with a new env, like
+<code>process.dlopen</code>.</p>
+<p><code>module.registerBuiltin(name, exports)</code> is a quickjs-napi extension that lets
+a script provide a builtin module (the test harnesses use it to provide
+<code>assert</code>).</p>
+<h2 id="globals"><a class="heading-anchor" href="#globals">Globals</a></h2>
+<table>
+<thead>
+<tr>
+<th>Global</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>process</code></td>
+<td><code>argv</code>, <code>env</code> (the real environment, passed to children), <code>platform</code>, <code>execPath</code>, <code>version</code> (<code>v22.23.4</code>, the Node.js release whose Node-API behaviour is reproduced), <code>release.name</code> (<code>quickjs-napi</code>), <code>versions.quickjs</code>, <code>versions.napi</code>, <code>exitCode</code>, <code>exit()</code>, <code>cwd()</code>, <code>nextTick()</code>, <code>on</code>/<code>once</code>/<code>off</code>/<code>addListener</code>/<code>removeListener</code>/<code>listeners</code>/<code>emit</code> for <code>exit</code>, <code>beforeExit</code>, <code>uncaughtException</code> and <code>unhandledRejection</code></td>
+</tr>
+<tr>
+<td><code>global</code></td>
+<td><code>globalThis</code></td>
+</tr>
+<tr>
+<td><code>gc()</code></td>
+<td>runs the QuickJS GC twice (cycles are collected after weak entries are dropped) and clears the kept objects</td>
+</tr>
+<tr>
+<td><code>setTimeout</code>, <code>clearTimeout</code>, <code>setInterval</code>, <code>clearInterval</code>, <code>setImmediate</code>, <code>clearImmediate</code>, <code>queueMicrotask</code></td>
+<td>timers return objects with <code>ref()</code>, <code>unref()</code>, <code>hasRef()</code></td>
+</tr>
+<tr>
+<td><code>Buffer</code></td>
+<td>the library's minimal Buffer (<a href="/projects/quickjs-napi/docs/node-api/node-specific/#buffers">node-specific.md</a>)</td>
+</tr>
+<tr>
+<td><code>console</code></td>
+<td><code>log</code> from quickjs-libc, plus <code>error</code>, <code>warn</code>, <code>info</code></td>
+</tr>
+<tr>
+<td><code>print</code>, <code>scriptArgs</code></td>
+<td>quickjs-libc helpers</td>
+</tr>
+</tbody>
+</table>
+<p><code>process.versions.node</code> is deliberately <strong>not</strong> set, so that packages do not
+take quickjs-napi for Node.js itself.</p>
+<h2 id="builtin-modules"><a class="heading-anchor" href="#builtin-modules">Builtin modules</a></h2>
+<p>Minimal subsets, providing what addon packages and the test suites use:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>module</code></td>
+<td><code>builtinModules</code>, <code>createRequire</code>, <code>registerBuiltin</code></td>
+</tr>
+<tr>
+<td><code>timers</code></td>
+<td>the timer functions</td>
+</tr>
+<tr>
+<td><code>timers/promises</code></td>
+<td><code>setTimeout</code>, <code>setImmediate</code> returning promises</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td><code>Buffer</code>, <code>kMaxLength</code></td>
+</tr>
+<tr>
+<td><code>util</code></td>
+<td><code>promisify</code>, <code>types</code> (<code>isArrayBuffer</code>, <code>isSharedArrayBuffer</code>, <code>isAnyArrayBuffer</code>, <code>isArrayBufferView</code>, <code>isTypedArray</code>, <code>isDataView</code>, <code>isDate</code>, <code>isPromise</code>, <code>isRegExp</code>, <code>isNativeError</code>, ...)</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td><code>pathToFileURL</code>, <code>fileURLToPath</code></td>
+</tr>
+<tr>
+<td><code>vm</code></td>
+<td><code>runInNewContext(code)</code>: evaluates in a new realm of the same runtime</td>
+</tr>
+<tr>
+<td><code>child_process</code></td>
+<td><code>spawnSync</code> and <code>spawn</code> (below)</td>
+</tr>
+<tr>
+<td><code>events</code></td>
+<td>a minimal <code>EventEmitter</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="child_process"><a class="heading-anchor" href="#child_process"><code>child_process</code></a></h3>
+<p>Children are started directly, <strong>without a shell</strong>, with libuv's <code>uv_spawn</code>
+(<code>host/spawn.c</code>):</p>
+<ul>
+<li><code>spawnSync(file, args, options)</code> runs the child on a private libuv loop
+until it exits and its pipes are drained. Options: <code>env</code>, <code>cwd</code>, <code>stdio</code>
+(<code>'pipe'</code>, <code>'inherit'</code>, <code>'ignore'</code>), <code>input</code>, <code>encoding</code>, <code>timeout</code> (the
+child is killed with <code>killSignal</code>, <code>SIGTERM</code> by default, and <code>error.code</code> is
+<code>ETIMEDOUT</code>). The result has <code>pid</code>, <code>status</code>, <code>signal</code>, <code>stdout</code>, <code>stderr</code>,
+<code>output</code> and <code>error</code> (<code>ENOENT</code> when the program does not exist).</li>
+<li><code>spawn(file, args, options)</code> runs the child on the main loop and returns a
+<code>ChildProcess</code>-like emitter: <code>stdout</code>/<code>stderr</code> streams with <code>data</code> events
+and <code>setEncoding</code>, then <code>exit</code> and <code>close</code> events, <code>kill(signal)</code>, and an
+<code>error</code> event when it cannot start. An asynchronous child's stdin is never a
+pipe: it reads end-of-file.</li>
+</ul>
+<p>Every child of the test suites is the same executable (<code>process.execPath</code>), so
+the tests that spawn processes run on every platform.</p>
+<h2 id="event-loop"><a class="heading-anchor" href="#event-loop">Event loop</a></h2>
+<p>The executable runs the host's libuv loop (<code>uv_run</code>) until nothing referenced
+is left, then emits <code>beforeExit</code> (whose listeners may schedule more work, in
+which case the loop runs again), then <code>exit</code>.</p>
+<pre class="mermaid">flowchart LR
+    T["timers phase&#x3C;br/>g_timer: due JS timers,&#x3C;br/>one at a time"] --> P["poll (I/O)&#x3C;br/>async work completions,&#x3C;br/>thread-safe functions,&#x3C;br/>child processes"]
+    P --> C["check phase&#x3C;br/>g_check: immediates queued before it started&#x3C;br/>library: queued finalizers"]
+    C --> T
+    CB["after every callback:&#x3C;br/>checkpoint"] -.-> T
+    CB -.-> P
+    CB -.-> C
+</pre>
+<table>
+<thead>
+<tr>
+<th>Handle</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>g_timer</code> (<code>uv_timer_t</code>)</td>
+<td>armed by <code>bootstrap.js</code> for the earliest JavaScript timer; referenced only while a referenced timer exists</td>
+</tr>
+<tr>
+<td><code>g_check</code> (<code>uv_check_t</code>, unreferenced)</td>
+<td>runs the immediates queued before the check phase began, one at a time</td>
+</tr>
+<tr>
+<td><code>g_idle</code> (<code>uv_idle_t</code>)</td>
+<td>active while immediates are queued (referenced only for referenced ones), so the poll phase does not block</td>
+</tr>
+<tr>
+<td>library handles</td>
+<td>queued finalizers, async work, thread-safe functions (<a href="/projects/quickjs-napi/docs/architecture/#the-event-loop">architecture.md</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>After <strong>every</strong> callback (a timer, an immediate, an I/O event, a Node-API
+callback from the loop) a <strong>checkpoint</strong> runs: the promise jobs and
+<code>process.nextTick</code> callbacks, then the unhandled rejections, repeated until
+both are empty. The same function is installed as the library's checkpoint
+(<code>qjsnapi_host_set_checkpoint</code>), so Node-API callbacks behave like Node.js
+macrotasks.</p>
+<h2 id="errors-and-exit"><a class="heading-anchor" href="#errors-and-exit">Errors and exit</a></h2>
+<ul>
+<li>An exception that no frame catches (thrown by a timer, a microtask, a
+Node-API finalizer or callback) goes to <code>process.on('uncaughtException')</code>
+listeners; without listeners the error is printed and the process exits
+with code <strong>1</strong>.</li>
+<li>An unhandled promise rejection goes to <code>process.on('unhandledRejection')</code>;
+without listeners it is treated as an uncaught exception (Node.js default
+<code>--unhandled-rejections=throw</code>).</li>
+<li>At the normal end of the script, <code>beforeExit</code> and <code>exit</code> are emitted and the
+host is <strong>destroyed</strong>: cleanup hooks, then finalizers
+(<a href="/projects/quickjs-napi/docs/architecture/#teardown">architecture.md</a>). The exit code is
+<code>process.exitCode</code> (0 by default).</li>
+<li><code>process.exit(code)</code> and fatal exceptions end the process <strong>immediately</strong>,
+like Node.js: <code>exit</code> is emitted, the thread pool is shut down, and no
+cleanup hook or finalizer runs, nor is in-flight work waited for.</li>
+<li><code>napi_fatal_error</code> prints <code>FATAL ERROR: &#x3C;location> &#x3C;message></code> and aborts
+(<code>_exit(134)</code> on Windows).</li>
+<li>On Windows, stdout and stderr are in binary mode: <code>\n</code> is written as is,
+as Node.js does, so a parent reading the pipe sees the same bytes on every
+platform.</li>
+</ul>
+<h2 id="not-supported"><a class="heading-anchor" href="#not-supported">Not supported</a></h2>
+<ul>
+<li>ES modules (<code>import</code>, <code>.mjs</code>), <code>package.json</code> <code>"exports"</code> maps and
+conditional exports;</li>
+<li><code>worker_threads</code>, <code>async_hooks</code> (and therefore <code>AsyncLocalStorage</code>),
+<code>domain</code>;</li>
+<li>most of the Node.js standard library (<code>fs</code>, <code>net</code>, <code>http</code>, <code>crypto</code>, ...):
+only the modules listed above exist.</li>
+</ul>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/host.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/host.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"host","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"The quickjs-napi executable · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: The quickjs-napi executable (doc/host.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/host/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/embedding/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Embedding API (qjsnapi.h)"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/testing/"}],"nativeButton":false,"children":["Testing",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","command-line",{"className":"","children":["$","a",null,{"href":"#command-line","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Command line"}]}],["$","li","modules",{"className":"","children":["$","a",null,{"href":"#modules","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Modules"}]}],["$","li","globals",{"className":"","children":["$","a",null,{"href":"#globals","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Globals"}]}],["$","li","builtin-modules",{"className":"","children":["$","a",null,{"href":"#builtin-modules","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Builtin modules"}]}],["$","li","child_process",{"className":"pl-3","children":["$","a",null,{"href":"#child_process","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"child_process"}]}],["$","li","event-loop",{"className":"","children":["$","a",null,{"href":"#event-loop","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Event loop"}]}],["$","li","errors-and-exit",{"className":"","children":["$","a",null,{"href":"#errors-and-exit","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Errors and exit"}]}],["$","li","not-supported",{"className":"","children":["$","a",null,{"href":"#not-supported","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Not supported"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

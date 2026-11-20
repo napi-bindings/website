@@ -1,0 +1,422 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/3erqbre4nabri.js"
+6:"/_next/static/chunks/3_89uhd12tu-e.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/3tgrtgyx1rjnt.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:Tbbcd,<h1 id="embedding-api-qjsnapih">Embedding API (<code>qjsnapi.h</code>)</h1>
+<p>The library <code>qjsnapi</code> can be embedded in any application that uses QuickJS.
+<code>include/qjsnapi.h</code> is its whole public interface besides Node-API itself.
+The <code>quickjs-napi</code> executable (<a href="/projects/quickjs-napi/docs/host/">host.md</a>) is one such embedder, and
+<code>test/unit/test_embed.c</code> is a complete, tested example.</p>
+<ul>
+<li><a href="#lifecycle-at-a-glance">Lifecycle at a glance</a></li>
+<li><a href="#minimal-embedder">Minimal embedder</a></li>
+<li><a href="#function-reference">Function reference</a></li>
+<li><a href="#embedder-responsibilities">Embedder responsibilities</a></li>
+<li><a href="#linking">Linking</a></li>
+</ul>
+<h2 id="lifecycle-at-a-glance"><a class="heading-anchor" href="#lifecycle-at-a-glance">Lifecycle at a glance</a></h2>
+<pre class="mermaid">sequenceDiagram
+    participant E as embedder
+    participant Q as QuickJS
+    participant H as qjsnapi host
+    participant U as libuv loop
+    E->>Q: JS_NewRuntime, JS_NewContext
+    E->>H: qjsnapi_host_create(ctx) (or _with_loop)
+    E->>H: set_uncaught_handler, set_checkpoint (optional)
+    E->>H: qjsnapi_load_addon / qjsnapi_init_static_addon
+    H-->>E: exports
+    E->>Q: run scripts that use the exports
+    E->>U: uv_run(qjsnapi_host_get_loop(host), UV_RUN_DEFAULT)
+    U->>H: async work, thread-safe functions, finalizers
+    E->>Q: JS_FreeValue(exports)
+    E->>H: qjsnapi_host_destroy (cleanup hooks, drain, finalizers)
+    E->>Q: JS_FreeContext, JS_FreeRuntime
+</pre>
+<p>The rules are:</p>
+<ul>
+<li><strong>One host per <code>JSContext</code>.</strong> The host is stored as the context opaque
+(<code>JS_SetContextOpaque</code>), so the embedder must not use that slot for anything
+else. <code>qjsnapi_host_from_context</code> gets it back.</li>
+<li><strong>One thread.</strong> The context and the loop run on the same thread. Other
+threads only reach the host through thread-safe functions and async work.</li>
+<li><strong>Destroy before <code>JS_FreeContext</code>.</strong> <code>qjsnapi_host_destroy</code> still needs the
+context to finalize references.</li>
+</ul>
+<h2 id="minimal-embedder"><a class="heading-anchor" href="#minimal-embedder">Minimal embedder</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x3C;stdio.h></span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x3C;uv.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "qjsnapi.h"</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "quickjs.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> on_uncaught</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, JSValue </span><span style="color:#E36209;--shiki-dark:#FFAB70">exc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                        void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">opaque</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  (</span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)host;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  (</span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)opaque;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">s </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_ToCString</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, exc);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  fprintf</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(stderr, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"uncaught: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">%s\n</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, s </span><span style="color:#D73A49;--shiki-dark:#F97583">?</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> s </span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "?"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  JS_FreeCString</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, s);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  JS_FreeValue</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, exc);</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* the handler owns the exception */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> main</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  JSRuntime </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">rt </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_NewRuntime</span><span style="color:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">ctx </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_NewContext</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(rt);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">host </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_create</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">!</span><span style="color:#24292E;--shiki-dark:#E1E4E8">host) </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  qjsnapi_host_set_uncaught_handler</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host, on_uncaught, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  JSValue exports;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_load_addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"./build/Release/addon.node"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">exports) </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    JSValue exc </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_GetException</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx);</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* the load error is pending */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    on_uncaught</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host, ctx, exc, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  } </span><span style="color:#D73A49;--shiki-dark:#F97583">else</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    JSValue global </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_GetGlobalObject</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    JS_SetPropertyStr</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, global, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"addon"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, exports);</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* takes ownership */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    JS_FreeValue</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, global);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    JSValue r </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_Eval</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"addon.hello()"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">13</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"&#x3C;main>"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                        JS_EVAL_TYPE_GLOBAL);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">JS_IsException</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(r)) </span><span style="color:#6F42C1;--shiki-dark:#B392F0">on_uncaught</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host, ctx, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">JS_GetException</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx), </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    JS_FreeValue</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx, r);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">  /* Async work, thread-safe functions and finalizers run from the loop. */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  uv_run</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_get_loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host), UV_RUN_DEFAULT);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  qjsnapi_host_destroy</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  JS_FreeContext</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(ctx);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  JS_FreeRuntime</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(rt);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>An addon linked into the application instead of loaded from a file:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_value </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Init</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">  /* ... napi_define_properties(env, exports, ...) ... */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> exports;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">JSValue exports;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_init_static_addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(host, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"my-static-addon"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, Init,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">                              10</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* module API version */</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">  /* exception pending on ctx */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h2 id="function-reference"><a class="heading-anchor" href="#function-reference">Function reference</a></h2>
+<h3 id="host-lifecycle"><a class="heading-anchor" href="#host-lifecycle">Host lifecycle</a></h3>
+<h4 id="qjsnapi_host_create"><a class="heading-anchor" href="#qjsnapi_host_create"><code>qjsnapi_host_create</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_create</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates the Node-API host for <code>ctx</code>, with a <strong>libuv loop of its own</strong> that
+<code>qjsnapi_host_destroy</code> closes. It captures the builtins Node-API needs,
+evaluates the embedded <code>Buffer</code> class, probes the builtin class IDs and
+registers the library's loop handles. Must be called before any user script
+runs (see <a href="/projects/quickjs-napi/docs/architecture/#captured-builtins">captured builtins</a>).
+Returns <code>NULL</code> on failure; a JavaScript exception may then be pending.</p>
+<h4 id="qjsnapi_host_create_with_loop"><a class="heading-anchor" href="#qjsnapi_host_create_with_loop"><code>qjsnapi_host_create_with_loop</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_create_with_loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                            struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> uv_loop_s </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Same, on the embedder's loop. The loop must outlive the host and run on the
+thread that owns <code>ctx</code>. The host adds its handles to it and removes them in
+<code>qjsnapi_host_destroy</code>, but does not close the loop.</p>
+<h4 id="qjsnapi_host_get_loop"><a class="heading-anchor" href="#qjsnapi_host_get_loop"><code>qjsnapi_host_get_loop</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> uv_loop_s </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_get_loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>The loop of the host: the one <code>napi_get_uv_event_loop</code> returns to addons and
+the one the embedder must run.</p>
+<h4 id="qjsnapi_host_from_context"><a class="heading-anchor" href="#qjsnapi_host_from_context"><code>qjsnapi_host_from_context</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_from_context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">ctx</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>The host attached to <code>ctx</code>, or <code>NULL</code>. Useful in native functions of the
+embedder that only receive a <code>JSContext</code>.</p>
+<h4 id="qjsnapi_host_destroy"><a class="heading-anchor" href="#qjsnapi_host_destroy"><code>qjsnapi_host_destroy</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_destroy</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Tears down every env as Node.js does at exit, with JavaScript disabled:</p>
+<ol>
+<li>cleanup hooks, newest first (thread-safe functions start closing, async
+cleanup hooks start);</li>
+<li>queued async work cancelled;</li>
+<li>the loop runs until in-flight work, thread-safe functions and async cleanup
+hooks are done;</li>
+<li>references and instance data finalized;</li>
+<li>the module cache released and the host detached from the context.</li>
+</ol>
+<p>The embedder closes its own handles on the loop first. Must be called before
+<code>JS_FreeContext()</code>. The full order is described in
+<a href="/projects/quickjs-napi/docs/architecture/#teardown">architecture.md</a>.</p>
+<h3 id="loading-addons"><a class="heading-anchor" href="#loading-addons">Loading addons</a></h3>
+<h4 id="qjsnapi_load_addon"><a class="heading-anchor" href="#qjsnapi_load_addon"><code>qjsnapi_load_addon</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_load_addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">path</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, JSValue </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Loads a <code>.node</code> shared library and runs its Node-API initializer.</p>
+<ul>
+<li>Returns <code>0</code> and stores a <strong>new reference</strong> to the exports in <code>*exports</code>; the
+caller frees it.</li>
+<li>Returns <code>-1</code> with a JavaScript exception pending on the context. Its <code>code</code>
+property is <code>MODULE_NOT_FOUND</code> (the path cannot be resolved) or
+<code>ERR_DLOPEN_FAILED</code> (the library cannot be opened, does not register a
+module, or needs a Node-API version above 10). A legacy module registered
+without an init function fails with <code>Module has no declared entry point.</code>
+and no code, as in Node.js. An exception thrown by the initializer is left
+pending as it is.</li>
+<li>Like <code>process.dlopen</code>, <strong>every call runs the initializer again</strong> with a new
+env and returns new exports. Caching by path is the module loader's job.</li>
+<li>Fails while the host is being destroyed.</li>
+</ul>
+<p>The entry point is resolved as described in
+<a href="/projects/quickjs-napi/docs/architecture/#loading-addons">architecture.md</a>.</p>
+<h4 id="qjsnapi_init_static_addon"><a class="heading-anchor" href="#qjsnapi_init_static_addon"><code>qjsnapi_init_static_addon</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_init_static_addon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                              napi_addon_register_func </span><span style="color:#E36209;--shiki-dark:#FFAB70">init</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                              int32_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> module_api_version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, JSValue </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">exports</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Runs the initializer of an addon <strong>linked statically</strong> into the embedder, as
+if it had been loaded from <code>name</code>. <code>module_api_version</code> follows the
+<code>node_api_module_get_api_version_v1</code> rules: <code>0</code> selects the default (8), a
+value above 10 fails. Unlike <code>qjsnapi_load_addon</code>, the exports are <strong>cached by
+name</strong>: a second call with the same name returns a new reference to the same
+exports object without running <code>init</code> again. <code>node_api_get_module_file_name</code>
+reports <code>name</code> for such an addon.</p>
+<h3 id="buffer-and-versions"><a class="heading-anchor" href="#buffer-and-versions">Buffer and versions</a></h3>
+<h4 id="qjsnapi_host_get_buffer"><a class="heading-anchor" href="#qjsnapi_host_get_buffer"><code>qjsnapi_host_get_buffer</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">JSValue </span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_host_get_buffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>The minimal Node.js <code>Buffer</code> constructor used by <code>napi_create_buffer*</code>
+(<code>Buffer.from</code>, <code>alloc</code>, <code>toString</code>, ...; see
+<a href="/projects/quickjs-napi/docs/node-api/node-specific/#buffers">buffers</a>). The library <strong>does not install it
+as a global</strong>: the embedder decides where it is visible (the executable sets
+<code>globalThis.Buffer</code> and <code>require('buffer')</code>). Returns a new reference.</p>
+<h4 id="qjsnapi_node_version"><a class="heading-anchor" href="#qjsnapi_node_version"><code>qjsnapi_node_version</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_node_version </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0">qjsnapi_node_version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>What <code>napi_get_node_version</code> reports: <code>22.23.4</code>, the Node.js release whose
+Node-API behaviour is reproduced, with release name <code>"quickjs-napi"</code>. A host
+that provides <code>process</code> should report the same in <code>process.version</code>.</p>
+<h4 id="qjsnapi_napi_version"><a class="heading-anchor" href="#qjsnapi_napi_version"><code>qjsnapi_napi_version</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">uint32_t</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_napi_version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>The highest Node-API version supported by this build (<code>10</code>), the value of
+<code>napi_get_version</code>.</p>
+<h3 id="finalizers-and-weak-references"><a class="heading-anchor" href="#finalizers-and-weak-references">Finalizers and weak references</a></h3>
+<h4 id="qjsnapi_host_run_finalizers"><a class="heading-anchor" href="#qjsnapi_host_run_finalizers"><code>qjsnapi_host_run_finalizers</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_run_finalizers</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Runs the queued finalizers of every env (objects collected by the GC that
+have a <code>napi_wrap</code>, <code>napi_add_finalizer</code>, external value, external
+ArrayBuffer or external Buffer finalizer) and returns how many ran. The
+library's <code>uv_check</code> handle already calls it once per loop iteration, so an
+embedder that runs the host's loop does not need to; an embedder with its own
+scheduling calls it outside of any JavaScript call. Finalizers still queued at
+<code>qjsnapi_host_destroy</code> run then, with JavaScript disabled.</p>
+<h4 id="qjsnapi_host_has_pending_finalizers"><a class="heading-anchor" href="#qjsnapi_host_has_pending_finalizers"><code>qjsnapi_host_has_pending_finalizers</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_has_pending_finalizers</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Non-zero while finalizers are queued: an event loop that decides itself when
+to stop must not exit yet.</p>
+<h4 id="qjsnapi_host_clear_kept_objects"><a class="heading-anchor" href="#qjsnapi_host_clear_kept_objects"><code>qjsnapi_host_clear_kept_objects</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_clear_kept_objects</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Releases the <em>kept objects</em>: the targets of references that became weak,
+held strongly until now to reproduce V8's "alive until the next GC" (see
+<a href="/projects/quickjs-napi/docs/architecture/#kept-objects">architecture.md</a>). The library clears the list
+at each of its own checkpoints. The embedder calls it <strong>at the end of each
+macrotask it runs itself</strong> (a timer, an I/O callback) and <strong>before an
+explicit garbage collection</strong> (<code>JS_RunGC</code>), otherwise weakly referenced
+objects are collected later than expected.</p>
+<h3 id="callbacks-of-the-embedder"><a class="heading-anchor" href="#callbacks-of-the-embedder">Callbacks of the embedder</a></h3>
+<h4 id="qjsnapi_host_set_uncaught_handler"><a class="heading-anchor" href="#qjsnapi_host_set_uncaught_handler"><code>qjsnapi_host_set_uncaught_handler</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">qjsnapi_uncaught_fn)(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">host, JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">ctx,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                    JSValue exception, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">opaque);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_set_uncaught_handler</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                       qjsnapi_uncaught_fn </span><span style="color:#E36209;--shiki-dark:#FFAB70">fn</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">opaque</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Called with an exception that no JavaScript frame can catch: thrown by a
+finalizer, an async work <code>complete</code> callback, a thread-safe function's
+<code>call_js_cb</code>, a promise job run by the default checkpoint, or passed to
+<code>napi_fatal_exception</code>. Node.js emits <code>process.on('uncaughtException')</code> or
+exits. <strong>The handler takes ownership of <code>exception</code>.</strong> Without a handler, and
+always during <code>qjsnapi_host_destroy</code>, the exception is printed on stderr
+(<code>quickjs-napi: uncaught exception in a Node-API callback: ...</code>) and dropped.</p>
+<h4 id="qjsnapi_host_set_checkpoint"><a class="heading-anchor" href="#qjsnapi_host_set_checkpoint"><code>qjsnapi_host_set_checkpoint</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">qjsnapi_checkpoint_fn)(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">host, JSContext </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">ctx,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                      void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">opaque);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_set_checkpoint</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, qjsnapi_checkpoint_fn </span><span style="color:#E36209;--shiki-dark:#FFAB70">fn</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                 void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">opaque</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Called after native code entered from the loop (async work completion,
+thread-safe function calls, finalizers) and when the outermost callback scope
+closes with no JavaScript below it: where Node.js runs its tick and microtask
+queues and reports unhandled rejections. The default runs the pending promise
+jobs (<code>JS_ExecutePendingJob</code>) and reports their exceptions to the uncaught
+handler. An embedder with a <code>process.nextTick</code> queue or rejection tracking
+installs its own (the executable does: <code>host_checkpoint</code> in <code>host/main.c</code>).</p>
+<h4 id="qjsnapi_host_set_force_uncaught_exceptions_policy"><a class="heading-anchor" href="#qjsnapi_host_set_force_uncaught_exceptions_policy"><code>qjsnapi_host_set_force_uncaught_exceptions_policy</code></a></h4>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> qjsnapi_host_set_force_uncaught_exceptions_policy</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi_host </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">host</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                                       int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> force</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Node's <code>--force-node-api-uncaught-exceptions-policy</code> (default off). When off,
+an exception thrown by a thread-safe function callback of an addon built for
+Node-API &#x3C; 10 becomes a <code>DEP0168</code> deprecation warning instead of an uncaught
+exception. When on, it is always an uncaught exception.</p>
+<h2 id="embedder-responsibilities"><a class="heading-anchor" href="#embedder-responsibilities">Embedder responsibilities</a></h2>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run the loop</td>
+<td><code>uv_run(qjsnapi_host_get_loop(host), ...)</code>; it runs async work completions, thread-safe function calls and queued finalizers.</td>
+</tr>
+<tr>
+<td>Report uncaught exceptions</td>
+<td><code>qjsnapi_host_set_uncaught_handler</code>.</td>
+</tr>
+<tr>
+<td>Drain the embedder's own queues</td>
+<td><code>qjsnapi_host_set_checkpoint</code> (microtasks, <code>nextTick</code>, unhandled rejections).</td>
+</tr>
+<tr>
+<td>End macrotasks</td>
+<td><code>qjsnapi_host_clear_kept_objects</code> after each macrotask it runs itself, and before <code>JS_RunGC</code>.</td>
+</tr>
+<tr>
+<td>Expose <code>Buffer</code></td>
+<td><code>qjsnapi_host_get_buffer</code>, if scripts should see it.</td>
+</tr>
+<tr>
+<td>Cache modules</td>
+<td><code>qjsnapi_load_addon</code> never caches; <code>require</code> does.</td>
+</tr>
+<tr>
+<td>Tear down in order</td>
+<td>close the embedder's handles, <code>qjsnapi_host_destroy</code>, then <code>JS_FreeContext</code>, <code>JS_FreeRuntime</code>.</td>
+</tr>
+<tr>
+<td>Export the symbols</td>
+<td>addons resolve <code>napi_*</code> and <code>uv_*</code> from the process (see below).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linking"><a class="heading-anchor" href="#linking">Linking</a></h2>
+<p>Addons do not link against the library: they find <code>napi_*</code> and <code>uv_*</code> in the
+process. The executable that embeds the library must therefore <strong>export</strong>
+them:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>What is needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux, BSD</td>
+<td>link the library as a whole archive and export dynamic symbols (<code>--export-dynamic</code>, CMake <code>ENABLE_EXPORTS</code>).</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>whole archive (<code>-force_load</code>); addons are linked with <code>-undefined dynamic_lookup</code>.</td>
+</tr>
+<tr>
+<td>Windows (MinGW)</td>
+<td>whole archive; the definitions carry <code>__declspec(dllexport)</code> (<code>NAPI_EXTERN</code>; libuv is built with <code>BUILDING_UV_SHARED</code>). node-gyp addons import from <code>node.exe</code> and are redirected to the running process by node-gyp's delay-load hook.</td>
+</tr>
+</tbody>
+</table>
+<p><code>CMakeLists.txt</code> does all of this for the <code>quickjs-napi</code> target; an embedder
+can copy that setup. <code>tools/check_exports.py &#x3C;executable></code> verifies that every
+Node-API function is exported.</p>
+<p>Link with <code>uv_a</code> (libuv) and the QuickJS library the headers in <code>include/</code>
+were taken from.</p>
+<h3 id="from-a-release-package"><a class="heading-anchor" href="#from-a-release-package">From a release package</a></h3>
+<p>The <a href="/projects/quickjs-napi/docs/building/#release-packages">release packages</a> install a CMake
+package:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">find_package</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(qjsnapi CONFIG REQUIRED)   </span><span style="color:#6A737D;--shiki-dark:#6A737D"># CMAKE_PREFIX_PATH=&#x3C;package dir></span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">target_link_libraries</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_app </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PRIVATE</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> qjsnapi::static)   </span><span style="color:#6A737D;--shiki-dark:#6A737D"># or qjsnapi::shared</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qjsnapi::static</code></td>
+<td><code>libqjsnapi.a</code> + the bundled <code>libqjs.a</code> and <code>libuv.a</code>, with their system libraries</td>
+</tr>
+<tr>
+<td><code>qjsnapi::core</code></td>
+<td><code>libqjsnapi.a</code> alone, to link <strong>your own</strong> QuickJS and libuv</td>
+</tr>
+<tr>
+<td><code>qjsnapi::quickjs</code>, <code>qjsnapi::uv</code></td>
+<td>the bundled <code>libqjs.a</code> and <code>libuv.a</code></td>
+</tr>
+<tr>
+<td><code>qjsnapi::shared</code></td>
+<td>the shared library (<code>libqjsnapi.so</code>, <code>libqjsnapi.dylib</code>, <code>qjsnapi.dll</code>)</td>
+</tr>
+<tr>
+<td><code>qjsnapi::addon</code></td>
+<td>usage requirements of a <code>.node</code> addon for the <code>quickjs-napi</code> executable</td>
+</tr>
+<tr>
+<td><code>qjsnapi::quickjs-napi</code></td>
+<td>the executable</td>
+</tr>
+</tbody>
+</table>
+<p><code>test/package/CMakeLists.txt</code> uses each of them; it is what the release
+workflow runs on every package.</p>
+<p><strong>Static: three archives.</strong> QuickJS and libuv are separate archives so that
+an embedder can replace them (<code>qjsnapi::core</code> plus its own libraries). The
+replacements must be ABI-compatible with the headers of the package: the same
+QuickJS release (<code>quickjs.h</code> defines the layout of <code>JSValue</code>) and a libuv 1.x
+not older than the bundled one (<code>BUILDINFO.txt</code> has both versions). The rules
+of the table above still apply: to load addons, the executable must link
+<code>libqjsnapi.a</code> and libuv as whole archives and export their symbols.</p>
+<p><strong>Shared.</strong> The shared library contains QuickJS and libuv and exports
+<code>napi_*</code>, <code>uv_*</code>, <code>qjsnapi_*</code> and the QuickJS API (<code>JS_*</code>, <code>js_*</code>). Create the
+<code>JSRuntime</code> and <code>JSContext</code> with the QuickJS <strong>of the library</strong>: do not link
+another QuickJS in the same process (two copies do not share class IDs and
+atoms, and values cannot cross between them). Limits:</p>
+<ul>
+<li><strong>Windows:</strong> node-gyp addons import Node-API from <code>node.exe</code>, and their
+delay-load hook redirects that to the <em>executable</em> of the process, not to
+<code>qjsnapi.dll</code>: they cannot load in a program that uses the DLL. Use the
+static archives (exporting the symbols from the executable, as above), or
+<code>quickjs-napi.exe</code>. Addons linked against <code>libqjsnapi.dll.a</code> instead load
+normally.</li>
+<li><strong>Linux, BSD, macOS:</strong> addons find the symbols in the shared library, which
+is loaded globally with the executable; nothing else is needed.</li>
+</ul>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/embedding.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/embedding.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"embedding","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Embedding API (qjsnapi.h) · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Embedding API (qjsnapi.h) (doc/embedding.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/embedding/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"rqzizN7opElHqBNmIIWHs"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/compatibility/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Compatibility with Node.js"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/host/"}],"nativeButton":false,"children":["The quickjs-napi executable",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","lifecycle-at-a-glance",{"className":"","children":["$","a",null,{"href":"#lifecycle-at-a-glance","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Lifecycle at a glance"}]}],["$","li","minimal-embedder",{"className":"","children":["$","a",null,{"href":"#minimal-embedder","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Minimal embedder"}]}],["$","li","function-reference",{"className":"","children":["$","a",null,{"href":"#function-reference","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Function reference"}]}],["$","li","host-lifecycle",{"className":"pl-3","children":["$","a",null,{"href":"#host-lifecycle","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Host lifecycle"}]}],["$","li","loading-addons",{"className":"pl-3","children":["$","a",null,{"href":"#loading-addons","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Loading addons"}]}],["$","li","buffer-and-versions",{"className":"pl-3","children":["$","a",null,{"href":"#buffer-and-versions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Buffer and versions"}]}],["$","li","finalizers-and-weak-references",{"className":"pl-3","children":["$","a",null,{"href":"#finalizers-and-weak-references","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Finalizers and weak references"}]}],["$","li","callbacks-of-the-embedder",{"className":"pl-3","children":["$","a",null,{"href":"#callbacks-of-the-embedder","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Callbacks of the embedder"}]}],["$","li","embedder-responsibilities",{"className":"","children":["$","a",null,{"href":"#embedder-responsibilities","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Embedder responsibilities"}]}],["$","li","linking",{"className":"","children":["$","a",null,{"href":"#linking","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Linking"}]}],["$","li","from-a-release-package",{"className":"pl-3","children":["$","a",null,{"href":"#from-a-release-package","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"From a release package"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"
