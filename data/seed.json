@@ -1,0 +1,111 @@
+{
+  "$comment": "Snapshot used by scripts/sync-data.ts only when the GitHub API is unreachable and no previously generated data exists. Taken from the public GitHub API on 2026-11-20.",
+  "repos": {
+    "marmotta": {
+      "meta": {
+        "description": "Marmotta - a Node.js native addon build tool",
+        "homepage": "https://www.npmjs.com/package/marmotta",
+        "language": "JavaScript",
+        "stars": 6,
+        "forks": 1,
+        "openIssues": 1,
+        "license": "Apache-2.0",
+        "topics": ["addon", "c", "cpp", "n-api", "native-addon", "node", "node-addon", "node-api", "nodejs", "zig-build"],
+        "defaultBranch": "main",
+        "pushedAt": "2026-11-13T22:55:12Z"
+      },
+      "releases": [
+        { "tag": "v0.10.0", "name": "Release 0.10.0", "publishedAt": "2026-11-13T22:55:13Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.10.0", "prerelease": false },
+        { "tag": "v0.9.0", "name": "Release 0.9.0", "publishedAt": "2026-10-30T02:11:46Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.9.0", "prerelease": false },
+        { "tag": "v0.8.0", "name": "Release 0.8.0", "publishedAt": "2026-10-25T18:41:09Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.8.0", "prerelease": false },
+        { "tag": "v0.7.0", "name": "Release 0.7.0", "publishedAt": "2026-10-24T14:37:33Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.7.0", "prerelease": false },
+        { "tag": "v0.6.0", "name": "Release 0.6.0", "publishedAt": "2026-10-13T19:34:42Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.6.0", "prerelease": false },
+        { "tag": "v0.5.0", "name": "Release 0.5.0", "publishedAt": "2026-10-06T20:18:10Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.5.0", "prerelease": false },
+        { "tag": "v0.4.2", "name": "Release 0.4.2", "publishedAt": "2026-10-04T19:54:11Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.4.2", "prerelease": false },
+        { "tag": "v0.4.1", "name": "Release 0.4.1", "publishedAt": "2026-10-04T19:32:54Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.4.1", "prerelease": false },
+        { "tag": "v0.4.0", "name": "Release 0.4.0", "publishedAt": "2026-10-04T18:58:47Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.4.0", "prerelease": false },
+        { "tag": "v0.3.0", "name": "Release 0.3.0", "publishedAt": "2026-10-04T09:54:06Z", "url": "https://github.com/napi-bindings/marmotta/releases/tag/v0.3.0", "prerelease": false }
+      ]
+    },
+    "napi-go": {
+      "meta": {
+        "description": "A framework for building compiled Node.js add-ons in Go via Node-API",
+        "homepage": "https://github.com/napi-bindings/napi-go",
+        "language": "Go",
+        "stars": 1,
+        "forks": 0,
+        "openIssues": 0,
+        "license": "Apache-2.0",
+        "topics": ["addon", "javascript", "napi", "native", "node", "node-api", "nodejs"],
+        "defaultBranch": "main",
+        "pushedAt": "2026-11-12T21:48:20Z"
+      },
+      "releases": [
+        { "tag": "v0.1.0", "name": "napi-go v0.1.0", "publishedAt": "2026-11-12T21:50:37Z", "url": "https://github.com/napi-bindings/napi-go/releases/tag/v0.1.0", "prerelease": false }
+      ]
+    },
+    "node-api-stub": {
+      "meta": {
+        "description": "Node-API stub",
+        "homepage": "https://www.napi-bindings.dev",
+        "language": "C",
+        "stars": 4,
+        "forks": 4,
+        "openIssues": 0,
+        "license": "Apache-2.0",
+        "topics": ["addon", "clang", "cpp", "javascript", "native", "node-api", "nodejs"],
+        "defaultBranch": "main",
+        "pushedAt": "2026-11-14T14:57:38Z"
+      },
+      "releases": [
+        { "tag": "9.0.0", "name": "v9.0.0", "publishedAt": "2026-11-14T14:57:39Z", "url": "https://github.com/napi-bindings/node-api-stub/releases/tag/9.0.0", "prerelease": false },
+        { "tag": "8.0.0", "name": "v8.0.0", "publishedAt": "2021-03-27T13:45:14Z", "url": "https://github.com/napi-bindings/node-api-stub/releases/tag/8.0.0", "prerelease": false },
+        { "tag": "7.0.0", "name": "v7.0.0", "publishedAt": "2021-01-29T20:31:35Z", "url": "https://github.com/napi-bindings/node-api-stub/releases/tag/7.0.0", "prerelease": false },
+        { "tag": "6.0.0", "name": "v6.0.0", "publishedAt": "2020-03-31T08:15:57Z", "url": "https://github.com/napi-bindings/node-api-stub/releases/tag/6.0.0", "prerelease": false },
+        { "tag": "5.0.0", "name": "v5.0.0", "publishedAt": "2020-03-14T15:10:02Z", "url": "https://github.com/napi-bindings/node-api-stub/releases/tag/5.0.0", "prerelease": false }
+      ]
+    },
+    "quickjs-build": {
+      "meta": {
+        "description": "Build for QuickJS JavaScript Engine",
+        "homepage": "https://www.napi-bindings.dev",
+        "language": "C",
+        "stars": 49,
+        "forks": 5,
+        "openIssues": 0,
+        "license": "Apache-2.0",
+        "topics": ["c", "clang", "compiler", "cpp", "ecmascript", "engine", "es2025", "interpreter", "javascript", "javascript-engine", "js", "library", "quickjs", "runtime", "vm"],
+        "defaultBranch": "master",
+        "pushedAt": "2026-11-15T01:13:39Z"
+      },
+      "releases": [
+        { "tag": "7.0.0", "name": "Release 7.0.0", "publishedAt": "2026-11-15T01:13:40Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/7.0.0", "prerelease": false },
+        { "tag": "6.0.0", "name": "Release 6.0.0", "publishedAt": "2023-04-28T14:31:07Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/6.0.0", "prerelease": false },
+        { "tag": "5.3.0", "name": "Release 5.3.0", "publishedAt": "2021-08-25T09:11:19Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/5.3.0", "prerelease": false },
+        { "tag": "5.2.0", "name": "Release 5.2.0", "publishedAt": "2021-04-12T20:39:28Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/5.2.0", "prerelease": false },
+        { "tag": "5.1.0", "name": "Release 5.1.0", "publishedAt": "2021-04-10T10:47:06Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/5.1.0", "prerelease": false },
+        { "tag": "5.0.0", "name": "Release 5.0.0", "publishedAt": "2021-03-28T11:13:43Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/5.0.0", "prerelease": false },
+        { "tag": "4.0.0", "name": "Release 4.0.0", "publishedAt": "2020-11-08T23:12:48Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/4.0.0", "prerelease": false },
+        { "tag": "3.0.0", "name": "Release 3.0.0", "publishedAt": "2020-09-10T22:03:54Z", "url": "https://github.com/napi-bindings/quickjs-build/releases/tag/3.0.0", "prerelease": false }
+      ]
+    },
+    "quickjs-napi": {
+      "meta": {
+        "description": "Node-API implementation for QuickJS",
+        "homepage": "https://github.com/napi-bindings/quickjs-napi",
+        "language": "C",
+        "stars": 1,
+        "forks": 0,
+        "openIssues": 0,
+        "license": "Apache-2.0",
+        "topics": ["addon", "clanguage", "cpp", "javascript", "napi", "native", "node", "nodejs", "quickjs"],
+        "defaultBranch": "main",
+        "pushedAt": "2026-11-18T22:04:27Z"
+      },
+      "releases": [
+        { "tag": "v0.0.2", "name": "Release 0.0.2", "publishedAt": "2026-11-18T22:04:27Z", "url": "https://github.com/napi-bindings/quickjs-napi/releases/tag/v0.0.2", "prerelease": false },
+        { "tag": "v0.0.1", "name": "Release 0.0.1", "publishedAt": "2026-11-18T10:36:54Z", "url": "https://github.com/napi-bindings/quickjs-napi/releases/tag/v0.0.1", "prerelease": false }
+      ]
+    }
+  }
+}
