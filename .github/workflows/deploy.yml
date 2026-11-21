@@ -54,6 +54,10 @@ jobs:
           # Empty with the custom domain; set to /website to serve from
           # https://napi-bindings.github.io/website instead.
           NEXT_PUBLIC_BASE_PATH: ""
+          # Google Analytics 4 measurement ID, from the repository variable
+          # GA_MEASUREMENT_ID. Left empty for pull requests, so their builds
+          # contain neither the consent banner nor the Google tag.
+          NEXT_PUBLIC_GA_ID: ${{ github.event_name != 'pull_request' && vars.GA_MEASUREMENT_ID || '' }}
 
       - uses: actions/upload-artifact@v4
         with:
