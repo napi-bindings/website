@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { CookiePreferences } from "@/components/cookie-preferences"
 import { Logo } from "@/components/logo"
 import { PROJECTS } from "@/config/projects"
 import { formatDate } from "@/lib/utils"
@@ -70,9 +71,15 @@ export function SiteFooter({ generatedAt }: { generatedAt: string }) {
             © napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js
             contributors, MIT license.
           </p>
-          <a href={`${siteConfig.github}/website`} target="_blank" rel="noreferrer" className="hover:text-foreground">
-            Edit this site on GitHub
-          </a>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href="/privacy/" className="hover:text-foreground">
+              Privacy
+            </Link>
+            <CookiePreferences />
+            <a href={`${siteConfig.github}/website`} target="_blank" rel="noreferrer" className="hover:text-foreground">
+              Edit this site on GitHub
+            </a>
+          </div>
         </div>
       </div>
     </footer>

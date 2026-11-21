@@ -94,6 +94,25 @@ and a `.nojekyll` file so that `_next/` is served.
 To serve the site from `https://napi-bindings.github.io/website` instead of the custom domain,
 set `NEXT_PUBLIC_BASE_PATH: /website` in the workflow and remove the `cname` input.
 
+## Analytics
+
+The site counts page views with Google Analytics 4, through `GoogleAnalytics` from
+[`@next/third-parties`](https://nextjs.org/docs/app/guides/third-party-libraries#google-analytics).
+No custom events are sent.
+
+- The Google tag is loaded **only after the visitor accepts** the banner (`src/components/cookie-banner.tsx`):
+  before that, no request reaches Google. The choice is kept in `localStorage` for six months
+  (`src/lib/analytics-consent.ts`); "Cookie preferences" in the footer withdraws it, deletes the `_ga*`
+  cookies and shows the banner again. `/privacy/` describes all of this to visitors.
+- Navigations between pages are measured by GA4 itself: in the web data stream, Enhanced measurement must
+  have Page views on, with "Page changes based on browser history events" checked.
+- The measurement ID comes from the repository variable `GA_MEASUREMENT_ID`
+  (Settings → Secrets and variables → Actions → Variables) and is inlined at build time as
+  `NEXT_PUBLIC_GA_ID`. Pull request builds and local builds leave it empty: no banner, no tag.
+
+To try it locally, create `.env.local` (ignored by git) with the line `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX`
+and run `npm run dev`; in development the tag runs in debug mode, so the events show up in GA4 DebugView.
+
 ## License
 
 Code: [Apache-2.0](LICENSE). Node-API documentation content: © Node.js contributors, MIT license.

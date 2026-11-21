@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects/",
     "/ecosystem/",
     "/activity/",
+    "/privacy/",
     ...guideSections.map((s) => routes.section(s.id)),
     ...nodeApi.symbols.map((s) => routes.symbol(s.name)),
     ...projects.flatMap((p) => [
