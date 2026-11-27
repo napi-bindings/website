@@ -1,0 +1,411 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/3-909m818e1da.js"
+d:"/_next/static/chunks/2rdswu9mij722.js"
+e:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Markdown"]
+16:"ViewportBoundary"
+17:I[97367,["$5","$6","$7","$8","$9","$a"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$5","$6","$7","$8","$9","$a"],"$18"]
+1a:"$Sreact.suspense"
+1b:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+f:T5ad6,
+<p><a href="https://github.com/napi-bindings/quickjs-build/actions/workflows/quickjs-build.yml" target="_blank" rel="noreferrer noopener"><img src="https://github.com/napi-bindings/quickjs-build/actions/workflows/quickjs-build.yml/badge.svg" alt="QuickJS Build Matrix" loading="lazy"></a></p>
+<h2 id="version-2026-06-04"><a class="heading-anchor" href="#version-2026-06-04">Version 2026-06-04</a></h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#prebuilt-archives">Prebuilt archives</a></li>
+<li><a href="#using-the-library">Using the library</a></li>
+<li><a href="#using-the-webassembly-builds">Using the WebAssembly builds</a></li>
+<li><a href="#building">Building</a></li>
+<li><a href="#updating-quickjs">Updating QuickJS</a></li>
+<li><a href="https://github.com/napi-bindings/quickjs-build/blob/master/CODE_OF_CONDUCT.md" target="_blank" rel="noreferrer noopener">Code of conduct</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#acknowledgements">Acknowledgments</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2 id="introduction"><a class="heading-anchor" href="#introduction">Introduction</a></h2>
+<p><strong>QuickJS</strong> is a small and embeddable JavaScript engine. It supports most of the
+<strong><a href="https://tc39.es/ecma262/" target="_blank" rel="noreferrer noopener">ES2025</a></strong> specification including modules,
+asynchronous generators, proxies and BigInt.</p>
+<h3 id="main-features"><a class="heading-anchor" href="#main-features">Main Features:</a></h3>
+<ul>
+<li>Small and easily embeddable: just a few <strong>C</strong> files, no external dependency,
+<strong>210 KiB</strong> of x86 code for a simple hello world program.</li>
+<li>Fast interpreter with very low startup time: runs the tests of the
+<strong><a href="https://github.com/tc39/test262" target="_blank" rel="noreferrer noopener">ECMAScript Test Suite</a></strong> in less than 2
+minutes on a single core of a desktop PC. The complete life cycle of a runtime
+instance completes in less than 300 microseconds.</li>
+<li>Almost complete <strong>ES2025</strong> support.</li>
+<li>Passes nearly 100% of the
+<strong><a href="https://github.com/tc39/test262" target="_blank" rel="noreferrer noopener">ECMAScript Test Suite</a></strong> tests when selecting
+the ES2025 features.</li>
+<li>Can compile JavaScript sources to executables with no external dependency.</li>
+<li>Garbage collection using reference counting (to reduce memory usage and have
+deterministic behavior) with cycle removal.</li>
+<li>Command line interpreter with contextual colorization implemented in JavaScript.</li>
+<li>Small built-in standard library with <strong>C</strong> library wrappers.</li>
+</ul>
+<p>This repository is a mirror of the original work that you can find
+<strong><a href="https://bellard.org/quickjs/" target="_blank" rel="noreferrer noopener">here</a></strong>. The files in <code>src/</code>, <code>include/</code> and
+<code>tests/</code> are the unmodified files of the <code>quickjs-2026-06-04</code> release.</p>
+<p>The mathematical extensions of the previous releases (BigFloat, BigDecimal,
+operator overloading) were removed upstream and are no longer available. See the
+<a href="/projects/quickjs-build/changelog/">changelog</a> for the list of the API changes.</p>
+<h2 id="prebuilt-archives"><a class="heading-anchor" href="#prebuilt-archives">Prebuilt archives</a></h2>
+<p>The main purpose of this repository is to build <strong>QuickJS</strong> as a static library
+that you can include in your <strong>C / C++</strong> project. Every
+<a href="https://github.com/napi-bindings/quickjs-build/releases" target="_blank" rel="noreferrer noopener">release</a> provides the
+following archives, together with a <code>SHA256SUMS</code> file:</p>
+<table>
+<thead>
+<tr>
+<th>Archive</th>
+<th>Platform</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qjs-linux-x86_64.zip</code></td>
+<td>Linux x86_64</td>
+<td>glibc 2.17 or later</td>
+</tr>
+<tr>
+<td><code>qjs-linux-arm64.zip</code></td>
+<td>Linux AArch64</td>
+<td>glibc 2.17 or later</td>
+</tr>
+<tr>
+<td><code>qjs-linux-armv7.zip</code></td>
+<td>Linux ARMv7-A hard float</td>
+<td>glibc 2.17 or later</td>
+</tr>
+<tr>
+<td><code>qjs-linux-riscv64.zip</code></td>
+<td>Linux RISC-V 64 (rv64gc)</td>
+<td>glibc 2.27 or later</td>
+</tr>
+<tr>
+<td><code>qjs-linux-x86.zip</code></td>
+<td>Linux x86 32 bit</td>
+<td>glibc 2.17 or later</td>
+</tr>
+<tr>
+<td><code>qjs-linux-x86_64-musl.zip</code></td>
+<td>Linux x86_64, musl</td>
+<td>static executables, e.g. for Alpine</td>
+</tr>
+<tr>
+<td><code>qjs-linux-arm64-musl.zip</code></td>
+<td>Linux AArch64, musl</td>
+<td>static executables, e.g. for Alpine</td>
+</tr>
+<tr>
+<td><code>qjs-windows-x86_64.zip</code></td>
+<td>Windows x86_64</td>
+<td>MinGW-w64 ABI, UCRT</td>
+</tr>
+<tr>
+<td><code>qjs-windows-arm64.zip</code></td>
+<td>Windows ARM64</td>
+<td>MinGW-w64 ABI, UCRT</td>
+</tr>
+<tr>
+<td><code>qjs-windows-x86.zip</code></td>
+<td>Windows x86 32 bit</td>
+<td>MinGW-w64 ABI, UCRT</td>
+</tr>
+<tr>
+<td><code>qjs-windows-x86_64-mingw.zip</code></td>
+<td>Windows x86_64</td>
+<td>built with MinGW-w64 11 (GCC 13.2), msvcrt</td>
+</tr>
+<tr>
+<td><code>qjs-windows-x86-mingw.zip</code></td>
+<td>Windows x86 32 bit</td>
+<td>built with MinGW-w64 11 (GCC 13.2), msvcrt</td>
+</tr>
+<tr>
+<td><code>qjs-macos-x86_64.zip</code></td>
+<td>macOS Intel</td>
+<td>macOS 11 or later</td>
+</tr>
+<tr>
+<td><code>qjs-macos-arm64.zip</code></td>
+<td>macOS Apple Silicon</td>
+<td>macOS 11 or later</td>
+</tr>
+<tr>
+<td><code>qjs-freebsd-x86_64.zip</code></td>
+<td>FreeBSD x86_64</td>
+<td>FreeBSD 14 or later</td>
+</tr>
+<tr>
+<td><code>qjs-wasm32-wasi.zip</code></td>
+<td>WebAssembly, WASI</td>
+<td>engine only</td>
+</tr>
+<tr>
+<td><code>qjs-wasm32-emscripten.zip</code></td>
+<td>WebAssembly, Emscripten</td>
+<td>engine only</td>
+</tr>
+</tbody>
+</table>
+<p>The native archives contain:</p>
+<ul>
+<li><code>libqjs.a</code>: the static library (engine and <code>quickjs-libc</code>, the <code>std</code> and <code>os</code>
+modules);</li>
+<li><code>qjsc</code>, <code>quickjs</code> and <code>run-test262</code>: the QuickJS compiler, the command line
+interpreter and the test262 runner;</li>
+<li><code>include/</code>: <code>quickjs.h</code> and <code>quickjs-libc.h</code>;</li>
+<li><code>VERSION</code> and <code>LICENSE</code>: the QuickJS version and its MIT license.</li>
+</ul>
+<p>The WebAssembly archives contain <code>libqjs.a</code> with the engine only, <code>include/</code>,
+<code>VERSION</code> and <code>LICENSE</code>.</p>
+<p>The archives are cross-compiled from Linux with <a href="https://ziglang.org/" target="_blank" rel="noreferrer noopener"><code>zig cc</code></a>
+at the version stored in <a href="https://github.com/napi-bindings/quickjs-build/blob/master/.zigversion" target="_blank" rel="noreferrer noopener"><code>.zigversion</code></a>, except
+<code>qjs-wasm32-emscripten.zip</code> (Emscripten SDK) and the two <code>-mingw</code> archives, built
+natively on Windows with the
+<a href="https://github.com/niXman/mingw-builds-binaries" target="_blank" rel="noreferrer noopener">MinGW-Builds</a> toolchain
+<code>13.2.0-rt_v11-rev1</code>.</p>
+<h2 id="using-the-library"><a class="heading-anchor" href="#using-the-library">Using the library</a></h2>
+<p>Compile and link your program against the content of the archive:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>cc -Iinclude my_program.c libqjs.a -lm -lpthread -ldl -o my_program</span></span></code></pre>
+<p><code>-ldl</code> is not needed on Windows, macOS and FreeBSD. On Windows add <code>-static</code> to
+avoid the dependency on <code>libwinpthread-1.dll</code>.</p>
+<p><a href="https://github.com/napi-bindings/quickjs-build/blob/master/smoke/embed.c" target="_blank" rel="noreferrer noopener"><code>smoke/embed.c</code></a> is a complete example that creates a runtime,
+evaluates a script and reads the result back. The CI builds it for every target
+and runs it wherever the binaries can be executed.</p>
+<p>Notes for Windows:</p>
+<ul>
+<li>
+<p>Two flavours of the Windows archives are provided. Pick the one that matches
+the toolchain you link with:</p>
+<table>
+<thead>
+<tr>
+<th>Your toolchain</th>
+<th>Archive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MinGW-w64 12 or later with the UCRT: <a href="https://www.msys2.org/docs/environments/" target="_blank" rel="noreferrer noopener">MSYS2 UCRT64</a>, <a href="https://github.com/mstorsjo/llvm-mingw" target="_blank" rel="noreferrer noopener">llvm-mingw</a>, <code>zig cc</code></td>
+<td><code>qjs-windows-x86_64.zip</code>, <code>qjs-windows-x86.zip</code>, <code>qjs-windows-arm64.zip</code></td>
+</tr>
+<tr>
+<td>MinGW-w64 with the msvcrt runtime, including releases before 12: MSYS2 MINGW64, MinGW-Builds, Debian and Ubuntu <code>gcc-mingw-w64</code></td>
+<td><code>qjs-windows-x86_64-mingw.zip</code>, <code>qjs-windows-x86-mingw.zip</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>MinGW-w64 12 moved winpthreads to 64-bit <code>time_t</code> symbols: code compiled with
+its headers references <code>clock_gettime64</code> and <code>pthread_cond_timedwait64</code>, which
+older releases do not have. Linking the zig archives with an older MinGW-w64
+fails with undefined references to these two functions. The <code>-mingw</code> archives
+are compiled with MinGW-w64 11 and reference the classic names instead.</p>
+</li>
+<li>
+<p>Do not mix C runtimes: link the UCRT archives into UCRT programs and the
+<code>-mingw</code> (msvcrt) archives into msvcrt programs.</p>
+</li>
+<li>
+<p>Microsoft Visual C++ is not supported by QuickJS.</p>
+</li>
+</ul>
+<p>You can also add this repository to a <strong>CMake</strong> project and let it build the
+library with your own toolchain:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">add_subdirectory</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(quickjs-build)</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">target_link_libraries</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(my_program </span><span style="color:#6F42C1;--shiki-dark:#B392F0">PRIVATE</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> qjs)</span></span></code></pre>
+<h2 id="using-the-webassembly-builds"><a class="heading-anchor" href="#using-the-webassembly-builds">Using the WebAssembly builds</a></h2>
+<p>Both WebAssembly archives contain the engine only: <code>quickjs-libc</code> needs
+processes, pipes and signals that are not available there. Your program provides
+what it needs (for example a <code>print</code> function) through the QuickJS C API.</p>
+<h3 id="wasi"><a class="heading-anchor" href="#wasi">WASI</a></h3>
+<p>Link <code>libqjs.a</code> with a WASI toolchain such as <code>zig cc -target wasm32-wasi</code> or
+<a href="https://github.com/WebAssembly/wasi-sdk" target="_blank" rel="noreferrer noopener">wasi-sdk</a>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>zig cc -target wasm32-wasi -O2 -Iinclude my_program.c libqjs.a \</span></span>
+<span class="line"><span>  -Wl,-z,stack-size=1048576 -o my_program.wasm</span></span></code></pre>
+<p>The resulting module runs on any WASI runtime, for example
+<a href="https://wasmtime.dev/" target="_blank" rel="noreferrer noopener">Wasmtime</a> or Node.js (see
+<a href="https://github.com/napi-bindings/quickjs-build/blob/master/smoke/run-wasi.mjs" target="_blank" rel="noreferrer noopener"><code>smoke/run-wasi.mjs</code></a>).</p>
+<p><strong>Set the stack limit of the runtime.</strong> The WebAssembly call stack belongs to the
+host and is invisible to the engine, which only measures the stack kept in the
+linear memory. With the default limit of QuickJS (1 MiB) a runaway recursion
+exhausts the call stack of the host first and the module traps instead of
+throwing a JavaScript <code>InternalError</code>. Lower the limit right after creating the
+runtime and give the module a linear memory stack larger than that limit:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">JSRuntime </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">rt </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> JS_NewRuntime</span><span style="color:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">JS_SetMaxStackSize</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(rt, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">256</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1024</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>With these values the recursion test of <code>smoke/embed.c</code> ends with a catchable
+exception on Node.js 22. Other hosts may need a different value.</p>
+<h3 id="emscripten"><a class="heading-anchor" href="#emscripten">Emscripten</a></h3>
+<p>Link <code>libqjs.a</code> with <code>emcc</code>:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>emcc -O2 -Iinclude my_program.c libqjs.a -o my_program.js</span></span></code></pre>
+<p>When built with Emscripten the engine disables <code>Atomics</code> and its own stack
+check, so a runaway recursion ends with the <code>RangeError</code> of the host.</p>
+<h2 id="building"><a class="heading-anchor" href="#building">Building</a></h2>
+<p>If you want to build the QuickJS library on your own the first step is to clone
+this repository:</p>
+<p><code>> git clone https://github.com/napi-bindings/quickjs-build.git</code></p>
+<p>You need <strong>CMake</strong> 3.20 or later and <strong>GCC</strong> or <strong>Clang</strong>.</p>
+<h3 id="native-build"><a class="heading-anchor" href="#native-build">Native build</a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>cmake -S . -B build -DCMAKE_BUILD_TYPE=Release</span></span>
+<span class="line"><span>cmake --build build</span></span>
+<span class="line"><span>cmake --build build --target check</span></span></code></pre>
+<p>The last command runs the QuickJS tests stored in <code>tests/</code>.</p>
+<p>On <strong>Windows</strong> install a MinGW-w64 toolchain (for example with
+<a href="https://www.msys2.org/" target="_blank" rel="noreferrer noopener">MSYS2</a>), be sure that <code>gcc</code> is in your path of execution
+and add <code>-G "MinGW Makefiles"</code> to the first command.</p>
+<p>On <strong>Linux</strong> install the dependencies with:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>sudo apt-get update</span></span>
+<span class="line"><span>sudo apt-get install build-essential cmake -y</span></span></code></pre>
+<p>On <strong>macOS</strong> install the <code>Xcode Command Line Tools</code> running
+<code>xcode-select --install</code> and CMake running <code>brew install cmake</code>.</p>
+<p><code>-DCMAKE_BUILD_TYPE</code> could be set with one of the following two values:</p>
+<ul>
+<li>Release</li>
+<li>Debug</li>
+</ul>
+<h3 id="build-options"><a class="heading-anchor" href="#build-options">Build options</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QJS_BUILD_LIBC</code></td>
+<td><code>ON</code>, <code>OFF</code> for WebAssembly</td>
+<td>Include <code>quickjs-libc</code> (the <code>std</code> and <code>os</code> modules) in <code>libqjs.a</code></td>
+</tr>
+<tr>
+<td><code>QJS_BUILD_TOOLS</code></td>
+<td><code>ON</code>, <code>OFF</code> for WebAssembly</td>
+<td>Build <code>qjsc</code>, <code>quickjs</code> and <code>run-test262</code></td>
+</tr>
+<tr>
+<td><code>QJS_BUILD_SMOKE_TEST</code></td>
+<td><code>OFF</code></td>
+<td>Build <code>smoke/embed.c</code> and add it to the tests</td>
+</tr>
+<tr>
+<td><code>QJSC_EXECUTABLE</code></td>
+<td>empty</td>
+<td><code>qjsc</code> built for the host, required to build the tools when cross-compiling</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cross-compiling-with-zig"><a class="heading-anchor" href="#cross-compiling-with-zig">Cross-compiling with zig</a></h3>
+<p><a href="https://github.com/napi-bindings/quickjs-build/blob/master/toolchains/zig.cmake" target="_blank" rel="noreferrer noopener"><code>toolchains/zig.cmake</code></a> is a CMake toolchain file that
+uses <code>zig cc</code> as the C compiler. With it one machine builds the library for all
+the platforms of the table above, with no other cross-compiler or SDK. The CI
+uses zig 0.17.1; the build also works with zig 0.16.0.</p>
+<p>The script <a href="https://github.com/napi-bindings/quickjs-build/blob/master/scripts/build.sh" target="_blank" rel="noreferrer noopener"><code>scripts/build.sh</code></a> runs the whole process and
+writes the archives to <code>dist/</code>. It needs a POSIX shell (Linux, macOS, WSL):</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>sh scripts/build.sh --list</span></span>
+<span class="line"><span>sh scripts/build.sh linux-arm64 windows-x86_64</span></span>
+<span class="line"><span>sh scripts/build.sh --test linux-x86_64</span></span>
+<span class="line"><span>sh scripts/build.sh all</span></span></code></pre>
+<p>The build has two stages, because the <code>quickjs</code> executable embeds the bytecode of
+<code>repl.js</code> generated by <code>qjsc</code>, and a cross-compiled <code>qjsc</code> cannot run on the
+build machine:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span># 1. qjsc for the build machine</span></span>
+<span class="line"><span>cmake -S . -B build/host -DCMAKE_BUILD_TYPE=Release</span></span>
+<span class="line"><span>cmake --build build/host --target qjsc</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 2. the target</span></span>
+<span class="line"><span>cmake -S . -B build/linux-arm64 -DCMAKE_BUILD_TYPE=Release \</span></span>
+<span class="line"><span>  -DCMAKE_TOOLCHAIN_FILE=toolchains/zig.cmake \</span></span>
+<span class="line"><span>  -DZIG_TARGET=aarch64-linux-gnu.2.17 \</span></span>
+<span class="line"><span>  -DQJSC_EXECUTABLE=$PWD/build/host/qjsc</span></span>
+<span class="line"><span>cmake --build build/linux-arm64</span></span></code></pre>
+<p><code>ZIG_TARGET</code> is a zig target triple; the suffix after the ABI selects the minimum
+glibc version and the suffix after <code>macos</code> the minimum macOS version. Set
+<code>CMAKE_CROSSCOMPILING_EMULATOR</code> to run the tests of a foreign architecture, for
+example <code>-DCMAKE_CROSSCOMPILING_EMULATOR="qemu-aarch64;-L;/usr/aarch64-linux-gnu"</code>.</p>
+<p>The WebAssembly targets have no tools and skip the first stage:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>sh scripts/build.sh --test wasm32-wasi</span></span>
+<span class="line"><span>sh scripts/build.sh --test wasm32-emscripten</span></span></code></pre>
+<p>The second command needs the <a href="https://emscripten.org/" target="_blank" rel="noreferrer noopener">Emscripten SDK</a> with
+<code>emcmake</code> in your path of execution, instead of zig.</p>
+<h2 id="updating-quickjs"><a class="heading-anchor" href="#updating-quickjs">Updating QuickJS</a></h2>
+<p>The QuickJS files are copied without changes from the upstream tarball:</p>
+<ul>
+<li><code>src/</code>: the <code>.c</code>, <code>.h</code> and <code>repl.js</code> files needed by the library and the tools;</li>
+<li><code>include/</code>: <code>quickjs.h</code> and <code>quickjs-libc.h</code>;</li>
+<li><code>tests/</code>: the test scripts run by the <code>check</code> target;</li>
+<li><code>VERSION</code> and <code>LICENSE.quickjs</code> (the upstream <code>LICENSE</code>).</li>
+</ul>
+<p>To update, replace these files with the ones of the new release, review the
+source list in <code>CMakeLists.txt</code> against the upstream <code>Makefile</code> and run the
+tests.</p>
+<h2 id="references"><a class="heading-anchor" href="#references">References</a></h2>
+<ul>
+<li><strong>QuickJS</strong> documentation <a href="https://bellard.org/quickjs/quickjs.html" target="_blank" rel="noreferrer noopener">HTML version</a>, <a href="https://bellard.org/quickjs/quickjs.pdf" target="_blank" rel="noreferrer noopener">PDF version</a>.</li>
+<li><strong>QuickJS</strong> <a href="https://github.com/bellard/quickjs" target="_blank" rel="noreferrer noopener">source repository</a>.</li>
+<li><a href="https://medium.com/@calbertts/writing-native-modules-in-c-for-quickjs-engine-49043587f2e2" target="_blank" rel="noreferrer noopener">Writing native modules in C for QuickJS</a>.</li>
+<li><a href="https://medium.com/@calbertts/how-to-create-asynchronous-apis-for-quickjs-8aca5488bb2e" target="_blank" rel="noreferrer noopener">How to create asynchronous code for QuickJS</a>.</li>
+</ul>
+<h2 id="team"><a class="heading-anchor" href="#team">Team</a></h2>
+<h3 id="nicola-del-gobbo"><a class="heading-anchor" href="#nicola-del-gobbo">Nicola Del Gobbo</a></h3>
+<p><a href="https://github.com/NickNaso/" target="_blank" rel="noreferrer noopener">https://github.com/NickNaso/</a></p>
+<p><a href="https://www.npmjs.com/~nicknaso" target="_blank" rel="noreferrer noopener">https://www.npmjs.com/~nicknaso</a></p>
+<p><a href="https://twitter.com/NickNaso" target="_blank" rel="noreferrer noopener">https://twitter.com/NickNaso</a></p>
+<h2 id="acknowledgements"><a class="heading-anchor" href="#acknowledgements">Acknowledgements</a></h2>
+<p>Thank you to all people that encourage me every day.</p>
+<h2 id="license"><a class="heading-anchor" href="#license">License</a></h2>
+<p>Licensed under <a href="https://github.com/napi-bindings/quickjs-build/blob/master/LICENSE" target="_blank" rel="noreferrer noopener">Apache license V2</a>.</p>
+<p>QuickJS is licensed under the <a href="https://github.com/napi-bindings/quickjs-build/blob/master/LICENSE.quickjs" target="_blank" rel="noreferrer noopener">MIT license</a>.</p>15:X
+3:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]","children":[["$","article",null,{"className":"min-w-0","children":["$","$Le",null,{"html":"$f"}]}],"$L10"]}],["$L11","$L12"],"$L13"]}],"p":"$@14","v":null,"s":"$15"}}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-build","s":[]},"h":65568,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"quickjs-build · napi-bindings"}],["$","meta","1",{"name":"description","content":"QuickJS 2026-06-04 as a static C library, with prebuilt archives for 13 native platforms and WebAssembly."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-build/"}],["$","meta","4",{"property":"og:title","content":"quickjs-build"}],["$","meta","5",{"property":"og:description","content":"QuickJS 2026-06-04 as a static C library, with prebuilt archives for 13 native platforms and WebAssembly."}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","8",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","link","9",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","10",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L1b","11",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1c","v":null,"s":"$15"}},"a":"$@1d","u":"$@1e","b":"XLsO23O1VrcXmmGnGlZN_"}
+1f:I[73838,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"CodeTabsClient"]
+20:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"default"]
+26:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+10:["$","aside",null,{"className":"flex flex-col gap-4 lg:order-none","children":[["$","div",null,{"className":"flex flex-col gap-2","children":[["$","h2",null,{"className":"text-sm font-medium","children":"Get started"}],["$","$L1f",null,{"tabs":[{"label":"Link","lang":"sh","code":"cc -Iinclude my_program.c libqjs.a -lm -lpthread -ldl -o my_program","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">cc</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -Iinclude</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> my_program.c</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> libqjs.a</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -lm</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -lpthread</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -ldl</span><span style=\"color:#005CC5;--shiki-dark:#79B8FF\"> -o</span><span style=\"color:#032F62;--shiki-dark:#9ECBFF\"> my_program</span></span></code></pre>"},{"label":"CMake","lang":"cmake","code":"add_subdirectory(quickjs-build)\ntarget_link_libraries(my_program PRIVATE qjs)","html":"<pre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#D73A49;--shiki-dark:#F97583\">add_subdirectory</span><span style=\"color:#24292E;--shiki-dark:#E1E4E8\">(quickjs-build)</span></span>\n<span class=\"line\"><span style=\"color:#D73A49;--shiki-dark:#F97583\">target_link_libraries</span><span style=\"color:#24292E;--shiki-dark:#E1E4E8\">(my_program </span><span style=\"color:#6F42C1;--shiki-dark:#B392F0\">PRIVATE</span><span style=\"color:#24292E;--shiki-dark:#E1E4E8\"> qjs)</span></span></code></pre>"}]}]]}],false,["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Highlights"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing)","children":["$","ul",null,{"className":"flex flex-col gap-2 text-sm","children":[["$","li","Unmodified upstream QuickJS sources, almost complete ES2025",{"className":"flex gap-2","children":[["$","$L20",null,{"icon":{"name":"check","size":24,"node":[["path",{"d":"M20 6 9 17l-5-5","key":"1gmf2c"}]]},"className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Unmodified upstream QuickJS sources, almost complete ES2025"}]]}],["$","li","Linux (glibc and musl), macOS, Windows, FreeBSD archives",{"className":"flex gap-2","children":[["$","$L20",null,{"icon":"$10:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Linux (glibc and musl), macOS, Windows, FreeBSD archives"}]]}],"$L21","$L22"]}]}]]}],"$L23","$L24","$L25"]}]
+11:["$","script","script-0",{"src":"/_next/static/chunks/3-909m818e1da.js","async":true}]
+12:["$","script","script-1",{"src":"/_next/static/chunks/2rdswu9mij722.js","async":true}]
+13:["$","$L26",null,{"children":["$","$1a",null,{"name":"Next.MetadataOutlet","children":"$@27"}]}]
+1e:true
+28:I[72436,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],"Separator"]
+36:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$d"],""]
+21:["$","li","wasm32-wasi and wasm32-emscripten engine builds",{"className":"flex gap-2","children":[["$","$L20",null,{"icon":"$10:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"wasm32-wasi and wasm32-emscripten engine builds"}]]}]
+22:["$","li","Cross-compiled with zig cc from one runner",{"className":"flex gap-2","children":[["$","$L20",null,{"icon":"$10:props:children:2:props:children:1:props:children:props:children:0:props:children:0:props:icon","className":"text-brand mt-0.5 size-4 shrink-0"}],["$","span",null,{"children":"Cross-compiled with zig cc from one runner"}]]}]
+23:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Repository"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-4","children":[["$","dl",null,{"className":"grid grid-cols-2 gap-x-4 gap-y-2 text-sm","children":[["$","div","Default branch",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Default branch"}],["$","dd",null,{"className":"font-mono text-xs","children":"master"}]]}],["$","div","Last commit",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Last commit"}],["$","dd",null,{"className":"font-mono text-xs","children":"Nov 15, 2026"}]]}],["$","div","Open issues",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Open issues"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}],["$","div","Documents",{"className":"flex flex-col","children":[["$","dt",null,{"className":"text-muted-foreground text-xs","children":"Documents"}],["$","dd",null,{"className":"font-mono text-xs","children":"0"}]]}]]}],["$","div",null,{"className":"flex flex-col gap-2","children":[["$","div",null,{"className":"bg-muted flex h-2 overflow-hidden rounded-full","aria-hidden":true,"children":[["$","span","C",{"className":"bg-brand h-full","style":{"width":"95.25000623415487%","opacity":1}}],["$","span","JavaScript",{"className":"bg-brand h-full","style":{"width":"4.061942562653257%","opacity":0.75}}]]}],["$","ul",null,{"className":"text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs","children":[["$","li","C",{"children":["C"," ",["$","span",null,{"className":"font-mono","children":["95.3","%"]}]]}],["$","li","JavaScript",{"children":["JavaScript"," ",["$","span",null,{"className":"font-mono","children":["4.1","%"]}]]}]]}]]}],[["$","$L28",null,{}],["$","div",null,{"className":"flex flex-wrap gap-1","children":[["$","span","c",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"c"}],["$","span","clang",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"clang"}],"$L29","$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30","$L31","$L32","$L33","$L34","$L35"]}]]]}]]}]
+24:["$","div",null,{"data-slot":"card","data-size":"sm","className":"ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col","children":[["$","div",null,{"data-slot":"card-header","className":"gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]","children":["$","div",null,{"data-slot":"card-title","className":"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm","children":"Related projects"}]}],["$","div",null,{"data-slot":"card-content","className":"px-(--card-spacing) flex flex-col gap-3","children":[["$","$L36","quickjs-napi",{"href":"/projects/quickjs-napi/","className":"group flex flex-col gap-0.5","children":[["$","span",null,{"className":"font-mono text-sm group-hover:underline","children":"quickjs-napi"}],["$","span",null,{"className":"text-muted-foreground text-xs","children":"Builds a Node-API host on top of this library."}]]}]]}]]}]
+25:["$","div",null,{"className":"hidden pt-2 lg:block","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","version-2026-06-04",{"className":"","children":["$","a",null,{"href":"#version-2026-06-04","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Version 2026-06-04"}]}],["$","li","introduction",{"className":"","children":["$","a",null,{"href":"#introduction","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Introduction"}]}],["$","li","prebuilt-archives",{"className":"","children":["$","a",null,{"href":"#prebuilt-archives","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Prebuilt archives"}]}],["$","li","using-the-library",{"className":"","children":["$","a",null,{"href":"#using-the-library","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Using the library"}]}],["$","li","using-the-webassembly-builds",{"className":"","children":["$","a",null,{"href":"#using-the-webassembly-builds","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Using the WebAssembly builds"}]}],["$","li","building",{"className":"","children":["$","a",null,{"href":"#building","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Building"}]}],["$","li","updating-quickjs",{"className":"","children":["$","a",null,{"href":"#updating-quickjs","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Updating QuickJS"}]}],["$","li","references",{"className":"","children":["$","a",null,{"href":"#references","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"References"}]}],["$","li","team",{"className":"","children":["$","a",null,{"href":"#team","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Team"}]}],["$","li","acknowledgements",{"className":"","children":["$","a",null,{"href":"#acknowledgements","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Acknowledgements"}]}],["$","li","license",{"className":"","children":["$","a",null,{"href":"#license","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"License"}]}]]}]]}]}]
+27:null
+15:300
+29:["$","span","compiler",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"compiler"}]
+2a:["$","span","cpp",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"cpp"}]
+2b:["$","span","ecmascript",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"ecmascript"}]
+2c:["$","span","engine",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"engine"}]
+2d:["$","span","es2025",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"es2025"}]
+2e:["$","span","interpreter",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"interpreter"}]
+2f:["$","span","javascript",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"javascript"}]
+30:["$","span","javascript-engine",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"javascript-engine"}]
+31:["$","span","js",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"js"}]
+32:["$","span","library",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"library"}]
+33:["$","span","quickjs",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"quickjs"}]
+34:["$","span","runtime",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"runtime"}]
+35:["$","span","vm",{"data-slot":"badge","data-variant":"secondary","className":"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80 font-mono","children":"vm"}]
+15:C
+1d:0
+1c:"$undefined"
+14:"$undefined"

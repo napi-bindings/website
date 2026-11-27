@@ -1,0 +1,7 @@
+:HL["/_next/static/chunks/3eqt_abkpc8td.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/logo.png","image"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"privacy","h":64,"c":"$Q2"}]]
+0:{"b":"XLsO23O1VrcXmmGnGlZN_","t":{"t":{"s":"","h":16,"c":"$Q1"}}}

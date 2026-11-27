@@ -1,0 +1,205 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T514a,<h1 id="environment-versions-and-cleanup-hooks">Environment, versions and cleanup hooks</h1>
+<p><a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a> › Environment</p>
+<p>Implemented in <code>src/env.c</code> and <code>src/loader.c</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#napi_get_last_error_info"><code>napi_get_last_error_info</code></a></td>
+<td>details of the last failed call</td>
+</tr>
+<tr>
+<td><a href="#napi_get_version"><code>napi_get_version</code></a></td>
+<td>highest supported Node-API version</td>
+</tr>
+<tr>
+<td><a href="#napi_get_node_version"><code>napi_get_node_version</code></a></td>
+<td>the Node.js version that is emulated</td>
+</tr>
+<tr>
+<td><a href="#node_api_get_module_file_name"><code>node_api_get_module_file_name</code></a></td>
+<td>URL of the addon file</td>
+</tr>
+<tr>
+<td><a href="#napi_add_env_cleanup_hook"><code>napi_add_env_cleanup_hook</code></a></td>
+<td>run a function at teardown</td>
+</tr>
+<tr>
+<td><a href="#napi_remove_env_cleanup_hook"><code>napi_remove_env_cleanup_hook</code></a></td>
+<td>unregister it</td>
+</tr>
+<tr>
+<td><a href="#napi_add_async_cleanup_hook"><code>napi_add_async_cleanup_hook</code></a></td>
+<td>asynchronous teardown step</td>
+</tr>
+<tr>
+<td><a href="#napi_remove_async_cleanup_hook"><code>napi_remove_async_cleanup_hook</code></a></td>
+<td>unregister it, or signal it is done</td>
+</tr>
+<tr>
+<td><a href="#napi_fatal_error"><code>napi_fatal_error</code></a></td>
+<td>abort the process</td>
+</tr>
+<tr>
+<td><a href="#napi_module_register"><code>napi_module_register</code></a></td>
+<td>legacy module registration</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="napi_get_last_error_info"><a class="heading-anchor" href="#napi_get_last_error_info"><code>napi_get_last_error_info</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_last_error_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                     const</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_extended_error_info </span><span style="color:#D73A49;--shiki-dark:#F97583">**</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Returns a pointer to the env's last-error record: <code>error_code</code> is the status of
+the last Node-API call that failed (or <code>napi_ok</code>), <code>error_message</code> a static
+English message (see the <a href="/projects/quickjs-napi/docs/node-api/#status-codes-and-the-last-error">status table</a>).
+<code>engine_error_code</code> and <code>engine_reserved</code> are always <code>0</code> / <code>NULL</code>.</p>
+<ul>
+<li>The record belongs to the env and is overwritten by the next call: copy what
+you need before calling another function.</li>
+<li>This function never changes the last error itself, so it can be called
+repeatedly. It always returns <code>napi_ok</code> (or <code>napi_invalid_arg</code> for a <code>NULL</code>
+argument).</li>
+<li>Each native callback starts with a clear last error, as in Node.js.</li>
+</ul>
+<h3 id="napi_get_version"><a class="heading-anchor" href="#napi_get_version"><code>napi_get_version</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">uint32_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores <code>10</code>, the highest Node-API version this build supports (the same value
+as <code>qjsnapi_napi_version()</code>). Experimental APIs (<code>NAPI_EXPERIMENTAL</code>) are not
+provided.</p>
+<h3 id="napi_get_node_version"><a class="heading-anchor" href="#napi_get_node_version"><code>napi_get_node_version</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_node_version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                  const</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_node_version </span><span style="color:#D73A49;--shiki-dark:#F97583">**</span><span style="color:#E36209;--shiki-dark:#FFAB70">version</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores a pointer to a static record <code>{ major: 22, minor: 23, patch: 4, release: "quickjs-napi" }</code>: the Node.js release whose Node-API behaviour is
+reproduced. Addons that check for a minimum Node.js version therefore see
+22.23.4. The executable's <code>process.version</code> reports the same.</p>
+<h3 id="node_api_get_module_file_name"><a class="heading-anchor" href="#node_api_get_module_file_name"><code>node_api_get_module_file_name</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">node_api_get_module_file_name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                          const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the absolute <code>file://</code> URL of the addon this env belongs to, encoded
+like Node's <code>url.pathToFileURL</code> (percent-encoding, Windows drive letters as
+<code>file:///C:/...</code>). The string lives as long as the env. For a static addon
+(<code>qjsnapi_init_static_addon</code>) it is the name given by the embedder.</p>
+<h3 id="napi_add_env_cleanup_hook"><a class="heading-anchor" href="#napi_add_env_cleanup_hook"><code>napi_add_env_cleanup_hook</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_add_env_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                      napi_cleanup_hook </span><span style="color:#E36209;--shiki-dark:#FFAB70">fun</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">arg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Registers <code>fun(arg)</code> to run when the env is torn down
+(<code>qjsnapi_host_destroy</code>, or the normal end of the executable). Hooks run in
+<strong>reverse order of registration</strong> (LIFO), interleaved with the async cleanup
+hooks and the library's own hooks (thread-safe functions), with JavaScript
+already disabled.</p>
+<ul>
+<li>Registering the same <code>(fun, arg)</code> pair twice is a <strong>fatal error</strong>, as in
+Node.js (where it is a <code>CHECK</code> failure).</li>
+<li>Hooks do <strong>not</strong> run when the executable ends with <code>process.exit()</code> or a
+fatal exception, as in Node.js.</li>
+</ul>
+<h3 id="napi_remove_env_cleanup_hook"><a class="heading-anchor" href="#napi_remove_env_cleanup_hook"><code>napi_remove_env_cleanup_hook</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_remove_env_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                         napi_cleanup_hook </span><span style="color:#E36209;--shiki-dark:#FFAB70">fun</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">arg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Unregisters the hook registered with the same <code>(fun, arg)</code>. Removing a pair
+that is not registered does nothing and returns <code>napi_ok</code>.</p>
+<h3 id="napi_add_async_cleanup_hook"><a class="heading-anchor" href="#napi_add_async_cleanup_hook"><code>napi_add_async_cleanup_hook</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_add_async_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_async_cleanup_hook </span><span style="color:#E36209;--shiki-dark:#FFAB70">hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">arg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_async_cleanup_hook_handle </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">remove_handle</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Registers a cleanup step that may take time, such as closing a libuv handle.
+At teardown <code>hook(handle, arg)</code> is called in LIFO order with the other hooks;
+the teardown then <strong>keeps running the event loop</strong> until the addon calls
+<code>napi_remove_async_cleanup_hook(handle)</code>, typically from a <code>uv_close</code>
+callback.</p>
+<p><code>remove_handle</code> may be <code>NULL</code> when the hook is never removed early; the hook
+then receives the handle as its first argument.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> on_close</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#005CC5;--shiki-dark:#79B8FF">uv_handle_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">h</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_remove_async_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(((my_state </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)h->data)->cleanup_handle);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> cleanup</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_async_cleanup_hook_handle </span><span style="color:#E36209;--shiki-dark:#FFAB70">handle</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">arg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  my_state </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">s </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> arg;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  s->cleanup_handle </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> handle;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  uv_close</span><span style="color:#24292E;--shiki-dark:#E1E4E8">((</span><span style="color:#005CC5;--shiki-dark:#79B8FF">uv_handle_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">s->timer, on_close);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/* in init: */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_add_async_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, cleanup, state, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<h3 id="napi_remove_async_cleanup_hook"><a class="heading-anchor" href="#napi_remove_async_cleanup_hook"><code>napi_remove_async_cleanup_hook</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_remove_async_cleanup_hook</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_async_cleanup_hook_handle </span><span style="color:#E36209;--shiki-dark:#FFAB70">remove_handle</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Has two meanings, as in Node.js:</p>
+<ul>
+<li><strong>before teardown</strong>, it unregisters the hook, which will not run;</li>
+<li><strong>after the hook started</strong>, it signals that the asynchronous cleanup is
+complete, so the teardown can stop waiting for it.</li>
+</ul>
+<p>The handle is freed in both cases and must not be used again. Returns
+<code>napi_invalid_arg</code> for <code>NULL</code>.</p>
+<h3 id="napi_fatal_error"><a class="heading-anchor" href="#napi_fatal_error"><code>napi_fatal_error</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">NAPI_NO_RETURN </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi_fatal_error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">location</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> location_len</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                     const</span><span style="color:#D73A49;--shiki-dark:#F97583"> char</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">message</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> message_len</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Prints <code>FATAL ERROR: &#x3C;location> &#x3C;message></code> on stderr and ends the process
+immediately: <code>abort()</code> on Linux and macOS, <code>_exit(134)</code> on Windows (like
+Node.js, which avoids the Windows Error Reporting dialog). No cleanup runs.
+Both lengths accept <code>NAPI_AUTO_LENGTH</code>; <code>location</code> and <code>message</code> may be
+<code>NULL</code>.</p>
+<h3 id="napi_module_register"><a class="heading-anchor" href="#napi_module_register"><code>napi_module_register</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> napi_module_register</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_module </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">mod</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Legacy registration used by addons built with the old <code>NAPI_MODULE</code> macro
+from a static constructor. When called <strong>while <code>qjsnapi_load_addon</code> is opening
+a library</strong>, the module is attached to that load and its <code>nm_register_func</code>
+becomes the initializer (only when the library does not export
+<code>napi_register_module_v1</code>, which takes precedence). The record is remembered,
+so loading the same file again reuses it even though the constructor does not
+run a second time.</p>
+<p>Called outside of a load (for instance by an addon linked into the
+executable), it prints a warning and does nothing: use
+<a href="/projects/quickjs-napi/docs/embedding/#qjsnapi_init_static_addon"><code>qjsnapi_init_static_addon</code></a>
+instead. A legacy module with no <code>nm_register_func</code> fails to load with
+<code>Module has no declared entry point.</code></p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/node-api/environment.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/environment.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"node-api/environment","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Environment, versions and cleanup hooks · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Environment, versions and cleanup hooks (doc/node-api/environment.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/environment/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/binary-data/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/errors/"}],"nativeButton":false,"children":["Errors and exceptions",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","napi_get_last_error_info",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_last_error_info","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_last_error_info"}]}],["$","li","napi_get_version",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_version","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_version"}]}],["$","li","napi_get_node_version",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_node_version","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_node_version"}]}],["$","li","node_api_get_module_file_name",{"className":"pl-3","children":["$","a",null,{"href":"#node_api_get_module_file_name","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"node_api_get_module_file_name"}]}],["$","li","napi_add_env_cleanup_hook",{"className":"pl-3","children":["$","a",null,{"href":"#napi_add_env_cleanup_hook","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_add_env_cleanup_hook"}]}],["$","li","napi_remove_env_cleanup_hook",{"className":"pl-3","children":["$","a",null,{"href":"#napi_remove_env_cleanup_hook","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_remove_env_cleanup_hook"}]}],["$","li","napi_add_async_cleanup_hook",{"className":"pl-3","children":["$","a",null,{"href":"#napi_add_async_cleanup_hook","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_add_async_cleanup_hook"}]}],["$","li","napi_remove_async_cleanup_hook",{"className":"pl-3","children":["$","a",null,{"href":"#napi_remove_async_cleanup_hook","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_remove_async_cleanup_hook"}]}],["$","li","napi_fatal_error",{"className":"pl-3","children":["$","a",null,{"href":"#napi_fatal_error","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_fatal_error"}]}],["$","li","napi_module_register",{"className":"pl-3","children":["$","a",null,{"href":"#napi_module_register","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_module_register"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

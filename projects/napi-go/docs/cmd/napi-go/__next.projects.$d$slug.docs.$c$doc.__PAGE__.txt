@@ -1,0 +1,254 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T45ec,<h1 id="napi-go-cli">napi-go (CLI)</h1>
+<p>Creates, builds and packages Node.js addons written in Go: the equivalent of the <code>napi</code> CLI of
+napi-rs.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> github.com/napi-bindings/napi-go/cmd/napi-go@latest</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> new</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-addon</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build:debug</span><span style="color:#6A737D;--shiki-dark:#6A737D">        # go tool napi-go build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> test</span></span></code></pre>
+<p>A project created by <code>new</code> requires napi-go in <code>go.mod</code> both as a library and as a
+<a href="https://go.dev/doc/modules/managing-dependencies#tools" target="_blank" rel="noreferrer noopener">tool</a>, so the CLI runs at the version of
+the library with <code>go tool napi-go &#x3C;command></code>.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new &#x3C;dir></code></td>
+<td>create a project: <code>go.mod</code>, an annotated <code>main.go</code>, <code>package.json</code>, a <code>node:test</code> test, <code>.gitignore</code>, <code>README.md</code> and a GitHub Actions workflow</td>
+</tr>
+<tr>
+<td><code>gen</code></td>
+<td>generate <code>zz_napi.go</code>, <code>index.js</code> and <code>index.d.ts</code> from the <code>//napi:</code> annotations (<a href="/projects/napi-go/docs/internal/codegen/"><code>internal/codegen</code></a>)</td>
+</tr>
+<tr>
+<td><code>build</code></td>
+<td><code>go build -buildmode=c-shared</code> for this machine or other targets, after <code>gen</code></td>
+</tr>
+<tr>
+<td><code>artifacts</code></td>
+<td>copy built binaries into the npm platform packages <code>npm/&#x3C;target>/</code></td>
+</tr>
+<tr>
+<td><code>prepublish</code></td>
+<td>sync the platform packages and <code>optionalDependencies</code> with the version; <code>-publish</code> publishes the platform packages</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>print the version</td>
+</tr>
+</tbody>
+</table>
+<p>Every command takes <code>-C &#x3C;dir></code> (the project, default <code>.</code>) and describes its flags with <code>-h</code>.</p>
+<h2 id="configuration"><a class="heading-anchor" href="#configuration">Configuration</a></h2>
+<p><code>package.json</code> holds the configuration under <code>napiGo</code>; every field is optional.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "name"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"@acme/fast-thing"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "version"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"1.0.0"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "main"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"index.js"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "types"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"index.d.ts"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "napiGo"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "binaryName"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"fast-thing"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "goPackage"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"."</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "targets"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"linux-x64-gnu"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"linux-arm64-gnu"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"darwin-x64"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"darwin-arm64"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"win32-x64-gnu"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "tags"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">""</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "codegen"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "js"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"index.js"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "dts"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"index.d.ts"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    "npmDir"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"npm"</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>binaryName</code></td>
+<td>the package name without scope</td>
+<td>binaries are <code>&#x3C;binaryName>.&#x3C;target>.node</code></td>
+</tr>
+<tr>
+<td><code>goPackage</code></td>
+<td><code>.</code></td>
+<td>directory of the Go main package</td>
+</tr>
+<tr>
+<td><code>targets</code></td>
+<td>the five above</td>
+<td>built by <code>build -target all</code> and published</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>none</td>
+<td>Go build tags</td>
+</tr>
+<tr>
+<td><code>codegen</code></td>
+<td><code>true</code></td>
+<td><code>build</code> runs <code>gen</code> first</td>
+</tr>
+<tr>
+<td><code>js</code>, <code>dts</code></td>
+<td><code>index.js</code>, <code>index.d.ts</code></td>
+<td>generated entry point and declarations</td>
+</tr>
+<tr>
+<td><code>npmDir</code></td>
+<td><code>npm</code></td>
+<td>directory of the platform packages</td>
+</tr>
+</tbody>
+</table>
+<p>Without <code>package.json</code>, <code>gen</code> and <code>build</code> work on the Go package in the directory, named after it.</p>
+<h2 id="targets"><a class="heading-anchor" href="#targets">Targets</a></h2>
+<p>Targets are named like the platform packages of napi-rs: <code>&#x3C;platform>-&#x3C;arch>[-&#x3C;abi>]</code>, from
+<code>process.platform</code> and <code>process.arch</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>GOOS/GOARCH</th>
+<th>zig target</th>
+<th>Runner of the CI template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>linux-x64-gnu</code></td>
+<td>linux/amd64</td>
+<td><code>x86_64-linux-gnu.2.17</code></td>
+<td><code>ubuntu-latest</code></td>
+</tr>
+<tr>
+<td><code>linux-arm64-gnu</code></td>
+<td>linux/arm64</td>
+<td><code>aarch64-linux-gnu.2.17</code></td>
+<td><code>ubuntu-24.04-arm</code></td>
+</tr>
+<tr>
+<td><code>darwin-x64</code></td>
+<td>darwin/amd64</td>
+<td><code>x86_64-macos.11.0</code></td>
+<td><code>macos-15-intel</code></td>
+</tr>
+<tr>
+<td><code>darwin-arm64</code></td>
+<td>darwin/arm64</td>
+<td><code>aarch64-macos.11.0</code></td>
+<td><code>macos-latest</code></td>
+</tr>
+<tr>
+<td><code>win32-x64-gnu</code></td>
+<td>windows/amd64</td>
+<td><code>x86_64-windows-gnu</code></td>
+<td><code>windows-latest</code></td>
+</tr>
+<tr>
+<td><code>win32-arm64-gnu</code></td>
+<td>windows/arm64</td>
+<td><code>aarch64-windows-gnu</code></td>
+<td><code>windows-11-arm</code></td>
+</tr>
+</tbody>
+</table>
+<p>Windows targets end in <code>-gnu</code> because Go links with MinGW. musl (Alpine) is rejected: no Go
+release builds a shared library that loads with musl (golang/go#71953). On macOS x64 only one
+napi-go addon can be loaded per process (a limit of the Go runtime, see <code>sys/README.md</code>).</p>
+<h2 id="building-and-cross-compiling"><a class="heading-anchor" href="#building-and-cross-compiling">Building and cross-compiling</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#6A737D;--shiki-dark:#6A737D">                                   # debug build for this machine</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -release</span><span style="color:#6A737D;--shiki-dark:#6A737D">                          # -ldflags="-s -w"</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -release</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -target</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> all</span><span style="color:#6A737D;--shiki-dark:#6A737D">              # every target of package.json</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -target</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> linux-arm64-gnu,win32-x64-gnu</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -o</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dist</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -a</span><span style="color:#6A737D;--shiki-dark:#6A737D">                             # after --: further go build flags</span></span></code></pre>
+<p>Cross builds use <a href="https://ziglang.org/download/" target="_blank" rel="noreferrer noopener">zig</a> as C compiler (<code>zig cc -target …</code>), from any
+host to any target. <code>-zig</code> chooses when:</p>
+<ul>
+<li><code>auto</code> (default): cross builds, and release builds for Linux, so that the binary needs glibc 2.17
+rather than the glibc of the build machine (without zig a warning says so);</li>
+<li><code>always</code>: every build (for instance Windows without MinGW);</li>
+<li><code>never</code>: the system C compiler (<code>$CC</code>); cross builds then need <code>-cc</code>.</li>
+</ul>
+<p><code>-cc &#x3C;command></code> sets the C compiler of every target instead. macOS builds the other architecture
+with the system clang. For macOS targets built elsewhere, the CLI provides zig with stubs of
+<code>libresolv</code> and of the CoreFoundation framework, which Go links and zig does not ship (the real
+libraries are loaded at run time).</p>
+<p>After each build the format of the binary is checked against the target (ELF, Mach-O or PE,
+architecture, shared library), so a wrong <code>$CC</code> fails the build instead of the <code>require()</code>.</p>
+<h2 id="the-entry-point"><a class="heading-anchor" href="#the-entry-point">The entry point</a></h2>
+<p><code>gen</code> writes <code>index.js</code>, which loads the binary of the running platform, trying in order:</p>
+<ol>
+<li><code>NAPI_GO_NATIVE_LIBRARY_PATH</code>, if set (its errors are not caught);</li>
+<li><code>&#x3C;binaryName>.&#x3C;target>.node</code> and <code>&#x3C;binaryName>.node</code> next to <code>index.js</code> (local builds);</li>
+<li>the package <code>&#x3C;name>-&#x3C;target></code> (published builds).</li>
+</ol>
+<p>If none loads, the error lists each candidate with the reason (<code>not found</code>, <code>package not installed</code>, or the error of <code>dlopen</code>), with the errors as <code>cause</code>. On musl it says that musl is not
+supported. <code>index.js</code> ends with the export names in the form <code>0 &#x26;&#x26; (module.exports = { … })</code>,
+which Node reads (and never runs) to let ES modules import them by name.</p>
+<h2 id="publishing"><a class="heading-anchor" href="#publishing">Publishing</a></h2>
+<p>As with napi-rs, every target has an npm package <code>&#x3C;name>-&#x3C;target></code> holding its <code>.node</code> file, with
+<code>os</code>, <code>cpu</code> and, on Linux, <code>libc</code>; the main package lists them in <code>optionalDependencies</code> and npm
+installs only the one matching the machine.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> artifacts</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -d</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> artifacts</span><span style="color:#6A737D;--shiki-dark:#6A737D">   # find &#x3C;binaryName>.&#x3C;target>.node files (recursively) and copy them to npm/&#x3C;target>/</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> napi-go</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> prepublish</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -publish</span><span style="color:#6A737D;--shiki-dark:#6A737D">      # versions, optionalDependencies, npm publish of each platform package</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> publish</span><span style="color:#6A737D;--shiki-dark:#6A737D">                              # the main package</span></span></code></pre>
+<p><code>artifacts</code> creates or updates <code>npm/&#x3C;target>/package.json</code> (fields it does not manage are kept)
+and rejects a binary whose format does not match its target. <code>prepublish</code> fails if a binary is
+missing; with <code>-publish</code> it skips the packages already on the registry at this version, so a
+failed release can be rerun. <code>-tag</code> and <code>-dry-run</code> are passed to <code>npm publish</code>; scoped packages
+are published with <code>--access public</code> unless <code>package.json</code> has <code>publishConfig</code>.</p>
+<p>The workflow created by <code>new</code> (<code>.github/workflows/CI.yml</code>) builds and tests each target on a
+runner of that platform, and for a tag <code>v&#x3C;version></code> checks that the tag matches <code>package.json</code>,
+then runs the three commands above (secret <code>NPM_TOKEN</code>, with npm provenance).</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"cmd/napi-go/README.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/cmd/napi-go/README.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"cmd/napi-go","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"napi-go (CLI) · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: napi-go (CLI) (cmd/napi-go/README.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/cmd/napi-go/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/bench/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Benchmarks"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/internal/codegen/"}],"nativeButton":false,"children":["napi-go gen",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","configuration",{"className":"","children":["$","a",null,{"href":"#configuration","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Configuration"}]}],["$","li","targets",{"className":"","children":["$","a",null,{"href":"#targets","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Targets"}]}],["$","li","building-and-cross-compiling",{"className":"","children":["$","a",null,{"href":"#building-and-cross-compiling","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Building and cross-compiling"}]}],["$","li","the-entry-point",{"className":"","children":["$","a",null,{"href":"#the-entry-point","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"The entry point"}]}],["$","li","publishing",{"className":"","children":["$","a",null,{"href":"#publishing","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Publishing"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

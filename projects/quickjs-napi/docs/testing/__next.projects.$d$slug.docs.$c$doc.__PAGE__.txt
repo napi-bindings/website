@@ -1,0 +1,212 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T2e8a,<h1 id="testing">Testing</h1>
+<p>quickjs-napi is tested against the behaviour of Node.js itself: most tests
+are Node.js's own Node-API tests and the node-addon-api test suite, and our
+own JavaScript tests also run under Node.js as a reference. CTest runs about
+170 tests per configuration.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span><span style="color:#6A737D;--shiki-dark:#6A737D">                   # everything</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -R</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> '^naa/'</span><span style="color:#6A737D;--shiki-dark:#6A737D">        # the node-addon-api suite</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --test-dir</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build/unix-debug</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -R</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> js_host</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --output-on-failure</span></span></code></pre>
+<ul>
+<li><a href="#test-suites">Test suites</a></li>
+<li><a href="#consistency-checks">Consistency checks</a></li>
+<li><a href="#sanitizers-and-leak-checks">Sanitizers and leak checks</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#workflows">Workflows</a></li>
+</ul>
+<h2 id="test-suites"><a class="heading-anchor" href="#test-suites">Test suites</a></h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>CTest names</th>
+<th>Source</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Our JS tests</td>
+<td><code>js_hello</code>, <code>js_values</code>, <code>js_binary</code>, <code>js_node_api</code>, <code>js_host</code></td>
+<td><code>test/js</code>, addons in <code>test/addons</code></td>
+<td>values, binary data, <code>node_api.h</code>, the executable's host features (child processes, <code>-e</code>, <code>-r</code>, <code>NODE_OPTIONS</code>)</td>
+</tr>
+<tr>
+<td>Node.js parity</td>
+<td><code>node_parity_*</code></td>
+<td>the same <code>test/js</code> scripts</td>
+<td>runs those tests under Node.js 22 with the same addon binaries: the expectations are checked against the reference implementation</td>
+</tr>
+<tr>
+<td>Node.js conformance</td>
+<td><code>node/js-native-api/...</code>, <code>node/node-api/...</code></td>
+<td><code>test/node</code> (Node.js v22.23.4)</td>
+<td>30 tests of <code>js-native-api</code> and 19 of <code>node-api</code>; see <a href="/projects/quickjs-napi/docs/test/node/">test/node/README.md</a></td>
+</tr>
+<tr>
+<td>node-addon-api</td>
+<td><code>naa/&#x3C;module></code></td>
+<td><code>test/node-addon-api</code> (8.9.2)</td>
+<td>78 of the 83 test modules, each in the four binding variants (C++ exceptions, no exceptions, <code>Maybe</code>, custom namespace); see <a href="/projects/quickjs-napi/docs/test/node-addon-api/harness/">the harness README</a></td>
+</tr>
+<tr>
+<td>Embedding</td>
+<td><code>unit_embed</code></td>
+<td><code>test/unit/test_embed.c</code></td>
+<td>what a JS test cannot observe: teardown order, handle-scope misuse, the error state, the finalizer queue of the embedding API</td>
+</tr>
+<tr>
+<td>Fatal errors</td>
+<td><code>node/node-api/test_fatal/...</code></td>
+<td><code>cmake/expect_abort.cmake</code></td>
+<td>runs a test that must abort (<code>napi_fatal_error</code>) and checks its output</td>
+</tr>
+</tbody>
+</table>
+<p>The test addons are built <strong>exactly like node-gyp addons</strong>: they do not link
+against the library and resolve <code>napi_*</code> from the executable. The same
+binaries load in Node.js, which is what makes the parity tests possible.</p>
+<p>Tests not run, with the reason:</p>
+<ul>
+<li>node-addon-api modules that need <code>worker_threads</code>, <code>npm</code>, or test the npm
+package itself (5 of 83);</li>
+<li>Node.js tests that need <code>async_hooks</code> or <code>domain</code> (<code>test_async_context</code>,
+<code>test_make_callback_recurse</code>) or <code>worker_threads</code> (<code>test_worker_*</code>).</li>
+</ul>
+<h2 id="consistency-checks"><a class="heading-anchor" href="#consistency-checks">Consistency checks</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stubs_up_to_date</code></td>
+<td><code>src/stubs_generated.c</code> matches the set of functions implemented (<code>tools/gen_stubs.py --check</code>)</td>
+</tr>
+<tr>
+<td><code>exports_complete</code></td>
+<td>the executable exports every Node-API function (<code>tools/check_exports.py</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sanitizers-and-leak-checks"><a class="heading-anchor" href="#sanitizers-and-leak-checks">Sanitizers and leak checks</a></h2>
+<ul>
+<li><strong>Debug builds</strong> use a Debug QuickJS, whose <code>JS_FreeRuntime</code> asserts that
+every object was released. Any <code>JSValue</code> leaked by the library aborts the
+test. This is why the library frees, at teardown, what addons never deleted.</li>
+<li><strong><code>unix-asan</code></strong> runs everything under AddressSanitizer, UndefinedBehavior
+Sanitizer and LeakSanitizer, QuickJS included. <code>test/lsan.supp</code> suppresses
+the leaks that Node.js and node-addon-api tests make <strong>by design</strong> (each
+entry says why).</li>
+<li><strong><code>unix-tsan</code></strong> runs everything under ThreadSanitizer, QuickJS and libuv
+included: async work and thread-safe functions are exercised from several
+threads. CI reduces ASLR entropy for it.</li>
+</ul>
+<h2 id="tools"><a class="heading-anchor" href="#tools">Tools</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tools/gen_stubs.py</code></td>
+<td>regenerates <code>src/stubs_generated.c</code>: a stub (returning <code>napi_generic_failure</code> with a descriptive last-error message) for every function of the headers that no <code>src/*.c</code> defines. <code>--check</code> only verifies.</td>
+</tr>
+<tr>
+<td><code>tools/check_exports.py &#x3C;executable></code></td>
+<td>verifies that the executable exports every Node-API function (<code>nm</code> or <code>objdump</code>)</td>
+</tr>
+<tr>
+<td><code>tools/napi_decls.py</code></td>
+<td>parses the declarations of <code>js_native_api.h</code> and <code>node_api.h</code>; shared by the two tools above so that they agree on the function set</td>
+</tr>
+<tr>
+<td><code>tools/sync_node_tests.py &#x3C;node-checkout></code></td>
+<td>vendors Node.js's <code>test/js-native-api</code> and <code>test/node-api</code> tests into <code>test/node</code>, applies the declared patches and generates <code>tests.cmake</code> from each <code>binding.gyp</code> (the build needs neither Python nor node-gyp)</td>
+</tr>
+<tr>
+<td><code>tools/sync_node_addon_api.py &#x3C;node-addon-api checkout></code></td>
+<td>vendors the node-addon-api headers and test suite into <code>test/node-addon-api</code>, applies the declared patches and generates <code>tests.cmake</code></td>
+</tr>
+</tbody>
+</table>
+<p>The vendored test directories are <strong>generated</strong>: do not edit them by hand.
+Every change goes through the sync scripts, whose <code>PATCHES</code> / <code>SKIP_*</code> tables
+give the reason for each difference from upstream.</p>
+<h2 id="workflows"><a class="heading-anchor" href="#workflows">Workflows</a></h2>
+<h3 id="implementing-or-changing-a-node-api-function"><a class="heading-anchor" href="#implementing-or-changing-a-node-api-function">Implementing or changing a Node-API function</a></h3>
+<ol>
+<li>Implement it in the <code>src/</code> file of its area, following the Node.js source
+(<code>src/js_native_api_v8.cc</code>, <code>src/node_api.cc</code>) for statuses and edge
+cases. Use the macros of <code>qjsnapi_internal.h</code> (<code>NAPI_PREAMBLE</code>,
+<code>CHECK_ARG</code>, <code>CHECK_JS</code>, ...) so the error behaviour matches.</li>
+<li>Run <code>python3 tools/gen_stubs.py</code> to drop its stub; <code>stubs_up_to_date</code> fails
+otherwise.</li>
+<li>Enable the matching Node.js test in <code>tools/sync_node_tests.py</code> (<code>TESTS</code>) and
+re-run it, or add a case to a <code>test/js</code> script and its addon.</li>
+<li>Run the suite in Debug (leak assertion) and under <code>unix-asan</code>.</li>
+<li>Update the reference page in <a href="/projects/quickjs-napi/docs/node-api/">doc/node-api</a> and, for a
+deviation, <a href="/projects/quickjs-napi/docs/compatibility/">compatibility.md</a>.</li>
+</ol>
+<h3 id="adding-a-js-test"><a class="heading-anchor" href="#adding-a-js-test">Adding a JS test</a></h3>
+<p>Write it so that it runs <strong>unchanged under both runtimes</strong> (see
+<code>test/js/test_hello.js</code>): it receives the addon directory as an argument and
+throws on the first failed expectation. Register it in <code>CMakeLists.txt</code>
+next to the other <code>js_*</code> tests; the <code>node_parity_*</code> variant is added the same
+way.</p>
+<h3 id="updating-the-vendored-suites"><a class="heading-anchor" href="#updating-the-vendored-suites">Updating the vendored suites</a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> clone</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --depth</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --branch</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> v22.23.4</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --filter=blob:none</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --sparse</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> https://github.com/nodejs/node</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -C</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> node</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> sparse-checkout</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> set</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --no-cone</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /test/js-native-api/</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /test/node-api/</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /test/common/gc.js</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /test/common/tick.js</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> /LICENSE</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">python3</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tools/sync_node_tests.py</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> node</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">python3</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> tools/sync_node_addon_api.py</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="color:#032F62;--shiki-dark:#9ECBFF">node-addon-api</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> checkou</span><span style="color:#24292E;--shiki-dark:#E1E4E8">t</span><span style="color:#D73A49;--shiki-dark:#F97583">></span></span></code></pre>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/testing.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/testing.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"testing","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Testing · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Testing (doc/testing.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/testing/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/host/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"The quickjs-napi executable"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/async/"}],"nativeButton":false,"children":["Async work, thread-safe functions and the event loop",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","test-suites",{"className":"","children":["$","a",null,{"href":"#test-suites","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Test suites"}]}],["$","li","consistency-checks",{"className":"","children":["$","a",null,{"href":"#consistency-checks","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Consistency checks"}]}],["$","li","sanitizers-and-leak-checks",{"className":"","children":["$","a",null,{"href":"#sanitizers-and-leak-checks","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Sanitizers and leak checks"}]}],["$","li","tools",{"className":"","children":["$","a",null,{"href":"#tools","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Tools"}]}],["$","li","workflows",{"className":"","children":["$","a",null,{"href":"#workflows","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Workflows"}]}],["$","li","implementing-or-changing-a-node-api-function",{"className":"pl-3","children":["$","a",null,{"href":"#implementing-or-changing-a-node-api-function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Implementing or changing a Node-API function"}]}],["$","li","adding-a-js-test",{"className":"pl-3","children":["$","a",null,{"href":"#adding-a-js-test","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Adding a JS test"}]}],["$","li","updating-the-vendored-suites",{"className":"pl-3","children":["$","a",null,{"href":"#updating-the-vendored-suites","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Updating the vendored suites"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

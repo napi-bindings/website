@@ -1,0 +1,171 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T210a,<h1 id="how-it-works">How it works</h1>
+<h2 id="layers"><a class="heading-anchor" href="#layers">Layers</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span> your addon     //napi: annotations ──napi-go gen──▶ zz_napi.go, index.js, index.d.ts</span></span>
+<span class="line"><span>      │</span></span>
+<span class="line"><span> Layer 2        napi.Export, FuncN/AsyncN/MethodN, NewClass, codecs (Go ⇄ JS conversions), JSFunc</span></span>
+<span class="line"><span> Layer 1        napi.Env, Value, Object, Function, errors, Ref, Async, ThreadsafeFunction</span></span>
+<span class="line"><span> Layer 0        sys: the Node-API C functions 1:1, C trampolines, symbol loader</span></span>
+<span class="line"><span>      │</span></span>
+<span class="line"><span> Node.js        Node-API (napi_*), V8, libuv</span></span></code></pre>
+<p>Each layer only uses the one below. Layer 2 and Layer 1 are both in package <code>napi</code> and can be
+mixed in one addon; Layer 0 (<code>sys</code>) is for raw ABI access.</p>
+<h2 id="loading"><a class="heading-anchor" href="#loading">Loading</a></h2>
+<p>The addon is a shared library built by <code>go build -buildmode=c-shared</code>, renamed <code>.node</code>. When
+<code>require()</code> loads it:</p>
+<ol>
+<li>The dynamic loader runs the Go runtime initialization (the runtime starts its threads, the
+<code>init</code> functions run and register the exports).</li>
+<li>Node.js calls the entry point <code>napi_register_module_v1</code> (<code>sys/module.c</code>), which resolves every
+Node-API function from the host process with <code>dlsym</code> or <code>GetProcAddress</code>. The library has no
+undefined symbols and no import library: it builds without Node.js installed, and a function
+missing from the running Node.js is reported, not a crash at load time.</li>
+<li>For every env that loads the addon (the main thread, each worker thread), the registered exports
+are created.</li>
+</ol>
+<p>The declared Node-API version is 8 by default, 9 or 10 with the build tags <code>napi_go_v9</code> and
+<code>napi_go_v10</code> (<a href="/projects/napi-go/docs/sys/#declared-node-api-version">sys</a>).</p>
+<h2 id="a-call"><a class="heading-anchor" href="#a-call">A call</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>JS add(1, 2)</span></span>
+<span class="line"><span> └▶ V8 ─▶ Node-API ─▶ C trampoline (sys/typed.c): reads 1 and 2 as doubles</span></span>
+<span class="line"><span>                       └▶ one cgo callback into Go: the Go function, by its ID in a table</span></span>
+<span class="line"><span>                       ◀─ result 3 as a double</span></span>
+<span class="line"><span>                      C creates the JS number</span></span></code></pre>
+<ul>
+<li><strong>One crossing per call.</strong> Numbers, booleans and strings up to about 500 bytes are converted in
+C, before and after the single crossing into Go, as is the <code>this</code> of methods. Other types are
+converted in Go by codecs: one per Go type, built once with reflection and cached, working on
+<code>unsafe</code> pointers at run time, with no Go allocation for primitives, <code>[]byte</code>, napi values and
+class pointers.</li>
+<li><strong>The crossing is the floor.</strong> Node.js calls on its own thread, which is not a Go thread; entering
+Go costs about 100 ns on Linux (about 1 µs on Windows, where the Go runtime lacks an
+optimization for threads created outside Go). A call from Rust or C++ costs a few nanoseconds.
+The <a href="/projects/napi-go/docs/bench/">benchmarks</a> compare the three.</li>
+<li><strong>Errors</strong> returned by Go are thrown as JS exceptions on the way out; panics are recovered and
+thrown as <code>GO_PANIC</code>.</li>
+</ul>
+<h2 id="threads"><a class="heading-anchor" href="#threads">Threads</a></h2>
+<p>V8 runs JavaScript on one thread per env, and every Node-API call must be made on it. Goroutines
+run on the threads of the Go scheduler, so they never call Node-API: they hand work to the JS
+thread.</p>
+<ul>
+<li><strong>One dispatcher per env.</strong> Each env has one threadsafe function (unref'd: it does not keep
+Node.js alive) and a Go queue of closures. A goroutine appends to the queue, and wakes the JS
+thread only if the queue was empty: a thousand goroutines finishing together cost one wake-up.</li>
+<li><strong>Async functions</strong> (<code>AsyncN</code>, <code>Env.Async</code>) convert the arguments on the JS thread, run the Go
+function in a goroutine, and settle the Promise through the dispatcher. Node.js stays alive while
+any is pending.</li>
+<li><strong>ThreadsafeFunction[T]</strong> and <strong>JSFunc[A, R]</strong> let goroutines call JS functions (with the result
+converted back, for <code>JSFunc</code>).</li>
+<li><strong>Env context.</strong> <code>Env.Context()</code> is canceled when the env is destroyed (worker terminated,
+process exiting); pending Promises are dropped and threadsafe functions return <code>ErrClosing</code>.</li>
+</ul>
+<h2 id="memory"><a class="heading-anchor" href="#memory">Memory</a></h2>
+<p>Two garbage collectors manage the objects of an addon: V8 for JS values, Go for Go values. cgo
+forbids handing Go pointers to C for C to keep, so:</p>
+<ul>
+<li><strong>Go values given to JS are found by ID.</strong> Callbacks, class instances, externals and finalizers
+live in Go tables; Node-API receives an integer. When V8 collects the JS object, its finalizer
+frees the ID and the Go value becomes collectable. Reads of the tables are lock-free.</li>
+<li><strong>JS values held by Go are references</strong> (<code>Value.NewRef</code>, napi_ref), released explicitly or from
+a goroutine with <code>Ref.DeleteLater</code>. A plain <code>napi.Value</code> is valid only during the call.</li>
+<li><strong>Buffers.</strong> A <code>[]byte</code> parameter is a view of V8 memory, valid during the call. A returned
+<code>[]byte</code> is copied into a new Buffer. <code>NewExternalBuffer</code> hands Go memory to JS without a copy,
+pinned with <code>runtime.Pinner</code> until V8 releases it.</li>
+<li><strong>Class instances.</strong> A JS instance holds the ID of its <code>*T</code>. In an env, the same <code>*T</code> always maps
+to the same JS object, and <code>Finalize</code> runs when the last instance is collected.</li>
+</ul>
+<h2 id="signals"><a class="heading-anchor" href="#signals">Signals</a></h2>
+<p>The Go runtime and Node.js both install signal handlers in one process. Go requires every handler
+to run on the alternate signal stack (<code>SA_ONSTACK</code>): a signal can arrive on a Go thread, whose
+stack is small. Handlers that Node.js and libuv install after the addon has loaded
+(<code>process.on('SIGINT')</code>, child processes) lack the flag; on Linux, <code>sys/onstack.c</code> adds it to
+them by intercepting <code>sigaction</code> in the process. On macOS, the Go runtime reinstalls the handlers
+that are already there to add <code>SA_ONSTACK</code>, and the macOS kernel does not report <code>SA_RESETHAND</code>,
+so the flag is lost on the handler that Node.js uses to exit on SIGINT and SIGTERM; the handler
+then calls itself forever. <code>sys/sigfix.c</code> restores the flag. The e2e
+tests check WebAssembly traps, child processes, SIGINT and SIGTERM with the addon loaded and Go
+busy.</p>
+<h2 id="source-map"><a class="heading-anchor" href="#source-map">Source map</a></h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sys/</code></td>
+<td>Layer 0: generated bindings, loader, trampolines, signal fixes</td>
+</tr>
+<tr>
+<td><code>napi/</code></td>
+<td>Layers 1 and 2</td>
+</tr>
+<tr>
+<td><code>internal/codegen/</code></td>
+<td>the generator of <code>napi-go gen</code></td>
+</tr>
+<tr>
+<td><code>sys/internal/gen/</code>, <code>napi/internal/genwrappers/</code></td>
+<td>generators of <code>sys</code> and of the Layer 2 wrappers</td>
+</tr>
+<tr>
+<td><code>cmd/napi-go/</code></td>
+<td>the CLI</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>e2e addons and tests, the Node.js and node-addon-api test suites ported to napi-go</td>
+</tr>
+<tr>
+<td><code>bench/</code></td>
+<td>benchmarks</td>
+</tr>
+</tbody>
+</table>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"docs/architecture.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/docs/architecture.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"architecture","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"How it works · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: How it works (docs/architecture.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/architecture/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/overview/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"napi-go documentation"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/getting-started/"}],"nativeButton":false,"children":["Getting started",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","layers",{"className":"","children":["$","a",null,{"href":"#layers","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Layers"}]}],["$","li","loading",{"className":"","children":["$","a",null,{"href":"#loading","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Loading"}]}],["$","li","a-call",{"className":"","children":["$","a",null,{"href":"#a-call","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"A call"}]}],["$","li","threads",{"className":"","children":["$","a",null,{"href":"#threads","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Threads"}]}],["$","li","memory",{"className":"","children":["$","a",null,{"href":"#memory","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Memory"}]}],["$","li","signals",{"className":"","children":["$","a",null,{"href":"#signals","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Signals"}]}],["$","li","source-map",{"className":"","children":["$","a",null,{"href":"#source-map","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Source map"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

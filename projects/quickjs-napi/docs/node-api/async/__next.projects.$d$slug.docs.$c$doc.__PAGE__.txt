@@ -1,0 +1,339 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T9df8,<h1 id="async-work-thread-safe-functions-and-the-event-loop">Async work, thread-safe functions and the event loop</h1>
+<p><a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a> › Asynchronous APIs</p>
+<p>Implemented in <code>src/async.c</code>, <code>src/tsfn.c</code> and <code>src/loop.c</code>, on libuv 1.51.
+How these objects sit on the loop, and how teardown waits for them, is
+described in <a href="/projects/quickjs-napi/docs/architecture/#the-event-loop">architecture.md</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Async work</td>
+<td><a href="#napi_create_async_work"><code>napi_create_async_work</code></a>, <a href="#napi_queue_async_work"><code>napi_queue_async_work</code></a>, <a href="#napi_cancel_async_work"><code>napi_cancel_async_work</code></a>, <a href="#napi_delete_async_work"><code>napi_delete_async_work</code></a></td>
+</tr>
+<tr>
+<td>Thread-safe functions</td>
+<td><a href="#napi_create_threadsafe_function"><code>napi_create_threadsafe_function</code></a>, <a href="#napi_call_threadsafe_function"><code>napi_call_threadsafe_function</code></a>, <a href="#napi_acquire_threadsafe_function"><code>napi_acquire_threadsafe_function</code></a>, <a href="#napi_release_threadsafe_function"><code>napi_release_threadsafe_function</code></a>, <a href="#napi_get_threadsafe_function_context"><code>napi_get_threadsafe_function_context</code></a>, <a href="#napi_ref_threadsafe_function"><code>napi_ref_threadsafe_function</code></a>, <a href="#napi_unref_threadsafe_function"><code>napi_unref_threadsafe_function</code></a></td>
+</tr>
+<tr>
+<td>Event loop</td>
+<td><a href="#napi_get_uv_event_loop"><code>napi_get_uv_event_loop</code></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="threads"><a class="heading-anchor" href="#threads">Threads</a></h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Runs on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execute</code> of async work</td>
+<td>a libuv thread-pool thread (<code>UV_THREADPOOL_SIZE</code> threads, 4 by default). Must not call Node-API functions that take an env.</td>
+</tr>
+<tr>
+<td><code>complete</code> of async work</td>
+<td>the loop thread</td>
+</tr>
+<tr>
+<td><code>napi_call_threadsafe_function</code>, <code>napi_acquire_threadsafe_function</code>, <code>napi_release_threadsafe_function</code>, <code>napi_get_threadsafe_function_context</code></td>
+<td>any thread</td>
+</tr>
+<tr>
+<td><code>call_js_cb</code>, <code>thread_finalize_cb</code> of a thread-safe function</td>
+<td>the loop thread</td>
+</tr>
+<tr>
+<td>everything else</td>
+<td>the loop thread</td>
+</tr>
+</tbody>
+</table>
+<p>Every callback the loop thread runs (<code>complete</code>, <code>call_js_cb</code>,
+<code>thread_finalize_cb</code>) gets a handle scope and a callback scope; on return,
+a pending exception is reported as uncaught and the checkpoint runs
+(microtasks, <code>process.nextTick</code> in the executable).</p>
+<hr>
+<h2 id="async-work"><a class="heading-anchor" href="#async-work">Async work</a></h2>
+<p>Runs a C function on the thread pool, then a completion on the loop thread.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { napi_async_work work; napi_deferred deferred; </span><span style="color:#D73A49;--shiki-dark:#F97583">double</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> input, output; } job;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Execute</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span><span style="color:#6A737D;--shiki-dark:#6A737D">     /* thread pool */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  job </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> data;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  j->output </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> expensive</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(j->input);</span><span style="color:#6A737D;--shiki-dark:#6A737D">                  /* no Node-API here */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> Complete</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_status </span><span style="color:#E36209;--shiki-dark:#FFAB70">status</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* loop */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  job </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> data;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value v;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (status </span><span style="color:#D73A49;--shiki-dark:#F97583">==</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_ok) {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_create_double</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, j->output, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">v);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_resolve_deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, j->deferred, v);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  } </span><span style="color:#D73A49;--shiki-dark:#F97583">else</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span><span style="color:#6A737D;--shiki-dark:#6A737D">                                           /* napi_cancelled */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_get_undefined</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">v);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_reject_deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, j->deferred, v);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_delete_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, j->work);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  free</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(j);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_value </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Compute</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_callback_info </span><span style="color:#E36209;--shiki-dark:#FFAB70">info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  job </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> calloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value name, promise;</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">  /* ... read the input into j->input ... */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_create_string_utf8</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"compute"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, NAPI_AUTO_LENGTH, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">name);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_create_promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j->deferred, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">promise);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_create_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name, Execute, Complete, j, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">j->work);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  napi_queue_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, j->work);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> promise;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h3 id="napi_create_async_work"><a class="heading-anchor" href="#napi_create_async_work"><code>napi_create_async_work</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">async_resource</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">async_resource_name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_async_execute_callback </span><span style="color:#E36209;--shiki-dark:#FFAB70">execute</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_async_complete_callback </span><span style="color:#E36209;--shiki-dark:#FFAB70">complete</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_async_work </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a work item; nothing runs until it is queued. <code>execute</code> is required,
+<code>complete</code> is optional. <code>async_resource</code> (optional; <code>null</code>/<code>undefined</code> give
+<code>napi_object_expected</code>) and <code>async_resource_name</code> (required; a symbol gives
+<code>napi_string_expected</code>) are only validated: there is no <code>async_hooks</code>.</p>
+<p>The item belongs to the addon until <code>napi_delete_async_work</code>. Items never
+deleted are freed at teardown.</p>
+<h3 id="napi_queue_async_work"><a class="heading-anchor" href="#napi_queue_async_work"><code>napi_queue_async_work</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_queue_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                  napi_async_work </span><span style="color:#E36209;--shiki-dark:#FFAB70">work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Queues the item (<code>uv_queue_work</code>): <code>execute(env, data)</code> runs on a pool thread,
+then <code>complete(env, status, data)</code> on the loop thread with <code>napi_ok</code>. The
+queued item keeps the loop alive.</p>
+<ul>
+<li>Queuing an item that is already queued, or queuing while the host is being
+destroyed, returns <code>napi_generic_failure</code>.</li>
+<li>The item can be queued again once <code>complete</code> has started, including from
+<code>complete</code> itself.</li>
+</ul>
+<h3 id="napi_cancel_async_work"><a class="heading-anchor" href="#napi_cancel_async_work"><code>napi_cancel_async_work</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_cancel_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_async_work </span><span style="color:#E36209;--shiki-dark:#FFAB70">work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Cancels a queued item whose <code>execute</code> has not started (<code>uv_cancel</code>).
+<code>complete</code> then still runs, with status <code>napi_cancelled</code>. When <code>execute</code> is
+already running or done, cancellation fails with <code>napi_generic_failure</code>.</p>
+<h3 id="napi_delete_async_work"><a class="heading-anchor" href="#napi_delete_async_work"><code>napi_delete_async_work</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_delete_async_work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_async_work </span><span style="color:#E36209;--shiki-dark:#FFAB70">work</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Frees the item. Usually called from <code>complete</code>. Deleting an item that is
+still queued is undefined behaviour in Node.js; here the item is only marked,
+and freed after its <code>complete</code> has run.</p>
+<p>At teardown, queued items are cancelled, in-flight ones are waited for, and
+their <code>complete</code> runs with JavaScript disabled, so the addon can still free
+its data.</p>
+<h2 id="thread-safe-functions"><a class="heading-anchor" href="#thread-safe-functions">Thread-safe functions</a></h2>
+<p>A thread-safe function lets any thread schedule a call to JavaScript on the
+loop thread. It is a port of Node 22's implementation: a queue protected by a
+mutex, a <code>uv_async_t</code> to wake the loop thread, and up to 1000 calls dispatched
+per wake-up. Its life cycle is shown in
+<a href="/projects/quickjs-napi/docs/architecture/#thread-safe-functions">architecture.md</a>.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#D73A49;--shiki-dark:#F97583"> void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> CallJs</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">js_cb</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  int</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">value </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> data;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (env </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span><span style="color:#6A737D;--shiki-dark:#6A737D">             /* NULL when the function is being finalized */</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_value undefined, arg;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_get_undefined</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">undefined);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_create_int32</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">value, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">arg);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">    napi_call_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, undefined, js_cb, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">arg, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  free</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(value);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/* loop thread */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, js_callback, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* unbounded */</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">                                1</span><span style="color:#6A737D;--shiki-dark:#6A737D"> /* this thread */</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, CallJs,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                &#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">tsfn</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/* worker thread */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">v </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">v</span><span style="color:#24292E;--shiki-dark:#E1E4E8">); </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">v </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 42</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_call_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(tsfn, v, napi_tsfn_blocking);</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_release_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(tsfn, napi_tsfn_release);</span></span></code></pre>
+<h3 id="napi_create_threadsafe_function"><a class="heading-anchor" href="#napi_create_threadsafe_function"><code>napi_create_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">async_resource</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">async_resource_name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> max_queue_size</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> initial_thread_count</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">thread_finalize_data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_finalize </span><span style="color:#E36209;--shiki-dark:#FFAB70">thread_finalize_cb</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function_call_js </span><span style="color:#E36209;--shiki-dark:#FFAB70">call_js_cb</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>func</code></td>
+<td>JavaScript function passed to <code>call_js_cb</code> (kept with a strong reference); optional when <code>call_js_cb</code> is given, otherwise it must be a function (<code>napi_invalid_arg</code>)</td>
+</tr>
+<tr>
+<td><code>async_resource</code>, <code>async_resource_name</code></td>
+<td>validated only (no <code>async_hooks</code>); the name is required</td>
+</tr>
+<tr>
+<td><code>max_queue_size</code></td>
+<td>0 for an unbounded queue; otherwise producers block (or get <code>napi_queue_full</code>) when it is full</td>
+</tr>
+<tr>
+<td><code>initial_thread_count</code></td>
+<td>number of threads using the function, at least 1 (<code>napi_invalid_arg</code> otherwise)</td>
+</tr>
+<tr>
+<td><code>thread_finalize_data</code>, <code>thread_finalize_cb</code></td>
+<td><code>thread_finalize_cb(env, thread_finalize_data, context)</code> runs on the loop thread when the function is finalized</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>any pointer, passed to <code>call_js_cb</code> and <code>thread_finalize_cb</code></td>
+</tr>
+<tr>
+<td><code>call_js_cb</code></td>
+<td><code>call_js_cb(env, func, context, data)</code> for each queued item; without it, <code>func</code> is called with no arguments and <code>this = undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p>The function starts <strong>referenced</strong>: it keeps the loop alive until it is
+finalized or unreferenced. It registers an internal cleanup hook, so it is
+closed at teardown.</p>
+<h3 id="napi_call_threadsafe_function"><a class="heading-anchor" href="#napi_call_threadsafe_function"><code>napi_call_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_call_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function_call_mode </span><span style="color:#E36209;--shiki-dark:#FFAB70">is_blocking</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Queues <code>data</code> for a call of <code>call_js_cb</code> on the loop thread. Callable from any
+thread.</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi_ok</code></td>
+<td>queued</td>
+</tr>
+<tr>
+<td><code>napi_queue_full</code></td>
+<td>bounded queue full and <code>napi_tsfn_nonblocking</code></td>
+</tr>
+<tr>
+<td>(blocks)</td>
+<td>bounded queue full and <code>napi_tsfn_blocking</code>: waits for room. Do not do this on the loop thread: it would deadlock (<code>napi_would_deadlock</code> is not returned, as in Node.js 22)</td>
+</tr>
+<tr>
+<td><code>napi_closing</code></td>
+<td>the function is closing (aborted, or finalized at teardown); this call also releases the caller's thread count, so the caller must not call <code>napi_release_threadsafe_function</code> afterwards</td>
+</tr>
+<tr>
+<td><code>napi_invalid_arg</code></td>
+<td><code>func</code> is <code>NULL</code>, or it is closing and no thread holds it any more</td>
+</tr>
+</tbody>
+</table>
+<h3 id="napi_acquire_threadsafe_function"><a class="heading-anchor" href="#napi_acquire_threadsafe_function"><code>napi_acquire_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_acquire_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Increments the thread count, before handing the function to another thread.
+<code>napi_closing</code> if it is already closing.</p>
+<h3 id="napi_release_threadsafe_function"><a class="heading-anchor" href="#napi_release_threadsafe_function"><code>napi_release_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_release_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_threadsafe_function_release_mode </span><span style="color:#E36209;--shiki-dark:#FFAB70">mode</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Decrements the thread count. When it reaches 0 the function closes once its
+queue is drained. With <code>napi_tsfn_abort</code> it closes <strong>now</strong>: blocked producers
+wake up, further calls get <code>napi_closing</code>, and items still queued are handed
+to <code>call_js_cb</code> with <code>env == NULL</code> (and <code>func == NULL</code>) so that their data can
+be freed. <code>napi_invalid_arg</code> when the count is already 0.</p>
+<h3 id="napi_get_threadsafe_function_context"><a class="heading-anchor" href="#napi_get_threadsafe_function_context"><code>napi_get_threadsafe_function_context</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_threadsafe_function_context</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                                 void</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the <code>context</code> given at creation. Callable from any thread.
+<code>napi_invalid_arg</code> for <code>NULL</code> arguments (Node.js aborts).</p>
+<h3 id="napi_ref_threadsafe_function"><a class="heading-anchor" href="#napi_ref_threadsafe_function"><code>napi_ref_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_ref_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                         napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Makes the function keep the loop alive again (<code>uv_ref</code> on its async handle).
+Loop thread only.</p>
+<h3 id="napi_unref_threadsafe_function"><a class="heading-anchor" href="#napi_unref_threadsafe_function"><code>napi_unref_threadsafe_function</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_unref_threadsafe_function</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                           napi_threadsafe_function </span><span style="color:#E36209;--shiki-dark:#FFAB70">func</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Lets the loop exit while the function is still open (<code>uv_unref</code>): useful for a
+background producer that should not keep the process running. Loop thread
+only.</p>
+<h3 id="exceptions-in-call_js_cb"><a class="heading-anchor" href="#exceptions-in-call_js_cb">Exceptions in <code>call_js_cb</code></a></h3>
+<p>An exception left pending by <code>call_js_cb</code> (or <code>thread_finalize_cb</code>) has no
+JavaScript caller. For modules built for <strong>Node-API ≥ 10</strong> it is reported as
+uncaught (<code>process.on('uncaughtException')</code>). For older modules it is
+dropped with a one-time <code>DEP0168</code> deprecation warning on stderr, as in
+Node.js, unless the host forces the policy
+(<code>--force-node-api-uncaught-exceptions-policy</code>, or
+<a href="/projects/quickjs-napi/docs/embedding/#qjsnapi_host_set_force_uncaught_exceptions_policy"><code>qjsnapi_host_set_force_uncaught_exceptions_policy</code></a>).</p>
+<p>Exceptions from async work <code>complete</code> callbacks and from finalizers are always
+reported as uncaught.</p>
+<h2 id="event-loop"><a class="heading-anchor" href="#event-loop">Event loop</a></h2>
+<h3 id="napi_get_uv_event_loop"><a class="heading-anchor" href="#napi_get_uv_event_loop"><code>napi_get_uv_event_loop</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_uv_event_loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(node_api_basic_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> uv_loop_s </span><span style="color:#D73A49;--shiki-dark:#F97583">**</span><span style="color:#E36209;--shiki-dark:#FFAB70">loop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the libuv loop of the host: the one the embedder runs and the
+executable runs until nothing referenced is left. Addons may add their own
+handles to it (timers, sockets, <code>uv_async_t</code>); they must close them before
+teardown ends, typically from an
+<a href="/projects/quickjs-napi/docs/node-api/environment/#napi_add_async_cleanup_hook">async cleanup hook</a>. The
+executable exports every <code>uv_*</code> function, so addons built with node-gyp's
+<code>uv.h</code> link against it like against <code>node</code>.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/node-api/async.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/async.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"node-api/async","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Async work, thread-safe functions and the event loop · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Async work, thread-safe functions and the event loop (doc/node-api/async.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/async/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/testing/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Testing"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/binary-data/"}],"nativeButton":false,"children":["ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","threads",{"className":"","children":["$","a",null,{"href":"#threads","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Threads"}]}],["$","li","async-work",{"className":"","children":["$","a",null,{"href":"#async-work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Async work"}]}],["$","li","napi_create_async_work",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_async_work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_async_work"}]}],["$","li","napi_queue_async_work",{"className":"pl-3","children":["$","a",null,{"href":"#napi_queue_async_work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_queue_async_work"}]}],["$","li","napi_cancel_async_work",{"className":"pl-3","children":["$","a",null,{"href":"#napi_cancel_async_work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_cancel_async_work"}]}],["$","li","napi_delete_async_work",{"className":"pl-3","children":["$","a",null,{"href":"#napi_delete_async_work","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_delete_async_work"}]}],["$","li","thread-safe-functions",{"className":"","children":["$","a",null,{"href":"#thread-safe-functions","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Thread-safe functions"}]}],["$","li","napi_create_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_threadsafe_function"}]}],["$","li","napi_call_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_call_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_call_threadsafe_function"}]}],["$","li","napi_acquire_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_acquire_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_acquire_threadsafe_function"}]}],["$","li","napi_release_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_release_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_release_threadsafe_function"}]}],["$","li","napi_get_threadsafe_function_context",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_threadsafe_function_context","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_threadsafe_function_context"}]}],["$","li","napi_ref_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_ref_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_ref_threadsafe_function"}]}],["$","li","napi_unref_threadsafe_function",{"className":"pl-3","children":["$","a",null,{"href":"#napi_unref_threadsafe_function","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_unref_threadsafe_function"}]}],["$","li","exceptions-in-call_js_cb",{"className":"pl-3","children":["$","a",null,{"href":"#exceptions-in-call_js_cb","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Exceptions in call_js_cb"}]}],["$","li","event-loop",{"className":"","children":["$","a",null,{"href":"#event-loop","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Event loop"}]}],["$","li","napi_get_uv_event_loop",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_uv_event_loop","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_uv_event_loop"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

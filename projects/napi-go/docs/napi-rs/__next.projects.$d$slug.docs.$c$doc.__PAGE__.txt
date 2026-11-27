@@ -1,0 +1,225 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T1944,<h1 id="coming-from-napi-rs">Coming from napi-rs</h1>
+<p>napi-go follows the design of napi-rs: annotated declarations, conversions from the types of the
+language, TypeScript declarations, one npm package per platform. The table maps the napi-rs
+features to napi-go.</p>
+<h2 id="code"><a class="heading-anchor" href="#code">Code</a></h2>
+<table>
+<thead>
+<tr>
+<th>napi-rs</th>
+<th>napi-go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#[napi] fn add(a: f64, b: f64) -> f64</code></td>
+<td><code>//napi:export</code> on <code>func Add(a, b float64) float64</code></td>
+</tr>
+<tr>
+<td><code>#[napi(js_name = "x")]</code></td>
+<td><code>//napi:export x</code></td>
+</tr>
+<tr>
+<td><code>#[napi(object)] struct</code></td>
+<td>any struct converts; <code>//napi:object</code> declares it in <code>index.d.ts</code> even when unused</td>
+</tr>
+<tr>
+<td><code>#[napi] struct</code> + <code>#[napi] impl</code> (class)</td>
+<td><code>//napi:class</code> on the type; exported methods of <code>*T</code></td>
+</tr>
+<tr>
+<td><code>#[napi(constructor)]</code>, <code>#[napi(factory)]</code></td>
+<td><code>//napi:constructor</code> (<code>func(…) (*T, error)</code>); <code>//napi:export Class.name</code> for a static factory</td>
+</tr>
+<tr>
+<td><code>#[napi(getter)]</code>, <code>#[napi(setter)]</code></td>
+<td><code>//napi:getter</code>, <code>//napi:setter</code></td>
+</tr>
+<tr>
+<td><code>#[napi(skip)]</code></td>
+<td><code>//napi:skip</code></td>
+</tr>
+<tr>
+<td><code>#[napi] const</code></td>
+<td><code>//napi:export</code> on a constant</td>
+</tr>
+<tr>
+<td><code>#[napi(ts_type = "…")]</code>, <code>ts_return_type</code></td>
+<td><code>//napi:type</code>, <code>//napi:returns</code></td>
+</tr>
+<tr>
+<td><code>Result&#x3C;T></code>, <code>Error::new(Status::InvalidArg, msg)</code></td>
+<td><code>(T, error)</code>; <code>napi.TypeError(code, msg)</code>, <code>napi.RangeError</code></td>
+</tr>
+<tr>
+<td>a panic</td>
+<td>a panic becomes an Error with code <code>GO_PANIC</code></td>
+</tr>
+<tr>
+<td><code>async fn</code> (tokio)</td>
+<td>a first parameter <code>context.Context</code>: the function runs in a goroutine</td>
+</tr>
+<tr>
+<td><code>AsyncTask</code> with <code>Task</code></td>
+<td><code>Env.Async(work)</code>: <code>work</code> runs in a goroutine and returns a <code>Resolver</code> run on the JS thread</td>
+</tr>
+<tr>
+<td><code>AbortSignal</code> of an <code>AsyncTask</code></td>
+<td>no counterpart: the <code>context.Context</code> is canceled only when the env is destroyed</td>
+</tr>
+<tr>
+<td><code>ThreadsafeFunction&#x3C;T></code></td>
+<td><code>napi.NewThreadsafeFunction[T]</code></td>
+</tr>
+<tr>
+<td><code>ThreadsafeFunction::call_async</code></td>
+<td><code>napi.NewJSFunc[A, R]</code>, <code>Call(ctx, a)</code></td>
+</tr>
+<tr>
+<td><code>Function&#x3C;A, R></code>, <code>JsFunction</code></td>
+<td><code>napi.Function</code></td>
+</tr>
+<tr>
+<td><code>Either&#x3C;A, B></code></td>
+<td><code>napi.Either[A, B]</code></td>
+</tr>
+<tr>
+<td><code>Buffer</code>, <code>&#x26;[u8]</code>, <code>Uint8Array</code></td>
+<td><code>[]byte</code>: a view as a parameter, a copy as a result (<code>Env.NewBuffer</code> for no copy)</td>
+</tr>
+<tr>
+<td><code>BigInt</code>, <code>i64</code></td>
+<td><code>*big.Int</code>, <code>int64</code> (integers are range-checked)</td>
+</tr>
+<tr>
+<td><code>Option&#x3C;T></code></td>
+<td><code>*T</code></td>
+</tr>
+<tr>
+<td><code>HashMap&#x3C;String, T></code></td>
+<td><code>map[string]T</code></td>
+</tr>
+<tr>
+<td><code>ObjectFinalize</code></td>
+<td><code>func (*T) Finalize(env napi.Env)</code></td>
+</tr>
+<tr>
+<td><code>Reference&#x3C;T></code> to a class instance</td>
+<td>the <code>*T</code> itself: in an env the same <code>*T</code> is always the same JS object</td>
+</tr>
+<tr>
+<td><code>Env</code></td>
+<td><code>napi.Env</code> (a parameter of type <code>napi.Env</code> is injected)</td>
+</tr>
+<tr>
+<td><code>JsObject</code>, <code>JsUnknown</code></td>
+<td><code>napi.Object</code>, <code>napi.Value</code></td>
+</tr>
+<tr>
+<td><code>#[module_exports]</code></td>
+<td><code>napi.Init</code> (Layer 1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tooling"><a class="heading-anchor" href="#tooling">Tooling</a></h2>
+<table>
+<thead>
+<tr>
+<th><code>@napi-rs/cli</code></th>
+<th><code>napi-go</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi new</code></td>
+<td><code>napi-go new</code></td>
+</tr>
+<tr>
+<td><code>napi build --release --target …</code></td>
+<td><code>napi-go build -release -target …</code> (zig for other platforms)</td>
+</tr>
+<tr>
+<td>type generation of <code>napi build</code></td>
+<td><code>napi-go gen</code> (run by <code>build</code>)</td>
+</tr>
+<tr>
+<td><code>napi create-npm-dirs</code>, <code>napi artifacts</code></td>
+<td><code>napi-go artifacts</code></td>
+</tr>
+<tr>
+<td><code>napi prepublish</code></td>
+<td><code>napi-go prepublish -publish</code></td>
+</tr>
+<tr>
+<td><code>"napi"</code> in <code>package.json</code></td>
+<td><code>"napiGo"</code></td>
+</tr>
+<tr>
+<td>targets <code>x86_64-unknown-linux-gnu</code>, …</td>
+<td>targets <code>linux-x64-gnu</code>, … (the platform package suffixes, as in napi-rs)</td>
+</tr>
+</tbody>
+</table>
+<p>The CLI is a Go program run with <code>go tool napi-go</code>, at the version of the library in <code>go.mod</code>;
+it does not need npm.</p>
+<h2 id="differences"><a class="heading-anchor" href="#differences">Differences</a></h2>
+<ul>
+<li><strong>Call overhead.</strong> A call into Go crosses from C into the Go runtime (about 100 ns on Linux,
+about 1 µs on Windows), where napi-rs calls Rust directly. Conversions of numbers and short
+strings happen in C in the same crossing. Bulk Promises are cheaper than in napi-rs. See the
+<a href="/projects/napi-go/docs/bench/">benchmarks</a>.</li>
+<li><strong>Binary size.</strong> The Go runtime is part of every addon: a small addon is about 2.5 MB stripped,
+against well under 1 MB for napi-rs.</li>
+<li><strong>Platforms.</strong> No musl (Alpine): Go cannot build shared libraries that load with musl. On macOS
+x64 only one Go addon can be loaded per process. No WebAssembly target. See
+<a href="/projects/napi-go/docs/platforms/">platforms</a>.</li>
+<li><strong>Two garbage collectors.</strong> Go values referenced from JS live until V8 collects the JS object;
+a <code>[]byte</code> parameter must not be kept after the call.</li>
+<li><strong>Concurrency.</strong> Goroutines replace the tokio runtime and the libuv thread pool; there is no
+runtime to configure.</li>
+</ul>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"docs/napi-rs.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/napi-go/edit/main/docs/napi-rs.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"napi-rs","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"napi-go documentation","href":"/projects/napi-go/docs/overview/"},{"title":"How it works","href":"/projects/napi-go/docs/architecture/"},{"title":"Getting started","href":"/projects/napi-go/docs/getting-started/"},{"title":"Writing addons","href":"/projects/napi-go/docs/guide/"},{"title":"Coming from napi-rs","href":"/projects/napi-go/docs/napi-rs/"},{"title":"Platforms and limitations","href":"/projects/napi-go/docs/platforms/"},{"title":"Releasing napi-go","href":"/projects/napi-go/docs/releasing/"}]},{"title":"bench/","items":[{"title":"Benchmarks","href":"/projects/napi-go/docs/bench/"}]},{"title":"cmd/","items":[{"title":"napi-go (CLI)","href":"/projects/napi-go/docs/cmd/napi-go/"}]},{"title":"internal/","items":[{"title":"napi-go gen","href":"/projects/napi-go/docs/internal/codegen/"}]},{"title":"napi/","items":[{"title":"napi — Layers 1 and 2 of napi-go","href":"/projects/napi-go/docs/napi/"}]},{"title":"sys/","items":[{"title":"sys — Layer 0 of napi-go","href":"/projects/napi-go/docs/sys/"},{"title":"Vendored Node-API Headers","href":"/projects/napi-go/docs/sys/include/"}]},{"title":"tests/","items":[{"title":"node-addon-api Test Suite Ported to napi","href":"/projects/napi-go/docs/tests/addonapisuite/"},{"title":"Node.js Test Suite Ported to sys","href":"/projects/napi-go/docs/tests/nodesuite/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"napi-go","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Coming from napi-rs · napi-go · napi-bindings"}],["$","meta","1",{"name":"description","content":"napi-go documentation: Coming from napi-rs (docs/napi-rs.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/napi-go/docs/napi-rs/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/guide/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Writing addons"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/napi-go/docs/platforms/"}],"nativeButton":false,"children":["Platforms and limitations",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","code",{"className":"","children":["$","a",null,{"href":"#code","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Code"}]}],["$","li","tooling",{"className":"","children":["$","a",null,{"href":"#tooling","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Tooling"}]}],["$","li","differences",{"className":"","children":["$","a",null,{"href":"#differences","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Differences"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

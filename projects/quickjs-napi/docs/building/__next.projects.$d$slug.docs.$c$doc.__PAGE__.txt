@@ -1,0 +1,455 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T4ca1,<h1 id="building">Building</h1>
+<p>quickjs-napi builds with CMake (3.24 or newer; 3.25 to use the presets) and
+Ninja. It needs the QuickJS sources of <code>quickjs-build</code> and fetches libuv at
+configure time.</p>
+<ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#presets">Presets</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#what-the-build-produces">What the build produces</a></li>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#release-packages">Release packages</a></li>
+<li><a href="#continuous-integration">Continuous integration</a></li>
+</ul>
+<h2 id="prerequisites"><a class="heading-anchor" href="#prerequisites">Prerequisites</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quickjs-build</code> checked out <strong>next to</strong> this repository</td>
+<td><code>../quickjs-build</code>, its latest release (7.0.0: QuickJS 2026-06-04); or point <code>QJSNAPI_QUICKJS_DIR</code> at it</td>
+</tr>
+<tr>
+<td>CMake and Ninja</td>
+<td></td>
+</tr>
+<tr>
+<td>A C17 compiler</td>
+<td>gcc or clang on Linux/macOS; zig (<code>zig cc</code>) or MSYS2 MinGW on Windows. MSVC is not supported (QuickJS does not build with it)</td>
+</tr>
+<tr>
+<td>A C++17 compiler</td>
+<td>only for the C++ test addons and the node-addon-api suite</td>
+</tr>
+<tr>
+<td>Network access at configure time</td>
+<td>libuv v1.51.0 is fetched with <code>FetchContent</code>. Offline: <code>-DFETCHCONTENT_SOURCE_DIR_LIBUV=&#x3C;libuv checkout></code></td>
+</tr>
+<tr>
+<td>Node.js 22 (optional)</td>
+<td>runs the <code>node_parity_*</code> tests, which execute the JS tests under Node.js as a reference</td>
+</tr>
+<tr>
+<td>Python 3 (optional)</td>
+<td><code>tools/*.py</code> (stub generation check, export check, test vendoring)</td>
+</tr>
+</tbody>
+</table>
+<p><code>include/quickjs.h</code> and <code>include/quickjs-libc.h</code> must be <strong>identical</strong> to the
+ones in <code>quickjs-build</code>: configuration fails otherwise, because a different
+header means a different <code>JSValue</code> ABI.</p>
+<h2 id="presets"><a class="heading-anchor" href="#presets">Presets</a></h2>
+<p>The presets in <code>CMakePresets.json</code> are the reference configurations, used by
+CI too. Each one builds in <code>build/&#x3C;preset></code>:</p>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unix-debug</code></td>
+<td>Linux/macOS, Debug. QuickJS's leak assertion at <code>JS_FreeRuntime</code> is active.</td>
+</tr>
+<tr>
+<td><code>unix-release</code></td>
+<td>Linux/macOS, Release</td>
+</tr>
+<tr>
+<td><code>unix-asan</code></td>
+<td>Linux/macOS, Debug + AddressSanitizer and UndefinedBehaviorSanitizer, QuickJS included</td>
+</tr>
+<tr>
+<td><code>unix-tsan</code></td>
+<td>Linux/macOS, Debug + ThreadSanitizer, QuickJS and libuv included</td>
+</tr>
+<tr>
+<td><code>windows-zig-debug</code>, <code>windows-zig-release</code></td>
+<td>Windows x64 with <code>zig cc</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> unix-debug</span></span></code></pre>
+<p>Without presets:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -S</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> .</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -B</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -G</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> Ninja</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -DCMAKE_BUILD_TYPE=Debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --test-dir</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --output-on-failure</span></span></code></pre>
+<h3 id="debug-builds-and-the-c-stack"><a class="heading-anchor" href="#debug-builds-and-the-c-stack">Debug builds and the C stack</a></h3>
+<p>With Clang (<code>zig cc</code> included), Debug builds compile the <strong>QuickJS library
+itself with <code>-O1</code></strong>: at <code>-O0</code> its interpreter loop needs about 64 KiB of C
+stack per JavaScript call, and QuickJS's 1 MiB stack limit would stop at about
+16 nested calls. Our own code keeps the Debug flags, and QuickJS keeps its
+assertions.</p>
+<h2 id="options"><a class="heading-anchor" href="#options">Options</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QJSNAPI_QUICKJS_DIR</code></td>
+<td><code>../quickjs-build</code></td>
+<td>QuickJS sources, built as a subproject</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_QUICKJS_LIBRARY</code></td>
+<td>empty</td>
+<td>prebuilt <code>libqjs.a</code> when the sources are not available</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_SANITIZE</code></td>
+<td><code>OFF</code></td>
+<td>ASan + UBSan for everything, QuickJS included</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_TSAN</code></td>
+<td><code>OFF</code></td>
+<td>ThreadSanitizer for everything (exclusive with <code>QJSNAPI_SANITIZE</code>)</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_BUILD_TESTS</code></td>
+<td><code>ON</code></td>
+<td>test addons and the CTest suite</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_NODE_ADDON_API_TESTS</code></td>
+<td><code>ON</code></td>
+<td>the node-addon-api suite (8 C++ bindings, about 2 minutes of build)</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_BUILD_SHARED</code></td>
+<td><code>ON</code></td>
+<td>also build the shared library (QuickJS and libuv inside); turns on position-independent code for everything</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_INSTALL_HOST</code></td>
+<td><code>ON</code></td>
+<td>install the <code>quickjs-napi</code> executable</td>
+</tr>
+<tr>
+<td><code>QJSNAPI_QUICKJS_BUILD_REF</code></td>
+<td>empty</td>
+<td>the quickjs-build tag recorded in <code>BUILDINFO.txt</code> (set by the release workflow)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="windows"><a class="heading-anchor" href="#windows">Windows</a></h2>
+<p>QuickJS does not support Microsoft Visual C++: the Visual Studio generators
+(and clang-cl) are rejected at configure time. Use a MinGW-w64 toolchain with
+Ninja, as quickjs-build does.</p>
+<h3 id="zig"><a class="heading-anchor" href="#zig">zig</a></h3>
+<p>Install the zig version in <code>../quickjs-build/.zigversion</code> (for example
+<code>winget install zig.zig</code>). <code>zig</code> must be in <code>PATH</code>, or set the <code>ZIG</code>
+environment variable. Use the presets, which pass the toolchain file:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> windows-zig-debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> windows-zig-debug</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ctest</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preset</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> windows-zig-debug</span></span></code></pre>
+<p>In VS Code (CMake Tools) select the configure preset <em>Windows x64 - zig -
+Debug</em>. Do <strong>not</strong> use a "zig" compiler <em>kit</em>: a kit sets <code>CMAKE_AR=zig;ar</code>
+without the toolchain file, and Ninja then runs the literal command <code>zig;ar</code>
+(<code>error: unknown command: ;ar</code>). If <code>build/</code> still holds a tree configured
+with a kit or a Visual Studio generator (<code>build/CMakeCache.txt</code>), delete it
+once before the first configure.</p>
+<h3 id="msys2"><a class="heading-anchor" href="#msys2">MSYS2</a></h3>
+<p>From a UCRT64 shell (<code>pacman -S mingw-w64-ucrt-x86_64-{gcc,cmake,ninja}</code>),
+use the generic commands above.</p>
+<h3 id="addons-built-with-msvc"><a class="heading-anchor" href="#addons-built-with-msvc">Addons built with MSVC</a></h3>
+<p>Addons compiled with MSVC by node-gyp still load in the MinGW-built
+<code>quickjs-napi.exe</code>: Node-API is a plain C ABI, and node-gyp's delay-load hook
+resolves the <code>napi_*</code> imports from the running executable.</p>
+<h2 id="what-the-build-produces"><a class="heading-anchor" href="#what-the-build-produces">What the build produces</a></h2>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qjsnapi</code></td>
+<td>static library: the Node-API implementation and <code>qjsnapi.h</code></td>
+</tr>
+<tr>
+<td><code>qjsnapi_shared</code></td>
+<td>shared library <code>libqjsnapi.so</code> / <code>libqjsnapi.dylib</code> / <code>qjsnapi.dll</code>: the same sources plus all of QuickJS and libuv (<a href="/projects/quickjs-napi/docs/embedding/#from-a-release-package">embedding.md</a>)</td>
+</tr>
+<tr>
+<td><code>quickjs-napi</code></td>
+<td>the executable (<a href="/projects/quickjs-napi/docs/host/">host.md</a>); exports every <code>napi_*</code> and <code>uv_*</code> symbol</td>
+</tr>
+<tr>
+<td><code>test_embed</code></td>
+<td>the C embedding test</td>
+</tr>
+<tr>
+<td>test addons</td>
+<td><code>test/addons</code>, the Node.js conformance addons, the 8 node-addon-api bindings</td>
+</tr>
+</tbody>
+</table>
+<p>Two JavaScript sources are <strong>embedded as C byte arrays</strong> at build time by
+<code>cmake/embed.cmake</code>: <code>src/buffer.js</code> (into the library) and
+<code>host/bootstrap.js</code> (into the executable). Editing them requires a rebuild,
+not a reinstall.</p>
+<p>How the executable exports its symbols on each platform (whole archive,
+<code>--export-dynamic</code>, <code>__declspec(dllexport)</code>, <code>-undefined dynamic_lookup</code> for
+addons on macOS) is described in <a href="/projects/quickjs-napi/docs/embedding/#linking">embedding.md</a>.</p>
+<p>On Windows, QuickJS has no export annotations: <code>cmake/gen_def.cmake</code> reads
+the symbol index of <code>libqjs.a</code> and writes a <code>.def</code> file listing its
+<code>JS_*</code>, <code>__JS_*</code> and <code>js_*</code> symbols for <code>qjsnapi.dll</code> (the zig linker
+ignores <code>--export-all-symbols</code>).</p>
+<h2 id="installing"><a class="heading-anchor" href="#installing">Installing</a></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -S</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> .</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -B</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -G</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> Ninja</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -DCMAKE_BUILD_TYPE=Release</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -DQJSNAPI_BUILD_TESTS=OFF</span><span style="color:#005CC5;--shiki-dark:#79B8FF">       -DCMAKE_INSTALL_PREFIX=/opt/quickjs-napi</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --build</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cmake</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bin/</code></td>
+<td><code>quickjs-napi</code>; <code>qjsnapi.dll</code> on Windows</td>
+</tr>
+<tr>
+<td><code>include/</code></td>
+<td><code>node_api.h</code>, <code>node_api_types.h</code>, <code>js_native_api.h</code>, <code>js_native_api_types.h</code>, <code>qjsnapi.h</code>, <code>quickjs.h</code>, <code>quickjs-libc.h</code>, <code>uv.h</code>, <code>uv/*.h</code></td>
+</tr>
+<tr>
+<td><code>lib/</code></td>
+<td><code>libqjsnapi.a</code>, <code>libqjs.a</code>, <code>libuv.a</code> (three separate archives); <code>libqjsnapi.so</code> / <code>.dylib</code>; on Windows the import libraries <code>libqjsnapi.dll.a</code> (the DLL) and <code>libquickjs-napi.dll.a</code> (the executable, for MinGW addons)</td>
+</tr>
+<tr>
+<td><code>lib/cmake/qjsnapi/</code></td>
+<td><code>find_package(qjsnapi)</code>, targets in <a href="/projects/quickjs-napi/docs/embedding/#from-a-release-package">embedding.md</a></td>
+</tr>
+<tr>
+<td><code>share/doc/quickjs-napi/</code></td>
+<td><code>LICENSE</code>, <code>licenses/</code> (QuickJS, quickjs-build, libuv), <code>BUILDINFO.txt</code> (version, target, compiler, QuickJS and libuv versions)</td>
+</tr>
+</tbody>
+</table>
+<p><code>test/package/smoke.sh &#x3C;prefix></code> checks an installed tree: it builds
+<code>test/package</code> with <code>find_package</code>, runs the embedding test linked with the
+static archives and with the shared library, a script, and the addons of
+<code>test/js/test_hello.js</code> built with the installed headers only.</p>
+<h2 id="release-packages"><a class="heading-anchor" href="#release-packages">Release packages</a></h2>
+<p><code>.github/workflows/release.yml</code> runs when a GitHub release is <strong>published</strong>
+(or by hand, <code>workflow_dispatch</code>, which does everything but the upload):</p>
+<ol>
+<li><strong>prepare</strong>: reads <code>project(quickjs-napi VERSION x.y.z)</code> from
+<code>CMakeLists.txt</code> and fails if the release tag (<code>x.y.z</code> or <code>vx.y.z</code>)
+differs; picks the latest release of quickjs-build (or the
+<code>quickjs_build_ref</code> input).</li>
+<li><strong>ci</strong>: the whole CI suite (<code>ci.yml</code>) on that quickjs-build.</li>
+<li><strong>build</strong>: one package per platform, Release, tests off, installed and
+zipped as <code>quickjs-napi-&#x3C;version>-&#x3C;platform>.zip</code> (the layout of
+<a href="#installing">Installing</a>).</li>
+<li><strong>smoke</strong>: <code>test/package/smoke.sh</code> on each package, on a machine or
+emulator of its platform.</li>
+<li><strong>publish</strong>: only if everything above passed, uploads the zip files and
+<code>SHA256SUMS</code> to the release.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Built with</th>
+<th>Smoke test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>linux-x86_64</code></td>
+<td>zig, glibc 2.17</td>
+<td>ubuntu, gcc</td>
+</tr>
+<tr>
+<td><code>linux-x86</code></td>
+<td>zig, glibc 2.17</td>
+<td>ubuntu (32-bit), zig</td>
+</tr>
+<tr>
+<td><code>linux-arm64</code></td>
+<td>zig, glibc 2.17</td>
+<td>ubuntu arm64, gcc</td>
+</tr>
+<tr>
+<td><code>linux-armv7</code></td>
+<td>zig, glibc 2.17</td>
+<td>qemu-user</td>
+</tr>
+<tr>
+<td><code>linux-riscv64</code></td>
+<td>zig, glibc 2.27</td>
+<td>qemu-user</td>
+</tr>
+<tr>
+<td><code>linux-x86_64-musl</code>, <code>linux-arm64-musl</code></td>
+<td>zig, musl</td>
+<td>Alpine container, gcc</td>
+</tr>
+<tr>
+<td><code>windows-x86_64</code>, <code>windows-x86</code></td>
+<td>zig, MinGW-w64 UCRT</td>
+<td>windows-latest, zig</td>
+</tr>
+<tr>
+<td><code>windows-arm64</code></td>
+<td>zig, MinGW-w64 UCRT</td>
+<td>windows-11-arm, zig</td>
+</tr>
+<tr>
+<td><code>macos-arm64</code>, <code>macos-x86_64</code></td>
+<td>Apple clang, macOS 11+</td>
+<td>native runners</td>
+</tr>
+<tr>
+<td><code>freebsd-x86_64</code></td>
+<td>zig</td>
+<td>compiled and linked only (no hosted FreeBSD runner)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>musl.</strong> zig links musl executables statically by default, and a static
+musl executable cannot <code>dlopen()</code> addons. The executable is therefore linked
+<strong>dynamically</strong> against the system musl (<code>/lib/ld-musl-&#x3C;arch>.so.1</code>, as on
+Alpine); the libraries are the same as for the other platforms. If a musl
+smoke test fails because of the executable, set <code>-DQJSNAPI_INSTALL_HOST=OFF</code>
+for that package in <code>release.yml</code>: it then holds the headers and libraries
+only (<code>find_package</code> reports <code>QJSNAPI_HAS_HOST</code> false), for embedders.</p>
+<p><strong>Not packaged:</strong> WebAssembly (no <code>dlopen</code>, and libuv does not support WASI),
+builds with MSVC (QuickJS does not compile with it; MSVC addons still load in
+<code>quickjs-napi.exe</code>), Android and iOS.</p>
+<p>To release: bump <code>VERSION</code> in <code>CMakeLists.txt</code>, merge, then publish a
+release whose tag is that version.</p>
+<h2 id="continuous-integration"><a class="heading-anchor" href="#continuous-integration">Continuous integration</a></h2>
+<p><code>.github/workflows/ci.yml</code> runs on every push and pull request, and from the
+release workflow (<code>workflow_call</code>). It builds against the latest
+quickjs-build release, or the <code>quickjs_build_ref</code> input:</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Preset</th>
+<th>Compiler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>linux-gcc-debug</code></td>
+<td><code>unix-debug</code></td>
+<td>gcc</td>
+</tr>
+<tr>
+<td><code>linux-gcc-release</code></td>
+<td><code>unix-release</code></td>
+<td>gcc</td>
+</tr>
+<tr>
+<td><code>linux-clang-debug</code></td>
+<td><code>unix-debug</code></td>
+<td>clang</td>
+</tr>
+<tr>
+<td><code>linux-gcc-asan-ubsan</code></td>
+<td><code>unix-asan</code></td>
+<td>gcc</td>
+</tr>
+<tr>
+<td><code>linux-gcc-tsan</code></td>
+<td><code>unix-tsan</code></td>
+<td>gcc</td>
+</tr>
+<tr>
+<td><code>macos-arm64-debug</code></td>
+<td><code>unix-debug</code></td>
+<td>Apple clang</td>
+</tr>
+<tr>
+<td><code>windows-x64-zig-debug</code></td>
+<td><code>windows-zig-debug</code></td>
+<td>zig cc</td>
+</tr>
+<tr>
+<td><code>windows-x64-zig-release</code></td>
+<td><code>windows-zig-release</code></td>
+<td>zig cc</td>
+</tr>
+</tbody>
+</table>
+<p>The Linux and macOS jobs without sanitizers also run the <code>node_parity_*</code>
+tests under Node.js 22. Each job uploads its CTest log as an artifact.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/building.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/building.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"building","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Building · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: Building (doc/building.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/building/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/architecture/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Architecture"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/compatibility/"}],"nativeButton":false,"children":["Compatibility with Node.js",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","prerequisites",{"className":"","children":["$","a",null,{"href":"#prerequisites","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Prerequisites"}]}],["$","li","presets",{"className":"","children":["$","a",null,{"href":"#presets","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Presets"}]}],["$","li","debug-builds-and-the-c-stack",{"className":"pl-3","children":["$","a",null,{"href":"#debug-builds-and-the-c-stack","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Debug builds and the C stack"}]}],["$","li","options",{"className":"","children":["$","a",null,{"href":"#options","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Options"}]}],["$","li","windows",{"className":"","children":["$","a",null,{"href":"#windows","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Windows"}]}],["$","li","zig",{"className":"pl-3","children":["$","a",null,{"href":"#zig","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"zig"}]}],["$","li","msys2",{"className":"pl-3","children":["$","a",null,{"href":"#msys2","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"MSYS2"}]}],["$","li","addons-built-with-msvc",{"className":"pl-3","children":["$","a",null,{"href":"#addons-built-with-msvc","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Addons built with MSVC"}]}],["$","li","what-the-build-produces",{"className":"","children":["$","a",null,{"href":"#what-the-build-produces","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"What the build produces"}]}],["$","li","installing",{"className":"","children":["$","a",null,{"href":"#installing","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Installing"}]}],["$","li","release-packages",{"className":"","children":["$","a",null,{"href":"#release-packages","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Release packages"}]}],["$","li","continuous-integration",{"className":"","children":["$","a",null,{"href":"#continuous-integration","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Continuous integration"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

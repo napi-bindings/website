@@ -1,0 +1,116 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:T1114,<h1 id="contributing-to-marmotta">Contributing To Marmotta</h1>
+<p><a id="contributing"></a></p>
+<p>Thank you for taking an interest in contributing to Marmotta. We are excited to
+receive your support and knowledge. This guide is our attempt to help you help
+us.</p>
+<blockquote>
+<h2 id="note"><a class="heading-anchor" href="#note">Note</a></h2>
+<p>This is an informal guide. For full details, please review the formal
+<a href="/projects/marmotta/docs/contributing/">CONTRIBUTING
+document</a>
+and our <a href="https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin" target="_blank" rel="noreferrer noopener">Developer Certificate of
+Origin</a>.</p>
+</blockquote>
+<h2 id="table-of-contents"><a class="heading-anchor" href="#table-of-contents">Table Of Contents</a></h2>
+<p><a id="contributing-toc"></a></p>
+<ul>
+<li><a href="#table-of-contents">Table Of Contents</a></li>
+<li><a href="#types-of-contributions-were-looking-for">Types Of Contributions We're Looking
+For</a></li>
+<li><a href="#ground-rules--expectations">Ground Rules &#x26; Expectations</a></li>
+<li><a href="#how-to-contribute">How To Contribute</a></li>
+<li><a href="#setting-up-your-environment">Setting Up Your Environment</a></li>
+</ul>
+<h2 id="types-of-contributions-were-looking-for"><a class="heading-anchor" href="#types-of-contributions-were-looking-for">Types Of Contributions We're Looking For</a></h2>
+<p><a id="contribution-types"></a></p>
+<p>In short, we welcome any type of contribution you are willing to provide. No
+contribution is too small. We gladly accept contributions such as:</p>
+<ul>
+<li>Documentation improvements: from small typo corrections to major document
+reworks</li>
+<li>Helping others by answering questions in pull requests and issues</li>
+<li>Fixing <a href="https://github.com/napi-bindings/marmotta/issues?q=is%3Aissue+is%3Aopen+label%3Abug" target="_blank" rel="noreferrer noopener">known
+bugs</a></li>
+<li>Reporting previously unknown bugs by opening an issue with a minimal
+reproduction</li>
+</ul>
+<h2 id="ground-rules--expectations"><a class="heading-anchor" href="#ground-rules--expectations">Ground Rules &#x26; Expectations</a></h2>
+<p><a id="contributing-rules"></a></p>
+<p>Before we get started, here are a few things we expect from you (and that you
+should expect from others):</p>
+<ul>
+<li>Be respectful and thoughtful in your conversations around this project. This
+project is maintained by a diverse set of people from all across the globe.
+Each person has their own views and opinions about the project. Try to listen
+to each other and reach an agreement or compromise.</li>
+<li>We have a <a href="https://github.com/napi-bindings/marmotta/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noreferrer noopener">Code of
+Conduct</a>. You
+must adhere to it to participate in this project.</li>
+<li>If you open a pull request, please ensure your contribution passes all
+tests. If there are test failures, you will need to address them before we can
+merge your contribution.</li>
+</ul>
+<h2 id="how-to-contribute"><a class="heading-anchor" href="#how-to-contribute">How To Contribute</a></h2>
+<p><a id="contributing-how-to"></a></p>
+<p>If you'd like to contribute, start by searching through the
+<a href="https://github.com/napi-bindings/marmotta/issues" target="_blank" rel="noreferrer noopener">issues</a> and <a href="https://github.com/napi-bindings/marmotta/pulls" target="_blank" rel="noreferrer noopener">pull
+requests</a> to see whether someone else
+has raised a similar idea or question.</p>
+<p>If you don't see your idea listed, and you think it fits into the goals of this
+guide, do one of the following:</p>
+<ul>
+<li><strong>If your contribution is minor,</strong> such as a typo fix, open a pull request.</li>
+<li><strong>If your contribution is major,</strong> such as a new feature, start by opening an
+issue first. That way, other people can weigh in on the discussion before you
+do any work.</li>
+</ul>
+<h2 id="setting-up-your-environment"><a class="heading-anchor" href="#setting-up-your-environment">Setting Up Your Environment</a></h2>
+<p><a id="contributing-environment"></a></p>
+<p>Please adhere to the project's code and <a href="/projects/marmotta/docs/style-guide/">documentation</a>
+style. Some popular tools that automatically "correct" code and documentation
+do not follow a style that conforms to this project's styles.</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"docs/contributing.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/marmotta/edit/main/docs/contributing.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"docs/contributing","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Contributing To Marmotta","href":"/projects/marmotta/docs/docs/contributing/"},{"title":"Marmotta Style Guide","href":"/projects/marmotta/docs/style-guide/"}]},{"title":"packaging/","items":[{"title":"Packaging Marmotta","href":"/projects/marmotta/docs/packaging/"}]},{"title":"Repository","items":[{"title":"Marmotta is an OPEN Open Source Project","href":"/projects/marmotta/docs/contributing/"},{"title":"Marmotta Project Governance","href":"/projects/marmotta/docs/governance/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"marmotta","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Contributing To Marmotta · Marmotta · napi-bindings"}],["$","meta","1",{"name":"description","content":"Marmotta documentation: Contributing To Marmotta (docs/contributing.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/marmotta/docs/docs/contributing/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+2a:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","span",null,{}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/marmotta/docs/style-guide/"}],"nativeButton":false,"children":["Marmotta Style Guide",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","note",{"className":"","children":["$","a",null,{"href":"#note","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Note"}]}],["$","li","table-of-contents",{"className":"","children":["$","a",null,{"href":"#table-of-contents","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Table Of Contents"}]}],["$","li","types-of-contributions-were-looking-for",{"className":"","children":["$","a",null,{"href":"#types-of-contributions-were-looking-for","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Types Of Contributions We're Looking For"}]}],["$","li","ground-rules--expectations",{"className":"","children":["$","a",null,{"href":"#ground-rules--expectations","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Ground Rules & Expectations"}]}],["$","li","how-to-contribute",{"className":"","children":["$","a",null,{"href":"#how-to-contribute","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"How To Contribute"}]}],["$","li","setting-up-your-environment",{"className":"","children":["$","a",null,{"href":"#setting-up-your-environment","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Setting Up Your Environment"}]}]]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L2a",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+27:true
+11:300
+2b:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

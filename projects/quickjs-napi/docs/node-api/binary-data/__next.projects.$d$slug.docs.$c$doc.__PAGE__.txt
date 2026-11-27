@@ -1,0 +1,342 @@
+4:"$Sreact.fragment"
+5:"/_next/static/chunks/12u-784tq2ksj.js"
+6:"/_next/static/chunks/3_pjbco4yfzj2.js"
+7:"/_next/static/chunks/0itd6eiroz8sa.js"
+8:"/_next/static/chunks/0i0ntshnaeeix.js"
+9:"/_next/static/chunks/3pcblro4gce7n.js"
+a:"/_next/static/chunks/2i7p862aqiwl7.js"
+b:"/_next/static/chunks/3y068am0pzdwl.js"
+c:"/_next/static/chunks/2fuj_95i-d-bm.js"
+d:I[35429,["$5","$6","$7","$8","$9","$a","$b","$c"],"DocsSidebar"]
+e:I[39756,["$5","$6","$7","$8","$9","$a"],"default"]
+f:I[37457,["$5","$6","$7","$8","$9","$a"],"default"]
+16:"/_next/static/chunks/1z5smpjjdajgk.js"
+17:I[5014,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"default"]
+18:I[73435,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Markdown"]
+1f:"ViewportBoundary"
+20:I[97367,["$5","$6","$7","$8","$9","$a"],"$1f"]
+21:"MetadataBoundary"
+22:I[97367,["$5","$6","$7","$8","$9","$a"],"$21"]
+23:"$Sreact.suspense"
+24:I[27201,["$5","$6","$7","$8","$9","$a"],"IconMark"]
+11:X
+14:X
+14:C
+19:Tc070,<h1 id="arraybuffer-typedarray-dataview-bigint-date-promise">ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise</h1>
+<p><a href="/projects/quickjs-napi/docs/node-api/">Node-API reference</a> › Binary data and builtins</p>
+<p>Implemented in <code>src/builtins.c</code>. Semantics follow Node.js 22.23 / V8 and are
+checked against Node.js by <code>test/js/test_binary.js</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayBuffer</td>
+<td><a href="#napi_create_arraybuffer"><code>napi_create_arraybuffer</code></a>, <a href="#napi_create_external_arraybuffer"><code>napi_create_external_arraybuffer</code></a>, <a href="#napi_is_arraybuffer"><code>napi_is_arraybuffer</code></a>, <a href="#napi_get_arraybuffer_info"><code>napi_get_arraybuffer_info</code></a>, <a href="#napi_detach_arraybuffer"><code>napi_detach_arraybuffer</code></a>, <a href="#napi_is_detached_arraybuffer"><code>napi_is_detached_arraybuffer</code></a></td>
+</tr>
+<tr>
+<td>TypedArray</td>
+<td><a href="#napi_create_typedarray"><code>napi_create_typedarray</code></a>, <a href="#napi_is_typedarray"><code>napi_is_typedarray</code></a>, <a href="#napi_get_typedarray_info"><code>napi_get_typedarray_info</code></a></td>
+</tr>
+<tr>
+<td>DataView</td>
+<td><a href="#napi_create_dataview"><code>napi_create_dataview</code></a>, <a href="#napi_is_dataview"><code>napi_is_dataview</code></a>, <a href="#napi_get_dataview_info"><code>napi_get_dataview_info</code></a></td>
+</tr>
+<tr>
+<td>BigInt</td>
+<td><a href="#napi_create_bigint_int64"><code>napi_create_bigint_int64</code></a>, <a href="#napi_create_bigint_uint64"><code>napi_create_bigint_uint64</code></a>, <a href="#napi_create_bigint_words"><code>napi_create_bigint_words</code></a>, <a href="#napi_get_value_bigint_int64"><code>napi_get_value_bigint_int64</code></a>, <a href="#napi_get_value_bigint_uint64"><code>napi_get_value_bigint_uint64</code></a>, <a href="#napi_get_value_bigint_words"><code>napi_get_value_bigint_words</code></a></td>
+</tr>
+<tr>
+<td>Date</td>
+<td><a href="#napi_create_date"><code>napi_create_date</code></a>, <a href="#napi_is_date"><code>napi_is_date</code></a>, <a href="#napi_get_date_value"><code>napi_get_date_value</code></a></td>
+</tr>
+<tr>
+<td>Promise</td>
+<td><a href="#napi_create_promise"><code>napi_create_promise</code></a>, <a href="#napi_resolve_deferred"><code>napi_resolve_deferred</code></a>, <a href="#napi_reject_deferred"><code>napi_reject_deferred</code></a>, <a href="#napi_is_promise"><code>napi_is_promise</code></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementation-notes"><a class="heading-anchor" href="#implementation-notes">Implementation notes</a></h2>
+<ul>
+<li><strong>Type checks use class IDs.</strong> QuickJS does not export its class ID enum, so
+the IDs of <code>ArrayBuffer</code>, <code>SharedArrayBuffer</code>, <code>DataView</code>, <code>Date</code> and the
+typed arrays are found at startup by probing one instance of each. A check
+such as <code>napi_is_date</code> is therefore exact: an object whose prototype is
+<code>Date.prototype</code> is not a Date, and a Date from another realm is one.</li>
+<li><strong>Accessors are captured.</strong> The <code>DataView</code> and <code>%TypedArray%</code> getters,
+<code>Date.prototype.getTime</code> and the <code>ArrayBuffer</code> / <code>DataView</code> constructors are
+captured before any user code runs: patching the globals has no effect.</li>
+<li><strong>Pointers into buffers stay valid while the buffer is alive and not
+detached.</strong> QuickJS never moves ArrayBuffer memory, but resizing a
+resizable ArrayBuffer may reallocate it: read <code>data</code> again after JavaScript
+ran.</li>
+</ul>
+<pre class="mermaid">flowchart LR
+    AB["ArrayBuffer&#x3C;br/>(or SharedArrayBuffer)"] --> TA["TypedArray&#x3C;br/>type, byte_offset, length"]
+    AB --> DV["DataView&#x3C;br/>byte_offset, byte_length"]
+    AB --> BUF["Buffer&#x3C;br/>(Uint8Array subclass,&#x3C;br/>see node-specific.md)"]
+    TA -. "data = buffer data + byte_offset" .-> AB
+</pre>
+<hr>
+<h2 id="arraybuffer"><a class="heading-anchor" href="#arraybuffer">ArrayBuffer</a></h2>
+<h3 id="napi_create_arraybuffer"><a class="heading-anchor" href="#napi_create_arraybuffer"><code>napi_create_arraybuffer</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> byte_length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                    void</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a <strong>zero-filled</strong> ArrayBuffer of <code>byte_length</code> bytes (through the
+<code>ArrayBuffer</code> constructor, so QuickJS's size limits apply: too large a size
+throws a <code>RangeError</code>, <code>napi_pending_exception</code>). <code>data</code> (optional) receives
+a pointer to the contents, <code>NULL</code> for a zero-length buffer.</p>
+<h3 id="napi_create_external_arraybuffer"><a class="heading-anchor" href="#napi_create_external_arraybuffer"><code>napi_create_external_arraybuffer</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_external_arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">external_data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> byte_length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    node_api_basic_finalize </span><span style="color:#E36209;--shiki-dark:#FFAB70">finalize_cb</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">finalize_hint</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates an ArrayBuffer over memory owned by the addon. The memory is <strong>used in
+place</strong>, never copied nor freed by QuickJS. When the ArrayBuffer is collected,
+<code>finalize_cb(env, external_data, finalize_hint)</code> runs (queued, from the
+event loop, as in Node.js), and the addon frees the memory there.</p>
+<p><code>external_data == NULL</code> creates a buffer that reads as <strong>detached</strong> (V8 has
+no backing store for <code>NULL</code> data).</p>
+<h3 id="napi_is_arraybuffer"><a class="heading-anchor" href="#napi_is_arraybuffer"><code>napi_is_arraybuffer</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> for an <code>ArrayBuffer</code> (detached ones included). <code>false</code> for a
+<code>SharedArrayBuffer</code>, as in V8.</p>
+<h3 id="napi_get_arraybuffer_info"><a class="heading-anchor" href="#napi_get_arraybuffer_info"><code>napi_get_arraybuffer_info</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_arraybuffer_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                      void</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">byte_length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the contents pointer and size; both outputs are optional. Accepts an
+<code>ArrayBuffer</code> or, like Node.js 22.23, a <code>SharedArrayBuffer</code>
+(<code>napi_invalid_arg</code> for anything else). An empty or detached buffer has
+<code>data == NULL</code> and length 0. For a resizable buffer the current length is
+reported.</p>
+<h3 id="napi_detach_arraybuffer"><a class="heading-anchor" href="#napi_detach_arraybuffer"><code>napi_detach_arraybuffer</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_detach_arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Detaches an ArrayBuffer, as <code>structuredClone(ab, {transfer: [ab]})</code> would:
+its length becomes 0 and every view on it reads as empty.
+<code>napi_arraybuffer_expected</code> for anything other than an <code>ArrayBuffer</code> (every
+non-shared QuickJS ArrayBuffer is detachable). Detaching an external buffer
+does not run its finalizer early; the finalizer still runs when the object is
+collected.</p>
+<h3 id="napi_is_detached_arraybuffer"><a class="heading-anchor" href="#napi_is_detached_arraybuffer"><code>napi_is_detached_arraybuffer</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_detached_arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                         bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> when <code>value</code> is an <code>ArrayBuffer</code> that has been detached, like V8's
+<code>WasDetached()</code>; <code>false</code> for any other value.</p>
+<h2 id="typedarray"><a class="heading-anchor" href="#typedarray">TypedArray</a></h2>
+<p>Supported types (<code>napi_typedarray_type</code>): <code>napi_int8_array</code>,
+<code>napi_uint8_array</code>, <code>napi_uint8_clamped_array</code>, <code>napi_int16_array</code>,
+<code>napi_uint16_array</code>, <code>napi_int32_array</code>, <code>napi_uint32_array</code>,
+<code>napi_float32_array</code>, <code>napi_float64_array</code>, <code>napi_bigint64_array</code>,
+<code>napi_biguint64_array</code> and <code>napi_float16_array</code>.</p>
+<p><code>napi_float16_array</code> is supported because QuickJS has <code>Float16Array</code>;
+Node.js 22 returns <code>napi_invalid_arg</code> for it.</p>
+<h3 id="napi_create_typedarray"><a class="heading-anchor" href="#napi_create_typedarray"><code>napi_create_typedarray</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_typedarray</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_typedarray_type </span><span style="color:#E36209;--shiki-dark:#FFAB70">type</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> byte_offset</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a typed array of <code>length</code> elements over <code>arraybuffer</code> (an
+<code>ArrayBuffer</code> or a <code>SharedArrayBuffer</code>), starting at <code>byte_offset</code>. Errors are
+the same <code>RangeError</code>s as in Node.js, thrown with the function returning
+<code>napi_generic_failure</code> and the exception pending:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Code</th>
+<th>Message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>byte_offset</code> not a multiple of the element size</td>
+<td><code>ERR_NAPI_INVALID_TYPEDARRAY_ALIGNMENT</code></td>
+<td><code>start offset of Int32Array should be a multiple of 4</code></td>
+</tr>
+<tr>
+<td><code>byte_offset + length * size</code> beyond the buffer</td>
+<td><code>ERR_NAPI_INVALID_TYPEDARRAY_LENGTH</code></td>
+<td><code>Invalid typed array length</code></td>
+</tr>
+</tbody>
+</table>
+<p>An unknown <code>type</code> or a non-buffer <code>arraybuffer</code> gives <code>napi_invalid_arg</code>.</p>
+<h3 id="napi_is_typedarray"><a class="heading-anchor" href="#napi_is_typedarray"><code>napi_is_typedarray</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_typedarray</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> for an instance of any of the 12 typed array types, Buffers included.
+<code>false</code> for a DataView.</p>
+<h3 id="napi_get_typedarray_info"><a class="heading-anchor" href="#napi_get_typedarray_info"><code>napi_get_typedarray_info</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_typedarray_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">typedarray</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                     napi_typedarray_type </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">type</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                     size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                     napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                     size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">byte_offset</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores, for every non-<code>NULL</code> output: the element type, the length <strong>in
+elements</strong>, a pointer to the first element (buffer data + offset), the
+underlying ArrayBuffer and the byte offset. <code>napi_invalid_arg</code> when
+<code>typedarray</code> is not a typed array.</p>
+<ul>
+<li>A view whose buffer is detached, or that is out of bounds after its
+resizable buffer shrank, reports length 0.</li>
+<li>A length-tracking view (created without a length on a resizable buffer)
+reports its current length.</li>
+<li>For an out-of-bounds, non-detached view the byte offset is reported as 0;
+V8 reports the stored offset, which QuickJS does not expose.</li>
+</ul>
+<h2 id="dataview"><a class="heading-anchor" href="#dataview">DataView</a></h2>
+<h3 id="napi_create_dataview"><a class="heading-anchor" href="#napi_create_dataview"><code>napi_create_dataview</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_dataview</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> length</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                 napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> byte_offset</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                 napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a DataView of <code>length</code> bytes over an <code>ArrayBuffer</code>, starting at
+<code>byte_offset</code> (<code>napi_invalid_arg</code> for anything other than an ArrayBuffer).
+When the range exceeds the buffer, throws a <code>RangeError</code> with code
+<code>ERR_NAPI_INVALID_DATAVIEW_ARGS</code> ("byte_offset + byte_length should be less
+than or equal to the size in bytes of the array passed in") and returns
+<code>napi_pending_exception</code>, as in Node.js.</p>
+<h3 id="napi_is_dataview"><a class="heading-anchor" href="#napi_is_dataview"><code>napi_is_dataview</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_dataview</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> for a DataView.</p>
+<h3 id="napi_get_dataview_info"><a class="heading-anchor" href="#napi_get_dataview_info"><code>napi_get_dataview_info</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_dataview_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">dataview</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">bytelength</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#D73A49;--shiki-dark:#F97583"> **</span><span style="color:#E36209;--shiki-dark:#FFAB70">data</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">arraybuffer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                   size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">byte_offset</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores, for every non-<code>NULL</code> output: the length in bytes, a pointer to the
+first byte, the underlying ArrayBuffer and the byte offset. On a detached
+buffer, length and offset are 0, as V8 reports. <code>napi_invalid_arg</code> when
+<code>dataview</code> is not a DataView.</p>
+<h2 id="bigint"><a class="heading-anchor" href="#bigint">BigInt</a></h2>
+<p>QuickJS limits a BigInt to <strong>2^20 bits</strong> (16384 64-bit words); V8 allows 2^30.</p>
+<h3 id="napi_create_bigint_int64"><a class="heading-anchor" href="#napi_create_bigint_int64"><code>napi_create_bigint_int64</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_bigint_int64</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int64_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                     napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a BigInt from a signed 64-bit integer.</p>
+<h3 id="napi_create_bigint_uint64"><a class="heading-anchor" href="#napi_create_bigint_uint64"><code>napi_create_bigint_uint64</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_bigint_uint64</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">uint64_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                      napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a BigInt from an unsigned 64-bit integer.</p>
+<h3 id="napi_create_bigint_words"><a class="heading-anchor" href="#napi_create_bigint_words"><code>napi_create_bigint_words</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_bigint_words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> sign_bit</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                     size_t</span><span style="color:#E36209;--shiki-dark:#FFAB70"> word_count</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">const</span><span style="color:#D73A49;--shiki-dark:#F97583"> uint64_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                     napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a BigInt from its magnitude as little-endian 64-bit words (<code>words[0]</code>
+is the least significant) and a sign (<code>sign_bit != 0</code> for negative). Zero
+words, or words that are all zero, give <code>0n</code> whatever the sign.</p>
+<ul>
+<li><code>word_count > INT_MAX</code>: <code>napi_invalid_arg</code>.</li>
+<li><code>word_count</code> above 16384: <code>RangeError: Maximum BigInt size exceeded</code>, with
+<code>napi_pending_exception</code>, checked before <code>words</code> is read (V8 throws the
+same error past its own limit).</li>
+<li>The conversion goes through a hexadecimal string: O(n) in the number of
+words.</li>
+</ul>
+<h3 id="napi_get_value_bigint_int64"><a class="heading-anchor" href="#napi_get_value_bigint_int64"><code>napi_get_value_bigint_int64</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_bigint_int64</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                        int64_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">lossless</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the BigInt modulo 2^64 as a signed integer (two's complement), and
+<code>*lossless = true</code> when that is exactly the value. Both outputs are required.
+<code>napi_bigint_expected</code> when <code>value</code> is not a BigInt.</p>
+<h3 id="napi_get_value_bigint_uint64"><a class="heading-anchor" href="#napi_get_value_bigint_uint64"><code>napi_get_value_bigint_uint64</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_bigint_uint64</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                         uint64_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">lossless</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Same, as an unsigned integer (<code>-1n</code> gives <code>UINT64_MAX</code>, not lossless).</p>
+<h3 id="napi_get_value_bigint_words"><a class="heading-anchor" href="#napi_get_value_bigint_words"><code>napi_get_value_bigint_words</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_bigint_words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                        int</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">sign_bit</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">word_count</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                        uint64_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Reads a BigInt as sign and magnitude words, like V8's
+<code>BigInt::ToWordsArray</code>:</p>
+<ul>
+<li><strong>Count only:</strong> with <code>sign_bit</code> and <code>words</code> both <code>NULL</code>, stores in
+<code>*word_count</code> the number of words the value needs.</li>
+<li><strong>Read:</strong> <code>*word_count</code> is the capacity of <code>words</code> on input. The low words
+that fit are written; on output <code>*word_count</code> is the number of words the
+value needs (which may be more than were written). <code>*sign_bit</code> is 1 for a
+negative value.</li>
+<li><code>0n</code> has no words and sign 0.</li>
+</ul>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">size_t</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> n;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_bigint_words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, value, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">n</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">uint64_t</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#24292E;--shiki-dark:#E1E4E8">w </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(n </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#D73A49;--shiki-dark:#F97583"> sizeof</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">w</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> sign;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_bigint_words</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, value, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">sign</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">n</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, w);</span></span></code></pre>
+<h2 id="date"><a class="heading-anchor" href="#date">Date</a></h2>
+<h3 id="napi_create_date"><a class="heading-anchor" href="#napi_create_date"><code>napi_create_date</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">double</span><span style="color:#E36209;--shiki-dark:#FFAB70"> time</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a Date from milliseconds since the epoch. <code>TimeClip</code> applies: values
+beyond ±8.64e15 or non-finite give an invalid date (<code>NaN</code> time), as in V8.</p>
+<h3 id="napi_is_date"><a class="heading-anchor" href="#napi_is_date"><code>napi_is_date</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">is_date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> for a Date object.</p>
+<h3 id="napi_get_date_value"><a class="heading-anchor" href="#napi_get_date_value"><code>napi_get_date_value</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_date_value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                double</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">result</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Stores the time value in milliseconds (<code>NaN</code> for an invalid date), using the
+<code>Date.prototype.getTime</code> captured at startup. <code>napi_date_expected</code> when
+<code>value</code> is not a Date.</p>
+<h2 id="promise"><a class="heading-anchor" href="#promise">Promise</a></h2>
+<p>A <code>napi_deferred</code> is the pair of resolving functions of a new promise. It is
+<strong>released by the first resolve or reject</strong>; deferreds never concluded are
+freed at teardown.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_deferred deferred;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_value promise;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#E36209;--shiki-dark:#FFAB70">promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/* return `promise` to JavaScript; later, e.g. in an async work complete: */</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_resolve_deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, deferred, value);</span></span></code></pre>
+<h3 id="napi_create_promise"><a class="heading-anchor" href="#napi_create_promise"><code>napi_create_promise</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_deferred </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                napi_value </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70">promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Creates a pending promise and its deferred. Both outputs are required.</p>
+<h3 id="napi_resolve_deferred"><a class="heading-anchor" href="#napi_resolve_deferred"><code>napi_resolve_deferred</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_resolve_deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_deferred </span><span style="color:#E36209;--shiki-dark:#FFAB70">deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                  napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">resolution</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Resolves the promise with <code>resolution</code> (a thenable is followed, as with the
+<code>resolve</code> function of <code>new Promise</code>) and frees the deferred. Reactions run at
+the next microtask checkpoint, not synchronously.</p>
+<h3 id="napi_reject_deferred"><a class="heading-anchor" href="#napi_reject_deferred"><code>napi_reject_deferred</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_reject_deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_deferred </span><span style="color:#E36209;--shiki-dark:#FFAB70">deferred</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                 napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">rejection</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p>Rejects the promise with <code>rejection</code> and frees the deferred. A rejection
+nobody handles is reported by the host as an unhandled rejection.</p>
+<h3 id="napi_is_promise"><a class="heading-anchor" href="#napi_is_promise"><code>napi_is_promise</code></a></h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">napi_status </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_is_promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">value</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">bool</span><span style="color:#D73A49;--shiki-dark:#F97583"> *</span><span style="color:#E36209;--shiki-dark:#FFAB70">is_promise</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);</span></span></code></pre>
+<p><code>true</code> for a native Promise object (not for other thenables).</p>15:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$4","c",{"children":[["$","div",null,{"className":"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]","children":[["$","article",null,{"className":"flex min-w-0 flex-col gap-8","children":[["$","div",null,{"className":"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs","children":[["$","span",null,{"className":"font-mono","children":"doc/node-api/binary-data.md"}],["$","a",null,{"href":"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/binary-data.md","target":"_blank","rel":"noreferrer","className":"hover:text-foreground flex items-center gap-1","children":[["$","$L17",null,{"icon":{"name":"pencil","size":24,"node":[["path",{"d":"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z","key":"1a8usu"}],["path",{"d":"m15 5 4 4","key":"1mk7zo"}]]},"className":"size-3"}],"Edit on GitHub"]}]]}],["$","$L18",null,{"html":"$19"}],"$L1a"]}],"$L1b"]}],["$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$11"}}]]
+12:[["children",{"s":{"n":"doc","t":"c","k":"node-api/binary-data","s":[]},"h":65632,"d":{"r":["$","$4","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@13","v":"$14","s":"$11"},"c":"$Q15"}]]
+3:[["children",{"s":"docs","h":131136,"d":{"r":["$","$4","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2fuj_95i-d-bm.js","async":true}]],["$","div",null,{"className":"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]","children":[["$","aside",null,{"children":["$","div",null,{"className":"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8","children":["$","$Ld",null,{"groups":[{"title":"Documentation","items":[{"title":"Node-API reference","href":"/projects/quickjs-napi/docs/node-api/"},{"title":"Architecture","href":"/projects/quickjs-napi/docs/architecture/"},{"title":"Building","href":"/projects/quickjs-napi/docs/building/"},{"title":"Compatibility with Node.js","href":"/projects/quickjs-napi/docs/compatibility/"},{"title":"Embedding API (qjsnapi.h)","href":"/projects/quickjs-napi/docs/embedding/"},{"title":"The quickjs-napi executable","href":"/projects/quickjs-napi/docs/host/"},{"title":"Testing","href":"/projects/quickjs-napi/docs/testing/"},{"title":"Async work, thread-safe functions and the event loop","href":"/projects/quickjs-napi/docs/node-api/async/"},{"title":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise","href":"/projects/quickjs-napi/docs/node-api/binary-data/"},{"title":"Environment, versions and cleanup hooks","href":"/projects/quickjs-napi/docs/node-api/environment/"},{"title":"Errors and exceptions","href":"/projects/quickjs-napi/docs/node-api/errors/"},{"title":"Functions, classes and scripts","href":"/projects/quickjs-napi/docs/node-api/functions/"},{"title":"References, externals, wrapping and finalizers","href":"/projects/quickjs-napi/docs/node-api/lifetime/"},{"title":"Buffers, async context and callback scopes","href":"/projects/quickjs-napi/docs/node-api/node-specific/"},{"title":"Objects and properties","href":"/projects/quickjs-napi/docs/node-api/objects/"},{"title":"Handle scopes","href":"/projects/quickjs-napi/docs/node-api/scopes/"},{"title":"Strings, property keys and symbols","href":"/projects/quickjs-napi/docs/node-api/strings/"},{"title":"Values","href":"/projects/quickjs-napi/docs/node-api/values/"}]},{"title":"test/","items":[{"title":"Node.js conformance tests","href":"/projects/quickjs-napi/docs/test/node/"},{"title":"node-addon-api test suite","href":"/projects/quickjs-napi/docs/test/node-addon-api/harness/"},{"title":"Writing Tests","href":"/projects/quickjs-napi/docs/test/node-addon-api/test/"}]}]}]}]}],["$","div",null,{"className":"min-w-0","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]]}]]}],"p":"$@10","v":null,"s":"$11"},"c":"$Q12"}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quickjs-napi","s":[]},"h":196640,"c":"$Q3"}]]
+1:[["children",{"s":"projects","h":131136,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$4","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#ffffff","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#0a0a0a","media":"(prefers-color-scheme: dark)"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise · quickjs-napi · napi-bindings"}],["$","meta","1",{"name":"description","content":"quickjs-napi documentation: ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise (doc/node-api/binary-data.md)."}],["$","meta","2",{"name":"keywords","content":"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"}],["$","link","3",{"rel":"canonical","href":"https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/binary-data/"}],["$","meta","4",{"property":"og:title","content":"napi-bindings — Node-API hub"}],["$","meta","5",{"property":"og:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","6",{"property":"og:url","content":"https://www.napi-bindings.dev/"}],["$","meta","7",{"property":"og:site_name","content":"napi-bindings"}],["$","meta","8",{"property":"og:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","meta","9",{"property":"og:type","content":"website"}],["$","meta","10",{"name":"twitter:card","content":"summary"}],["$","meta","11",{"name":"twitter:title","content":"napi-bindings — Node-API hub"}],["$","meta","12",{"name":"twitter:description","content":"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."}],["$","meta","13",{"name":"twitter:image","content":"https://www.napi-bindings.dev/logo.png"}],["$","link","14",{"rel":"icon","href":"/icon.png?icon.13adeud8qqvkc.png","sizes":"64x64","type":"image/png"}],["$","link","15",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png","sizes":"180x180","type":"image/png"}],["$","$L24","16",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@25","v":null,"s":"$11"}},"a":"$@26","u":"$@27","b":"XLsO23O1VrcXmmGnGlZN_"}
+28:I[27930,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],"Button"]
+29:I[22016,["$5","$6","$7","$8","$9","$a","$b","$c","$16"],""]
+38:I[97367,["$5","$6","$7","$8","$9","$a"],"OutletBoundary"]
+1a:["$","nav",null,{"className":"flex justify-between gap-4 border-t pt-6","children":[["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/async/"}],"nativeButton":false,"children":[["$","$L17",null,{"icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"data-icon":"inline-start"}],"Async work, thread-safe functions and the event loop"]}],["$","$L28",null,{"data-slot":"button","className":"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2","render":["$","$L29",null,{"href":"/projects/quickjs-napi/docs/node-api/environment/"}],"nativeButton":false,"children":["Environment, versions and cleanup hooks",["$","$L17",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"data-icon":"inline-end"}]]}]]}]
+1b:["$","aside",null,{"className":"hidden xl:block","children":["$","div",null,{"className":"sticky top-20","children":["$","nav",null,{"aria-label":"On this page","className":"flex flex-col gap-2 text-sm","children":[["$","p",null,{"className":"font-medium","children":"On this page"}],["$","ul",null,{"className":"flex flex-col gap-1.5","children":[["$","li","implementation-notes",{"className":"","children":["$","a",null,{"href":"#implementation-notes","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Implementation notes"}]}],["$","li","arraybuffer",{"className":"","children":["$","a",null,{"href":"#arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"ArrayBuffer"}]}],["$","li","napi_create_arraybuffer",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_arraybuffer"}]}],["$","li","napi_create_external_arraybuffer",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_external_arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_external_arraybuffer"}]}],["$","li","napi_is_arraybuffer",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_arraybuffer"}]}],["$","li","napi_get_arraybuffer_info",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_arraybuffer_info","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_arraybuffer_info"}]}],["$","li","napi_detach_arraybuffer",{"className":"pl-3","children":["$","a",null,{"href":"#napi_detach_arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_detach_arraybuffer"}]}],["$","li","napi_is_detached_arraybuffer",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_detached_arraybuffer","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_detached_arraybuffer"}]}],["$","li","typedarray",{"className":"","children":["$","a",null,{"href":"#typedarray","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"TypedArray"}]}],["$","li","napi_create_typedarray",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_typedarray","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_typedarray"}]}],["$","li","napi_is_typedarray",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_typedarray","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_typedarray"}]}],["$","li","napi_get_typedarray_info",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_typedarray_info","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_typedarray_info"}]}],["$","li","dataview",{"className":"","children":["$","a",null,{"href":"#dataview","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"DataView"}]}],["$","li","napi_create_dataview",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_dataview","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_dataview"}]}],["$","li","napi_is_dataview",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_dataview","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_dataview"}]}],["$","li","napi_get_dataview_info",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_dataview_info","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_dataview_info"}]}],["$","li","bigint",{"className":"","children":["$","a",null,{"href":"#bigint","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"BigInt"}]}],["$","li","napi_create_bigint_int64",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_bigint_int64","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_bigint_int64"}]}],"$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30","$L31","$L32","$L33","$L34","$L35","$L36","$L37"]}]]}]}]}]
+1c:["$","script","script-0",{"src":"/_next/static/chunks/1z5smpjjdajgk.js","async":true}]
+1d:["$","$L38",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@39"}]}]
+27:true
+11:300
+2a:["$","li","napi_create_bigint_uint64",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_bigint_uint64","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_bigint_uint64"}]}]
+2b:["$","li","napi_create_bigint_words",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_bigint_words","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_bigint_words"}]}]
+2c:["$","li","napi_get_value_bigint_int64",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_value_bigint_int64","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_value_bigint_int64"}]}]
+2d:["$","li","napi_get_value_bigint_uint64",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_value_bigint_uint64","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_value_bigint_uint64"}]}]
+2e:["$","li","napi_get_value_bigint_words",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_value_bigint_words","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_value_bigint_words"}]}]
+2f:["$","li","date",{"className":"","children":["$","a",null,{"href":"#date","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Date"}]}]
+30:["$","li","napi_create_date",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_date","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_date"}]}]
+31:["$","li","napi_is_date",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_date","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_date"}]}]
+32:["$","li","napi_get_date_value",{"className":"pl-3","children":["$","a",null,{"href":"#napi_get_date_value","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_get_date_value"}]}]
+33:["$","li","promise",{"className":"","children":["$","a",null,{"href":"#promise","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"Promise"}]}]
+34:["$","li","napi_create_promise",{"className":"pl-3","children":["$","a",null,{"href":"#napi_create_promise","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_create_promise"}]}]
+35:["$","li","napi_resolve_deferred",{"className":"pl-3","children":["$","a",null,{"href":"#napi_resolve_deferred","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_resolve_deferred"}]}]
+36:["$","li","napi_reject_deferred",{"className":"pl-3","children":["$","a",null,{"href":"#napi_reject_deferred","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_reject_deferred"}]}]
+37:["$","li","napi_is_promise",{"className":"pl-3","children":["$","a",null,{"href":"#napi_is_promise","className":"text-muted-foreground hover:text-foreground line-clamp-2","children":"napi_is_promise"}]}]
+39:null
+11:C
+26:0
+13:"$undefined"
+10:"$undefined"
+25:"$undefined"
+1e:"$undefined"

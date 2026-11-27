@@ -1,0 +1,1088 @@
+<!DOCTYPE html><html lang="en" class="Ur3q_a_variable iaM1Ya_variable"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/logo.png" as="image"/><link rel="stylesheet" href="/_next/static/chunks/3eqt_abkpc8td.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0uk63h0tuavo5.js"/><script src="/_next/static/chunks/0vm8zo6v48m9c.js" async=""></script><script src="/_next/static/chunks/0vkiz2elppvkg.js" async=""></script><script src="/_next/static/chunks/1kcsfr6-f7eyv.js" async=""></script><script src="/_next/static/chunks/turbopack-077hmtqrhcoji.js" async=""></script><script src="/_next/static/chunks/12u-784tq2ksj.js" async=""></script><script src="/_next/static/chunks/3_pjbco4yfzj2.js" async=""></script><script src="/_next/static/chunks/0itd6eiroz8sa.js" async=""></script><script src="/_next/static/chunks/0i0ntshnaeeix.js" async=""></script><script src="/_next/static/chunks/3pcblro4gce7n.js" async=""></script><script src="/_next/static/chunks/2i7p862aqiwl7.js" async=""></script><script src="/_next/static/chunks/3y068am0pzdwl.js" async=""></script><script src="/_next/static/chunks/2fuj_95i-d-bm.js" async=""></script><script src="/_next/static/chunks/1z5smpjjdajgk.js" async=""></script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"/><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"/><title>Node-API reference · quickjs-napi · napi-bindings</title><meta name="description" content="quickjs-napi documentation: Node-API reference (doc/node-api/README.md)."/><meta name="keywords" content="Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI"/><link rel="canonical" href="https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/"/><meta property="og:title" content="napi-bindings — Node-API hub"/><meta property="og:description" content="The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."/><meta property="og:url" content="https://www.napi-bindings.dev/"/><meta property="og:site_name" content="napi-bindings"/><meta property="og:image" content="https://www.napi-bindings.dev/logo.png"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="napi-bindings — Node-API hub"/><meta name="twitter:description" content="The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS."/><meta name="twitter:image" content="https://www.napi-bindings.dev/logo.png"/><link rel="icon" href="/icon.png?icon.13adeud8qqvkc.png" sizes="64x64" type="image/png"/><link rel="apple-touch-icon" href="/apple-icon.png?apple-icon.03ssp_2gh7-s5.png" sizes="180x180" type="image/png"/><meta name="next-size-adjust" content=""/><script src="/_next/static/chunks/0cz1d0mv5g_q7.js" noModule=""></script></head><body class="flex min-h-svh flex-col font-sans"><div hidden=""><!--$--><!--/$--></div><script>((a,b,c,d,e,f,g,h)=>{let i=document.documentElement,j=["light","dark"];function k(b){var c;(Array.isArray(a)?a:[a]).forEach(a=>{let c="class"===a,d=c&&f?e.map(a=>f[a]||a):e;c?(i.classList.remove(...d),i.classList.add(f&&f[b]?f[b]:b)):i.setAttribute(a,b)}),c=b,h&&j.includes(c)&&(i.style.colorScheme=c)}if(d)k(d);else try{let a=localStorage.getItem(b)||c,d=g&&"system"===a?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":a;k(d)}catch(a){}})("class","theme","dark",null,["light","dark"],null,true,true)</script><a href="#main" class="bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2">Skip to content</a><header class="bg-background/80 supports-backdrop-filter:bg-background/60 sticky top-0 z-40 border-b backdrop-blur"><div class="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4 sm:px-6"><button type="button" tabindex="0" data-slot="sheet-trigger" aria-label="Open menu" data-base-ui-click-trigger="" id="base-ui-_R_7ilb_" aria-haspopup="dialog" aria-expanded="false" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button><a class="shrink-0" aria-label="napi-bindings home" href="/"><span class="flex items-center gap-2"><img src="/logo.png" alt="" width="28" height="28" class="size-7"/><span class="font-mono text-sm font-semibold tracking-tight">napi-bindings</span></span></a><nav class="hidden items-center gap-1 md:flex"><a class="hover:text-foreground rounded-md px-2.5 py-1.5 text-sm transition-colors text-muted-foreground" href="/node-api/">Node-API</a><a class="hover:text-foreground rounded-md px-2.5 py-1.5 text-sm transition-colors text-muted-foreground" href="/node-api/reference/">Reference</a><a class="hover:text-foreground rounded-md px-2.5 py-1.5 text-sm transition-colors text-foreground font-medium" href="/projects/">Projects</a><a class="hover:text-foreground rounded-md px-2.5 py-1.5 text-sm transition-colors text-muted-foreground" href="/ecosystem/">Ecosystem</a><a class="hover:text-foreground rounded-md px-2.5 py-1.5 text-sm transition-colors text-muted-foreground" href="/activity/">Activity</a></nav><div class="ml-auto flex items-center gap-1"><button type="button" tabindex="0" data-slot="button" aria-label="Search" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground gap-1.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 text-muted-foreground size-8 justify-between px-0 font-normal sm:w-60 sm:px-2.5"><span class="flex w-full items-center justify-center gap-2 sm:justify-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><span class="hidden sm:inline">Search docs and APIs…</span></span><kbd data-slot="kbd-group" class="gap-1 items-center hidden sm:inline-flex"><kbd data-slot="kbd" class="bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">⌘</kbd><kbd data-slot="kbd" class="bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">K</kbd></kbd></button><div data-slot="dialog-header" class="gap-2 flex flex-col sr-only"><h2 id="base-ui-_R_noolb_" data-slot="dialog-title" class="text-base leading-none font-medium">Search</h2><p id="base-ui-_R_17oolb_" data-slot="dialog-description" class="text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3">Search pages, projects and the Node-API reference</p></div><div data-orientation="vertical" role="separator" aria-orientation="vertical" data-slot="separator" class="shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch mx-1 h-5"></div><a href="https://github.com/napi-bindings" target="_blank" rel="noreferrer" role="button" tabindex="0" data-slot="button" aria-label="napi-bindings on GitHub" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path></svg></a><button type="button" tabindex="0" data-slot="dropdown-menu-trigger" aria-label="Toggle theme" aria-haspopup="menu" aria-expanded="false" id="base-ui-_R_1m8lb_" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon hidden dark:block" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button></div></div></header><main id="main" class="flex-1"><div class="bg-muted/30 border-b"><div class="mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10"><div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between"><div class="flex max-w-3xl flex-col gap-3"><a class="text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs" href="/projects/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu size-3.5" aria-hidden="true"><path d="M12 20v2"></path><path d="M12 2v2"></path><path d="M17 20v2"></path><path d="M17 2v2"></path><path d="M2 12h2"></path><path d="M2 17h2"></path><path d="M2 7h2"></path><path d="M20 12h2"></path><path d="M20 17h2"></path><path d="M20 7h2"></path><path d="M7 20v2"></path><path d="M7 2v2"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="8" y="8" width="8" height="8" rx="1"></rect></svg>Runtimes</a><div class="flex flex-wrap items-center gap-3"><h1 class="font-mono text-3xl font-semibold tracking-tight">quickjs-napi</h1><span data-slot="badge" data-variant="outline" class="h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&amp;&gt;svg]:pointer-events-none border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground">0.0.x</span></div><p class="text-muted-foreground text-pretty">A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable.</p><div class="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star size-4" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>1<!-- --> <!-- -->star</span><span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-fork size-4" aria-hidden="true"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg>0<!-- --> <!-- -->forks</span><a class="hover:text-foreground flex items-center gap-1.5" href="/projects/quickjs-napi/releases/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag size-4" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg><span class="font-mono">v0.0.2</span><span>· <!-- -->Nov 18, 2026</span></a><span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale size-4" aria-hidden="true"><path d="M12 3v18"></path><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"></path><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M7 21h10"></path></svg>Apache-2.0</span></div></div><div class="flex flex-wrap gap-2"><a href="https://github.com/napi-bindings/quickjs-napi" target="_blank" rel="noreferrer" role="button" tabindex="0" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-icon="inline-start"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path></svg>Repository</a></div></div><nav aria-label="Project sections" class="-mb-px flex gap-1 overflow-x-auto"><a class="hover:text-foreground flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm transition-colors text-muted-foreground border-transparent" href="/projects/quickjs-napi/">Overview</a><a aria-current="page" class="hover:text-foreground flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm transition-colors border-brand text-foreground font-medium" href="/projects/quickjs-napi/docs/">Docs<span class="bg-muted text-muted-foreground rounded-full px-1.5 font-mono text-[0.6875rem]">21</span></a><a class="hover:text-foreground flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm transition-colors text-muted-foreground border-transparent" href="/projects/quickjs-napi/releases/">Releases<span class="bg-muted text-muted-foreground rounded-full px-1.5 font-mono text-[0.6875rem]">2</span></a><a class="hover:text-foreground flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm transition-colors text-muted-foreground border-transparent" href="/projects/quickjs-napi/activity/">Activity</a></nav></div></div><div class="mx-auto w-full max-w-7xl px-4 sm:px-6 py-10"><div class="grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]"><aside><div class="lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8"><nav aria-label="Section navigation" class="flex flex-col gap-6 text-sm"><div class="flex flex-col gap-1"><p class="text-muted-foreground px-2 pb-1 text-xs font-medium tracking-wide uppercase">Documentation</p><a aria-current="page" class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 bg-muted text-foreground font-medium" href="/projects/quickjs-napi/docs/node-api/"><span class="truncate">Node-API reference</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/architecture/"><span class="truncate">Architecture</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/building/"><span class="truncate">Building</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/compatibility/"><span class="truncate">Compatibility with Node.js</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/embedding/"><span class="truncate">Embedding API (qjsnapi.h)</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/host/"><span class="truncate">The quickjs-napi executable</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/testing/"><span class="truncate">Testing</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/async/"><span class="truncate">Async work, thread-safe functions and the event loop</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/binary-data/"><span class="truncate">ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/environment/"><span class="truncate">Environment, versions and cleanup hooks</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/errors/"><span class="truncate">Errors and exceptions</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/functions/"><span class="truncate">Functions, classes and scripts</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/lifetime/"><span class="truncate">References, externals, wrapping and finalizers</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/node-specific/"><span class="truncate">Buffers, async context and callback scopes</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/objects/"><span class="truncate">Objects and properties</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/scopes/"><span class="truncate">Handle scopes</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/strings/"><span class="truncate">Strings, property keys and symbols</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/node-api/values/"><span class="truncate">Values</span></a></div><div class="flex flex-col gap-1"><p class="text-muted-foreground px-2 pb-1 text-xs font-medium tracking-wide uppercase">test/</p><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/test/node/"><span class="truncate">Node.js conformance tests</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/test/node-addon-api/harness/"><span class="truncate">node-addon-api test suite</span></a><a class="hover:bg-muted hover:text-foreground flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-muted-foreground" href="/projects/quickjs-napi/docs/test/node-addon-api/test/"><span class="truncate">Writing Tests</span></a></div></nav></div></aside><div class="min-w-0"><div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]"><article class="flex min-w-0 flex-col gap-8"><div class="text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs"><span class="font-mono">doc/node-api/README.md</span><a href="https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/README.md" target="_blank" rel="noreferrer" class="hover:text-foreground flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil size-3" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></svg>Edit on GitHub</a></div><div class="markdown"><h1 id="node-api-reference">Node-API reference</h1>
+<p>quickjs-napi implements all <strong>155 functions</strong> of Node-API version 10
+(<code>include/js_native_api.h</code> and <code>include/node_api.h</code>, the headers of Node.js
+22). This reference documents what each function does <strong>in quickjs-napi</strong>:
+its contract, the statuses it returns, and where its behaviour depends on the
+QuickJS implementation. The upstream
+<a href="https://nodejs.org/docs/latest-v22.x/api/n-api.html" target="_blank" rel="noreferrer noopener">Node-API documentation</a>
+remains the normative text; differences from Node.js are collected in
+<a href="/projects/quickjs-napi/docs/compatibility/">compatibility.md</a>.</p>
+<ul>
+<li><a href="#conventions">Conventions</a></li>
+<li><a href="#writing-an-addon">Writing an addon</a></li>
+<li><a href="#function-index">Function index</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>File</th>
+<th>Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Environment, versions, cleanup hooks, module registration</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/">environment.md</a></td>
+<td>10</td>
+</tr>
+<tr>
+<td>Primitives, numbers, booleans, coercion, arrays</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/">values.md</a></td>
+<td>24</td>
+</tr>
+<tr>
+<td>Strings, property keys, symbols</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/">strings.md</a></td>
+<td>13</td>
+</tr>
+<tr>
+<td>Objects and properties</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/">objects.md</a></td>
+<td>19</td>
+</tr>
+<tr>
+<td>Functions, calls, classes, scripts</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/">functions.md</a></td>
+<td>7</td>
+</tr>
+<tr>
+<td>Errors and exceptions</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/">errors.md</a></td>
+<td>12</td>
+</tr>
+<tr>
+<td>Handle scopes</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/">scopes.md</a></td>
+<td>5</td>
+</tr>
+<tr>
+<td>References, externals, wrap, finalizers, type tags, instance data</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/">lifetime.md</a></td>
+<td>16</td>
+</tr>
+<tr>
+<td>ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/">binary-data.md</a></td>
+<td>25</td>
+</tr>
+<tr>
+<td>Buffer, async context, <code>napi_make_callback</code>, callback scopes</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/">node-specific.md</a></td>
+<td>12</td>
+</tr>
+<tr>
+<td>Async work, thread-safe functions, the event loop</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/">async.md</a></td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conventions"><a class="heading-anchor" href="#conventions">Conventions</a></h2>
+<h3 id="status-codes-and-the-last-error"><a class="heading-anchor" href="#status-codes-and-the-last-error">Status codes and the last error</a></h3>
+<p>Every function returns a <code>napi_status</code>. <code>napi_ok</code> means success; anything else
+is a failure and is also recorded as the env's last error, which
+<code>napi_get_last_error_info</code> returns with a message:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Message</th>
+<th>Typical cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi_ok</code></td>
+<td></td>
+<td>success</td>
+</tr>
+<tr>
+<td><code>napi_invalid_arg</code></td>
+<td>Invalid argument</td>
+<td>a <code>NULL</code> pointer argument, an out-of-range enum, a value of the wrong kind where no specific status exists</td>
+</tr>
+<tr>
+<td><code>napi_object_expected</code></td>
+<td>An object was expected</td>
+<td>the receiver is <code>null</code>/<code>undefined</code> (a <code>TypeError</code> is then pending), or not an object</td>
+</tr>
+<tr>
+<td><code>napi_string_expected</code></td>
+<td>A string was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_name_expected</code></td>
+<td>A string or symbol was expected</td>
+<td>property keys, symbol descriptions</td>
+</tr>
+<tr>
+<td><code>napi_function_expected</code></td>
+<td>A function was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_number_expected</code></td>
+<td>A number was expected</td>
+<td>getters never coerce</td>
+</tr>
+<tr>
+<td><code>napi_boolean_expected</code></td>
+<td>A boolean was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_array_expected</code></td>
+<td>An array was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_generic_failure</code></td>
+<td>Unknown failure</td>
+<td>out of memory, or a failed engine operation without a JS exception</td>
+</tr>
+<tr>
+<td><code>napi_pending_exception</code></td>
+<td>An exception is pending</td>
+<td>JavaScript threw during the call, or an exception was already pending</td>
+</tr>
+<tr>
+<td><code>napi_cancelled</code></td>
+<td>The async work item was cancelled</td>
+<td>passed to <code>complete</code></td>
+</tr>
+<tr>
+<td><code>napi_escape_called_twice</code></td>
+<td>napi_escape_handle already called on scope</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_handle_scope_mismatch</code></td>
+<td>Invalid handle scope usage</td>
+<td>closing a scope that is not the innermost one</td>
+</tr>
+<tr>
+<td><code>napi_callback_scope_mismatch</code></td>
+<td>Invalid callback scope usage</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_queue_full</code></td>
+<td>Thread-safe function queue is full</td>
+<td>non-blocking call on a full queue</td>
+</tr>
+<tr>
+<td><code>napi_closing</code></td>
+<td>Thread-safe function handle is closing</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_bigint_expected</code></td>
+<td>A bigint was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_date_expected</code></td>
+<td>A date was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_arraybuffer_expected</code></td>
+<td>An arraybuffer was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_detachable_arraybuffer_expected</code></td>
+<td>A detachable arraybuffer was expected</td>
+<td></td>
+</tr>
+<tr>
+<td><code>napi_would_deadlock</code></td>
+<td>Main thread would deadlock</td>
+<td>never returned (as in Node.js 22)</td>
+</tr>
+<tr>
+<td><code>napi_no_external_buffers_allowed</code></td>
+<td>External buffers are not allowed</td>
+<td>never returned: external buffers are always allowed</td>
+</tr>
+<tr>
+<td><code>napi_cannot_run_js</code></td>
+<td>Cannot run JavaScript</td>
+<td>the env is tearing down (modules built for Node-API ≥ 10)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="functions-that-run-javascript"><a class="heading-anchor" href="#functions-that-run-javascript">Functions that run JavaScript</a></h3>
+<p>Some functions may call into JavaScript (getters, setters, <code>valueOf</code>,
+proxies, user callbacks). These <strong>refuse to start</strong> when an exception is
+already pending (<code>napi_pending_exception</code>) or when the env can no longer run
+JavaScript (<code>napi_cannot_run_js</code>, or <code>napi_pending_exception</code> for modules
+built for Node-API &#x3C; 10). They are marked <strong>JS</strong> in the
+<a href="#function-index">function index</a>. The other functions only touch C
+bookkeeping or create values, and work even with an exception pending: this
+is what lets an addon build an error message while an exception is pending.</p>
+<p>When JavaScript throws during a call, the function returns
+<code>napi_pending_exception</code> and <strong>the exception stays pending</strong>, exactly as in
+Node.js. Returning from the native callback then propagates it to the
+JavaScript caller. Use <code>napi_is_exception_pending</code> and
+<code>napi_get_and_clear_last_exception</code> to handle it in C.</p>
+<h3 id="basic-env"><a class="heading-anchor" href="#basic-env">Basic env</a></h3>
+<p>Functions whose first parameter is <code>node_api_basic_env</code> (cleanup hooks,
+instance data, <code>napi_delete_reference</code>, <code>napi_adjust_external_memory</code>,
+<code>napi_get_uv_event_loop</code>, ...) may be called from a <em>basic finalizer</em>
+(<code>node_api_basic_finalize</code>). In quickjs-napi every finalizer, basic or not,
+runs <strong>outside the garbage collector</strong> (from the event loop or at teardown),
+so calling other functions from a basic finalizer never causes the fatal
+error Node.js raises; the distinction is kept for source compatibility.</p>
+<h3 id="values-and-threads"><a class="heading-anchor" href="#values-and-threads">Values and threads</a></h3>
+<ul>
+<li>A <code>napi_value</code> is valid until the handle scope it was created in is closed.
+Values created in a native callback are released when the callback returns,
+unless they are returned, escaped, or kept in a <code>napi_ref</code>.</li>
+<li>Every function except the thread-safe function ones
+(<code>napi_call_threadsafe_function</code>, <code>napi_acquire_threadsafe_function</code>,
+<code>napi_release_threadsafe_function</code>,
+<code>napi_get_threadsafe_function_context</code>) must be called on the thread that
+runs the event loop. <code>execute</code> callbacks of async work run on the thread
+pool and must not call Node-API functions that take an env.</li>
+</ul>
+<h2 id="writing-an-addon"><a class="heading-anchor" href="#writing-an-addon">Writing an addon</a></h2>
+<p>Addons are written exactly as for Node.js. A minimal C addon:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#include</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x3C;node_api.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">#define</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#E36209;--shiki-dark:#FFAB70">call</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)                                            </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  do</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {                                                                  </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ((call) </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_ok) {                                            </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">      const</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_extended_error_info </span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">info;                             </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">      bool</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> pending;                                                     </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">      napi_get_last_error_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">((env), </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">info);                           </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">      napi_is_exception_pending</span><span style="color:#24292E;--shiki-dark:#E1E4E8">((env), </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">pending);                       </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">      if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">!</span><span style="color:#24292E;--shiki-dark:#E1E4E8">pending)                                                     </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">        napi_throw_error</span><span style="color:#24292E;--shiki-dark:#E1E4E8">((env), </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, info->error_message               </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                          ?</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> info->error_message         </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">                                          :</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "Node-API call failed"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">);    </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">      return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;                                                      </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    }                                                                   </span><span style="color:#005CC5;--shiki-dark:#79B8FF">\</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  } </span><span style="color:#D73A49;--shiki-dark:#F97583">while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">static</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> napi_value </span><span style="color:#6F42C1;--shiki-dark:#B392F0">Add</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(napi_env </span><span style="color:#E36209;--shiki-dark:#FFAB70">env</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, napi_callback_info </span><span style="color:#E36209;--shiki-dark:#FFAB70">info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  size_t</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> argc </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value </span><span style="color:#E36209;--shiki-dark:#FFAB70">argv</span><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span><span style="color:#005CC5;--shiki-dark:#79B8FF">2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_cb_info</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, info, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">argc, argv, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  double</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> a, b;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_double</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#E36209;--shiki-dark:#FFAB70">argv</span><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">], </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">a));</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_get_value_double</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#E36209;--shiki-dark:#FFAB70">argv</span><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">], </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">b));</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_value sum;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_create_double</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, a </span><span style="color:#D73A49;--shiki-dark:#F97583">+</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> b, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">sum));</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> sum;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">NAPI_MODULE_INIT</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#6A737D;--shiki-dark:#6A737D">/* napi_env env, napi_value exports */</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  napi_property_descriptor desc </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"add"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, Add, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">                                   napi_default, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">};</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  NAPI_CALL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">napi_define_properties</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(env, exports, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">desc));</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> exports;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Build it with node-gyp, cmake-js or any toolchain that produces a Node.js
+addon, then:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">quickjs-napi</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -e</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "console.log(require('./build/Release/addon.node').add(2, 3))"</span></span></code></pre>
+<p>The same binary loads in Node.js. node-addon-api (C++) and napi-rs (Rust)
+addons work the same way; the node-addon-api 8.9.2 test suite runs in CI
+(<a href="/projects/quickjs-napi/docs/testing/">testing.md</a>).</p>
+<p>The module API version is chosen by the addon at build time (<code>NAPI_VERSION</code>,
+exported through <code>node_api_module_get_api_version_v1</code>). It is 8 when the
+addon does not declare one, and changes a few behaviours: which values
+<code>napi_create_reference</code> accepts, the status of
+<a href="#functions-that-run-javascript">functions that run JavaScript</a> during
+teardown, and the <a href="/projects/quickjs-napi/docs/node-api/async/#exceptions-in-call_js_cb">thread-safe function exception policy</a>.</p>
+<h2 id="function-index"><a class="heading-anchor" href="#function-index">Function index</a></h2>
+<p><strong>JS</strong>: the function may run JavaScript and refuses to start with an exception
+pending (see <a href="#functions-that-run-javascript">above</a>).</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th></th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>napi_acquire_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_acquire_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_add_async_cleanup_hook</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_add_async_cleanup_hook">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_add_env_cleanup_hook</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_add_env_cleanup_hook">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_add_finalizer</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_add_finalizer">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_adjust_external_memory</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_adjust_external_memory">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_async_destroy</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_async_destroy">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_async_init</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_async_init">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_call_function</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_call_function">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_call_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_call_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_cancel_async_work</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_cancel_async_work">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_check_object_type_tag</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_check_object_type_tag">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_close_callback_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_close_callback_scope">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_close_escapable_handle_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/#napi_close_escapable_handle_scope">scopes.md</a></td>
+</tr>
+<tr>
+<td><code>napi_close_handle_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/#napi_close_handle_scope">scopes.md</a></td>
+</tr>
+<tr>
+<td><code>napi_coerce_to_bool</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_bool">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_coerce_to_number</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_number">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_coerce_to_object</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_object">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_coerce_to_string</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_string">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_array</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_array">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_array_with_length</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_array_with_length">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_arraybuffer</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_arraybuffer">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_async_work</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_create_async_work">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_bigint_int64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_int64">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_bigint_uint64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_uint64">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_bigint_words</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_words">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_buffer</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_buffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_buffer_copy</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_buffer_copy">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_dataview</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_dataview">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_date</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_date">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_double</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_double">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_create_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_external</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_create_external">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_external_arraybuffer</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_external_arraybuffer">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_external_buffer</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_external_buffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_function</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_create_function">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_int32</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_int32">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_int64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_int64">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_object</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_object">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_promise</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_promise">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_range_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_create_range_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_reference</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_create_reference">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_string_latin1</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_latin1">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_string_utf16</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_utf16">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_string_utf8</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_utf8">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_symbol</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_create_symbol">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_create_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_type_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_create_type_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_typedarray</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_typedarray">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_create_uint32</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_create_uint32">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_define_class</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_define_class">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_define_properties</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_define_properties">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_delete_async_work</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_delete_async_work">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_delete_element</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_delete_element">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_delete_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_delete_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_delete_reference</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_delete_reference">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_detach_arraybuffer</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_detach_arraybuffer">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_escape_handle</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/#napi_escape_handle">scopes.md</a></td>
+</tr>
+<tr>
+<td><code>napi_fatal_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_fatal_error">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_fatal_exception</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_fatal_exception">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_all_property_names</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_all_property_names">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_and_clear_last_exception</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_get_and_clear_last_exception">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_array_length</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_array_length">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_arraybuffer_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_arraybuffer_info">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_boolean</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_boolean">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_buffer_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_get_buffer_info">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_cb_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_get_cb_info">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_dataview_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_dataview_info">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_date_value</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_date_value">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_element</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_element">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_global</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_global">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_instance_data</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_instance_data">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_last_error_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_get_last_error_info">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_named_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_named_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_new_target</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_get_new_target">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_node_version</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_get_node_version">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_null</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_null">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_property_names</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_property_names">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_prototype</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_get_prototype">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_reference_value</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_reference_value">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_threadsafe_function_context</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_get_threadsafe_function_context">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_typedarray_info</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_typedarray_info">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_undefined</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_undefined">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_uv_event_loop</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_get_uv_event_loop">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_bigint_int64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_int64">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_bigint_uint64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_uint64">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_bigint_words</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_words">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_bool</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_value_bool">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_double</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_value_double">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_external</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_value_external">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_int32</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_value_int32">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_int64</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_value_int64">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_string_latin1</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_latin1">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_string_utf16</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_utf16">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_string_utf8</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_utf8">strings.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_value_uint32</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_get_value_uint32">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_get_version</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_get_version">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_has_element</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_has_element">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_has_named_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_has_named_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_has_own_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_has_own_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_has_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_has_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_instanceof</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_instanceof">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_array</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_is_array">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_arraybuffer</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_arraybuffer">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_buffer</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_is_buffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_dataview</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_dataview">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_date</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_date">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_detached_arraybuffer</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_detached_arraybuffer">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_is_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_exception_pending</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_is_exception_pending">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_promise</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_promise">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_is_typedarray</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_typedarray">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_make_callback</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_make_callback">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_module_register</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_module_register">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_new_instance</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_new_instance">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_object_freeze</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_object_freeze">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_object_seal</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_object_seal">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_open_callback_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#napi_open_callback_scope">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>napi_open_escapable_handle_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/#napi_open_escapable_handle_scope">scopes.md</a></td>
+</tr>
+<tr>
+<td><code>napi_open_handle_scope</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/scopes/#napi_open_handle_scope">scopes.md</a></td>
+</tr>
+<tr>
+<td><code>napi_queue_async_work</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_queue_async_work">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_ref_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_ref_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_reference_ref</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_reference_ref">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_reference_unref</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_reference_unref">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_reject_deferred</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_reject_deferred">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_release_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_release_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_remove_async_cleanup_hook</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_remove_async_cleanup_hook">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_remove_env_cleanup_hook</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#napi_remove_env_cleanup_hook">environment.md</a></td>
+</tr>
+<tr>
+<td><code>napi_remove_wrap</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_remove_wrap">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_resolve_deferred</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/binary-data/#napi_resolve_deferred">binary-data.md</a></td>
+</tr>
+<tr>
+<td><code>napi_run_script</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/functions/#napi_run_script">functions.md</a></td>
+</tr>
+<tr>
+<td><code>napi_set_element</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_set_element">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_set_instance_data</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_set_instance_data">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_set_named_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_set_named_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_set_property</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/objects/#napi_set_property">objects.md</a></td>
+</tr>
+<tr>
+<td><code>napi_strict_equals</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_strict_equals">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_throw</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_throw">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_throw_error</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_throw_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_throw_range_error</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_throw_range_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_throw_type_error</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#napi_throw_type_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>napi_type_tag_object</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_type_tag_object">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_typeof</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/values/#napi_typeof">values.md</a></td>
+</tr>
+<tr>
+<td><code>napi_unref_threadsafe_function</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/async/#napi_unref_threadsafe_function">async.md</a></td>
+</tr>
+<tr>
+<td><code>napi_unwrap</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_unwrap">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>napi_wrap</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/lifetime/#napi_wrap">lifetime.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_buffer_from_arraybuffer</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/node-specific/#node_api_create_buffer_from_arraybuffer">node-specific.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_external_string_latin1</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_create_external_string_latin1">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_external_string_utf16</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_create_external_string_utf16">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_property_key_latin1</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_latin1">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_property_key_utf16</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_utf16">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_property_key_utf8</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_utf8">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_create_syntax_error</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#node_api_create_syntax_error">errors.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_get_module_file_name</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/environment/#node_api_get_module_file_name">environment.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_symbol_for</code></td>
+<td></td>
+<td><a href="/projects/quickjs-napi/docs/node-api/strings/#node_api_symbol_for">strings.md</a></td>
+</tr>
+<tr>
+<td><code>node_api_throw_syntax_error</code></td>
+<td>JS</td>
+<td><a href="/projects/quickjs-napi/docs/node-api/errors/#node_api_throw_syntax_error">errors.md</a></td>
+</tr>
+</tbody>
+</table></div><nav class="flex justify-between gap-4 border-t pt-6"><span></span><a role="button" tabindex="0" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2" href="/projects/quickjs-napi/docs/architecture/">Architecture<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true" data-icon="inline-end"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></nav></article><aside class="hidden xl:block"><div class="sticky top-20"><nav aria-label="On this page" class="flex flex-col gap-2 text-sm"><p class="font-medium">On this page</p><ul class="flex flex-col gap-1.5"><li class=""><a href="#conventions" class="text-muted-foreground hover:text-foreground line-clamp-2">Conventions</a></li><li class="pl-3"><a href="#status-codes-and-the-last-error" class="text-muted-foreground hover:text-foreground line-clamp-2">Status codes and the last error</a></li><li class="pl-3"><a href="#functions-that-run-javascript" class="text-muted-foreground hover:text-foreground line-clamp-2">Functions that run JavaScript</a></li><li class="pl-3"><a href="#basic-env" class="text-muted-foreground hover:text-foreground line-clamp-2">Basic env</a></li><li class="pl-3"><a href="#values-and-threads" class="text-muted-foreground hover:text-foreground line-clamp-2">Values and threads</a></li><li class=""><a href="#writing-an-addon" class="text-muted-foreground hover:text-foreground line-clamp-2">Writing an addon</a></li><li class=""><a href="#function-index" class="text-muted-foreground hover:text-foreground line-clamp-2">Function index</a></li></ul></nav></div></aside></div><!--$--><!--/$--></div></div></div></main><footer class="border-t"><div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]"><div class="flex flex-col gap-3"><span class="flex items-center gap-2"><img src="/logo.png" alt="" width="28" height="28" class="size-7"/><span class="font-mono text-sm font-semibold tracking-tight">napi-bindings</span></span><p class="text-muted-foreground max-w-xs text-sm">Native Node.js addons and tooling built on the ABI-stable Node-API.</p><p class="text-muted-foreground text-xs">Data synchronised from GitHub on <!-- -->Nov 27, 2026<!-- -->.</p></div><div class="flex flex-col gap-3"><h2 class="text-sm font-medium">Node-API</h2><ul class="flex flex-col gap-2"><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/node-api/">Overview</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/node-api/reference/">API reference</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/node-api/versions/">Versions</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/ecosystem/">Ecosystem</a></li></ul></div><div class="flex flex-col gap-3"><h2 class="text-sm font-medium">Projects</h2><ul class="flex flex-col gap-2"><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/projects/marmotta/">Marmotta</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/projects/napi-go/">napi-go</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/projects/node-api-stub/">node-api-stub</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/projects/quickjs-build/">quickjs-build</a></li><li><a class="text-muted-foreground hover:text-foreground text-sm" href="/projects/quickjs-napi/">quickjs-napi</a></li></ul></div><div class="flex flex-col gap-3"><h2 class="text-sm font-medium">Upstream</h2><ul class="flex flex-col gap-2"><li><a href="https://nodejs.org/docs/latest/api/n-api.html" target="_blank" rel="noreferrer" class="text-muted-foreground hover:text-foreground text-sm">Node-API docs</a></li><li><a href="https://github.com/nodejs/abi-stable-node" target="_blank" rel="noreferrer" class="text-muted-foreground hover:text-foreground text-sm">nodejs/abi-stable-node</a></li><li><a href="https://github.com/nodejs/node-addon-api" target="_blank" rel="noreferrer" class="text-muted-foreground hover:text-foreground text-sm">node-addon-api</a></li><li><a href="https://github.com/nodejs/node-addon-examples" target="_blank" rel="noreferrer" class="text-muted-foreground hover:text-foreground text-sm">node-addon-examples</a></li></ul></div></div><div class="border-t"><div class="text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6"><p>© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license.</p><div class="flex flex-wrap gap-x-4 gap-y-2"><a class="hover:text-foreground" href="/privacy/">Privacy</a><button type="button" class="hover:text-foreground cursor-pointer">Cookie preferences</button><a href="https://github.com/napi-bindings/website" target="_blank" rel="noreferrer" class="hover:text-foreground">Edit this site on GitHub</a></div></div></div></footer><script id="_R_">(globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push({"otherChunks":["static/chunks/0uk63h0tuavo5.js","static/chunks/0vm8zo6v48m9c.js","static/chunks/0vkiz2elppvkg.js","static/chunks/1kcsfr6-f7eyv.js"],"runtimeModuleIds":[94553]});</script><script src="/_next/static/chunks/0uk63h0tuavo5.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:\"/_next/static/chunks/12u-784tq2ksj.js\"\n3:\"/_next/static/chunks/3_pjbco4yfzj2.js\"\n4:\"/_next/static/chunks/0itd6eiroz8sa.js\"\n5:\"/_next/static/chunks/0i0ntshnaeeix.js\"\n6:\"/_next/static/chunks/3pcblro4gce7n.js\"\n7:\"/_next/static/chunks/2i7p862aqiwl7.js\"\n8:I[27423,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"ThemeProvider\"]\n9:I[46798,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"TooltipProvider\"]\na:I[3020,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"SiteHeader\"]\nb:I[39756,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"default\"]\nc:I[37457,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"default\"]\nd:\"/_next/static/chunks/3y068am0pzdwl.js\"\ne:\"/_next/static/chunks/2fuj_95i-d-bm.js\"\nf:\"/_next/static/chunks/1z5smpjjdajgk.js\"\n10:I[5014,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\",\"$e\",\"$f\"],\"default\"]\n11:I[27930,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\",\"$e\",\"$f\"],\"Button\"]\n12:I[22016,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\",\"$e\",\"$f\"],\"\"]\n22:I[68027,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"default\",1]\n:HL[\"/_next/static/chunks/3eqt_abkpc8td.css\",\"style\"]\n:HL[\"/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n18:X\n1f:[[\"children\",{\"s\":\"__PAGE__\",\"h\":512,\"d\":{\"r\":\"$L20\",\"p\":false,\"v\":null}}]]\n1d:[[\"children\",{\"s\":{\"n\":\"doc\",\"t\":\"c\",\"k\":\"node-api\",\"s\":[]},\"h\":66048,\"d\":{\"r\":\"$L1e\",\"p\":false,\"v\":\"$18\"},\"c\":\"$Q1f\"}]]\n1b:[[\"children\",{\"s\":\"docs\",\"h\":131584,\"d\":{\"r\":\"$L1c\",\"p\":false,\"v\":null},\"c\":\"$Q1d\"}]]\n19:[[\"children\",{\"s\":{\"n\":\"slug\",\"t\":\"d\",\"k\":\"quickjs-napi\",\"s\":[]},\"h\":197120,\"d\":{\"r\":\"$L1a\",\"p\":false,\"v\":null},\"c\":\"$Q1b\"}]]\n16:[[\"children\",{\"s\":\"projects\",\"h\":131584,\"d\":{\"r\":\"$L17\",\"p\":false,\"v\":\"$18\"},\"c\":\"$Q19\"}]]\n0:{\"P\":null,\"c\":[\"\",\"projects\",\"quickjs-napi\",\"docs\",\"node-api\",\"\"],\"q\":\"\",\"i\":false,\"t\":{\"t\":{\"s\":\"\",\"h\":131600,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/3eqt_abkpc8td.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/12u-784tq2ksj.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/3_pjbco4yfzj2.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0itd6eiroz8sa.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0i0ntshnaeeix.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/3pcblro4gce7n.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/2i7p862aqiwl7.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"className\":\"Ur3q_a_variable iaM1Ya_variable\",\"children\":[\"$\",\"body\",null,{\"className\":\"flex min-h-svh flex-col font-sans\",\"children\":[\"$\",\"$L8\",null,{\"attribute\":\"class\",\"defaultTheme\":\"dark\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[\"$\",\"$L9\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"#main\",\"className\":\"bg-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2\",\"children\":\"Skip to content\"}],[\"$\",\"$La\",null,{}],[\"$\",\"main\",null,{\"id\":\"main\",\"className\":\"flex-1\",\"children\":[\"$\",\"$Lb\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"div\",null,{\"className\":\"mx-auto w-full max-w-7xl px-4 sm:px-6 py-24\",\"children\":[\"$\",\"div\",null,{\"data-slot\":\"empty\",\"className\":\"gap-4 rounded-xl border-dashed p-6 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance\",\"children\":[[\"$\",\"div\",null,{\"data-slot\":\"empty-header\",\"className\":\"gap-2 flex max-w-sm flex-col items-center\",\"children\":[[\"$\",\"div\",null,{\"data-slot\":\"empty-icon\",\"data-variant\":\"icon\",\"className\":\"mb-2 [\u0026_svg]:pointer-events-none [\u0026_svg]:shrink-0 bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [\u0026_svg:not([class*='size-'])]:size-4\",\"children\":[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"file-question-mark\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\",\"key\":\"1oefj6\"}],[\"path\",{\"d\":\"M9 9.5a3 2.5 0 016 0c0 2-2 2-3 3.5\",\"key\":\"1awbb0\"}],[\"path\",{\"d\":\"M12 17h.01\",\"key\":\"p32p05\"}]],\"aliases\":[\"file-question\"]},\"className\":\"$undefined\"}]}],[\"$\",\"div\",null,{\"data-slot\":\"empty-title\",\"className\":\"text-sm font-medium tracking-tight\",\"children\":\"Page not found\"}],[\"$\",\"div\",null,{\"data-slot\":\"empty-description\",\"className\":\"text-sm/relaxed text-muted-foreground [\u0026\u003ea]:underline [\u0026\u003ea]:underline-offset-4 [\u0026\u003ea:hover]:text-primary\",\"children\":\"This page does not exist, or it moved. Node-API symbols live under /node-api/reference/.\"}]]}],[\"$\",\"div\",null,{\"data-slot\":\"empty-content\",\"className\":\"gap-2.5 text-sm flex w-full max-w-sm min-w-0 items-center text-balance flex-row justify-center\",\"children\":[[\"$\",\"$L11\",null,{\"data-slot\":\"button\",\"className\":\"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [\u0026_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2\",\"render\":[\"$\",\"$L12\",null,{\"href\":\"/\"}],\"nativeButton\":false,\"children\":\"Home\"}],\"$L13\"]}]]}]}],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}],\"$L14\",\"$L15\"]}]}]}]}]]}],\"p\":false,\"v\":null},\"c\":\"$Q16\"},\"h\":{\"r\":\"$L21\",\"p\":false,\"v\":null}},\"m\":\"$undefined\",\"G\":[\"$22\",[\"$L23\"]],\"S\":true,\"r\":\"$undefined\",\"s\":\"$undefined\",\"a\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"XLsO23O1VrcXmmGnGlZN_\"}\n26:I[97287,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"Analytics\"]\n2a:I[97367,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"OutletBoundary\"]\n2b:\"$Sreact.suspense\"\n2d:\"ViewportBoundary\"\n2e:I[97367,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"$2d\"]\n30:\"MetadataBoundary\"\n31:I[97367,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"$30\"]\n:HL[\"/logo.png\",\"image\"]\n13:[\"$\",\"$L11\",null,{\"data-slot\":\"button\",\"className\":\"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [\u0026_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2\",\"render\":[\"$\",\"$L12\",null,{\"href\":\"/node-api/reference/\"}],\"nativeButton\":false,\"children\":\"API reference\"}]\n14:[\"$\",\"footer\",null,{\"className\":\"border-t\",\"children\":[[\"$\",\"div\",null,{\"className\":\"mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-col gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"flex items-center gap-2\",\"children\":[[\"$\",\"img\",null,{\"src\":\"/logo.png\",\"alt\":\"\",\"width\":28,\"height\":28,\"className\":\"size-7\"}],[\"$\",\"span\",null,{\"className\":\"font-mono text-sm font-semibold tracking-tight\",\"children\":\"napi-bindings\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground max-w-xs text-sm\",\"children\":\"Native Node.js addons and tooling built on the ABI-stable Node-API.\"}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground text-xs\",\"children\":[\"Data synchronised from GitHub on \",\"Nov 27, 2026\",\".\"]}]]}],[[\"$\",\"div\",\"Node-API\",{\"className\":\"flex flex-col gap-3\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-sm font-medium\",\"children\":\"Node-API\"}],[\"$\",\"ul\",null,{\"className\":\"flex flex-col gap-2\",\"children\":[[\"$\",\"li\",\"/node-api/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/node-api/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"Overview\"}]}],[\"$\",\"li\",\"/node-api/reference/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/node-api/reference/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"API reference\"}]}],[\"$\",\"li\",\"/node-api/versions/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/node-api/versions/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"Versions\"}]}],[\"$\",\"li\",\"/ecosystem/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/ecosystem/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"Ecosystem\"}]}]]}]]}],[\"$\",\"div\",\"Projects\",{\"className\":\"flex flex-col gap-3\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-sm font-medium\",\"children\":\"Projects\"}],[\"$\",\"ul\",null,{\"className\":\"flex flex-col gap-2\",\"children\":[[\"$\",\"li\",\"/projects/marmotta/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/projects/marmotta/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"Marmotta\"}]}],[\"$\",\"li\",\"/projects/napi-go/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/projects/napi-go/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"napi-go\"}]}],[\"$\",\"li\",\"/projects/node-api-stub/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/projects/node-api-stub/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"node-api-stub\"}]}],[\"$\",\"li\",\"/projects/quickjs-build/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/projects/quickjs-build/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"quickjs-build\"}]}],[\"$\",\"li\",\"/projects/quickjs-napi/\",{\"children\":[\"$\",\"$L12\",null,{\"href\":\"/projects/quickjs-napi/\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"quickjs-napi\"}]}]]}]]}],[\"$\",\"div\",\"Upstream\",{\"className\":\"flex flex-col gap-3\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-sm font-medium\",\"children\":\"Upstream\"}],[\"$\",\"ul\",null,{\"className\":\"flex flex-col gap-2\",\"children\":[[\"$\",\"li\",\"https://nodejs.org/docs/latest/api/n-api.html\",{\"children\":[\"$\",\"a\",null,{\"href\":\"https://nodejs.org/docs/latest/api/n-api.html\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"Node-API docs\"}]}],[\"$\",\"li\",\"https://github.com/nodejs/abi-stable-node\",{\"children\":[\"$\",\"a\",null,{\"href\":\"https://github.com/nodejs/abi-stable-node\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"nodejs/abi-stable-node\"}]}],[\"$\",\"li\",\"https://github.com/nodejs/node-addon-api\",{\"children\":[\"$\",\"a\",null,{\"href\":\"https://github.com/nodejs/node-addon-api\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"node-addon-api\"}]}],[\"$\",\"li\",\"https://github.com/nodejs/node-addon-examples\",{\"children\":[\"$\",\"a\",null,{\"href\":\"https://github.com/nodejs/node-addon-examples\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"text-muted-foreground hover:text-foreground text-sm\",\"children\":\"node-addon-examples\"}]}]]}]]}]]]}],[\"$\",\"div\",null,{\"className\":\"border-t\",\"children\":[\"$\",\"div\",null,{\"className\":\"text-muted-foreground mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs sm:flex-row sm:justify-between sm:px-6\",\"children\":[\"$L24\",\"$L25\"]}]}]]}]\n15:[\"$\",\"$L26\",null,{}]\n17:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n1a:[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/3y068am0pzdwl.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L27\"]}]\n1c:[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/2fuj_95i-d-bm.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L28\"]}]\n1e:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n20:[\"$\",\"$1\",\"c\",{\"children\":[\"$L29\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/1z5smpjjdajgk.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L2a\",null,{\"children\":[\"$\",\"$2b\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@2c\"}]}]]}]\n21:[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$L2e\",null,{\"children\":\"$L2f\"}],[\"$\",\"$L31\",null,{\"children\":[[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$2b\",null,{\"name\":\"Next.Metadata\",\"children\":\"$L32\"}]}],null]}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]\n23:[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/3eqt_abkpc8td.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n33:\"CookiePreferences\"\n34:I[91679,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"$33\"]\n18:C\n24:[\"$\",\"p\",null,{\"children\":\"© napi-bindings contributors. Code licensed under Apache-2.0. Node-API reference content © Node.js contributors, MIT license.\"}]\n25:[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-x-4 gap-y-2\",\"children\":[[\"$\",\"$L12\",null,{\"href\":\"/privacy/\",\"className\":\"hover:text-foreground\",\"children\":\"Privacy\"}],[\"$\",\"$L34\",null,{}],[\"$\",\"a\",null,{\"href\":\"https://github.com/napi-bindings/website\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"hover:text-foreground\",\"children\":\"Edit this site on GitHub\"}]]}]\n38:I[35429,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\",\"$e\"],\"DocsSidebar\"]\n27:[[\"$\",\"div\",null,{\"className\":\"bg-muted/30 border-b\",\"children\":[\"$\",\"div\",null,{\"className\":\"mx-auto w-full max-w-7xl px-4 sm:px-6 flex flex-col gap-5 pt-10\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-col gap-4 md:flex-row md:items-start md:justify-between\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex max-w-3xl flex-col gap-3\",\"children\":[[\"$\",\"$L12\",null,{\"href\":\"/projects/\",\"className\":\"text-muted-foreground hover:text-foreground flex w-fit items-center gap-1.5 text-xs\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"cpu\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M12 20v2\",\"key\":\"1lh1kg\"}],[\"path\",{\"d\":\"M12 2v2\",\"key\":\"tus03m\"}],[\"path\",{\"d\":\"M17 20v2\",\"key\":\"1rnc9c\"}],[\"path\",{\"d\":\"M17 2v2\",\"key\":\"11trls\"}],[\"path\",{\"d\":\"M2 12h2\",\"key\":\"1t8f8n\"}],[\"path\",{\"d\":\"M2 17h2\",\"key\":\"7oei6x\"}],[\"path\",{\"d\":\"M2 7h2\",\"key\":\"asdhe0\"}],[\"path\",{\"d\":\"M20 12h2\",\"key\":\"1q8mjw\"}],[\"path\",{\"d\":\"M20 17h2\",\"key\":\"1fpfkl\"}],[\"path\",{\"d\":\"M20 7h2\",\"key\":\"1o8tra\"}],[\"path\",{\"d\":\"M7 20v2\",\"key\":\"4gnj0m\"}],[\"path\",{\"d\":\"M7 2v2\",\"key\":\"1i4yhu\"}],[\"rect\",{\"x\":\"4\",\"y\":\"4\",\"width\":\"16\",\"height\":\"16\",\"rx\":\"2\",\"key\":\"1vbyd7\"}],[\"rect\",{\"x\":\"8\",\"y\":\"8\",\"width\":\"8\",\"height\":\"8\",\"rx\":\"1\",\"key\":\"z9xiuo\"}]]},\"className\":\"size-3.5\"}],\"Runtimes\"]}],[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"font-mono text-3xl font-semibold tracking-tight\",\"children\":\"quickjs-napi\"}],[\"$\",\"span\",null,{\"data-slot\":\"badge\",\"data-variant\":\"outline\",\"className\":\"h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [\u0026\u003esvg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [\u0026\u003esvg]:pointer-events-none border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground\",\"children\":\"0.0.x\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground text-pretty\",\"children\":\"A Node-API implementation for QuickJS: addons built for Node.js load unchanged, resolving napi_* from the quickjs-napi executable.\"}],[\"$\",\"div\",null,{\"className\":\"text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-sm\",\"children\":[[\"$\",\"span\",null,{\"className\":\"flex items-center gap-1.5\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"star\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\",\"key\":\"r04s7s\"}]]},\"className\":\"size-4\"}],\"1\",\" \",\"star\"]}],[\"$\",\"span\",null,{\"className\":\"flex items-center gap-1.5\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"git-fork\",\"size\":24,\"node\":[[\"circle\",{\"cx\":\"12\",\"cy\":\"18\",\"r\":\"3\",\"key\":\"1mpf1b\"}],[\"circle\",{\"cx\":\"6\",\"cy\":\"6\",\"r\":\"3\",\"key\":\"1lh9wr\"}],[\"circle\",{\"cx\":\"18\",\"cy\":\"6\",\"r\":\"3\",\"key\":\"1h7g24\"}],[\"path\",{\"d\":\"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9\",\"key\":\"1uq4wg\"}],[\"path\",{\"d\":\"M12 12v3\",\"key\":\"158kv8\"}]]},\"className\":\"size-4\"}],\"0\",\" \",\"forks\"]}],[\"$\",\"$L12\",null,{\"href\":\"/projects/quickjs-napi/releases/\",\"className\":\"hover:text-foreground flex items-center gap-1.5\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"tag\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z\",\"key\":\"vktsd0\"}],[\"circle\",{\"cx\":\"7.5\",\"cy\":\"7.5\",\"r\":\".5\",\"fill\":\"currentColor\",\"key\":\"kqv944\"}]]},\"className\":\"size-4\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":\"v0.0.2\"}],[\"$\",\"span\",null,{\"children\":[\"· \",\"Nov 18, 2026\"]}]]}],[\"$\",\"span\",null,{\"className\":\"flex items-center gap-1.5\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"scale\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M12 3v18\",\"key\":\"108xh3\"}],[\"path\",{\"d\":\"m19 8 3 8a5 5 0 0 1-6 0zV7\",\"key\":\"zcdpyk\"}],[\"path\",{\"d\":\"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1\",\"key\":\"1yorad\"}],[\"path\",{\"d\":\"m5 8 3 8a5 5 0 0 1-6 0zV7\",\"key\":\"eua70x\"}],[\"path\",{\"d\":\"M7 21h10\",\"key\":\"1b0cd5\"}]]},\"className\":\"size-4\"}],\"Apache-2.0\"]}]]}]]}],\"$L35\"]}],\"$L36\"]}]}],\"$L37\"]\n28:[\"$\",\"div\",null,{\"className\":\"grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]\",\"children\":[[\"$\",\"aside\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:pr-2 lg:pb-8\",\"children\":[\"$\",\"$L38\",null,{\"groups\":[{\"title\":\"Documentation\",\"items\":[{\"title\":\"Node-API reference\",\"href\":\"/projects/quickjs-napi/docs/node-api/\"},{\"title\":\"Architecture\",\"href\":\"/projects/quickjs-napi/docs/architecture/\"},{\"title\":\"Building\",\"href\":\"/projects/quickjs-napi/docs/building/\"},{\"title\":\"Compatibility with Node.js\",\"href\":\"/projects/quickjs-napi/docs/compatibility/\"},{\"title\":\"Embedding API (qjsnapi.h)\",\"href\":\"/projects/quickjs-napi/docs/embedding/\"},{\"title\":\"The quickjs-napi executable\",\"href\":\"/projects/quickjs-napi/docs/host/\"},{\"title\":\"Testing\",\"href\":\"/projects/quickjs-napi/docs/testing/\"},{\"title\":\"Async work, thread-safe functions and the event loop\",\"href\":\"/projects/quickjs-napi/docs/node-api/async/\"},{\"title\":\"ArrayBuffer, TypedArray, DataView, BigInt, Date, Promise\",\"href\":\"/projects/quickjs-napi/docs/node-api/binary-data/\"},{\"title\":\"Environment, versions and cleanup hooks\",\"href\":\"/projects/quickjs-napi/docs/node-api/environment/\"},{\"title\":\"Errors and exceptions\",\"href\":\"/projects/quickjs-napi/docs/node-api/errors/\"},{\"title\":\"Functions, classes and scripts\",\"href\":\"/projects/quickjs-napi/docs/node-api/functions/\"},{\"title\":\"References, externals, wrapping and finalizers\",\"href\":\"/projects/quickjs-napi/docs/node-api/lifetime/\"},{\"title\":\"Buffers, async context and callback scopes\",\"href\":\"/projects/quickjs-napi/docs/node-api/node-specific/\"},{\"title\":\"Objects and properties\",\"href\":\"/projects/quickjs-napi/docs/node-api/objects/\"},{\"title\":\"Handle scopes\",\"href\":\"/projects/quickjs-napi/docs/node-api/scopes/\"},{\"title\":\"Strings, property keys and symbols\",\"href\":\"/projects/quickjs-napi/docs/node-api/strings/\"},{\"title\":\"Values\",\"href\":\"/projects/quickjs-napi/docs/node-api/values/\"}]},{\"title\":\"test/\",\"items\":[{\"title\":\"Node.js conformance tests\",\"href\":\"/projects/quickjs-napi/docs/test/node/\"},{\"title\":\"node-addon-api test suite\",\"href\":\"/projects/quickjs-napi/docs/test/node-addon-api/harness/\"},{\"title\":\"Writing Tests\",\"href\":\"/projects/quickjs-napi/docs/test/node-addon-api/test/\"}]}]}]}]}],[\"$\",\"div\",null,{\"className\":\"min-w-0\",\"children\":[\"$\",\"$Lb\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]\n39:I[81371,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\"],\"ProjectNav\"]\n35:[\"$\",\"div\",null,{\"className\":\"flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L11\",null,{\"data-slot\":\"button\",\"className\":\"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [\u0026_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2\",\"render\":[\"$\",\"a\",null,{\"href\":\"https://github.com/napi-bindings/quickjs-napi\",\"target\":\"_blank\",\"rel\":\"noreferrer\"}],\"nativeButton\":false,\"children\":[[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"data-icon\":\"inline-start\",\"children\":[\"$\",\"path\",null,{\"d\":\"M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z\"}]}],\"Repository\"]}],\"$undefined\"]}]\n36:[\"$\",\"$L39\",null,{\"items\":[{\"title\":\"Overview\",\"href\":\"/projects/quickjs-napi/\"},{\"title\":\"Docs\",\"href\":\"/projects/quickjs-napi/docs/\",\"count\":21},{\"title\":\"Releases\",\"href\":\"/projects/quickjs-napi/releases/\",\"count\":2},{\"title\":\"Activity\",\"href\":\"/projects/quickjs-napi/activity/\"}]}]\n37:[\"$\",\"div\",null,{\"className\":\"mx-auto w-full max-w-7xl px-4 sm:px-6 py-10\",\"children\":[\"$\",\"$Lb\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]\n3a:I[73435,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\",\"$d\",\"$e\",\"$f\"],\"Markdown\"]\n3b:Tbf96,\u003ch1 id=\"node-api-reference\"\u003eNode-API reference\u003c/h1\u003e\n\u003cp\u003equickjs-napi implements all \u003cstrong\u003e155 functions\u003c/strong\u003e of Node-API version 10\n(\u003ccode\u003einclude/js_native_api.h\u003c/code\u003e and \u003ccode\u003einclude/node_api.h\u003c/code\u003e, the headers of Node.js\n22). This reference documents what each function does \u003cstrong\u003ein quickjs-napi\u003c/strong\u003e:\nits contract, the statuses it returns, and where its behaviour depends on the\nQuickJS implementation. The upstream\n\u003ca href=\"https://nodejs.org/docs/latest-v22.x/api/n-api.html\" target=\"_blank\" rel=\"noreferrer noopener\"\u003eNode-API documentation\u003c/a\u003e\nremains the normative text; differences from Node.js are collected in\n\u003ca href=\"/projects/quickjs-napi/docs/compatibility/\"\u003ecompatibility.md\u003c/a\u003e.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#conventions\"\u003eConventions\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#writing-an-addon\"\u003eWriting an addon\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#function-index\"\u003eFunction index\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eArea\u003c/th\u003e\n\u003cth\u003eFile\u003c/th\u003e\n\u003cth\u003eFunctions\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd\u003eEnvironment, versions, cleanup hooks, module registration\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e10\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003ePrimitives, numbers, booleans, coercion, arrays\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e24\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eStrings, property keys, symbols\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e13\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eObjects and properties\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e19\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eFunctions, calls, classes, scripts\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e7\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eErrors and exceptions\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e12\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eHandle scopes\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e5\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eReferences, externals, wrap, finalizers, type tags, instance data\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e16\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eArrayBuffer, TypedArray, DataView, BigInt, Date, Promise\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e25\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eBuffer, async context, \u003ccode\u003enapi_make_callback\u003c/code\u003e, callback scopes\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e12\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eAsync work, thread-safe functions, the event loop\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003ctd\u003e12\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\n\u003ch2 id=\"conventions\"\u003e\u003ca class=\"heading-anchor\" href=\"#conventions\"\u003eConventions\u003c/a\u003e\u003c/h2\u003e\n\u003ch3 id=\"status-codes-and-the-last-error\"\u003e\u003ca class=\"heading-anchor\" href=\"#status-codes-and-the-last-error\"\u003eStatus codes and the last error\u003c/a\u003e\u003c/h3\u003e\n\u003cp\u003eEvery function returns a \u003ccode\u003enapi_status\u003c/code\u003e. \u003ccode\u003enapi_ok\u003c/code\u003e means success; anything else\nis a failure and is also recorded as the env's last error, which\n\u003ccode\u003enapi_get_last_error_info\u003c/code\u003e returns with a message:\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eStatus\u003c/th\u003e\n\u003cth\u003eMessage\u003c/th\u003e\n\u003cth\u003eTypical cause\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_ok\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003esuccess\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_invalid_arg\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eInvalid argument\u003c/td\u003e\n\u003ctd\u003ea \u003ccode\u003eNULL\u003c/code\u003e pointer argument, an out-of-range enum, a value of the wrong kind where no specific status exists\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_object_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eAn object was expected\u003c/td\u003e\n\u003ctd\u003ethe receiver is \u003ccode\u003enull\u003c/code\u003e/\u003ccode\u003eundefined\u003c/code\u003e (a \u003ccode\u003eTypeError\u003c/code\u003e is then pending), or not an object\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_string_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA string was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_name_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA string or symbol was expected\u003c/td\u003e\n\u003ctd\u003eproperty keys, symbol descriptions\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_function_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA function was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_number_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA number was expected\u003c/td\u003e\n\u003ctd\u003egetters never coerce\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_boolean_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA boolean was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_array_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eAn array was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_generic_failure\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eUnknown failure\u003c/td\u003e\n\u003ctd\u003eout of memory, or a failed engine operation without a JS exception\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_pending_exception\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eAn exception is pending\u003c/td\u003e\n\u003ctd\u003eJavaScript threw during the call, or an exception was already pending\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_cancelled\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eThe async work item was cancelled\u003c/td\u003e\n\u003ctd\u003epassed to \u003ccode\u003ecomplete\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_escape_called_twice\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003enapi_escape_handle already called on scope\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_handle_scope_mismatch\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eInvalid handle scope usage\u003c/td\u003e\n\u003ctd\u003eclosing a scope that is not the innermost one\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_callback_scope_mismatch\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eInvalid callback scope usage\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_queue_full\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eThread-safe function queue is full\u003c/td\u003e\n\u003ctd\u003enon-blocking call on a full queue\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_closing\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eThread-safe function handle is closing\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_bigint_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA bigint was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_date_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA date was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_arraybuffer_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eAn arraybuffer was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_detachable_arraybuffer_expected\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eA detachable arraybuffer was expected\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_would_deadlock\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eMain thread would deadlock\u003c/td\u003e\n\u003ctd\u003enever returned (as in Node.js 22)\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_no_external_buffers_allowed\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eExternal buffers are not allowed\u003c/td\u003e\n\u003ctd\u003enever returned: external buffers are always allowed\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_cannot_run_js\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eCannot run JavaScript\u003c/td\u003e\n\u003ctd\u003ethe env is tearing down (modules built for Node-API ≥ 10)\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\n\u003ch3 id=\"functions-that-run-javascript\"\u003e\u003ca class=\"heading-anchor\" href=\"#functions-that-run-javascript\"\u003eFunctions that run JavaScript\u003c/a\u003e\u003c/h3\u003e\n\u003cp\u003eSome functions may call into JavaScript (getters, setters, \u003ccode\u003evalueOf\u003c/code\u003e,\nproxies, user callbacks). These \u003cstrong\u003erefuse to start\u003c/strong\u003e when an exception is\nalready pending (\u003ccode\u003enapi_pending_exception\u003c/code\u003e) or when the env can no longer run\nJavaScript (\u003ccode\u003enapi_cannot_run_js\u003c/code\u003e, or \u003ccode\u003enapi_pending_exception\u003c/code\u003e for modules\nbuilt for Node-API \u0026#x3C; 10). They are marked \u003cstrong\u003eJS\u003c/strong\u003e in the\n\u003ca href=\"#function-index\"\u003efunction index\u003c/a\u003e. The other functions only touch C\nbookkeeping or create values, and work even with an exception pending: this\nis what lets an addon build an error message while an exception is pending.\u003c/p\u003e\n\u003cp\u003eWhen JavaScript throws during a call, the function returns\n\u003ccode\u003enapi_pending_exception\u003c/code\u003e and \u003cstrong\u003ethe exception stays pending\u003c/strong\u003e, exactly as in\nNode.js. Returning from the native callback then propagates it to the\nJavaScript caller. Use \u003ccode\u003enapi_is_exception_pending\u003c/code\u003e and\n\u003ccode\u003enapi_get_and_clear_last_exception\u003c/code\u003e to handle it in C.\u003c/p\u003e\n\u003ch3 id=\"basic-env\"\u003e\u003ca class=\"heading-anchor\" href=\"#basic-env\"\u003eBasic env\u003c/a\u003e\u003c/h3\u003e\n\u003cp\u003eFunctions whose first parameter is \u003ccode\u003enode_api_basic_env\u003c/code\u003e (cleanup hooks,\ninstance data, \u003ccode\u003enapi_delete_reference\u003c/code\u003e, \u003ccode\u003enapi_adjust_external_memory\u003c/code\u003e,\n\u003ccode\u003enapi_get_uv_event_loop\u003c/code\u003e, ...) may be called from a \u003cem\u003ebasic finalizer\u003c/em\u003e\n(\u003ccode\u003enode_api_basic_finalize\u003c/code\u003e). In quickjs-napi every finalizer, basic or not,\nruns \u003cstrong\u003eoutside the garbage collector\u003c/strong\u003e (from the event loop or at teardown),\nso calling other functions from a basic finalizer never causes the fatal\nerror Node.js raises; the distinction is kept for source compatibility.\u003c/p\u003e\n\u003ch3 id=\"values-and-threads\"\u003e\u003ca class=\"heading-anchor\" href=\"#values-and-threads\"\u003eValues and threads\u003c/a\u003e\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003eA \u003ccode\u003enapi_value\u003c/code\u003e is valid until the handle scope it was created in is closed.\nValues created in a native callback are released when the callback returns,\nunless they are returned, escaped, or kept in a \u003ccode\u003enapi_ref\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eEvery function except the thread-safe function ones\n(\u003ccode\u003enapi_call_threadsafe_function\u003c/code\u003e, \u003ccode\u003enapi_acquire_threadsafe_function\u003c/code\u003e,\n\u003ccode\u003enapi_release_threadsafe_function\u003c/code\u003e,\n\u003ccode\u003enapi_get_threadsafe_function_context\u003c/code\u003e) must be called on the thread that\nruns the event loop. \u003ccode\u003eexecute\u003c/code\u003e callbacks of async work run on the thread\npool and must not call Node-API functions that take an env.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2 id=\"writing-an-addon\"\u003e\u003ca class=\"heading-anchor\" href=\"#writing-an-addon\"\u003eWriting an addon\u003c/a\u003e\u003c/h2\u003e\n\u003cp\u003eAddons are written exactly as for Node.js. A minimal C addon:\u003c/p\u003e\n\u003cpre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"\u003e\u003ccode\u003e\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e#include\u003c/span\u003e\u003cspan style=\"color:#032F62;--shiki-dark:#9ECBFF\"\u003e \u0026#x3C;node_api.h\u003e\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e#define\u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003eenv\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003ecall\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e)                                            \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e  do\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e {                                                                  \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e    if\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e ((call) \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e!=\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e napi_ok) {                                            \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e      const\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e napi_extended_error_info \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003einfo;                             \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e      bool\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e pending;                                                     \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e      napi_get_last_error_info\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e((env), \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003einfo);                           \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e      napi_is_exception_pending\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e((env), \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003epending);                       \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e      if\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e (\u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e!\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003epending)                                                     \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e        napi_throw_error\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e((env), \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, info-\u003eerror_message               \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e                                          ?\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e info-\u003eerror_message         \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e                                          :\u003c/span\u003e\u003cspan style=\"color:#032F62;--shiki-dark:#9ECBFF\"\u003e \"Node-API call failed\"\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e);    \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e      return\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e NULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e;                                                      \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e    }                                                                   \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e\\\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e  } \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003ewhile\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e (\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e0\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003estatic\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e napi_value \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003eAdd\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(napi_env \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003eenv\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, napi_callback_info \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003einfo\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e  size_t\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e argc \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e=\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e 2\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e;\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e  napi_value \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003eargv\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e[\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e2\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e];\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e  NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003enapi_get_cb_info\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, info, \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003eargc, argv, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e));\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e  double\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e a, b;\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e  NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003enapi_get_value_double\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003eargv\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e[\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e0\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e], \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003ea));\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e  NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003enapi_get_value_double\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#E36209;--shiki-dark:#FFAB70\"\u003eargv\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e[\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e1\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e], \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003eb));\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e  napi_value sum;\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e  NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003enapi_create_double\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, a \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e+\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e b, \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003esum));\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e  return\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e sum;\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e}\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003eNAPI_MODULE_INIT\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#6A737D;--shiki-dark:#6A737D\"\u003e/* napi_env env, napi_value exports */\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e  napi_property_descriptor desc \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e=\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e {\u003c/span\u003e\u003cspan style=\"color:#032F62;--shiki-dark:#9ECBFF\"\u003e\"add\"\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, Add, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e,\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e                                   napi_default, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003eNULL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e};\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003e  NAPI_CALL\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, \u003c/span\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003enapi_define_properties\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e(env, exports, \u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e1\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e\u0026#x26;\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003edesc));\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#D73A49;--shiki-dark:#F97583\"\u003e  return\u003c/span\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e exports;\u003c/span\u003e\u003c/span\u003e\n\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#24292E;--shiki-dark:#E1E4E8\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eBuild it with node-gyp, cmake-js or any toolchain that produces a Node.js\naddon, then:\u003c/p\u003e\n\u003cpre class=\"shiki shiki-themes github-light github-dark\" style=\"background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8\" tabindex=\"0\"\u003e\u003ccode\u003e\u003cspan class=\"line\"\u003e\u003cspan style=\"color:#6F42C1;--shiki-dark:#B392F0\"\u003equickjs-napi\u003c/span\u003e\u003cspan style=\"color:#005CC5;--shiki-dark:#79B8FF\"\u003e -e\u003c/span\u003e\u003cspan style=\"color:#032F62;--shiki-dark:#9ECBFF\"\u003e \"console.log(require('./build/Release/addon.node').add(2, 3))\"\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThe same binary loads in Node.js. node-addon-api (C++) and napi-rs (Rust)\naddons work the same way; the node-addon-api 8.9.2 test suite runs in CI\n(\u003ca href=\"/projects/quickjs-napi/docs/testing/\"\u003etesting.md\u003c/a\u003e).\u003c/p\u003e\n\u003cp\u003eThe module API version is chosen by the addon at build time (\u003ccode\u003eNAPI_VERSION\u003c/code\u003e,\nexported through \u003ccode\u003enode_api_module_get_api_version_v1\u003c/code\u003e). It is 8 when the\naddon does not declare one, and changes a few behaviours: which values\n\u003ccode\u003enapi_create_reference\u003c/code\u003e accepts, the status of\n\u003ca href=\"#functions-that-run-javascript\"\u003efunctions that run JavaScript\u003c/a\u003e during\nteardown, and the \u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#exceptions-in-call_js_cb\"\u003ethread-safe function exception policy\u003c/a\u003e.\u003c/p\u003e\n\u003ch2 id=\"function-index\"\u003e\u003ca class=\"heading-anchor\" href=\"#function-index\"\u003eFunction index\u003c/a\u003e\u003c/h2\u003e\n\u003cp\u003e\u003cstrong\u003eJS\u003c/strong\u003e: the function may run JavaScript and refuses to start with an exception\npending (see \u003ca href=\"#functions-that-run-javascript\"\u003eabove\u003c/a\u003e).\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eFunction\u003c/th\u003e\n\u003cth\u003e\u003c/th\u003e\n\u003cth\u003eReference\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_acquire_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_acquire_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_add_async_cleanup_hook\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_add_async_cleanup_hook\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_add_env_cleanup_hook\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_add_env_cleanup_hook\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_add_finalizer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_add_finalizer\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_adjust_external_memory\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_adjust_external_memory\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_async_destroy\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_async_destroy\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_async_init\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_async_init\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_call_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_call_function\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_call_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_call_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_cancel_async_work\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_cancel_async_work\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_check_object_type_tag\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_check_object_type_tag\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_close_callback_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_close_callback_scope\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_close_escapable_handle_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/#napi_close_escapable_handle_scope\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_close_handle_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/#napi_close_handle_scope\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_coerce_to_bool\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_bool\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_coerce_to_number\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_number\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_coerce_to_object\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_object\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_coerce_to_string\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_coerce_to_string\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_array\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_array\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_array_with_length\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_array_with_length\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_arraybuffer\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_async_work\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_create_async_work\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_bigint_int64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_int64\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_bigint_uint64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_uint64\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_bigint_words\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_bigint_words\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_buffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_buffer\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_buffer_copy\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_buffer_copy\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_dataview\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_dataview\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_date\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_date\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_double\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_double\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_create_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_external\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_create_external\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_external_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_external_arraybuffer\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_external_buffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_create_external_buffer\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_create_function\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_int32\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_int32\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_int64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_int64\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_object\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_object\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_promise\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_promise\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_range_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_create_range_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_reference\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_create_reference\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_string_latin1\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_latin1\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_string_utf16\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_utf16\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_string_utf8\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_create_string_utf8\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_symbol\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_create_symbol\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_create_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_type_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_create_type_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_typedarray\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_create_typedarray\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_create_uint32\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_create_uint32\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_define_class\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_define_class\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_define_properties\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_define_properties\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_delete_async_work\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_delete_async_work\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_delete_element\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_delete_element\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_delete_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_delete_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_delete_reference\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_delete_reference\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_detach_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_detach_arraybuffer\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_escape_handle\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/#napi_escape_handle\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_fatal_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_fatal_error\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_fatal_exception\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_fatal_exception\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_all_property_names\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_all_property_names\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_and_clear_last_exception\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_get_and_clear_last_exception\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_array_length\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_array_length\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_arraybuffer_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_arraybuffer_info\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_boolean\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_boolean\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_buffer_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_get_buffer_info\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_cb_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_get_cb_info\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_dataview_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_dataview_info\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_date_value\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_date_value\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_element\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_element\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_global\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_global\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_instance_data\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_instance_data\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_last_error_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_get_last_error_info\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_named_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_named_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_new_target\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_get_new_target\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_node_version\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_get_node_version\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_null\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_null\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_property_names\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_property_names\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_prototype\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_get_prototype\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_reference_value\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_reference_value\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_threadsafe_function_context\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_get_threadsafe_function_context\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_typedarray_info\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_typedarray_info\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_undefined\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_undefined\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_uv_event_loop\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_get_uv_event_loop\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_bigint_int64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_int64\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_bigint_uint64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_uint64\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_bigint_words\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_get_value_bigint_words\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_bool\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_value_bool\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_double\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_value_double\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_external\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_get_value_external\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_int32\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_value_int32\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_int64\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_value_int64\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_string_latin1\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_latin1\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_string_utf16\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_utf16\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_string_utf8\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#napi_get_value_string_utf8\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_value_uint32\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_get_value_uint32\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_get_version\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_get_version\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_has_element\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_has_element\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_has_named_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_has_named_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_has_own_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_has_own_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_has_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_has_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_instanceof\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_instanceof\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_array\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_is_array\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_arraybuffer\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_buffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_is_buffer\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_dataview\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_dataview\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_date\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_date\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_detached_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_detached_arraybuffer\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_is_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_exception_pending\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_is_exception_pending\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_promise\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_promise\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_is_typedarray\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_is_typedarray\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_make_callback\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_make_callback\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_module_register\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_module_register\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_new_instance\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_new_instance\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_object_freeze\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_object_freeze\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_object_seal\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_object_seal\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_open_callback_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#napi_open_callback_scope\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_open_escapable_handle_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/#napi_open_escapable_handle_scope\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_open_handle_scope\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/scopes/#napi_open_handle_scope\"\u003escopes.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_queue_async_work\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_queue_async_work\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_ref_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_ref_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_reference_ref\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_reference_ref\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_reference_unref\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_reference_unref\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_reject_deferred\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_reject_deferred\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_release_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_release_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_remove_async_cleanup_hook\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_remove_async_cleanup_hook\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_remove_env_cleanup_hook\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#napi_remove_env_cleanup_hook\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_remove_wrap\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_remove_wrap\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_resolve_deferred\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/binary-data/#napi_resolve_deferred\"\u003ebinary-data.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_run_script\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/functions/#napi_run_script\"\u003efunctions.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_set_element\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_set_element\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_set_instance_data\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_set_instance_data\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_set_named_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_set_named_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_set_property\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/objects/#napi_set_property\"\u003eobjects.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_strict_equals\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_strict_equals\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_throw\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_throw\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_throw_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_throw_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_throw_range_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_throw_range_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_throw_type_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#napi_throw_type_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_type_tag_object\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_type_tag_object\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_typeof\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/values/#napi_typeof\"\u003evalues.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_unref_threadsafe_function\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/async/#napi_unref_threadsafe_function\"\u003easync.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_unwrap\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_unwrap\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enapi_wrap\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/lifetime/#napi_wrap\"\u003elifetime.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_buffer_from_arraybuffer\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/node-specific/#node_api_create_buffer_from_arraybuffer\"\u003enode-specific.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_external_string_latin1\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_create_external_string_latin1\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_external_string_utf16\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_create_external_string_utf16\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_property_key_latin1\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_latin1\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_property_key_utf16\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_utf16\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_property_key_utf8\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_create_property_key_utf8\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_create_syntax_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#node_api_create_syntax_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_get_module_file_name\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/environment/#node_api_get_module_file_name\"\u003eenvironment.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_symbol_for\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003e\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/strings/#node_api_symbol_for\"\u003estrings.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\u003ccode\u003enode_api_throw_syntax_error\u003c/code\u003e\u003c/td\u003e\n\u003ctd\u003eJS\u003c/td\u003e\n\u003ctd\u003e\u003ca href=\"/projects/quickjs-napi/docs/node-api/errors/#node_api_throw_syntax_error\"\u003eerrors.md\u003c/a\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e29:[\"$\",\"div\",null,{\"className\":\"grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]\",\"children\":[[\"$\",\"article\",null,{\"className\":\"flex min-w-0 flex-col gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-xs\",\"children\":[[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":\"doc/node-api/README.md\"}],[\"$\",\"a\",null,{\"href\":\"https://github.com/napi-bindings/quickjs-napi/edit/main/doc/node-api/README.md\",\"target\":\"_blank\",\"rel\":\"noreferrer\",\"className\":\"hover:text-foreground flex items-center gap-1\",\"children\":[[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"pencil\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\",\"key\":\"1a8usu\"}],[\"path\",{\"d\":\"m15 5 4 4\",\"key\":\"1mk7zo\"}]]},\"className\":\"size-3\"}],\"Edit on GitHub\"]}]]}],[\"$\",\"$L3a\",null,{\"html\":\"$3b\"}],\"$L3c\"]}],\"$L3d\"]}]\n3c:[\"$\",\"nav\",null,{\"className\":\"flex justify-between gap-4 border-t pt-6\",\"children\":[[\"$\",\"span\",null,{}],[\"$\",\"$L11\",null,{\"data-slot\":\"button\",\"className\":\"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [\u0026_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg]:shrink-0 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2\",\"render\":[\"$\",\"$L12\",null,{\"href\":\"/projects/quickjs-napi/docs/architecture/\"}],\"nativeButton\":false,\"children\":[\"Architecture\",[\"$\",\"$L10\",null,{\"ref\":\"$undefined\",\"icon\":{\"name\":\"arrow-right\",\"size\":24,\"node\":[[\"path\",{\"d\":\"M5 12h14\",\"key\":\"1ays0h\"}],[\"path\",{\"d\":\"m12 5 7 7-7 7\",\"key\":\"xquz4c\"}]]},\"className\":\"$undefined\",\"data-icon\":\"inline-end\"}]]}]]}]\n3d:[\"$\",\"aside\",null,{\"className\":\"hidden xl:block\",\"children\":[\"$\",\"div\",null,{\"className\":\"sticky top-20\",\"children\":[\"$\",\"nav\",null,{\"aria-label\":\"On this page\",\"className\":\"flex flex-col gap-2 text-sm\",\"children\":[[\"$\",\"p\",null,{\"className\":\"font-medium\",\"children\":\"On this page\"}],[\"$\",\"ul\",null,{\"className\":\"flex flex-col gap-1.5\",\"children\":[[\"$\",\"li\",\"conventions\",{\"className\":\"\",\"children\":[\"$\",\"a\",null,{\"href\":\"#conventions\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Conventions\"}]}],[\"$\",\"li\",\"status-codes-and-the-last-error\",{\"className\":\"pl-3\",\"children\":[\"$\",\"a\",null,{\"href\":\"#status-codes-and-the-last-error\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Status codes and the last error\"}]}],[\"$\",\"li\",\"functions-that-run-javascript\",{\"className\":\"pl-3\",\"children\":[\"$\",\"a\",null,{\"href\":\"#functions-that-run-javascript\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Functions that run JavaScript\"}]}],[\"$\",\"li\",\"basic-env\",{\"className\":\"pl-3\",\"children\":[\"$\",\"a\",null,{\"href\":\"#basic-env\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Basic env\"}]}],[\"$\",\"li\",\"values-and-threads\",{\"className\":\"pl-3\",\"children\":[\"$\",\"a\",null,{\"href\":\"#values-and-threads\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Values and threads\"}]}],[\"$\",\"li\",\"writing-an-addon\",{\"className\":\"\",\"children\":[\"$\",\"a\",null,{\"href\":\"#writing-an-addon\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Writing an addon\"}]}],[\"$\",\"li\",\"function-index\",{\"className\":\"\",\"children\":[\"$\",\"a\",null,{\"href\":\"#function-index\",\"className\":\"text-muted-foreground hover:text-foreground line-clamp-2\",\"children\":\"Function index\"}]}]]}]]}]}]}]\n2f:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"2\",{\"name\":\"theme-color\",\"content\":\"#ffffff\",\"media\":\"(prefers-color-scheme: light)\"}],[\"$\",\"meta\",\"3\",{\"name\":\"theme-color\",\"content\":\"#0a0a0a\",\"media\":\"(prefers-color-scheme: dark)\"}]]\n3e:I[27201,[\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$7\"],\"IconMark\"]\n2c:null\n32:[[\"$\",\"title\",\"0\",{\"children\":\"Node-API reference · quickjs-napi · napi-bindings\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"quickjs-napi documentation: Node-API reference (doc/node-api/README.md).\"}],[\"$\",\"meta\",\"2\",{\"name\":\"keywords\",\"content\":\"Node-API,N-API,napi,native addons,Node.js,C,C++,Go,Zig,QuickJS,ABI\"}],[\"$\",\"link\",\"3\",{\"rel\":\"canonical\",\"href\":\"https://www.napi-bindings.dev/projects/quickjs-napi/docs/node-api/\"}],[\"$\",\"meta\",\"4\",{\"property\":\"og:title\",\"content\":\"napi-bindings — Node-API hub\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:description\",\"content\":\"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS.\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:url\",\"content\":\"https://www.napi-bindings.dev/\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:site_name\",\"content\":\"napi-bindings\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:image\",\"content\":\"https://www.napi-bindings.dev/logo.png\"}],[\"$\",\"meta\",\"9\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"10\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"11\",{\"name\":\"twitter:title\",\"content\":\"napi-bindings — Node-API hub\"}],[\"$\",\"meta\",\"12\",{\"name\":\"twitter:description\",\"content\":\"The reference hub for Node-API (N-API): documentation, versions, ecosystem, and the napi-bindings native addon tooling for C, C++, Go and QuickJS.\"}],[\"$\",\"meta\",\"13\",{\"name\":\"twitter:image\",\"content\":\"https://www.napi-bindings.dev/logo.png\"}],[\"$\",\"link\",\"14\",{\"rel\":\"icon\",\"href\":\"/icon.png?icon.13adeud8qqvkc.png\",\"sizes\":\"64x64\",\"type\":\"image/png\"}],[\"$\",\"link\",\"15\",{\"rel\":\"apple-touch-icon\",\"href\":\"/apple-icon.png?apple-icon.03ssp_2gh7-s5.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L3e\",\"16\",{}]]\n"])</script></body></html>
